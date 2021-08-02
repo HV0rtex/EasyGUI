@@ -1,8 +1,7 @@
 # Automata
 A series of bots for automating Growtopia.
 
-## Prerequisites
-Before you attempt to use Automata, you must have
+## Sofware requirements
 - Windows OS
 - Growtopia installed ( https://www.growtopiagame.com/ )
 - At least one Growaccount
