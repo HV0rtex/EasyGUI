@@ -50,19 +50,28 @@ Label::Label(const utils::Point& position, const ::std::string& text, const ::st
     }
 
     _textColor = color;
+
     _container = nullptr;
+    _onClickAction = nullptr;
+    _onHoverAction = nullptr;
 
     constructText(position, text, charSize);
 }
 
-void Label::onClick(void (*callBack)())
+void Label::onClick()
 {
-    callBack();
+    if(_onClickAction != nullptr)
+    {
+        _onClickAction();
+    }
 }
 
-void Label::onHover(void (*callBack)())
+void Label::onHover()
 {
-    callBack();
+    if(_onHoverAction != nullptr)
+    {
+        _onHoverAction();
+    }
 }
 
 }
