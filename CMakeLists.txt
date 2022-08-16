@@ -48,9 +48,5 @@ add_compile_options(
 
 # ----- Building sources -----
 
-#add_subdirectory(src)
+add_subdirectory(src)
 add_subdirectory(tests)
-
-# ----- Running tests -----
-
-

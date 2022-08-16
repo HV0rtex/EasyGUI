@@ -1,7 +1,6 @@
 
 # ----- Configuring GTest -----
 
-set(GTEST_ROOT /home/bogdan/googletest)
 set(CMAKE_CXX_FLAGS -pthread)
 
 find_package(GTest REQUIRED)
@@ -24,3 +23,7 @@ macro(setup_unit_test)
 
     install(TARGETS ${UT_TEST_NAME} DESTINATION ${PROJECT_RUNTIME_DIR}/tests)
 endmacro()
+
+# ----- Adding unit tests to be built -----
+
+add_subdirectory(Label)

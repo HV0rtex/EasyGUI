@@ -18,14 +18,35 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Download Google Test Framework
-      run: sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make && sudo cp lib/*.a /usr/lib && sudo ln -s /usr/lib/libgtest.a /usr/local/lib/libgtest.a && sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/libgtest_main.a 
+      run: sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make
+
+    - name: Build test framework
+      run: cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make
+
+    - name: Publish test framework
+      uses: actions/upload-artifact@master
+      with:
+        name: test_framework
+        path: ./
 
   Build:
     needs: Setup
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@master
+
+    - name: Downloading test framework
+      uses: actions/download-artifact@master
+      with:
+        name: test_framework
+        path: /usr/src/gtest
+
+    - name: Installing test framework
+      run: sudo cp /usr/src/gtest/lib/*.a /usr/lib && sudo ln -s /usr/lib/libgtest.a /usr/local/lib/libgtest.a && sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/libgtest_main.a
+
+    - name: Downloading SFML
+      run: sudo apt-get install libsfml-dev
 
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
@@ -37,13 +58,7 @@ jobs:
       run: make install ${{github.workspace}}/build
 
     - name: Publishing binaries
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@master
       with:
         name: binaries
         path: ${{github.workspace}}/bin/threadpool
-
-    - name: Publishing unit tests
-      uses: actions/upload-artifact@v3
-      with:
-        name: unittests
-        path: ${{github.workspace}}/bin/tests
