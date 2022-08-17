@@ -11,36 +11,14 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  Setup:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Download Google Test Framework
-      run: sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make
-
-    - name: Build test framework
-      run: cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make
-
-    - name: Publish test framework
-      uses: actions/upload-artifact@master
-      with:
-        name: test_framework
-        path: ./
-
   Build:
-    needs: Setup
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@master
 
     - name: Downloading test framework
-      uses: actions/download-artifact@master
-      with:
-        name: test_framework
-        path: /usr/src/gtest
+      run: sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make
 
     - name: Installing test framework
       run: sudo cp /usr/src/gtest/lib/*.a /usr/lib && sudo ln -s /usr/lib/libgtest.a /usr/local/lib/libgtest.a && sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/libgtest_main.a
