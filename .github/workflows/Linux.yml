@@ -57,8 +57,24 @@ jobs:
     - name: Installing artifacts
       run: make install ${{github.workspace}}/build
 
-    - name: Publishing binaries
+    - name: Publishing tests
       uses: actions/upload-artifact@master
       with:
-        name: binaries
-        path: ${{github.workspace}}/bin/threadpool
+        name: unittests
+        path: 
+          - ${{github.workspace}}/bin/tests
+          - ${{github.workspace}}/scripts/run_tests.sh
+
+  Test:
+    needs: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Downloading unit tests
+      uses: actions/download-artifact@master
+      with:
+        name: unittests
+        path: ~/unit_tests
+
+    - name: Executing tests
+      run: chmod +x ~/unit_tests/run_tests.sh && ~/unit_tests/run_tests.sh

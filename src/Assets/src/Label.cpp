@@ -28,7 +28,7 @@ void Label::constructText(const utils::Point& position, const ::std::string& tex
     _text.setString(text);
 }
 
-bool Label::mouseHover() const
+bool Label::isMouseHover() const
 {
     if(_container != nullptr)
     {
@@ -52,26 +52,8 @@ Label::Label(const utils::Point& position, const ::std::string& text, const ::st
     _textColor = color;
 
     _container = nullptr;
-    _onClickAction = nullptr;
-    _onHoverAction = nullptr;
 
     constructText(position, text, charSize);
-}
-
-void Label::onClick()
-{
-    if(_onClickAction != nullptr)
-    {
-        _onClickAction();
-    }
-}
-
-void Label::onHover()
-{
-    if(_onHoverAction != nullptr)
-    {
-        _onHoverAction();
-    }
 }
 
 }

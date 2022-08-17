@@ -4,13 +4,13 @@
 add_library(
     assets STATIC
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/Label/src/Label.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Label.cpp
 )
 
 add_library(
     assets-shared SHARED
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/Label/src/Label.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Label.cpp
 )
 
 # ----- Defining includes -----
@@ -18,13 +18,13 @@ add_library(
 target_include_directories(
     assets PUBLIC
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/Label/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc
 )
 
 target_include_directories(
     assets-shared PUBLIC
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/Label/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc
 )
 
 # ----- Linking dependencies -----
@@ -47,4 +47,4 @@ target_link_libraries(
 
 install( TARGETS assets DESTINATION ${PROJECT_LIBRARY_DIR} )
 install( TARGETS assets-shared DESTINATION ${PROJECT_RUNTIME_DIR}/EasyGUI )
-install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Label/inc/ DESTINATION ${PROJECT_INCLUDE_DIR} )
+install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/inc/ DESTINATION ${PROJECT_INCLUDE_DIR} )

@@ -32,10 +32,7 @@ namespace egui
 class Label : public ::sf::Drawable
 {
 private:
-    const ::sf::RenderWindow* _container;
-    
-    void (*_onClickAction)();
-    void (*_onHoverAction)();
+    ::sf::RenderWindow* _container;
 
     ::sf::Font _font;
     ::sf::Text _text;
@@ -55,7 +52,7 @@ private:
      * @return true Mouse is over the label
      * @return false otherwise
      */
-    bool mouseHover() const;
+    bool isMouseHover() const;
 
 public:
     /**
@@ -82,22 +79,6 @@ public:
     Label()= delete;
     Label(const Label& other)= delete;
     Label& operator= (const Label& other)= delete;
-
-    // ----- Interactors -----
-
-    /**
-     * @brief Called when the label is pressed.
-     * 
-     * @param callBack A callback function to be executed on mouse press. Defaults to NULL.
-     */
-    virtual void onClick();
-
-    /**
-     * @brief Called when the mouse is over the label
-     * 
-     * @param callBack A callback function to be executed when mouse is over the label. Defauts to NULL.
-     */
-    virtual void onHover();
 };
 
 }
