@@ -61,9 +61,7 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: unittests
-        path: 
-          - ${{github.workspace}}/bin/tests
-          - ${{github.workspace}}/scripts/run_tests.sh
+        path: ${{github.workspace}}/bin/tests
 
   Test:
     needs: Build
@@ -77,4 +75,4 @@ jobs:
         path: ~/unit_tests
 
     - name: Executing tests
-      run: chmod +x ~/unit_tests/run_tests.sh && ~/unit_tests/run_tests.sh
+      run: for item in $(ls .); do if [[ $item = *UT ]]; then ./$item; if [[ $? != 0 ]]; then exit 1; fi fi done
