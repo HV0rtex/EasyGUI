@@ -109,8 +109,8 @@ The project is licensed under the **MIT License** and can be used free of charge
 support the development of this extension, follow one of these links depending on your preffered support method:
 
 - [Donation]()
-- [Report a bug]()
-- [Submit a suggestion]()
+- [Report a bug](https://github.com/HV0rtex/ThreadPool/issues/new?assignees=HV0rtex&labels=bug&template=bug_report.md&title=)
+- [Submit a suggestion](https://github.com/HV0rtex/ThreadPool/issues/new?assignees=HV0rtex&labels=enhancement&template=feature_request.md&title=)
 
 ## Colaborations
 
