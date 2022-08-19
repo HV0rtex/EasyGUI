@@ -75,4 +75,4 @@ jobs:
         path: ~/unit_tests
 
     - name: Executing tests
-      run: cd ~/unit_tests; for item in $(ls .); do if [[ $item = *UT ]]; then ./$item; if [[ $? != 0 ]]; then exit 1; fi fi done
+      run: cd ~/unit_tests; for item in $(ls .); do chmod +x $item; if [[ $item = *UT ]]; then ./$item; if [[ $? != 0 ]]; then exit 1; fi fi done
