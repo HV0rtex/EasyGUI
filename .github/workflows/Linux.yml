@@ -74,5 +74,8 @@ jobs:
         name: Unit_tests
         path: ~/unit_tests
 
+    - name: Downloading SFML
+      run: sudo apt-get install libsfml-dev
+
     - name: Executing tests
       run: cd ~/unit_tests; for item in $(ls .); do chmod +x $item; if [[ $item = *UT ]]; then ./$item; if [[ $? != 0 ]]; then exit 1; fi fi done
