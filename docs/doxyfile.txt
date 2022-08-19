@@ -908,7 +908,7 @@ FILE_PATTERNS          = *.c \
 # be searched for input files as well.
 # The default value is: NO.
 
-RECURSIVE              = NO
+RECURSIVE              = YES
 
 # The EXCLUDE tag can be used to specify files and/or directories that should be
 # excluded from the INPUT source files. This way you can easily exclude a
@@ -1184,7 +1184,7 @@ GENERATE_HTML          = YES
 # The default directory is: html.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_OUTPUT            = html
+HTML_OUTPUT            = docs/html
 
 # The HTML_FILE_EXTENSION tag can be used to specify the file extension for each
 # generated HTML page (for example: .htm, .php, .asp).
@@ -1745,7 +1745,7 @@ GENERATE_LATEX         = YES
 # The default directory is: latex.
 # This tag requires that the tag GENERATE_LATEX is set to YES.
 
-LATEX_OUTPUT           = latex
+LATEX_OUTPUT           = docs/latex
 
 # The LATEX_CMD_NAME tag can be used to specify the LaTeX command name to be
 # invoked.
@@ -1930,7 +1930,7 @@ LATEX_EMOJI_DIRECTORY  =
 # readers/editors.
 # The default value is: NO.
 
-GENERATE_RTF           = NO
+GENERATE_RTF           = YES
 
 # The RTF_OUTPUT tag is used to specify where the RTF docs will be put. If a
 # relative path is entered the value of OUTPUT_DIRECTORY will be put in front of
@@ -1938,7 +1938,7 @@ GENERATE_RTF           = NO
 # The default directory is: rtf.
 # This tag requires that the tag GENERATE_RTF is set to YES.
 
-RTF_OUTPUT             = rtf
+RTF_OUTPUT             = docs/rtf
 
 # If the COMPACT_RTF tag is set to YES, doxygen generates more compact RTF
 # documents. This may be useful for small projects and may help to save some
@@ -1946,7 +1946,7 @@ RTF_OUTPUT             = rtf
 # The default value is: NO.
 # This tag requires that the tag GENERATE_RTF is set to YES.
 
-COMPACT_RTF            = NO
+COMPACT_RTF            = YES
 
 # If the RTF_HYPERLINKS tag is set to YES, the RTF that is generated will
 # contain hyperlink fields. The RTF file will contain links (just like the HTML
@@ -1995,7 +1995,7 @@ RTF_SOURCE_CODE        = NO
 # classes and files.
 # The default value is: NO.
 
-GENERATE_MAN           = NO
+GENERATE_MAN           = YES
 
 # The MAN_OUTPUT tag is used to specify where the man pages will be put. If a
 # relative path is entered the value of OUTPUT_DIRECTORY will be put in front of
@@ -2004,7 +2004,7 @@ GENERATE_MAN           = NO
 # The default directory is: man.
 # This tag requires that the tag GENERATE_MAN is set to YES.
 
-MAN_OUTPUT             = man
+MAN_OUTPUT             = docs/man
 
 # The MAN_EXTENSION tag determines the extension that is added to the generated
 # man pages. In case the manual section does not start with a number, the number
@@ -2073,7 +2073,7 @@ XML_NS_MEMB_FILE_SCOPE = NO
 # that can be used to generate PDF.
 # The default value is: NO.
 
-GENERATE_DOCBOOK       = NO
+GENERATE_DOCBOOK       = YES
 
 # The DOCBOOK_OUTPUT tag is used to specify where the Docbook pages will be put.
 # If a relative path is entered the value of OUTPUT_DIRECTORY will be put in
@@ -2081,7 +2081,7 @@ GENERATE_DOCBOOK       = NO
 # The default directory is: docbook.
 # This tag requires that the tag GENERATE_DOCBOOK is set to YES.
 
-DOCBOOK_OUTPUT         = docbook
+DOCBOOK_OUTPUT         = docs/docbook
 
 # If the DOCBOOK_PROGRAMLISTING tag is set to YES, doxygen will include the
 # program listings (including syntax highlighting and cross-referencing

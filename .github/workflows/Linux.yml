@@ -1,4 +1,4 @@
-name: CMake
+name: Linux
 
 on:
   push:
@@ -23,7 +23,7 @@ jobs:
     - name: Installing test framework
       run: sudo cp /usr/src/gtest/lib/*.a /usr/lib && sudo ln -s /usr/lib/libgtest.a /usr/local/lib/libgtest.a && sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/libgtest_main.a
 
-    - name: Downloading SFML
+    - name: Installing SFML
       run: sudo apt-get install libsfml-dev
 
     - name: Configure CMake
@@ -38,8 +38,30 @@ jobs:
     - name: Publishing tests
       uses: actions/upload-artifact@master
       with:
-        name: unittests
+        name: Unit_tests
         path: ${{github.workspace}}/bin/tests
+
+    - name: Cleaning bin directory
+      run: rm -rf ${{github.workspace}}/bin/tests
+
+    - name: Publishing API
+      uses: actions/upload-artifact@master
+      with:
+        name: EasyGUI
+        path: | 
+          ${{github.workspace}}/include
+          ${{github.workspace}}/examples
+          ${{github.workspace}}/bin
+          ${{github.workspace}}/lib
+
+    - name: Generating documentation
+      run: cd ${{github.workspace}} && doxygen docs/doxyfile.txt
+
+    - name: Publishing documentation
+      uses: actions/upload-artifact@master
+      with:
+        name: Documentation
+        path: ${{github.workspace}}/docs/html
 
   Test:
     needs: Build
@@ -49,8 +71,8 @@ jobs:
     - name: Downloading unit tests
       uses: actions/download-artifact@master
       with:
-        name: unittests
+        name: Unit_tests
         path: ~/unit_tests
 
     - name: Executing tests
-      run: for item in $(ls .); do if [[ $item = *UT ]]; then ./$item; if [[ $? != 0 ]]; then exit 1; fi fi done
+      run: cd ~/unit_tests; for item in $(ls .); do if [[ $item = *UT ]]; then ./$item; if [[ $? != 0 ]]; then exit 1; fi fi done
