@@ -1,5 +1,4 @@
-# EasyGUI 
-![Build](https://github.com/HV0rtex/ThreadPool/actions/workflows/Linux)
+# EasyGUI ![Build](https://github.com/HV0rtex/ThreadPool/workflows/Linux/badge.svg?branch=main)
 
 EasyGUI is an extension to the popular C++ graphics library: SFML.
 
