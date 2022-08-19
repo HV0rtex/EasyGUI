@@ -55,7 +55,7 @@ jobs:
           ${{github.workspace}}/lib
 
     - name: Generating documentation
-      run: cd ${{github.workspace}} && doxygen docs/doxyfile.txt
+      run: cd ${{github.workspace}} && sudo apt-get install doxygen && doxygen docs/doxyfile.txt
 
     - name: Publishing documentation
       uses: actions/upload-artifact@master
