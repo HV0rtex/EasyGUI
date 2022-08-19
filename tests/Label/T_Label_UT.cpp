@@ -24,15 +24,43 @@
  * 
  */
 
+
 #include <gtest/gtest.h>
 #include <Label.hpp>
 
 TEST(LabelUnitTest, SimpleInitTest)
 {
-    ::egui::utils::Point pos;
+    ::easyGUI::utils::Point pos;
+    ::easyGUI::Label* testObj; 
 
     pos.Xcoord = 0;
     pos.Ycoord = 0;
 
-    ASSERT_THROW(egui::Label(pos, "Example", "some/random/path", 10, ::sf::Color(10,10,10)), std::invalid_argument);
+    // Good case
+    ASSERT_NO_THROW(testObj = new ::easyGUI::Label(pos, "Example", "./res/Arial.ttf", 15, ::sf::Color(0,0,0)));
+}
+
+TEST(LabelUnitTest, InitFailsInvalidFont)
+{
+    ::easyGUI::utils::Point pos;
+    ::easyGUI::Label* testObj; 
+
+    pos.Xcoord = 0;
+    pos.Ycoord = 0;
+
+    try
+    {
+        testObj = new ::easyGUI::Label(pos, "Example", "some/random/path", 10, ::sf::Color(10,10,10));
+    
+        FAIL();
+    }
+    catch(const ::std::invalid_argument& e)
+    {
+        ASSERT_STREQ(e.what(), "Invalid font path!");
+    }
+    catch(...)
+    {
+        FAIL();
+    }
+
 }

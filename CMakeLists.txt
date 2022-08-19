@@ -39,7 +39,6 @@ add_compile_options(
 	 -Wextra
 	 -Wcast-align
 	 -Wcast-qual
-	 -Wctor-dtor-privacy
 	 -Wdisabled-optimization
 	 -Wformat=2
 	 -Winit-self

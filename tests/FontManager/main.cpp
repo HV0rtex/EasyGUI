@@ -14,30 +14,22 @@
 
 
 /**
- * @file Point.hpp
+ * @file main.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the Point class
+ * @brief Entry point to the FontManager unit tests
  * @version 0.1
- * @date 2022-08-15
+ * @date 2022-08-16
  * 
  * @copyright Copyright (c) 2022
  * 
  */
 
-namespace easyGUI
-{
-namespace utils
-{
+#include <gtest/gtest.h>
 
-/**
- * @brief Stores the coordinates of a point.
- * 
- */
-struct Point
-{
-    float Xcoord;
-    float Ycoord;
-};
 
-}
+GTEST_API_ int main(int argc, char **argv) {
+    printf("Running main() from %s\n", __FILE__);
+    testing::InitGoogleTest(&argc, argv);
+
+    return RUN_ALL_TESTS();
 }

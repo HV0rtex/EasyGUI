@@ -26,7 +26,7 @@
 
 #include <Label.hpp>
 
-namespace egui
+namespace easyGUI
 {
 
 void Label::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
@@ -37,7 +37,7 @@ void Label::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 void Label::constructText(const utils::Point& position, const ::std::string& text, const unsigned& charSize)
 {
     _text.setPosition(position.Xcoord, position.Ycoord);
-    _text.setFont(_font);
+    _text.setFont(*_font);
     _text.setFillColor(_textColor);
     _text.setCharacterSize(charSize);
     _text.setString(text);
@@ -56,14 +56,25 @@ bool Label::isMouseHover() const
     return false;
 }
 
-Label::~Label() {}
+Label::~Label() 
+{
+    utils::FontManager* manager = nullptr;
+    manager = manager->getInstance();
+
+    manager->updateMaps(_text.getFont());
+}
+
 Label::Label(const utils::Point& position, const ::std::string& text, const ::std::string& fontPath, const unsigned& charSize, const sf::Color& color)
 {
-    if(!_font.loadFromFile(fontPath))
+    utils::FontManager* manager = nullptr;
+    manager = manager->getInstance();
+
+    if(manager->getFont(fontPath) == nullptr)
     {
         throw ::std::invalid_argument("Invalid font path!");
     }
 
+    _font = manager->getFont(fontPath);
     _textColor = color;
 
     _container = nullptr;
