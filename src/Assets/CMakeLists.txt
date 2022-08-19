@@ -46,5 +46,5 @@ target_link_libraries(
 # ----- Installing library -----
 
 install( TARGETS assets DESTINATION ${PROJECT_LIBRARY_DIR} )
-install( TARGETS assets-shared DESTINATION ${PROJECT_RUNTIME_DIR}/EasyGUI )
+install( TARGETS assets-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
 install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/inc/ DESTINATION ${PROJECT_INCLUDE_DIR} )
