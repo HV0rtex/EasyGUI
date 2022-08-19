@@ -28,10 +28,11 @@
 
 // Including dependencies
 #include <SFML/Graphics.hpp>
+#include <FontManager.hpp>
 #include <stdexcept>
 #include <Point.hpp>
 
-namespace egui
+namespace easyGUI
 {
 
 /**
@@ -49,7 +50,7 @@ class Label : public ::sf::Drawable
 private:
     ::sf::RenderWindow* _container;
 
-    ::sf::Font _font;
+    ::sf::Font* _font;
     ::sf::Text _text;
     ::sf::Color _textColor;
 

@@ -13,54 +13,9 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-# ----- Defining library sets -----
-
-add_library(
-    assets STATIC
-
-    ./src/FontManager.cpp
-    ./src/Label.cpp
+setup_unit_test(
+    TEST_NAME FontManager-UT
+    TEST_SOURCES main.cpp T_FontManager_UT
+    TEST_INCLUDES ${PROJECT_SOURCE_DIR}/src/Assets/inc
+    TEST_LIBS assets
 )
-
-add_library(
-    assets-shared SHARED
-
-    ./src/FontManager.cpp
-    ./src/Label.cpp
-)
-
-# ----- Defining includes -----
-
-target_include_directories(
-    assets PUBLIC
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/inc
-)
-
-target_include_directories(
-    assets-shared PUBLIC
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/inc
-)
-
-# ----- Linking dependencies -----
-
-target_link_libraries(
-    assets
-    sfml-graphics
-    sfml-window
-    sfml-system
-)
-
-target_link_libraries(
-    assets-shared
-    sfml-graphics
-    sfml-window
-    sfml-system
-)
-
-# ----- Installing library -----
-
-install( TARGETS assets DESTINATION ${PROJECT_LIBRARY_DIR} )
-install( TARGETS assets-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
-install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/inc/ DESTINATION ${PROJECT_INCLUDE_DIR} )
