@@ -108,10 +108,6 @@ Then you can try and build one of the examples in order to test that everything 
 The project is licensed under the **MIT License** and can be used free of charge. However if you would like to
 support the development of this extension, follow one of these links depending on your preffered support method:
 
-- [Donation]()
+- [Buy me a coffee](buymeacoffee.com/hvrtx)
 - [Report a bug](https://github.com/HV0rtex/ThreadPool/issues/new?assignees=HV0rtex&labels=bug&template=bug_report.md&title=)
 - [Submit a suggestion](https://github.com/HV0rtex/ThreadPool/issues/new?assignees=HV0rtex&labels=enhancement&template=feature_request.md&title=)
-
-## Colaborations
-
-If you want to contribute to this project, feel free to contact me via email at **david.bnicolae@gmail.com**
