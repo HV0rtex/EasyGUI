@@ -27,7 +27,7 @@
 #pragma once
 
 // Including dependencies
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Font.hpp>
 #include <stdexcept>
 #include <map>
 

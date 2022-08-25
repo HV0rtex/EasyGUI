@@ -13,11 +13,50 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-# ----- Configuring SFML -----
+# ----- Defining library sets -----
 
-find_package(SFML REQUIRED system window graphics network audio)
+add_library(
+    application STATIC
+    ./src/Application.cpp
+)
 
-# ----- Adding sources -----
+add_library(
+    application-shared SHARED
+    ./src/Application.cpp
+)
 
-add_subdirectory(Assets)
-add_subdirectory(Application)
+# ----- Defining includes -----
+
+target_include_directories(
+    application PUBLIC
+
+    ./inc
+)
+
+target_include_directories(
+    application-shared PUBLIC
+
+    ./inc
+)
+
+# ----- Linking dependencies -----
+
+target_link_libraries(
+    application
+    sfml-graphics
+    sfml-window
+    sfml-system
+)
+
+target_link_libraries(
+    application-shared
+    sfml-graphics
+    sfml-window
+    sfml-system
+)
+
+# ----- Installing library -----
+
+install( TARGETS application DESTINATION ${PROJECT_LIBRARY_DIR} )
+install( TARGETS application-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
+install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/inc/ DESTINATION ${PROJECT_INCLUDE_DIR} )

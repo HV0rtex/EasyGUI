@@ -48,13 +48,13 @@ target_include_directories(
 target_link_libraries(
     assets
     sfml-graphics
-    sfml-window
+    sfml-window 
     sfml-system
 )
 
 target_link_libraries(
     assets-shared
-    sfml-graphics
+    sfml-graphics 
     sfml-window
     sfml-system
 )
