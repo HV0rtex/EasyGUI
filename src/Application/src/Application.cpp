@@ -47,13 +47,13 @@ Application* Application::getInstance(const unsigned& width, const unsigned& hei
 
 void Application::handleEvents(const ::sf::Event& event)
 {
-    for(const Routine& routine : routines)
+    for(const Routine*& routine : routines)
     {
-        routine(event);
+        routine->operator()(event);
     }
 }
 
-void Application::addRoutine(const Routine& routine)
+void Application::addRoutine(const Routine*& routine)
 {
     routines.push_back(routine);
 }

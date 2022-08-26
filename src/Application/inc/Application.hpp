@@ -49,7 +49,7 @@ private:
     static Application* instance;
 
     ::sf::RenderWindow* _window;
-    ::std::vector < const Routine& > routines;
+    ::std::vector < const Routine* > routines;
 
     // ----- Configurations -----
 
@@ -137,7 +137,7 @@ public:
      * 
      * @param routine The routine to be added
      */
-    void addRoutine(const Routine& routine);
+    void addRoutine(const Routine*& routine);
 
     /**
      * @brief Starts the application
