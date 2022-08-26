@@ -39,7 +39,7 @@ namespace utils
 /**
  * @brief Wrapper around ::sf::Font class
  * 
- * The purpose of this wrapper is to optimize the space usage by
+ * @details The purpose of this wrapper is to optimize the space usage by
  * creating the same font only once and providing shared access to it
  * via pointers. 
  */
@@ -85,7 +85,7 @@ public:
     /**
      * @brief Updates the occurances of the font
      * 
-     * If the occurances hits 0, then that font is removed
+     * @details If the occurances hits 0, then that font is removed
      * from memory, as there are no labels using it.
      * 
      * @param usedFont The font of the destructed label

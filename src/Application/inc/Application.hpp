@@ -29,6 +29,7 @@
 // Including dependencies
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
+#include <Routine.hpp>
 
 namespace easyGUI
 {
@@ -36,7 +37,7 @@ namespace easyGUI
 /**
  * @brief Emulates a windowed application
  * 
- * The class acts as a wrapper around the ::sf::RenderWindow, and provides
+ * @details The class acts as a wrapper around the ::sf::RenderWindow, and provides
  * easier management of the events (such as onClick, onKeyPress, etc.) Furthermore,
  * when the RESPONSIVE option is set to True, the application will automatically resive the
  * GUI in order to match the new window size.
@@ -48,12 +49,16 @@ private:
     static Application* instance;
 
     ::sf::RenderWindow* _window;
+    ::std::vector < const Routine& > routines;
+
+    // ----- Configurations -----
+
     char _responsive;
 
     /**
      * @brief Constructor
      * 
-     * The constructor is made private in order to adhere to the Singleton
+     * @details The constructor is made private in order to adhere to the Singleton
      * design pattern.
      * 
      * @param width The width of the window
@@ -66,7 +71,7 @@ private:
     /**
      * @brief Event handler
      * 
-     * The function is fired whenever an event occurs at window level
+     * @details The function is fired whenever an event occurs at window level
      * and loops through routines to find the best fit for the event.
      * 
      * @param event The current window event
@@ -74,6 +79,7 @@ private:
      * @warning Not yet implemented.
      */
     void handleEvents(const ::sf::Event& event);
+
 public:
     /**
      * @brief Destructor
@@ -125,6 +131,13 @@ public:
      * @warning Not yet implemented.
      */
     void getMenu(const char* id);
+
+    /**
+     * @brief Adds a new routine to the application
+     * 
+     * @param routine The routine to be added
+     */
+    void addRoutine(const Routine& routine);
 
     /**
      * @brief Starts the application

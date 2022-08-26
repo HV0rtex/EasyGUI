@@ -14,11 +14,11 @@
 
 
 /**
- * @file Component.hpp
+ * @file Routine.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the Component class
+ * @brief Definition of the Routine class
  * @version 0.1
- * @date 2022-08-23
+ * @date 2022-08-26
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -27,47 +27,49 @@
 #pragma once
 
 // Including dependencies
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Event.hpp>
 
 namespace easyGUI
 {
 
 /**
- * @brief Interface for drawable elements
+ * @brief Defines a way to control the application flow
  * 
- * @details This is the interface that all application components will inherit.
- * Some of them may also inherit other interfaces which will enable them
- * to interact with certain types of events such as OnMousePress or OnKeyPress,
- * however this one is mandatory for all GUI elements.
+ * @details A routine denotes a procedure which is colled if and only if specific
+ * application events are fired. That way, it allows the user to control the flow
+ * of the application.
  * 
  */
-class Component : public ::sf::Drawable
+class Routine
 {
-protected:
-    ::sf::RenderWindow* _container;
+private:
+    bool (*_trigger)(const ::sf::Event& action);
+    void (*_response)();
+
+    bool _isActive;
 
 public:
+    /**
+     * @brief Constructor
+     * 
+     * @param trigger Function that determines whether the routine is triggered
+     * @param _response The response that is to be triggered by the routine
+     */
+    Routine(bool (*trigger)(const ::sf::Event& action), void(*_response)());
 
     /**
-     * @brief Set the Component's container
+     * @brief Call operator
      * 
-     * @param container The window responsible of the component
+     * @details The operator checks if the current event triggers the routine,
+     * and on trigger fires the response action.
      */
-    void setContainer(::sf::RenderWindow*& container)
-    {
-        _container = container;
-    }
-
-    // ----- Auxiliaries -----
+    void operator() (const ::sf::Event& event) const;
 
     /**
-     * @brief Check if mouse is over the button
+     * @brief Enables / Disables the routine
      * 
-     * @return true Mouse is over the label
-     * @return false otherwise
      */
-    virtual bool isMouseHover() const = 0;
+    void toggle();
 };
 
 }

@@ -45,6 +45,19 @@ Application* Application::getInstance(const unsigned& width, const unsigned& hei
     return nullptr;
 }
 
+void Application::handleEvents(const ::sf::Event& event)
+{
+    for(const Routine& routine : routines)
+    {
+        routine(event);
+    }
+}
+
+void Application::addRoutine(const Routine& routine)
+{
+    routines.push_back(routine);
+}
+
 void Application::start()
 {
     while(_window->isOpen())

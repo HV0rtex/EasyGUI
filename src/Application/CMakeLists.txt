@@ -31,12 +31,14 @@ target_include_directories(
     application PUBLIC
 
     ./inc
+    ../Assets/inc
 )
 
 target_include_directories(
     application-shared PUBLIC
 
     ./inc
+    ../Assets/inc
 )
 
 # ----- Linking dependencies -----

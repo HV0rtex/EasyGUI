@@ -14,60 +14,41 @@
 
 
 /**
- * @file Component.hpp
+ * @file Routine.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the Component class
+ * @brief Implementation of the routine class
  * @version 0.1
- * @date 2022-08-23
+ * @date 2022-08-26
  * 
  * @copyright Copyright (c) 2022
  * 
  */
 
-#pragma once
-
-// Including dependencies
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
+#include <Routine.hpp>
 
 namespace easyGUI
 {
 
-/**
- * @brief Interface for drawable elements
- * 
- * @details This is the interface that all application components will inherit.
- * Some of them may also inherit other interfaces which will enable them
- * to interact with certain types of events such as OnMousePress or OnKeyPress,
- * however this one is mandatory for all GUI elements.
- * 
- */
-class Component : public ::sf::Drawable
+void Routine::toggle()
 {
-protected:
-    ::sf::RenderWindow* _container;
+    _isActive = !_isActive;
+}
 
-public:
+void Routine::operator() (const ::sf::Event& event) const
+{
+    if(!_isActive)
+        return;
 
-    /**
-     * @brief Set the Component's container
-     * 
-     * @param container The window responsible of the component
-     */
-    void setContainer(::sf::RenderWindow*& container)
+    if(_trigger(event))
     {
-        _container = container;
+        _response();
     }
+}
 
-    // ----- Auxiliaries -----
-
-    /**
-     * @brief Check if mouse is over the button
-     * 
-     * @return true Mouse is over the label
-     * @return false otherwise
-     */
-    virtual bool isMouseHover() const = 0;
-};
+Routine::Routine(bool (*trigger)(const ::sf::Event& event), void (*response)())
+{
+    _trigger = trigger;
+    _response = response;
+}
 
 }

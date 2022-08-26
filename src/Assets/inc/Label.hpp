@@ -40,7 +40,7 @@ namespace easyGUI
 /**
  * @brief Implements a label component
  * 
- * This class is a wrapper around the sf::Text class, in order
+ * @details This class is a wrapper around the sf::Text class, in order
  * to make the implementation of Labels easier for the end-user.
  * 
  * Furthermore, the class provides methods for onClick() and onHover()
