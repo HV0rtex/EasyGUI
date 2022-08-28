@@ -27,9 +27,8 @@
 #pragma once
 
 // Including dependencies
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Window/Event.hpp>
 #include <Routine.hpp>
+#include <Menu.hpp>
 
 namespace easyGUI
 {
@@ -49,7 +48,11 @@ private:
     static Application* instance;
 
     ::sf::RenderWindow* _window;
-    ::std::vector < const Routine* > routines;
+ 
+    ::std::vector < Routine* > routines;
+    ::std::map < ::std::string, Menu* > menus;
+
+    Menu* _activeMenu;
 
     // ----- Configurations -----
 
@@ -110,14 +113,11 @@ public:
      * 
      * @param isStart Denotes if the menu is to be displayed first
      * 
-     * @returns const char*
-     * @retval NULL the menu could not be added
-     * @retval String The unique ID of the menu.
+     * @returns ::std::string
      * 
-     * @note Only one menu can be declared as start menu
-     * @warning Not yet implemented.
+     * @throw ::std::invalid_argument More than one start menu declared.
      */
-    const char* addMenu(const bool& isStart = false);
+    ::std::string addMenu(const bool& isStart = false);
 
     /**
      * @brief Gets a menu by its ID
@@ -127,17 +127,24 @@ public:
      * @return Menu*
      * @retval NULL invalid ID
      * @retval Menu The menu linked to that ID.
-     * 
-     * @warning Not yet implemented.
      */
-    void getMenu(const char* id);
+    Menu* getMenu(const ::std::string& id);
+
+    /**
+     * @brief Changes the active menu
+     * 
+     * @param id The id of the menu
+     * 
+     * @throw ::std::invalid_arugment Invalid ID provided
+     */
+    void setActiveMenu(const ::std::string& id);
 
     /**
      * @brief Adds a new routine to the application
      * 
      * @param routine The routine to be added
      */
-    void addRoutine(const Routine*& routine);
+    void addRoutine(Routine*& routine);
 
     /**
      * @brief Starts the application

@@ -47,13 +47,66 @@ Application* Application::getInstance(const unsigned& width, const unsigned& hei
 
 void Application::handleEvents(const ::sf::Event& event)
 {
-    for(const Routine*& routine : routines)
+    for(Routine*& routine : routines)
     {
         routine->operator()(event);
     }
 }
 
-void Application::addRoutine(const Routine*& routine)
+Menu* Application::getMenu(const ::std::string& id)
+{
+    if(menus.find(id) != menus.end())
+    {
+        return menus[id];
+    }
+
+    return nullptr;
+}
+
+::std::string Application::addMenu(const bool& isStart)
+{
+    ::std::string id;
+    Menu* newMenu = new Menu();
+
+    for(unsigned index = 0; index < (menus.size() + 1) / 256; index++)
+    {
+        id += "M";
+    }
+
+    char end = (menus.size() + 1) % 256;
+
+    id += end;
+
+    menus[id] = newMenu;
+
+    if(isStart)
+    {
+        if(_activeMenu == nullptr)
+        {
+            _activeMenu = newMenu;
+        }
+        else
+        {
+            throw ::std::invalid_argument("Multiple start menus detected.");
+        }
+    }
+
+    return id;
+}
+
+void Application::setActiveMenu(const ::std::string& id)
+{
+    if(menus.find(id) != menus.end())
+    {
+        _activeMenu = menus[id];
+    }
+    else
+    {
+        throw ::std::invalid_argument("Invalid menu ID provided.");
+    }
+}
+
+void Application::addRoutine(Routine*& routine)
 {
     routines.push_back(routine);
 }
@@ -70,6 +123,7 @@ void Application::start()
         }
 
         _window->clear();
+        _window->draw(*_activeMenu);
         _window->display();
     }
 }

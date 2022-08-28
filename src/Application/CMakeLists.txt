@@ -19,12 +19,14 @@ add_library(
     application STATIC
     ./src/Application.cpp
     ./src/Routine.cpp
+    ./src/Menu.cpp
 )
 
 add_library(
     application-shared SHARED
     ./src/Application.cpp
     ./src/Routine.cpp
+    ./src/Menu.cpp
 )
 
 # ----- Defining includes -----
