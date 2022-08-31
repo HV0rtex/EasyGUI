@@ -27,7 +27,7 @@ void createMainMenu(easyGUI::Application* appInstance)
 
         try
         {
-            menu->addComponent( new easyGUI::Label( easyGUI::utils::Point(200, 200), "A demo title", "./Arial.ttf", 25, sf::Color(255,255,255) ) );
+            menu->addComponent( new easyGUI::Label( easyGUI::utils::Point(200, 200), "A demo title", "./res/Arial.ttf", 25, sf::Color(255,255,255) ) );
         }
         catch(...)
         {

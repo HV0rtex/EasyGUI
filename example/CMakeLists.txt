@@ -42,4 +42,5 @@ target_link_libraries(
 
 # ----- Installing project -----
 
-install(TARGETS demo DESTINATION ${PROJECT_RUNTIME_DIR}/demo)
+install( TARGETS demo DESTINATION ${PROJECT_RUNTIME_DIR}/demo )
+install( DIRECTORY ./res/ DESTINATION ${PROJECT_RUNTIME_DIR}/demo/res )
