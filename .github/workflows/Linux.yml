@@ -50,7 +50,7 @@ jobs:
         name: EasyGUI
         path: | 
           ${{github.workspace}}/include
-          ${{github.workspace}}/examples
+          ${{github.workspace}}/example
           ${{github.workspace}}/bin
           ${{github.workspace}}/lib
 
