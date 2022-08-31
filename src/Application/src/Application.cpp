@@ -53,31 +53,32 @@ void Application::handleEvents(const ::sf::Event& event)
     }
 }
 
-Menu* Application::getMenu(const ::std::string& id)
+Menu* Application::getMenu(const unsigned& index)
 {
-    if(menus.find(id) != menus.end())
+    if(index < menus.size())
     {
-        return menus[id];
+        return menus.at(index);
     }
 
     return nullptr;
 }
 
-::std::string Application::addMenu(const bool& isStart)
+void Application::stop()
 {
-    ::std::string id;
-    Menu* newMenu = new Menu();
+    _window->close();
+}
 
-    for(unsigned index = 0; index < (menus.size() + 1) / 256; index++)
+Application::~Application()
+{
+    for(auto menu : menus)
     {
-        id += "M";
+        delete menu;
     }
+}
 
-    char end = (menus.size() + 1) % 256;
-
-    id += end;
-
-    menus[id] = newMenu;
+Menu* Application::addMenu(const bool& isStart)
+{
+    Menu* newMenu = new Menu();
 
     if(isStart)
     {
@@ -87,18 +88,22 @@ Menu* Application::getMenu(const ::std::string& id)
         }
         else
         {
+            delete newMenu;
+
             throw ::std::invalid_argument("Multiple start menus detected.");
         }
     }
 
-    return id;
+    newMenu->setContainer(_window);
+
+    return newMenu;
 }
 
-void Application::setActiveMenu(const ::std::string& id)
+void Application::setActiveMenu(const unsigned& index)
 {
-    if(menus.find(id) != menus.end())
+    if(index < menus.size())
     {
-        _activeMenu = menus[id];
+        _activeMenu = menus.at(index);
     }
     else
     {
@@ -106,13 +111,18 @@ void Application::setActiveMenu(const ::std::string& id)
     }
 }
 
-void Application::addRoutine(Routine*& routine)
+void Application::addRoutine(Routine* routine)
 {
     routines.push_back(routine);
 }
 
 void Application::start()
 {
+    if(_activeMenu == nullptr)
+    {
+        throw ::std::exception();
+    }
+
     while(_window->isOpen())
     {
         ::sf::Event event;

@@ -37,6 +37,9 @@ struct Point
 {
     float Xcoord;
     float Ycoord;
+
+    Point() : Xcoord(0), Ycoord(0) {}
+    Point(const float& x, const float& y) : Xcoord(x), Ycoord(y) {}
 };
 
 }

@@ -47,7 +47,7 @@ namespace easyGUI
  * so that the label can act as a Text-button. For custom labels, you can
  * inherit this class.
  */
-class Label : private Component
+class Label : public Component
 {
 private:
     ::sf::Font* _font;

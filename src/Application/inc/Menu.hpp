@@ -44,9 +44,9 @@ namespace easyGUI
 class Menu : public ::sf::Drawable
 {
 private:
+    ::sf::RenderWindow* _container;
     ::std::vector < Component* > _components;
-    ::std::map < ::std::string, Component* > _componentMap;
- 
+
     virtual void draw(::sf::RenderTarget& target, ::sf::RenderStates states) const;
 
 public:
@@ -65,22 +65,27 @@ public:
     /**
      * @brief Adds a new component to the menu
      * 
-     * @details Upon adding the component, the function returns a string
-     * denoting a unique ID for the component. That way, each component
-     * can be identified by its menu and ID.
-     * 
      * @param component The component to be added
-     * @return ::std::string 
      */
-    ::std::string addComponent(Component* component);
+    void addComponent(Component* component);
+
+    /**
+     * @brief Set the Component's container
+     * 
+     * @param container The window responsible of the component
+     */
+    void setContainer(::sf::RenderWindow*& container)
+    {
+        _container = container;
+    }
 
     /**
      * @brief Retrieves a specific component
      * 
-     * @param id The id of the component
+     * @param index The index of the component
      * @return Component* 
      */
-    Component* getComponent(const ::std::string& id);
+    Component* getComponent(const unsigned& index);
 };
 
 }

@@ -50,7 +50,7 @@ private:
     ::sf::RenderWindow* _window;
  
     ::std::vector < Routine* > routines;
-    ::std::map < ::std::string, Menu* > menus;
+    ::std::vector < Menu* > menus;
 
     Menu* _activeMenu;
 
@@ -117,43 +117,50 @@ public:
      * 
      * @throw ::std::invalid_argument More than one start menu declared.
      */
-    ::std::string addMenu(const bool& isStart = false);
+    Menu* addMenu(const bool& isStart = false);
 
     /**
-     * @brief Gets a menu by its ID
+     * @brief Gets a menu by its index
      * 
-     * @param id The ID of the menu
+     * @param index The index of the menu
      * 
      * @return Menu*
-     * @retval NULL invalid ID
-     * @retval Menu The menu linked to that ID.
+     * @retval NULL invalid menu index
+     * @retval Menu The menu linked to that index.
      */
-    Menu* getMenu(const ::std::string& id);
+    Menu* getMenu(const unsigned& index);
 
     /**
      * @brief Changes the active menu
      * 
-     * @param id The id of the menu
+     * @param id The index of the menu
      * 
-     * @throw ::std::invalid_arugment Invalid ID provided
+     * @throw ::std::invalid_arugment Invalid index provided
      */
-    void setActiveMenu(const ::std::string& id);
+    void setActiveMenu(const unsigned& index);
 
     /**
      * @brief Adds a new routine to the application
      * 
      * @param routine The routine to be added
      */
-    void addRoutine(Routine*& routine);
+    void addRoutine(Routine* routine);
 
     /**
      * @brief Starts the application
      * 
-     * Opens the application window and handles
+     * @details Opens the application window and handles
      * the events according to routines.
      * 
      */
     void start();
+
+    /**
+     * @brief Stops the application
+     * 
+     * @details Closes the application window.
+     */
+    void stop();
 };
 
 }

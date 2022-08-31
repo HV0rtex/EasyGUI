@@ -39,23 +39,11 @@ Menu::~Menu()
 
 Menu::Menu() {}
 
-::std::string Menu::addComponent(Component* component)
+void Menu::addComponent(Component* component)
 {
-    ::std::string id;
-
-
-    for(unsigned index = 0; index < (_components.size() + 1) / 256; index++)
-    {
-        id += "C";
-    }
-
-    char end = (_components.size() + 1) % 256;
-
-    id += end;
     _components.push_back(component);
-    _componentMap[id] = component;
 
-    return id;
+    component->setContainer(_container);
 }
 
 void Menu::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
@@ -66,11 +54,11 @@ void Menu::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
     }
 }
 
-Component* Menu::getComponent(const ::std::string& id)
+Component* Menu::getComponent(const unsigned& index)
 {
-    if(_componentMap.find(id) != _componentMap.end())
+    if(index < _components.size())
     {
-        return _componentMap[id];
+        return _components.at(index);
     }
 
     return nullptr;
