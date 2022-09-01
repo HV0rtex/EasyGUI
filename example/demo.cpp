@@ -12,35 +12,42 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#include <routines.hpp>
+#include <menus.hpp>
 
-/**
- * @file Point.hpp
- * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the Point class
- * @version 0.1
- * @date 2022-08-15
- * 
- * @copyright Copyright (c) 2022
- * 
- */
+using namespace easyGUI;
 
-namespace easyGUI
+// Setting application parameters
+unsigned appWidth = 800;
+unsigned appHeight = 800;
+std::string appTitle = "Demo app";
+
+// Declaring application object
+Application* app = nullptr;
+
+int main()
 {
-namespace utils
-{
+    // Creating application
+    app = app->getInstance(appWidth, appHeight, appTitle.c_str());
 
-/**
- * @brief Stores the coordinates of a point.
- * 
- */
-struct Point
-{
-    float Xcoord;
-    float Ycoord;
+    // Creating routines
+    Routine windowHandler(windowHandler_trigger, windowHandler_action);
 
-    Point() : Xcoord(0), Ycoord(0) {}
-    Point(const float& x, const float& y) : Xcoord(x), Ycoord(y) {}
-};
+    // Adding routine to app
+    app->addRoutine(&windowHandler);
 
-}
+    try
+    {
+        // Creating menus
+        createMainMenu(app);
+
+        // Starting the application
+        app->start();
+    }
+    catch(...)
+    {
+        return 1;
+    }
+    
+    return 0;
 }

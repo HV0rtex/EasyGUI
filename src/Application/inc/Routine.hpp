@@ -14,33 +14,62 @@
 
 
 /**
- * @file Point.hpp
+ * @file Routine.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the Point class
+ * @brief Definition of the Routine class
  * @version 0.1
- * @date 2022-08-15
+ * @date 2022-08-26
  * 
  * @copyright Copyright (c) 2022
  * 
  */
 
+#pragma once
+
+// Including dependencies
+#include <SFML/Window/Event.hpp>
+
 namespace easyGUI
-{
-namespace utils
 {
 
 /**
- * @brief Stores the coordinates of a point.
+ * @brief Defines a way to control the application flow
+ * 
+ * @details A routine denotes a procedure which is colled if and only if specific
+ * application events are fired. That way, it allows the user to control the flow
+ * of the application.
  * 
  */
-struct Point
+class Routine
 {
-    float Xcoord;
-    float Ycoord;
+private:
+    bool (*_trigger)(const ::sf::Event& action);
+    void (*_response)();
 
-    Point() : Xcoord(0), Ycoord(0) {}
-    Point(const float& x, const float& y) : Xcoord(x), Ycoord(y) {}
+    bool _isActive;
+
+public:
+    /**
+     * @brief Constructor
+     * 
+     * @param trigger Function that determines whether the routine is triggered
+     * @param _response The response that is to be triggered by the routine
+     */
+    Routine(bool (*trigger)(const ::sf::Event& action), void(*_response)());
+
+    /**
+     * @brief Call operator
+     * 
+     * @details The operator checks if the current event triggers the routine,
+     * and on trigger fires the response action.
+     */
+    void operator() (const ::sf::Event& event) const;
+
+    /**
+     * @brief Enables / Disables the routine
+     * 
+     */
+    void toggle();
 };
 
-}
 }

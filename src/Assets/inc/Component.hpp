@@ -14,33 +14,60 @@
 
 
 /**
- * @file Point.hpp
+ * @file Component.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the Point class
+ * @brief Definition of the Component class
  * @version 0.1
- * @date 2022-08-15
+ * @date 2022-08-23
  * 
  * @copyright Copyright (c) 2022
  * 
  */
 
+#pragma once
+
+// Including dependencies
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+
 namespace easyGUI
-{
-namespace utils
 {
 
 /**
- * @brief Stores the coordinates of a point.
+ * @brief Interface for drawable elements
+ * 
+ * @details This is the interface that all application components will inherit.
+ * Some of them may also inherit other interfaces which will enable them
+ * to interact with certain types of events such as OnMousePress or OnKeyPress,
+ * however this one is mandatory for all GUI elements.
  * 
  */
-struct Point
+class Component : public ::sf::Drawable
 {
-    float Xcoord;
-    float Ycoord;
+protected:
+    ::sf::RenderWindow* _container;
 
-    Point() : Xcoord(0), Ycoord(0) {}
-    Point(const float& x, const float& y) : Xcoord(x), Ycoord(y) {}
+public:
+
+    /**
+     * @brief Set the Component's container
+     * 
+     * @param container The window responsible of the component
+     */
+    void setContainer(::sf::RenderWindow*& container)
+    {
+        _container = container;
+    }
+
+    // ----- Auxiliaries -----
+
+    /**
+     * @brief Check if mouse is over the button
+     * 
+     * @return true Mouse is over the label
+     * @return false otherwise
+     */
+    virtual bool isMouseHover() const = 0;
 };
 
-}
 }

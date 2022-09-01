@@ -12,35 +12,26 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#include <menus.hpp>
 
-/**
- * @file Point.hpp
- * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the Point class
- * @version 0.1
- * @date 2022-08-15
- * 
- * @copyright Copyright (c) 2022
- * 
- */
-
-namespace easyGUI
+void createMainMenu(easyGUI::Application* appInstance)
 {
-namespace utils
-{
+    if(appInstance != nullptr)
+    {
+        easyGUI::Menu* menu = appInstance->addMenu(true);
 
-/**
- * @brief Stores the coordinates of a point.
- * 
- */
-struct Point
-{
-    float Xcoord;
-    float Ycoord;
+        if(menu == nullptr)
+        {
+            throw std::exception();
+        }
 
-    Point() : Xcoord(0), Ycoord(0) {}
-    Point(const float& x, const float& y) : Xcoord(x), Ycoord(y) {}
-};
-
-}
+        try
+        {
+            menu->addComponent( new easyGUI::Label( easyGUI::utils::Point(200, 200), "A demo title", "./res/Arial.ttf", 25, sf::Color(255,255,255) ) );
+        }
+        catch(...)
+        {
+            throw std::exception();
+        }
+    }
 }

@@ -16,51 +16,53 @@
 # ----- Defining library sets -----
 
 add_library(
-    assets STATIC
-
-    ./src/FontManager.cpp
-    ./src/Label.cpp
+    application STATIC
+    ./src/Application.cpp
+    ./src/Routine.cpp
+    ./src/Menu.cpp
 )
 
 add_library(
-    assets-shared SHARED
-
-    ./src/FontManager.cpp
-    ./src/Label.cpp
+    application-shared SHARED
+    ./src/Application.cpp
+    ./src/Routine.cpp
+    ./src/Menu.cpp
 )
 
 # ----- Defining includes -----
 
 target_include_directories(
-    assets PUBLIC
+    application PUBLIC
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/inc
+    ./inc
+    ../Assets/inc
 )
 
 target_include_directories(
-    assets-shared PUBLIC
+    application-shared PUBLIC
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/inc
+    ./inc
+    ../Assets/inc
 )
 
 # ----- Linking dependencies -----
 
 target_link_libraries(
-    assets
+    application
     sfml-graphics
-    sfml-window 
+    sfml-window
     sfml-system
 )
 
 target_link_libraries(
-    assets-shared
-    sfml-graphics 
+    application-shared
+    sfml-graphics
     sfml-window
     sfml-system
 )
 
 # ----- Installing library -----
 
-install( TARGETS assets DESTINATION ${PROJECT_LIBRARY_DIR} )
-install( TARGETS assets-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
-install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/Assets )
+install( TARGETS application DESTINATION ${PROJECT_LIBRARY_DIR} )
+install( TARGETS application-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
+install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/Application )

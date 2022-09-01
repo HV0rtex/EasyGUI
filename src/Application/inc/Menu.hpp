@@ -14,11 +14,11 @@
 
 
 /**
- * @file FontManager.hpp
+ * @file Menu.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the FontManager wrapper class
+ * @brief Definition of the Menu class
  * @version 0.1
- * @date 2022-08-19
+ * @date 2022-08-28
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -27,71 +27,65 @@
 #pragma once
 
 // Including dependencies
-#include <SFML/Graphics/Font.hpp>
-#include <stdexcept>
+#include <Component.hpp>
+#include <string>
+#include <vector>
 #include <map>
 
 namespace easyGUI
 {
-namespace utils
-{
 
 /**
- * @brief Wrapper around ::sf::Font class
+ * @brief Container of application components
  * 
- * @details The purpose of this wrapper is to optimize the space usage by
- * creating the same font only once and providing shared access to it
- * via pointers. 
+ * A menu groups different application components under the same container
+ * and usually corresponds to a specific application screen.
  */
-class FontManager
+class Menu : public ::sf::Drawable
 {
 private:
-    static FontManager* instance;
+    ::sf::RenderWindow* _container;
+    ::std::vector < Component* > _components;
 
-    ::std::map < const ::sf::Font*, ::std::string > reverseFontMap;
-    ::std::map < ::std::string, ::sf::Font* > fontMap;
-    ::std::map < ::std::string, unsigned > occurances;
+    virtual void draw(::sf::RenderTarget& target, ::sf::RenderStates states) const;
 
-    /**
-     * @brief Constructor
-     * 
-     * Private constructor in order to adhere to the singleton design pattern.
-     */
-    FontManager() {}
 public:
     /**
      * @brief Destructor
      * 
      */
-    ~FontManager();
- 
-    /**
-     * @brief Returns the manager instance
-     * 
-     * @return FontManager* 
-     */
-    FontManager* getInstance();
+    ~Menu();
 
     /**
-     * @brief Returns the font
+     * @brief Constructor
      * 
-     * @param fontPath The path to the font
-     * 
-     * @return ::sf::Font* 
-     * @retval NULL invalid font path
      */
-    ::sf::Font* getFont(const ::std::string& fontPath);
+    Menu();
 
     /**
-     * @brief Updates the occurances of the font
+     * @brief Adds a new component to the menu
      * 
-     * @details If the occurances hits 0, then that font is removed
-     * from memory, as there are no labels using it.
-     * 
-     * @param usedFont The font of the destructed label
+     * @param component The component to be added
      */
-    void updateMaps(const ::sf::Font* usedFont);
+    void addComponent(Component* component);
+
+    /**
+     * @brief Set the Component's container
+     * 
+     * @param container The window responsible of the component
+     */
+    void setContainer(::sf::RenderWindow*& container)
+    {
+        _container = container;
+    }
+
+    /**
+     * @brief Retrieves a specific component
+     * 
+     * @param index The index of the component
+     * @return Component* 
+     */
+    Component* getComponent(const unsigned& index);
 };
 
-}
 }

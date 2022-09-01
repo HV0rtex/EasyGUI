@@ -14,33 +14,54 @@
 
 
 /**
- * @file Point.hpp
+ * @file Menu.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the Point class
+ * @brief Implementation of the Menu class
  * @version 0.1
- * @date 2022-08-15
+ * @date 2022-08-28
  * 
  * @copyright Copyright (c) 2022
  * 
  */
 
+#include <Menu.hpp>
+
 namespace easyGUI
 {
-namespace utils
+
+Menu::~Menu()
 {
-
-/**
- * @brief Stores the coordinates of a point.
- * 
- */
-struct Point
-{
-    float Xcoord;
-    float Ycoord;
-
-    Point() : Xcoord(0), Ycoord(0) {}
-    Point(const float& x, const float& y) : Xcoord(x), Ycoord(y) {}
-};
-
+    for(Component*& element : _components)
+    {
+        delete element;
+    }
 }
+
+Menu::Menu() {}
+
+void Menu::addComponent(Component* component)
+{
+    _components.push_back(component);
+
+    component->setContainer(_container);
+}
+
+void Menu::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
+{
+    for(Component* const element : _components)
+    {
+        target.draw(*element, states);
+    }
+}
+
+Component* Menu::getComponent(const unsigned& index)
+{
+    if(index < _components.size())
+    {
+        return _components.at(index);
+    }
+
+    return nullptr;
+}
+
 }

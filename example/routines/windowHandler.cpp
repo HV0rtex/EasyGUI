@@ -12,35 +12,21 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#include <routines.hpp>
 
-/**
- * @file Point.hpp
- * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the Point class
- * @version 0.1
- * @date 2022-08-15
- * 
- * @copyright Copyright (c) 2022
- * 
- */
-
-namespace easyGUI
+bool windowHandler_trigger (const ::sf::Event& event)
 {
-namespace utils
-{
-
-/**
- * @brief Stores the coordinates of a point.
- * 
- */
-struct Point
-{
-    float Xcoord;
-    float Ycoord;
-
-    Point() : Xcoord(0), Ycoord(0) {}
-    Point(const float& x, const float& y) : Xcoord(x), Ycoord(y) {}
-};
-
+    return (event.type == ::sf::Event::Closed);
 }
+
+void windowHandler_action ()
+{
+    easyGUI::Application* app = nullptr;
+    
+    app = app->getInstance(appWidth, appHeight, appTitle.c_str());
+
+    if(app != nullptr)
+    {
+        app->stop();
+    }
 }

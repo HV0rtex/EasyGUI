@@ -14,33 +14,41 @@
 
 
 /**
- * @file Point.hpp
+ * @file Routine.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the Point class
+ * @brief Implementation of the routine class
  * @version 0.1
- * @date 2022-08-15
+ * @date 2022-08-26
  * 
  * @copyright Copyright (c) 2022
  * 
  */
 
+#include <Routine.hpp>
+
 namespace easyGUI
 {
-namespace utils
+
+void Routine::toggle()
 {
-
-/**
- * @brief Stores the coordinates of a point.
- * 
- */
-struct Point
-{
-    float Xcoord;
-    float Ycoord;
-
-    Point() : Xcoord(0), Ycoord(0) {}
-    Point(const float& x, const float& y) : Xcoord(x), Ycoord(y) {}
-};
-
+    _isActive = !_isActive;
 }
+
+void Routine::operator() (const ::sf::Event& event) const
+{
+    if(!_isActive)
+        return;
+
+    if(_trigger(event))
+    {
+        _response();
+    }
+}
+
+Routine::Routine(bool (*trigger)(const ::sf::Event& event), void (*response)())
+{
+    _trigger = trigger;
+    _response = response;
+}
+
 }

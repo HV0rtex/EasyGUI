@@ -77,8 +77,6 @@ Label::Label(const utils::Point& position, const ::std::string& text, const ::st
     _font = manager->getFont(fontPath);
     _textColor = color;
 
-    _container = nullptr;
-
     constructText(position, text, charSize);
 }
 

@@ -12,55 +12,35 @@
 # FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+# ----- Creating demo project -----
 
-# ----- Defining library sets -----
+add_executable(
+    demo
+    demo.cpp
+    
+    # Menus
+    menus/mainMenu.cpp
 
-add_library(
-    assets STATIC
-
-    ./src/FontManager.cpp
-    ./src/Label.cpp
-)
-
-add_library(
-    assets-shared SHARED
-
-    ./src/FontManager.cpp
-    ./src/Label.cpp
-)
-
-# ----- Defining includes -----
-
-target_include_directories(
-    assets PUBLIC
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/inc
+    # Routines
+    routines/windowHandler.cpp
 )
 
 target_include_directories(
-    assets-shared PUBLIC
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/inc
+    demo
+    
+    PUBLIC
+    ../src/Application/inc/
+    ../src/Assets/inc/
+    ./
 )
-
-# ----- Linking dependencies -----
 
 target_link_libraries(
+    demo
+    application
     assets
-    sfml-graphics
-    sfml-window 
-    sfml-system
 )
 
-target_link_libraries(
-    assets-shared
-    sfml-graphics 
-    sfml-window
-    sfml-system
-)
+# ----- Installing project -----
 
-# ----- Installing library -----
-
-install( TARGETS assets DESTINATION ${PROJECT_LIBRARY_DIR} )
-install( TARGETS assets-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
-install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/Assets )
+install( TARGETS demo DESTINATION ${PROJECT_RUNTIME_DIR}/demo )
+install( DIRECTORY ./res/ DESTINATION ${PROJECT_RUNTIME_DIR}/demo/res )

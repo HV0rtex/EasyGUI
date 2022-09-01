@@ -12,35 +12,11 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#pragma once
 
-/**
- * @file Point.hpp
- * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the Point class
- * @version 0.1
- * @date 2022-08-15
- * 
- * @copyright Copyright (c) 2022
- * 
- */
+// Including dependencies
+#include <Application.hpp>
+#include <Label.hpp>
 
-namespace easyGUI
-{
-namespace utils
-{
-
-/**
- * @brief Stores the coordinates of a point.
- * 
- */
-struct Point
-{
-    float Xcoord;
-    float Ycoord;
-
-    Point() : Xcoord(0), Ycoord(0) {}
-    Point(const float& x, const float& y) : Xcoord(x), Ycoord(y) {}
-};
-
-}
-}
+// Defining functions to create menus
+void createMainMenu(easyGUI::Application* appInstance);

@@ -64,3 +64,5 @@ add_compile_options(
 
 add_subdirectory(src)
 add_subdirectory(tests)
+
+# add_subdirectory(example)

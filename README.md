@@ -12,7 +12,6 @@ creating a GUI.
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Support](#support)
-- [Contribute](#colaborations)
 
 ## How it works
 
@@ -84,7 +83,6 @@ After you have downloaded the release package, follow these steps:
 3. Go to *Settings > Linker > Search directories* and add the **lib** directory
 4. Go to *Settings > Linker > Libraries* and add the following libraries, in this order:
    - easyGUI-application
-   - easyGUI-menus
    - easyGUI-assets
 
 Then you can try and build one of the examples in order to test that everything works accordingly
@@ -98,7 +96,6 @@ After you have downloaded the release package, follow these steps:
 3. Go to *Settings > Linker > Search directories* and add the **lib** directory
 4. Go to *Settings > Linker > Libraries* and add the following libraries, in this order:
    - easyGUI-application
-   - easyGUI-menus
    - easyGUI-assets
 
 Then you can try and build one of the examples in order to test that everything works accordingly
