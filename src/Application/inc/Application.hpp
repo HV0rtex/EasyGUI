@@ -108,12 +108,9 @@ public:
     /**
      * @brief Appends a new menu to the application
      * 
-     * The appended menu can be referenced via the index
-     * returned by the function.
-     * 
      * @param isStart Denotes if the menu is to be displayed first
      * 
-     * @returns ::std::string
+     * @returns Menu*
      * 
      * @throw ::std::invalid_argument More than one start menu declared.
      */
