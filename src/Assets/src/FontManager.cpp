@@ -28,8 +28,6 @@
 
 namespace easyGUI
 {
-namespace utils
-{
 
 FontManager* FontManager::instance = 0;
 
@@ -95,5 +93,4 @@ FontManager::~FontManager()
     }
 }
 
-}
 }

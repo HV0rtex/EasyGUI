@@ -13,48 +13,44 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <routines.hpp>
-#include <menus.hpp>
 
-using namespace easyGUI;
-
-// Setting application parameters
-unsigned appWidth = 800;
-unsigned appHeight = 600;
-std::string appTitle = "Demo app";
-
-// Declaring application object
-Application* app = nullptr;
-
-int main()
+bool backButton_trigger (const ::sf::Event& event)
 {
-    // Creating application
-    app = app->getInstance(appWidth, appHeight, appTitle.c_str());
-
-    // Creating routines
-    Routine windowHandler(windowHandler_trigger, windowHandler_action);
-    Routine exitButtonHandler (exitButton_trigger, exitButton_action);
-    Routine demoButtonHandler (demoButton_trigger, demoButton_action);
-    Routine backButtonHandler (backButton_trigger, backButton_action);
-
-    // Adding routine to app
-    app->addRoutine(&windowHandler);
-    app->addRoutine(&exitButtonHandler);
-    app->addRoutine(&demoButtonHandler);
-    app->addRoutine(&backButtonHandler);
-
-    try
+    easyGUI::Application* app = nullptr;
+    app = app->getInstance();
+    
+    if(app != nullptr)
     {
-        // Creating menus
-        createMainMenu(app);
-        createSecondMenu(app);
+        easyGUI::Menu* firstMenu = app->getMenu(1);
+    
+        if(firstMenu != nullptr && app->getActiveMenu() == firstMenu)
+        {
+            easyGUI::Component* backButton = firstMenu->getComponent(1);
 
-        // Starting the application
-        app->start();
-    }
-    catch(...)
-    {
-        return 1;
+            if(backButton == nullptr)
+            {
+                return false;
+            }
+
+            return (
+                event.type == ::sf::Event::MouseButtonPressed && 
+                event.mouseButton.button == ::sf::Mouse::Left &&
+                backButton->isMouseHover()
+            );
+        }
     }
     
-    return 0;
+    return false;
+}
+
+void backButton_action ()
+{
+    easyGUI::Application* app = nullptr;
+    
+    app = app->getInstance();
+
+    if(app != nullptr)
+    {
+        app->setActiveMenu(0);
+    }
 }

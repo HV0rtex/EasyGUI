@@ -26,8 +26,6 @@
 
 namespace easyGUI
 {
-namespace utils
-{
 
 /**
  * @brief Stores the coordinates of a point.
@@ -42,5 +40,4 @@ struct Point
     Point(const float& x, const float& y) : Xcoord(x), Ycoord(y) {}
 };
 
-}
 }

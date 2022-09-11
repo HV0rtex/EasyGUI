@@ -10,6 +10,7 @@
  */
 
 #include <Application.hpp>
+#include <iostream>
 
 namespace easyGUI
 {
@@ -20,6 +21,11 @@ Application* Application::instance = 0;
 Application::Application(const unsigned& width, const unsigned& height, const char* title)
 {
     _window = new ::sf::RenderWindow(::sf::VideoMode(width,height), title);
+}
+
+Application* Application::getInstance()
+{
+    return instance;
 }
 
 Application* Application::getInstance(const unsigned& width, const unsigned& height, const char* title, const char& isResponsive)
@@ -35,9 +41,9 @@ Application* Application::getInstance(const unsigned& width, const unsigned& hei
             // Adjust the window to the new configuration
             instance->_window->setSize(::sf::Vector2u(width, height));
             instance->_window->setTitle(title);
+        
+            instance->_responsive = isResponsive;
         }
-
-        instance->_responsive = isResponsive;
 
         return instance;
     }
@@ -49,7 +55,10 @@ void Application::handleEvents(const ::sf::Event& event)
 {
     for(Routine*& routine : routines)
     {
-        routine->operator()(event);
+        if( routine->operator()(event) == 1 )
+        {
+            break;
+        }
     }
 }
 
@@ -58,6 +67,21 @@ Menu* Application::getMenu(const unsigned& index)
     if(index < menus.size())
     {
         return menus.at(index);
+    }
+
+    return nullptr;
+}
+
+const Menu* Application::getActiveMenu() const
+{
+    return _activeMenu;
+}
+
+Routine* Application::getRoutine(const unsigned& index)
+{
+    if(index < routines.size())
+    {
+        return routines.at(index);
     }
 
     return nullptr;
@@ -95,6 +119,8 @@ Menu* Application::addMenu(const bool& isStart)
     }
 
     newMenu->setContainer(_window);
+
+    menus.push_back(newMenu);
 
     return newMenu;
 }

@@ -30,7 +30,7 @@
 
 TEST(LabelUnitTest, SimpleInitTest)
 {
-    ::easyGUI::utils::Point pos;
+    ::easyGUI::Point pos;
     ::easyGUI::Label* testObj; 
 
     pos.Xcoord = 0;
@@ -42,7 +42,7 @@ TEST(LabelUnitTest, SimpleInitTest)
 
 TEST(LabelUnitTest, InitFailsInvalidFont)
 {
-    ::easyGUI::utils::Point pos;
+    ::easyGUI::Point pos;
     ::easyGUI::Label* testObj; 
 
     pos.Xcoord = 0;

@@ -104,6 +104,7 @@ public:
      * @return Application* 
      */
     Application* getInstance(const unsigned& width, const unsigned& height, const char* title, const char& isResponsive = 0);
+    Application* getInstance();
 
     /**
      * @brief Appends a new menu to the application
@@ -126,6 +127,24 @@ public:
      * @retval Menu The menu linked to that index.
      */
     Menu* getMenu(const unsigned& index);
+
+    /**
+     * @brief Retruns the active menu
+     * 
+     * @return const Menu* 
+     */
+    const Menu* getActiveMenu() const;
+
+    /**
+     * @brief Gets a routine by its index
+     * 
+     * @param index The index of the routine
+     * 
+     * @return Routine*
+     * @retval NULL invalid index
+     * @retval Routine The routine linked to that index.
+     */
+    Routine* getRoutine(const unsigned& index);
 
     /**
      * @brief Changes the active menu

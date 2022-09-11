@@ -30,7 +30,7 @@
 TEST(PointUnitTest, SimpleInitTest) 
 {
     // Normal initialization
-    easyGUI::utils::Point obj;
+    easyGUI::Point obj;
 
     obj.Xcoord = 2;
     obj.Ycoord = -1;
@@ -39,7 +39,7 @@ TEST(PointUnitTest, SimpleInitTest)
     ASSERT_EQ(obj.Ycoord, -1);
 
     // Copy construction
-    easyGUI::utils::Point obj2(obj);
+    easyGUI::Point obj2(obj);
 
     ASSERT_EQ(obj2.Xcoord, 2);
     ASSERT_EQ(obj2.Ycoord, -1);

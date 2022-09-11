@@ -29,26 +29,28 @@
 namespace easyGUI
 {
 
-void Routine::toggle()
+void Routine::setActive(const bool& active)
 {
-    _isActive = !_isActive;
+    _isActive = active;
 }
 
-void Routine::operator() (const ::sf::Event& event) const
+int Routine::operator() (const ::sf::Event& event) const
 {
-    if(!_isActive)
-        return;
-
-    if(_trigger(event))
+    if(_isActive && _trigger(event))
     {
         _response();
+
+        return 1;
     }
+
+    return 0;
 }
 
 Routine::Routine(bool (*trigger)(const ::sf::Event& event), void (*response)())
 {
     _trigger = trigger;
     _response = response;
+    _isActive = true;
 }
 
 }

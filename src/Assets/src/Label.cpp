@@ -34,7 +34,7 @@ void Label::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
     target.draw(_text, states);
 }
 
-void Label::constructText(const utils::Point& position, const ::std::string& text, const unsigned& charSize)
+void Label::constructText(const Point& position, const ::std::string& text, const unsigned& charSize)
 {
     _text.setPosition(position.Xcoord, position.Ycoord);
     _text.setFont(*_font);
@@ -58,15 +58,15 @@ bool Label::isMouseHover() const
 
 Label::~Label() 
 {
-    utils::FontManager* manager = nullptr;
+    FontManager* manager = nullptr;
     manager = manager->getInstance();
 
     manager->updateMaps(_text.getFont());
 }
 
-Label::Label(const utils::Point& position, const ::std::string& text, const ::std::string& fontPath, const unsigned& charSize, const sf::Color& color)
+Label::Label(const Point& position, const ::std::string& text, const ::std::string& fontPath, const unsigned& charSize, const sf::Color& color)
 {
-    utils::FontManager* manager = nullptr;
+    FontManager* manager = nullptr;
     manager = manager->getInstance();
 
     if(manager->getFont(fontPath) == nullptr)
