@@ -24,9 +24,6 @@ add_executable(
 
     # Routines
     routines/windowHandler.cpp
-    routines/exitButton.cpp
-    routines/demoButton.cpp
-    routines/backButton.cpp
 )
 
 target_include_directories(
