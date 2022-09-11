@@ -23,7 +23,7 @@ void windowHandler_action ()
 {
     easyGUI::Application* app = nullptr;
     
-    app = app->getInstance(appWidth, appHeight, appTitle.c_str());
+    app = app->getInstance();
 
     if(app != nullptr)
     {

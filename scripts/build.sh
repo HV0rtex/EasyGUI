@@ -18,3 +18,9 @@ cd ../build
 #
 cmake ../
 make && make install .
+
+#
+# Removing build dir
+#
+cd ..
+rm -rf ./build

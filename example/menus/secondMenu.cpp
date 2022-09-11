@@ -14,11 +14,11 @@
 
 #include <menus.hpp>
 
-void createMainMenu(easyGUI::Application* appInstance)
+void createSecondMenu(easyGUI::Application* appInst)
 {
-    if(appInstance != nullptr)
+    if(appInst != nullptr)
     {
-        easyGUI::Menu* menu = appInstance->addMenu(true);
+        easyGUI::Menu* menu = appInst->addMenu();
 
         if(menu == nullptr)
         {
@@ -31,7 +31,7 @@ void createMainMenu(easyGUI::Application* appInstance)
                 new easyGUI::Label( 
                     easyGUI::Point(220, 100),
                     
-                    "A demo application", 
+                    "A second menu", 
                     "./res/Arial.ttf", 
                     
                     40, 
@@ -49,23 +49,7 @@ void createMainMenu(easyGUI::Application* appInstance)
                     ::sf::Color::White, 
                     ::sf::Color::White, 
                     
-                    "Demo button", 
-                    "./res/Arial.ttf", 
-                    
-                    25, 5
-                )
-            );
-
-            menu->addComponent( 
-                new easyGUI::Button( 
-                    easyGUI::Point(50, 275),
-                    easyGUI::Point(250,325), 
-
-                    ::sf::Color::Black, 
-                    ::sf::Color::White, 
-                    ::sf::Color::White, 
-                    
-                    "Exit", 
+                    "Go back", 
                     "./res/Arial.ttf", 
                     
                     25, 5

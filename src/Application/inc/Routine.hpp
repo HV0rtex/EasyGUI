@@ -39,6 +39,7 @@ namespace easyGUI
  * application events are fired. That way, it allows the user to control the flow
  * of the application.
  * 
+ * @warning Only the first matching routine will fire !
  */
 class Routine
 {
@@ -62,14 +63,19 @@ public:
      * 
      * @details The operator checks if the current event triggers the routine,
      * and on trigger fires the response action.
+     * 
+     * @return int
+     * @retval 1 The routine fired
+     * @retval 0 The routine didn't fire
      */
-    void operator() (const ::sf::Event& event) const;
+    int operator() (const ::sf::Event& event) const;
 
     /**
      * @brief Enables / Disables the routine
      * 
+     * @param active Denotes whether the routine should be active
      */
-    void toggle();
+    void setActive(const bool& active);
 };
 
 }

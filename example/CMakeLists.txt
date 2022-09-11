@@ -20,9 +20,13 @@ add_executable(
     
     # Menus
     menus/mainMenu.cpp
+    menus/secondMenu.cpp
 
     # Routines
     routines/windowHandler.cpp
+    routines/exitButton.cpp
+    routines/demoButton.cpp
+    routines/backButton.cpp
 )
 
 target_include_directories(

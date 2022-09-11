@@ -16,7 +16,8 @@
 
 // Including dependencies
 #include <Application.hpp>
-#include <Label.hpp>
+#include <Button.hpp>
 
 // Defining functions to create menus
 void createMainMenu(easyGUI::Application* appInstance);
+void createSecondMenu(easyGUI::Application* appInstance);

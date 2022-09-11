@@ -39,11 +39,11 @@ Button::~Button()
 
 unsigned Button::getCharSizeCorrection(const unsigned& length, const unsigned& charSize) const
 {
-    float lenghtInPix = length * charSize / 15;
-    float heightInPix = charSize / 7.5f;
+    float lenghtInPix = length * charSize / 1.9;
+    float heightInPix = charSize * 1.55;
 
-    float freeSpaceX = _shape.getSize().x - lenghtInPix - _shape.getOutlineThickness() * 2 / 15;
-    float freeSpaceY = _shape.getSize().y - heightInPix - _shape.getOutlineThickness() * 2 / 15;
+    float freeSpaceX = _shape.getSize().x - lenghtInPix;
+    float freeSpaceY = _shape.getSize().y - heightInPix;
 
     unsigned correction = 0;
 
@@ -51,11 +51,11 @@ unsigned Button::getCharSizeCorrection(const unsigned& length, const unsigned& c
     {
         correction++;
 
-        lenghtInPix = length * (charSize - correction) / 15;
-        heightInPix = (charSize - correction) / 7.5f;
+        lenghtInPix = length * (charSize - correction) / 1.9;
+        heightInPix = (charSize - correction) * 1.5;
 
-        freeSpaceX = _shape.getSize().x - lenghtInPix - _shape.getOutlineThickness() * 2 / 15;
-        freeSpaceY = _shape.getSize().y - heightInPix - _shape.getOutlineThickness() * 2 / 15;
+        freeSpaceX = _shape.getSize().x - lenghtInPix;
+        freeSpaceY = _shape.getSize().y - heightInPix;
     }
 
     return correction;
@@ -63,11 +63,11 @@ unsigned Button::getCharSizeCorrection(const unsigned& length, const unsigned& c
 
 Point Button::getLabelPosition(const unsigned& length, const unsigned& charSize) const
 {
-    float lenghtInPix = length * charSize / 15;
-    float heightInPix = charSize / 7.5f;
+    float lenghtInPix = length * charSize / 1.9;
+    float heightInPix = charSize * 1.55;
 
-    float freeSpaceX = _shape.getSize().x - lenghtInPix - _shape.getOutlineThickness() * 2 / 15;
-    float freeSpaceY = _shape.getSize().y - heightInPix - _shape.getOutlineThickness() * 2 / 15;
+    float freeSpaceX = _shape.getSize().x - lenghtInPix;
+    float freeSpaceY = _shape.getSize().y - heightInPix;
 
     return Point(_shape.getPosition().x + freeSpaceX / 2, _shape.getPosition().y + freeSpaceY / 2);
 }
