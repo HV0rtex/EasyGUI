@@ -14,6 +14,18 @@
 
 #include <menus.hpp>
 
+void backButton_action ()
+{
+    easyGUI::Application* app = nullptr;
+    
+    app = app->getInstance();
+
+    if(app != nullptr)
+    {
+        app->setActiveMenu(0);
+    }
+}
+
 void createSecondMenu(easyGUI::Application* appInst)
 {
     if(appInst != nullptr)
@@ -55,6 +67,8 @@ void createSecondMenu(easyGUI::Application* appInst)
                     25, 5
                 )
             );
+
+            menu->getComponent(1)->setOnClickAction(backButton_action);
         }
         catch(...)
         {

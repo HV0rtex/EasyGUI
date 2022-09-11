@@ -20,12 +20,6 @@
 
 // Defining routine triggers
 bool windowHandler_trigger (const ::sf::Event& event);
-bool exitButton_trigger (const ::sf::Event& event);
-bool demoButton_trigger (const ::sf::Event& event);
-bool backButton_trigger (const ::sf::Event& event);
 
 // Defining routine actions
 void windowHandler_action ();
-void exitButton_action ();
-void demoButton_action ();
-void backButton_action ();

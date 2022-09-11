@@ -53,12 +53,23 @@ Application* Application::getInstance(const unsigned& width, const unsigned& hei
 
 void Application::handleEvents(const ::sf::Event& event)
 {
+    if(event.type == ::sf::Event::MouseButtonPressed && event.mouseButton.button == ::sf::Mouse::Left)
+    {
+        unsigned index = 0;
+        Component* currentComp = _activeMenu->getComponent(0);
+
+        while(currentComp != nullptr)
+        {
+            currentComp->onClick();
+
+            index++;
+            currentComp = _activeMenu->getComponent(index);
+        }
+    }
+
     for(Routine*& routine : routines)
     {
-        if( routine->operator()(event) == 1 )
-        {
-            break;
-        }
+        routine->operator()(event);
     }
 }
 
