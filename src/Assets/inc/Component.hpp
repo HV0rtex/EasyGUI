@@ -47,6 +47,8 @@ class Component : public ::sf::Drawable
 protected:
     ::sf::RenderWindow* _container;
 
+    void (*_onClick)();
+
 public:
 
     /**
@@ -59,7 +61,7 @@ public:
         _container = container;
     }
 
-    // ----- Auxiliaries -----
+    // ----- Interaction methods -----
 
     /**
      * @brief Check if mouse is over the button
@@ -68,6 +70,28 @@ public:
      * @return false otherwise
      */
     virtual bool isMouseHover() const = 0;
+
+    /**
+     * @brief Makes the component interactable
+     * 
+     * @param action Function to be called when component is clicked.
+     */
+    void setOnClickAction( void (*action)() )
+    {
+        _onClick = action;
+    }
+
+    /**
+     * @brief Executes the onClick action
+     * 
+     */
+    void onClick()
+    {
+        if(_onClick != nullptr && isMouseHover())
+        {
+            _onClick();
+        }
+    }
 };
 
 }

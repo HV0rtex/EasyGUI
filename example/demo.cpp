@@ -32,15 +32,9 @@ int main()
 
     // Creating routines
     Routine windowHandler(windowHandler_trigger, windowHandler_action);
-    Routine exitButtonHandler (exitButton_trigger, exitButton_action);
-    Routine demoButtonHandler (demoButton_trigger, demoButton_action);
-    Routine backButtonHandler (backButton_trigger, backButton_action);
-
+    
     // Adding routine to app
     app->addRoutine(&windowHandler);
-    app->addRoutine(&exitButtonHandler);
-    app->addRoutine(&demoButtonHandler);
-    app->addRoutine(&backButtonHandler);
 
     try
     {

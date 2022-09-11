@@ -34,16 +34,12 @@ void Routine::setActive(const bool& active)
     _isActive = active;
 }
 
-int Routine::operator() (const ::sf::Event& event) const
+void Routine::operator() (const ::sf::Event& event) const
 {
     if(_isActive && _trigger(event))
     {
         _response();
-
-        return 1;
     }
-
-    return 0;
 }
 
 Routine::Routine(bool (*trigger)(const ::sf::Event& event), void (*response)())

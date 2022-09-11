@@ -14,6 +14,30 @@
 
 #include <menus.hpp>
 
+void demoButton_action ()
+{
+    easyGUI::Application* app = nullptr;
+    
+    app = app->getInstance();
+
+    if(app != nullptr)
+    {
+        app->setActiveMenu(1);
+    }
+}
+
+void demoButton_action ()
+{
+    easyGUI::Application* app = nullptr;
+    
+    app = app->getInstance();
+
+    if(app != nullptr)
+    {
+        app->stop();
+    }
+}
+
 void createMainMenu(easyGUI::Application* appInstance)
 {
     if(appInstance != nullptr)
@@ -71,6 +95,9 @@ void createMainMenu(easyGUI::Application* appInstance)
                     25, 5
                 )
             );
+
+            menu->getComponent(1)->setOnClickAction(demoButton_action);
+            menu->getComponent(2)->setOnClickAction(exitButton_action);
         }
         catch(...)
         {

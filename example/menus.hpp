@@ -21,3 +21,8 @@
 // Defining functions to create menus
 void createMainMenu(easyGUI::Application* appInstance);
 void createSecondMenu(easyGUI::Application* appInstance);
+
+// Button actions
+void exitButton_action ();
+void demoButton_action ();
+void backButton_action ();
