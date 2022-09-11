@@ -26,7 +26,7 @@ void demoButton_action ()
     }
 }
 
-void demoButton_action ()
+void exitButton_action ()
 {
     easyGUI::Application* app = nullptr;
     
