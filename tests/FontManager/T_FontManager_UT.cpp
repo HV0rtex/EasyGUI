@@ -30,7 +30,7 @@
 
 TEST(FontManagerUT, SimpleInitTest)
 {
-    ::easyGUI::utils::FontManager* inst = nullptr;
+    ::easyGUI::FontManager* inst = nullptr;
 
     ASSERT_NO_THROW(inst = inst->getInstance());
     ASSERT_NE(inst, nullptr);
@@ -38,7 +38,7 @@ TEST(FontManagerUT, SimpleInitTest)
 
 TEST(FontManagerUT, GetFontWorks)
 {
-    ::easyGUI::utils::FontManager* inst = nullptr;
+    ::easyGUI::FontManager* inst = nullptr;
 
     const ::sf::Font* ptr = nullptr;
     const ::sf::Font* ptr2 = nullptr;

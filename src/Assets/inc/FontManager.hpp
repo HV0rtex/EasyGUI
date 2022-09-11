@@ -33,8 +33,6 @@
 
 namespace easyGUI
 {
-namespace utils
-{
 
 /**
  * @brief Wrapper around ::sf::Font class
@@ -93,5 +91,4 @@ public:
     void updateMaps(const ::sf::Font* usedFont);
 };
 
-}
 }

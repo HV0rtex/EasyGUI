@@ -41,11 +41,8 @@ namespace easyGUI
  * @brief Implements a label component
  * 
  * @details This class is a wrapper around the sf::Text class, in order
- * to make the implementation of Labels easier for the end-user.
- * 
- * Furthermore, the class provides methods for onClick() and onHover()
- * so that the label can act as a Text-button. For custom labels, you can
- * inherit this class.
+ * to make the implementation of Labels easier for the end-user. For custom 
+ * labels, you can inherit this class.
  */
 class Label : public Component
 {
@@ -58,7 +55,7 @@ private:
 
     // ----- Initializers -----
 
-    void constructText(const utils::Point& position, const ::std::string& text, const unsigned& charSize);
+    void constructText(const Point& position, const ::std::string& text, const unsigned& charSize);
 
 public:
     /**
@@ -76,9 +73,19 @@ public:
      * @param charSize The size of the characters.
      * @param color The color of the label.
      * 
+     * @throw ::std::invalid_argument Invalid font path
+     * 
      * @note The font file format must be .ttf
      */
-    Label(const utils::Point& position, const ::std::string& text, const ::std::string& fontPath, const unsigned& charSize, const sf::Color& color);
+    Label(
+        const Point& position, 
+        
+        const ::std::string& text, 
+        const ::std::string& fontPath, 
+        
+        const unsigned& charSize, 
+        const sf::Color& color
+    );
 
     // Block other forms of construction
 
