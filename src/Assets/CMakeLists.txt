@@ -20,6 +20,7 @@ add_library(
 
     ./src/FontManager.cpp
     ./src/Label.cpp
+    ./src/Button.cpp
 )
 
 add_library(
@@ -27,6 +28,7 @@ add_library(
 
     ./src/FontManager.cpp
     ./src/Label.cpp
+    ./src/Button.cpp
 )
 
 # ----- Defining includes -----

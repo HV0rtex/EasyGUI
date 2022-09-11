@@ -63,9 +63,9 @@ private:
      * 
      * @param textLenght The length of the text
      * @param desiredSize The desired char size
-     * @return int
+     * @return unsigned
      */
-    int getCharSizeCorrection(const unsigned& textLenght, const unsigned& desiredSize) const;
+    unsigned getCharSizeCorrection(const unsigned& textLenght, const unsigned& desiredSize) const;
 
 public:
     /**

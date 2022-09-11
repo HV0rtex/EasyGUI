@@ -37,7 +37,7 @@ Button::~Button()
     }
 }
 
-int Button::getCharSizeCorrection(const unsigned& length, const unsigned& charSize) const
+unsigned Button::getCharSizeCorrection(const unsigned& length, const unsigned& charSize) const
 {
     float lenghtInPix = length * charSize / 15;
     float heightInPix = charSize / 7.5f;
@@ -45,14 +45,14 @@ int Button::getCharSizeCorrection(const unsigned& length, const unsigned& charSi
     float freeSpaceX = _shape.getSize().x - lenghtInPix - _shape.getOutlineThickness() * 2 / 15;
     float freeSpaceY = _shape.getSize().y - heightInPix - _shape.getOutlineThickness() * 2 / 15;
 
-    int correction = 0;
+    unsigned correction = 0;
 
     while(freeSpaceX <= 0 || freeSpaceY <= 0)
     {
-        correction--;
+        correction++;
 
-        lenghtInPix = length * (charSize + correction) / 15;
-        heightInPix = (charSize + correction) / 7.5f;
+        lenghtInPix = length * (charSize - correction) / 15;
+        heightInPix = (charSize - correction) / 7.5f;
 
         freeSpaceX = _shape.getSize().x - lenghtInPix - _shape.getOutlineThickness() * 2 / 15;
         freeSpaceY = _shape.getSize().y - heightInPix - _shape.getOutlineThickness() * 2 / 15;
@@ -92,9 +92,9 @@ Button::Button(
     _shape.setOutlineThickness(thickness);
     _shape.setSize(::sf::Vector2f(endLocation.Xcoord - startLocation.Xcoord, endLocation.Ycoord - startLocation.Ycoord));
 
-    int correction = getCharSizeCorrection(text.size(), charSize);
+    unsigned correction = getCharSizeCorrection(text.size(), charSize);
 
-    _content = new Label(getLabelPosition(text.size(), charSize + correction), text, fontPath, charSize + correction, textColor);
+    _content = new Label(getLabelPosition(text.size(), charSize - correction), text, fontPath, charSize - correction, textColor);
 }
 
 Button::Button(
@@ -118,9 +118,9 @@ Button::Button(
     _shape.setOutlineThickness(thickness);
     _shape.setSize(::sf::Vector2f(width, height));
 
-    int correction = getCharSizeCorrection(text.size(), charSize);
+    unsigned correction = getCharSizeCorrection(text.size(), charSize);
 
-    _content = new Label(getLabelPosition(text.size(), charSize + correction), text, fontPath, charSize + correction, textColor);
+    _content = new Label(getLabelPosition(text.size(), charSize - correction), text, fontPath, charSize - correction, textColor);
 }
 
 void Button::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
