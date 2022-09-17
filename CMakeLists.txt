@@ -21,9 +21,9 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 project(
-    ThreadPool
+    EasyGUI
     VERSION 0.0.0.1
-    DESCRIPTION "A simple and easy to use C++ API for thread pools"
+    DESCRIPTION "An extension for the SFML library that deals with GUI creation."
 )
 
 set(PROJECT_RUNTIME_DIR ${PROJECT_SOURCE_DIR}/bin)

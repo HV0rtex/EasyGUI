@@ -41,19 +41,6 @@ jobs:
         name: Unit_tests
         path: ${{github.workspace}}/bin/tests
 
-    - name: Cleaning bin directory
-      run: rm -rf ${{github.workspace}}/bin/tests
-
-    - name: Publishing API
-      uses: actions/upload-artifact@master
-      with:
-        name: EasyGUI
-        path: | 
-          ${{github.workspace}}/include
-          ${{github.workspace}}/example
-          ${{github.workspace}}/bin
-          ${{github.workspace}}/lib
-
     - name: Generating documentation
       run: cd ${{github.workspace}} && sudo apt-get install doxygen && doxygen docs/doxyfile.txt
 
@@ -63,7 +50,7 @@ jobs:
         name: Documentation
         path: ${{github.workspace}}/docs/html
 
-  Test:
+  Testing:
     needs: Build
     runs-on: ubuntu-latest
 

@@ -37,8 +37,8 @@ target_include_directories(
 
 target_link_libraries(
     demo
-    application
-    assets
+    easyGUI-application
+    easyGUI-assets
 )
 
 # ----- Installing project -----

@@ -16,14 +16,14 @@
 # ----- Defining library sets -----
 
 add_library(
-    application STATIC
+    easyGUI-application STATIC
     ./src/Application.cpp
     ./src/Routine.cpp
     ./src/Menu.cpp
 )
 
 add_library(
-    application-shared SHARED
+    easyGUI-application-shared SHARED
     ./src/Application.cpp
     ./src/Routine.cpp
     ./src/Menu.cpp
@@ -32,14 +32,14 @@ add_library(
 # ----- Defining includes -----
 
 target_include_directories(
-    application PUBLIC
+    easyGUI-application PUBLIC
 
     ./inc
     ../Assets/inc
 )
 
 target_include_directories(
-    application-shared PUBLIC
+    easyGUI-application-shared PUBLIC
 
     ./inc
     ../Assets/inc
@@ -48,14 +48,14 @@ target_include_directories(
 # ----- Linking dependencies -----
 
 target_link_libraries(
-    application
+    easyGUI-application
     sfml-graphics
     sfml-window
     sfml-system
 )
 
 target_link_libraries(
-    application-shared
+    easyGUI-application-shared
     sfml-graphics
     sfml-window
     sfml-system
@@ -63,6 +63,6 @@ target_link_libraries(
 
 # ----- Installing library -----
 
-install( TARGETS application DESTINATION ${PROJECT_LIBRARY_DIR} )
-install( TARGETS application-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
+install( TARGETS easyGUI-application DESTINATION ${PROJECT_LIBRARY_DIR} )
+install( TARGETS easyGUI-application-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
 install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/Application )

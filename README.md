@@ -38,6 +38,7 @@ egui::Button myButton (
     "Demo button",                          // <-- Button text
     "/path/to/desired/font.ttf",            // <-- Desired font
     15,                                     // <-- Desired character size
+    5                                       // <-- Border thickness
 );
 
 myButton.addOnClickAction ( action );       // <-- action is a void function with no params
@@ -49,8 +50,7 @@ it will be automatically centered, otherwise a warning will be issued and the te
 ## What is provided
 
 In every realease, you will have provided both static and dynamic libraries to suit your prefered way of
-linkage, the API headers as well as some examples of how to use this application with different building
-environments.
+linkage, the API headers as well as a demo project.
 
 ## Prerequisites
 
@@ -68,9 +68,8 @@ to your IDE:
 
 If you didn't manage to find an appropriate release package, then follow these steps bellow:
 
-1. Download the repository (either manually or via git)
-2. Copy the **src** directory inside your project
-3. Append the headers and sources to your project to be built.
+1. Download the **src** directory and copy it inside your project
+2. Append the headers and sources to your project to be built.
 
 **Note: Depending on your build system, the third step may be achieved in different ways.**
 
@@ -79,11 +78,17 @@ If you didn't manage to find an appropriate release package, then follow these s
 After you have downloaded the release package, follow these steps:
 
 1. Unpack the package
-2. Go to *Settings > Compiler > Include directories* and add the **include** directory
-3. Go to *Settings > Linker > Search directories* and add the **lib** directory
+2. Go to *Settings > Compiler > Search directories > Compiler* and add the **include** directory
+3. Go to *Settings > Compiler > Search directories > Linker* and add the **lib** directory
 4. Go to *Settings > Linker > Libraries* and add the following libraries, in this order:
    - easyGUI-application
    - easyGUI-assets
+5. Make sure that this order of linkage is verified
+   - easyGUI-application
+   - easyGUI-assets
+   - sfml-graphics
+   - sfml-window
+   - sfml-system
 
 Then you can try and build one of the examples in order to test that everything works accordingly
 

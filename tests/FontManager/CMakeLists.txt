@@ -17,5 +17,5 @@ setup_unit_test(
     TEST_NAME FontManager-UT
     TEST_SOURCES main.cpp T_FontManager_UT
     TEST_INCLUDES ${PROJECT_SOURCE_DIR}/src/Assets/inc
-    TEST_LIBS assets
+    TEST_LIBS easyGUI-assets
 )

@@ -16,7 +16,7 @@
 # ----- Defining library sets -----
 
 add_library(
-    assets STATIC
+    easyGUI-assets STATIC
 
     ./src/FontManager.cpp
     ./src/Label.cpp
@@ -24,7 +24,7 @@ add_library(
 )
 
 add_library(
-    assets-shared SHARED
+    easyGUI-assets-shared SHARED
 
     ./src/FontManager.cpp
     ./src/Label.cpp
@@ -34,13 +34,13 @@ add_library(
 # ----- Defining includes -----
 
 target_include_directories(
-    assets PUBLIC
+    easyGUI-assets PUBLIC
 
     ${CMAKE_CURRENT_SOURCE_DIR}/inc
 )
 
 target_include_directories(
-    assets-shared PUBLIC
+    easyGUI-assets-shared PUBLIC
 
     ${CMAKE_CURRENT_SOURCE_DIR}/inc
 )
@@ -48,14 +48,14 @@ target_include_directories(
 # ----- Linking dependencies -----
 
 target_link_libraries(
-    assets
+    easyGUI-assets
     sfml-graphics
     sfml-window 
     sfml-system
 )
 
 target_link_libraries(
-    assets-shared
+    easyGUI-assets-shared
     sfml-graphics 
     sfml-window
     sfml-system
@@ -63,6 +63,6 @@ target_link_libraries(
 
 # ----- Installing library -----
 
-install( TARGETS assets DESTINATION ${PROJECT_LIBRARY_DIR} )
-install( TARGETS assets-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
+install( TARGETS easyGUI-assets DESTINATION ${PROJECT_LIBRARY_DIR} )
+install( TARGETS easyGUI-assets-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
 install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/Assets )
