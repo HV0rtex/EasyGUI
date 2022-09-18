@@ -28,9 +28,9 @@ create a button in SFML you would have to:
 This workflow is tedious and unnecessary. With EasyGUI all that workflow is reduced to just these two lines:
 
 ```
-egui::Button myButton ( 
-    egui::utils::Point(startX, startY),     // <-- Top-left corner
-    egui::utils::Point(endX, endY),         // <-- Bottom-right corner
+easyGUI::Button myButton ( 
+    easyGUI::Point(startX, startY),         // <-- Top-left corner
+    easyGUI::Point(endX, endY),             // <-- Bottom-right corner
     sf::Color(255,0,0),                     // <-- Border color
     sf::Color(0,0,0),                       // <-- Fill color
     sf::Color(255, 255, 255),               // <-- Text color
@@ -45,7 +45,7 @@ myButton.addOnClickAction ( action );       // <-- action is a void function wit
 ```
 
 This way, you don't need to worry wether the button text will fit. If the text fits inside the button borders,
-it will be automatically centered, otherwise a warning will be issued and the text / shape will be readjusted accordingly.
+it will be automatically centered, otherwise the text / shape will be readjusted accordingly.
 
 ## What is provided
 
@@ -60,11 +60,13 @@ Before attempting to use the extension you must make sure you have the following
 
 ## Installation
 
+**[ WINDOWS ONLY ]** Make sure that the release package matches your OS version (32 / 64 bits)
+
 After you have downloaded the release package specific for your operating system, please go the link corresponding
 to your IDE:
 
 - [Code::Blocks](#installation---codeblocks)
-- [Visual Studio Code](#installation---vs-code)
+- [Visual Studio](#installation---visualstudio)
 
 If you didn't manage to find an appropriate release package, then follow these steps bellow:
 
@@ -92,16 +94,22 @@ After you have downloaded the release package, follow these steps:
 
 Then you can try and build one of the examples in order to test that everything works accordingly
 
-## Installation - VS Code
+## Installation - Visual Studio
 
 After you have downloaded the release package, follow these steps:
 
 1. Unpack the package
-2. Go to *Settings > Compiler > Include directories* and add the **include** directory
-3. Go to *Settings > Linker > Search directories* and add the **lib** directory
-4. Go to *Settings > Linker > Libraries* and add the following libraries, in this order:
+2. In the project properties go to *C/C++ > General > Additional Include Directories* and add the **include** directory
+3. In the project properties go to *Linker > General > Additional Include Directories* and add the **lib** directory
+4. In the project properties go to *Linker > Input > Additional Dependencies* and add the following libraries:
    - easyGUI-application
    - easyGUI-assets
+5. Make sure that this order of linkage is verified
+   - easyGUI-application
+   - easyGUI-assets
+   - sfml-graphics
+   - sfml-window
+   - sfml-system
 
 Then you can try and build one of the examples in order to test that everything works accordingly
 
