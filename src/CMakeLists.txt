@@ -21,7 +21,3 @@ find_package(SFML REQUIRED system window graphics network audio)
 
 add_subdirectory(Assets)
 add_subdirectory(Application)
-
-# ----- Installing headers -----
-
-install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/inc/ DESTINATION ${PROJECT_INCLUDE_DIR} )
