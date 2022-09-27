@@ -28,9 +28,9 @@ Application* Application::getInstance()
     return instance;
 }
 
-Application* Application::getInstance(const unsigned& width, const unsigned& height, const char* title, const char& isResponsive)
+Application* Application::getInstance(const unsigned& width, const unsigned& height, const char* title)
 {
-    if(title != nullptr)
+    if(title != nullptr && width > 0 && height > 0)
     {
         if(instance == nullptr)
         {
@@ -41,14 +41,10 @@ Application* Application::getInstance(const unsigned& width, const unsigned& hei
             // Adjust the window to the new configuration
             instance->_window->setSize(::sf::Vector2u(width, height));
             instance->_window->setTitle(title);
-        
-            instance->_responsive = isResponsive;
         }
-
-        return instance;
     }
 
-    return nullptr;
+    return instance;
 }
 
 void Application::handleEvents(const ::sf::Event& event)
@@ -117,9 +113,10 @@ Menu* Application::addMenu(const bool& isStart)
 
     if(isStart)
     {
-        if(_activeMenu == nullptr)
+        if(!_startMenuSet)
         {
             _activeMenu = newMenu;
+            _startMenuSet = true;
         }
         else
         {
@@ -141,6 +138,13 @@ void Application::setActiveMenu(const unsigned& index)
     if(index < menus.size())
     {
         _activeMenu = menus.at(index);
+
+        if(!_startMenuSet)
+        {
+            // A main menu can also be configured by manually setting
+            // the active menu.
+            _startMenuSet = true;
+        }
     }
     else
     {
