@@ -16,6 +16,8 @@
 
 add_executable(
     demo
+
+    # Main
     demo.cpp
     
     # Menus
@@ -24,6 +26,11 @@ add_executable(
 
     # Routines
     routines/windowHandler.cpp
+
+    # Buttons
+    menus/buttons/backButton.cpp
+    menus/buttons/demoButton.cpp
+    menus/buttons/exitButton.cpp
 )
 
 target_include_directories(

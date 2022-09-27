@@ -12,18 +12,28 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
+/**
+ * @file buttons.hpp
+ * @author David Bogdan (david.bnicolae@gmail.com)
+ * @brief Includes the headers for all button callbacks
+ * @version 0.1
+ * @date 2022-09-27
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #pragma once
 
-// Including dependencies
+// Dependencies
 #include <Application.hpp>
-#include <Label.hpp>
-#include <Button.hpp>
 
-// Defining functions to create menus
-void createMainMenu(easyGUI::Application* appInstance);
-void createSecondMenu(easyGUI::Application* appInstance);
+// First menu buttons
 
-// Button actions
-void exitButton_action ();
-void demoButton_action ();
-void backButton_action ();
+void demoButton_action();
+void exitButton_action();
+
+// Second menu buttons
+
+void backButton_action();
