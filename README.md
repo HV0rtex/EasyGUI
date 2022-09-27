@@ -1,10 +1,8 @@
-# EasyGUI ![Build](https://github.com/HV0rtex/ThreadPool/workflows/Linux/badge.svg?branch=main)
+# EasyGUI ![Build](https://github.com/HV0rtex/EasyGUI/workflows/Linux/badge.svg?branch=main)
 
 EasyGUI is an extension to the popular C++ graphics library: SFML.
 
-The purpose of the extension is to remove the unnecessary work of creating standard GUI elements such as labels,
-buttons, textboxes and so on. This way, you can focus more on the application logic and not waste meaningless time
-creating a GUI.
+The purpose of the extension is to remove the unnecessary work of creating standard GUI elements such as labels, buttons, textboxes and so on. This way, you can focus more on the application logic and not waste meaningless time creating a GUI.
 
 ## Table of contents
 
@@ -15,9 +13,7 @@ creating a GUI.
 
 ## How it works
 
-The extension provides wrapper classes around the standard SFML components, allowing you to create labels or even buttons
-in just one line of code, saving you from the tedious work of doing all the bindings yourself. For instance, in order to
-create a button in SFML you would have to:
+The extension provides wrapper classes around the standard SFML components, allowing you to create labels or even buttons in just one line of code, saving you from the tedious work of doing all the bindings yourself. For instance, in order to create a button in SFML you would have to:
 
 - Create a RectangleShape and give it bounds and color
 - Create a Text
@@ -44,13 +40,11 @@ easyGUI::Button myButton (
 myButton.addOnClickAction ( action );       // <-- action is a void function with no params
 ```
 
-This way, you don't need to worry wether the button text will fit. If the text fits inside the button borders,
-it will be automatically centered, otherwise the text / shape will be readjusted accordingly.
+This way, you don't need to worry wether the button text will fit. If the text fits inside the button borders, it will be automatically centered, otherwise the text / shape will be readjusted accordingly. For further information, please refer to our [User Manual](https://github.com/HV0rtex/EasyGUI/docs/userManual.pdf).
 
 ## What is provided
 
-In every realease, you will have provided both static and dynamic libraries to suit your prefered way of
-linkage, the API headers as well as a demo project.
+In every realease, you will have provided both static and dynamic libraries to suit your prefered way of linkage, the API headers as well as a demo project.
 
 ## Prerequisites
 
@@ -60,64 +54,12 @@ Before attempting to use the extension you must make sure you have the following
 
 ## Installation
 
-**[ WINDOWS ONLY ]** Make sure that the release package matches your OS version (32 / 64 bits)
-
-After you have downloaded the release package specific for your operating system, please go the link corresponding
-to your IDE:
-
-- [Code::Blocks](#installation---codeblocks)
-- [Visual Studio](#installation---visualstudio)
-
-If you didn't manage to find an appropriate release package, then follow these steps bellow:
-
-1. Download the **src** directory and copy it inside your project
-2. Append the headers and sources to your project to be built.
-
-**Note: Depending on your build system, the third step may be achieved in different ways.**
-
-## Installation - Code::Blocks
-
-After you have downloaded the release package, follow these steps:
-
-1. Unpack the package
-2. Go to *Settings > Compiler > Search directories > Compiler* and add the **include** directory
-3. Go to *Settings > Compiler > Search directories > Linker* and add the **lib** directory
-4. Go to *Settings > Linker > Libraries* and add the following libraries, in this order:
-   - easyGUI-application
-   - easyGUI-assets
-5. Make sure that this order of linkage is verified
-   - easyGUI-application
-   - easyGUI-assets
-   - sfml-graphics
-   - sfml-window
-   - sfml-system
-
-Then you can try and build one of the examples in order to test that everything works accordingly
-
-## Installation - Visual Studio
-
-After you have downloaded the release package, follow these steps:
-
-1. Unpack the package
-2. In the project properties go to *C/C++ > General > Additional Include Directories* and add the **include** directory
-3. In the project properties go to *Linker > General > Additional Include Directories* and add the **lib** directory
-4. In the project properties go to *Linker > Input > Additional Dependencies* and add the following libraries:
-   - easyGUI-application
-   - easyGUI-assets
-5. Make sure that this order of linkage is verified
-   - easyGUI-application
-   - easyGUI-assets
-   - sfml-graphics
-   - sfml-window
-   - sfml-system
-
-Then you can try and build one of the examples in order to test that everything works accordingly
+After downloading the realease package for your operating system (Note: For Windows you need to check the OS version: 32/64 bit and download the corresponding package), check out the [Installation Guide](https://github.com/HV0rtex/EasyGUI/docs/installationGuide.pdf) in order to set everything up for your IDE.
 
 ## Support
 
-The project is licensed under the **MIT License** and can be used free of charge. However if you would like to
-support the development of this extension, follow one of these links depending on your preffered support method:
+The project is licensed under the **MIT License** and can be used free of charge. However if you would like to support the development of this extension, follow one of these links depending on your preffered support method:
 
 - [Buy me a coffee](buymeacoffee.com/hvrtx)
-- [Report a bug](https://github.com/HV0rtex/ThreadPool/issues/new?assignees=HV0rtex&labels=bug&template=bug_report.md&title=)
-- [Submit a suggestion](https://github.com/HV0rtex/ThreadPool/issues/new?assignees=HV0rtex&labels=enhancement&template=feature_request.md&title=)
+- [Report a bug](https://github.com/HV0rtex/EasyGUI/issues/new?assignees=HV0rtex&labels=bug&template=bug_report.md&title=)
+- [Submit a suggestion](https://github.com/HV0rtex/EasyGUI/issues/new?assignees=HV0rtex&labels=enhancement&template=feature_request.md&title=)
