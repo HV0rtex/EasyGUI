@@ -23,11 +23,6 @@ Application::Application(const unsigned& width, const unsigned& height, const ch
     _window = new ::sf::RenderWindow(::sf::VideoMode(width,height), title);
 }
 
-Application* Application::getInstance()
-{
-    return instance;
-}
-
 Application* Application::getInstance(const unsigned& width, const unsigned& height, const char* title)
 {
     if(title != nullptr && width > 0 && height > 0)
