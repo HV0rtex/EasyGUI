@@ -29,6 +29,7 @@
 // Including dependencies
 #include <SFML/Graphics/Font.hpp>
 #include <stdexcept>
+#include <utility>
 #include <map>
 
 namespace easyGUI
@@ -45,7 +46,7 @@ class FontManager
 {
 private:
     static FontManager* instance;
-
+    
     ::std::map < const ::sf::Font*, ::std::string > reverseFontMap;
     ::std::map < ::std::string, ::sf::Font* > fontMap;
     ::std::map < ::std::string, unsigned > occurances;
