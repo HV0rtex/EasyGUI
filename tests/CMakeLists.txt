@@ -45,4 +45,4 @@ add_subdirectory(FontManager)
 
 # ----- Installing resources -----
 
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res DESTINATION ${PROJECT_RUNTIME_DIR}/tests)
+install(DIRECTORY res DESTINATION ${PROJECT_RUNTIME_DIR}/tests)

@@ -34,14 +34,14 @@ add_library(
 target_include_directories(
     easyGUI-application PUBLIC
 
-    ./inc
+    inc
     ../Assets/inc
 )
 
 target_include_directories(
     easyGUI-application-shared PUBLIC
 
-    ./inc
+    inc
     ../Assets/inc
 )
 
@@ -65,4 +65,4 @@ target_link_libraries(
 
 install( TARGETS easyGUI-application DESTINATION ${PROJECT_LIBRARY_DIR} )
 install( TARGETS easyGUI-application-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
-install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )
+install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )
