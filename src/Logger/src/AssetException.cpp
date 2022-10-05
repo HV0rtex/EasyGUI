@@ -1,5 +1,5 @@
 /**
- * @file AssetException.hpp
+ * @file AssetException.cpp
  * @author your name (you@domain.com)
  * @brief Implementation of the AssetException class
  * @version 0.1

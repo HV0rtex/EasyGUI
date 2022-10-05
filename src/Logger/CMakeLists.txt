@@ -19,12 +19,14 @@ add_library(
     easyGUI-exceptions STATIC
 
     src/AssetException.cpp
+    src/ApplicationException.cpp
 )
 
 add_library(
     easyGUI-exceptions-shared SHARED
 
     src/AssetException.cpp
+    src/ApplicationException.cpp
 )
 
 # ----- Defining includes -----
