@@ -19,13 +19,13 @@ void createMainMenu(easyGUI::Application* appInstance)
 {
     if(appInstance == nullptr)
         // Raise error if application has not been created
-        throw std::exception();
+        throw easyGUI::MenuException("Could not get hold of application instance.");
 
     easyGUI::Menu* menu = appInstance->addMenu(true);   // Adds a new MAIN menu
 
     if(menu == nullptr)
         // Raise error if creating a menu fails
-        throw std::exception();
+        throw easyGUI::MenuException("Could not create menu.");
 
     try
     {
@@ -34,7 +34,7 @@ void createMainMenu(easyGUI::Application* appInstance)
                 easyGUI::Point(220, 100),   // <--- Starting location
                 
                 "A demo application",       // <--- Label text
-                "./res/Arial.ttf",          // <--- Text font path
+                "./res/Arial2.ttf",          // <--- Text font path
                 
                 40,                         // <--- Desired character size
                 
@@ -54,7 +54,7 @@ void createMainMenu(easyGUI::Application* appInstance)
                 "Demo button",              // <--- Button text
                 "./res/Arial.ttf",          // <--- Text font path
                 
-                25,                         // <--- Desired character size 
+                55,                         // <--- Desired character size 
                 5                           // <--- Outline thickness
             )
         );
@@ -78,9 +78,9 @@ void createMainMenu(easyGUI::Application* appInstance)
         menu->getComponent(1)->setOnClickAction(demoButton_action);     // <--- Adding a callback to be executed on mouse press
         menu->getComponent(2)->setOnClickAction(exitButton_action);
     }
-    catch(...)
+    catch(const easyGUI::AssetException* err)
     {
         // Throw error if couldn't add components
-        throw std::exception();
+        ERROR << err->what();
     }
 }

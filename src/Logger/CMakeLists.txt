@@ -12,4 +12,37 @@
 # FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-install ( DIRECTORY inc/ ${PROJECT_INCLUDE_DIR}/ )
+
+# ----- Defining library sets -----
+
+add_library(
+    easyGUI-exceptions STATIC
+
+    src/AssetException.cpp
+)
+
+add_library(
+    easyGUI-exceptions-shared SHARED
+
+    src/AssetException.cpp
+)
+
+# ----- Defining includes -----
+
+target_include_directories(
+    easyGUI-exceptions PUBLIC
+
+    inc
+)
+
+target_include_directories(
+    easyGUI-exceptions-shared PUBLIC
+
+    inc
+)
+
+# ----- Installing library -----
+
+install( TARGETS easyGUI-exceptions DESTINATION ${PROJECT_LIBRARY_DIR} )
+install( TARGETS easyGUI-exceptions-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
+install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )

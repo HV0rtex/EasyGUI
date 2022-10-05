@@ -19,13 +19,13 @@ void createSecondMenu(easyGUI::Application* appInst)
 {
     if(appInst == nullptr)
         // Throw exception if application has not been created
-        throw std::exception();
+        throw easyGUI::MenuException("Could not get hold of application instance.");
     
     easyGUI::Menu* menu = appInst->addMenu();   // <--- Adding a regular menu
 
     if(menu == nullptr)
         // Throw exception if menu could not be created
-        throw std::exception();
+        throw easyGUI::MenuException("Could not create menu.");
 
     try
     {
@@ -61,9 +61,8 @@ void createSecondMenu(easyGUI::Application* appInst)
 
         menu->getComponent(1)->setOnClickAction(backButton_action);     // <--- Adding an action to be performed on click
     }
-    catch(...)
+    catch(const easyGUI::AssetException* err)
     {
-        // Throw error if components couldn't be added
-        throw std::exception();
+        ERROR << err->what();
     }
 }

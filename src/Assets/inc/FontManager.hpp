@@ -28,7 +28,8 @@
 
 // Including dependencies
 #include <SFML/Graphics/Font.hpp>
-#include <stdexcept>
+#include <Exceptions/FontException.hpp>
+#include <Logger.hpp>
 #include <utility>
 #include <map>
 
@@ -46,7 +47,7 @@ class FontManager
 {
 private:
     static FontManager* instance;
-    
+
     ::std::map < const ::sf::Font*, ::std::string > reverseFontMap;
     ::std::map < ::std::string, ::sf::Font* > fontMap;
     ::std::map < ::std::string, unsigned > occurances;
@@ -89,7 +90,7 @@ public:
      * 
      * @param usedFont The font of the destructed label
      */
-    void updateMaps(const ::sf::Font* usedFont);
+    void removeFont(const ::sf::Font* usedFont);
 };
 
 }

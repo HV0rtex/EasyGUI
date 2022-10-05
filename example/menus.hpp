@@ -16,6 +16,7 @@
 
 // Including dependencies
 #include <Application.hpp>
+#include <Exceptions/AssetException.hpp>
 #include <Label.hpp>
 #include <Button.hpp>
 

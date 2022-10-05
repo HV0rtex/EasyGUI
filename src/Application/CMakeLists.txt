@@ -36,6 +36,7 @@ target_include_directories(
 
     inc
     ../Assets/inc
+    ../Logger/inc
 )
 
 target_include_directories(
@@ -43,6 +44,7 @@ target_include_directories(
 
     inc
     ../Assets/inc
+    ../Logger/inc
 )
 
 # ----- Linking dependencies -----

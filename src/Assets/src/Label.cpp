@@ -61,7 +61,7 @@ Label::~Label()
     FontManager* manager = nullptr;
     manager = manager->getInstance();
 
-    manager->updateMaps(_text.getFont());
+    manager->removeFont(_text.getFont());
 }
 
 Label::Label(const Point& position, const ::std::string& text, const ::std::string& fontPath, const unsigned& charSize, const sf::Color& color)
@@ -69,12 +69,22 @@ Label::Label(const Point& position, const ::std::string& text, const ::std::stri
     FontManager* manager = nullptr;
     manager = manager->getInstance();
 
-    if(manager->getFont(fontPath) == nullptr)
+    if(manager == nullptr)
     {
-        throw ::std::invalid_argument("Invalid font path!");
+        throw LabelException("Could not get hold of Font Manager.");
     }
 
-    _font = manager->getFont(fontPath);
+    try
+    {
+        _font = manager->getFont(fontPath);
+    }
+    catch(const AssetException* err)
+    {
+        ERROR << err->what();
+
+        throw LabelException("Could not get font from Font Manager. Cannot create Label.");
+    }
+
     _textColor = color;
 
     constructText(position, text, charSize);

@@ -94,7 +94,21 @@ Button::Button(
 
     unsigned correction = getCharSizeCorrection(text.size(), charSize);
 
-    _content = new Label(getLabelPosition(text.size(), charSize - correction), text, fontPath, charSize - correction, textColor);
+    if(correction != 0)
+    {
+        WARN << "Button text doesn't fit. Resizing text...\n";
+    }
+
+    try
+    {
+        _content = new Label(getLabelPosition(text.size(), charSize - correction), text, fontPath, charSize - correction, textColor);
+    } 
+    catch (const LabelException& err)
+    {
+        ERROR << err.what();
+
+        throw ButtonException("Label text will not be visible.");
+    }
 }
 
 Button::Button(
@@ -110,18 +124,19 @@ Button::Button(
     const ::std::string& fontPath,
 
     const unsigned& charSize,
-    const unsigned& thickness)
-{
-    _shape.setPosition(startLocation.Xcoord, startLocation.Ycoord);
-    _shape.setFillColor(fillColor);
-    _shape.setOutlineColor(outlineColor);
-    _shape.setOutlineThickness(thickness);
-    _shape.setSize(::sf::Vector2f(width, height));
-
-    unsigned correction = getCharSizeCorrection(text.size(), charSize);
-
-    _content = new Label(getLabelPosition(text.size(), charSize - correction), text, fontPath, charSize - correction, textColor);
-}
+    const unsigned& thickness) : 
+    
+Button(
+    startLocation, 
+    Point(startLocation.Xcoord + width, startLocation.Ycoord + height),
+    fillColor,
+    outlineColor,
+    textColor,
+    text,
+    fontPath,
+    charSize,
+    thickness
+) {}
 
 void Button::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 {

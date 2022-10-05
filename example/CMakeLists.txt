@@ -39,6 +39,7 @@ target_include_directories(
     PUBLIC
     ../src/Application/inc/
     ../src/Assets/inc/
+    ../src/Logger/inc/
     ./
 )
 

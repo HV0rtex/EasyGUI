@@ -45,8 +45,10 @@ int main()
         // Starting the application
         app->start();
     }
-    catch(...)
+    catch(const ApplicationException* err)
     {
+        ERROR << err->what();
+
         return 1;
     }
     

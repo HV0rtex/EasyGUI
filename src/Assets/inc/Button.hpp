@@ -28,6 +28,7 @@
 
 // Including dependencies
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <Exceptions/ButtonException.hpp>
 #include <Label.hpp>
 
 namespace easyGUI

@@ -16,7 +16,7 @@
 /**
  * @file Logger.hpp
  * @author David Bogdan (david.bnicoale@gmail.com)
- * @brief Definition of the Logger class
+ * @brief Definition of the logging macros
  * @version 0.1
  * @date 2022-09-27
  * 

@@ -37,12 +37,14 @@ target_include_directories(
     easyGUI-assets PUBLIC
 
     inc
+    ../Logger/inc
 )
 
 target_include_directories(
     easyGUI-assets-shared PUBLIC
 
     inc
+    ../Logger/inc
 )
 
 # ----- Linking dependencies -----

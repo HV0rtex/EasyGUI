@@ -39,6 +39,12 @@ Application* Application::getInstance(const unsigned& width, const unsigned& hei
         }
     }
 
+    if(instance == nullptr)
+    {
+        ERROR << "Invalid parameters provided. Application instance not created.";
+        abort();
+    }
+
     return instance;
 }
 
@@ -117,7 +123,7 @@ Menu* Application::addMenu(const bool& isStart)
         {
             delete newMenu;
 
-            throw ::std::invalid_argument("Multiple start menus detected.");
+            throw MenuException("Could not create initial menu because another initial menu was already created.");
         }
     }
 
@@ -138,12 +144,14 @@ void Application::setActiveMenu(const unsigned& index)
         {
             // A main menu can also be configured by manually setting
             // the active menu.
+            INFO << "No start menu detected. Defaulting to the one specified in call.";
+
             _startMenuSet = true;
         }
     }
     else
     {
-        throw ::std::invalid_argument("Invalid menu ID provided.");
+        throw MenuException("Could not get hold of menu wiht id " + index);
     }
 }
 
@@ -155,8 +163,8 @@ void Application::addRoutine(Routine* routine)
 void Application::start()
 {
     if(_activeMenu == nullptr)
-    {
-        throw ::std::exception();
+    {   
+        throw ApplicationException("Attempting start with no initial menu.");
     }
 
     while(_window->isOpen())

@@ -29,6 +29,8 @@
 // Including dependencies
 #include <Routine.hpp>
 #include <Menu.hpp>
+#include <Logger.hpp>
+#include <Exceptions/MenuException.hpp>
 
 namespace easyGUI
 {

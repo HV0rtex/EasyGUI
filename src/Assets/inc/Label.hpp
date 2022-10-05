@@ -31,7 +31,7 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <FontManager.hpp>
-#include <stdexcept>
+#include <Exceptions/LabelException.hpp>
 #include <Point.hpp>
 
 namespace easyGUI
