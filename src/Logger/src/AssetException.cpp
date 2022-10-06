@@ -15,13 +15,14 @@ namespace easyGUI
 {
 
 AssetException::~AssetException() {}
-AssetException::AssetException(::std::string message)
+AssetException::AssetException(::std::string message) : ::std::exception()
 {
     _msg = "[ Asset ]";
     _msg += message;
+    _msg += "\n";
 }
 
-const char* AssetException::what() const
+const char* AssetException::what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW
 {
     return _msg.c_str();
 }

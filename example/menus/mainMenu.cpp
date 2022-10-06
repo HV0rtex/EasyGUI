@@ -78,9 +78,9 @@ void createMainMenu(easyGUI::Application* appInstance)
         menu->getComponent(1)->setOnClickAction(demoButton_action);     // <--- Adding a callback to be executed on mouse press
         menu->getComponent(2)->setOnClickAction(exitButton_action);
     }
-    catch(const easyGUI::AssetException* err)
+    catch(const easyGUI::AssetException& err)
     {
         // Throw error if couldn't add components
-        ERROR << err->what();
+        ERROR << err.what();
     }
 }

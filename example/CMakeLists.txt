@@ -47,6 +47,7 @@ target_link_libraries(
     demo
     easyGUI-application
     easyGUI-assets
+    easyGUI-exceptions
 )
 
 # ----- Installing project -----

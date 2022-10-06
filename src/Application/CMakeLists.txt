@@ -51,6 +51,7 @@ target_include_directories(
 
 target_link_libraries(
     easyGUI-application
+    easyGUI-exceptions
     sfml-graphics
     sfml-window
     sfml-system
@@ -58,6 +59,7 @@ target_link_libraries(
 
 target_link_libraries(
     easyGUI-application-shared
+    easyGUI-exceptions-shared
     sfml-graphics
     sfml-window
     sfml-system

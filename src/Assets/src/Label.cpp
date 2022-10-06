@@ -66,28 +66,28 @@ Label::~Label()
 
 Label::Label(const Point& position, const ::std::string& text, const ::std::string& fontPath, const unsigned& charSize, const sf::Color& color)
 {
-    FontManager* manager = nullptr;
-    manager = manager->getInstance();
-
-    if(manager == nullptr)
-    {
-        throw LabelException("Could not get hold of Font Manager.");
-    }
-
     try
     {
+        FontManager* manager = nullptr;
+        manager = manager->getInstance();
+
+        if(manager == nullptr)
+        {
+            throw LabelException("Could not get hold of Font Manager.");
+        }
+
         _font = manager->getFont(fontPath);
+
+        _textColor = color;
+
+        constructText(position, text, charSize);
     }
-    catch(const AssetException* err)
+    catch(const FontException& err)
     {
-        ERROR << err->what();
+        ERROR << err.what();
 
         throw LabelException("Could not get font from Font Manager. Cannot create Label.");
     }
-
-    _textColor = color;
-
-    constructText(position, text, charSize);
 }
 
 }
