@@ -83,6 +83,13 @@ private:
      */
     void handleEvents(const ::sf::Event& event);
 
+    /**
+     * @brief Executes a given action for all components of the active menu
+     * 
+     * @param action The action to be executed for the component
+     */
+    void executeForAll(void (*action)(Component*));
+
 public:
     /**
      * @brief Destructor

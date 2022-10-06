@@ -47,7 +47,8 @@ class Component : public ::sf::Drawable
 protected:
     ::sf::RenderWindow* _container;
 
-    void (*_onClick)();
+    void (*_onClick)() = nullptr;
+    void (*_onHover)() = nullptr;
 
 public:
 
@@ -82,6 +83,16 @@ public:
     }
 
     /**
+     * @brief Sets the behaviour when the mouse is moved
+     * 
+     * @param action The action to be executed.
+     */
+    void setOnHoverAction( void (*action)() )
+    {
+        _onHover = action;
+    }
+
+    /**
      * @brief Executes the onClick action
      * 
      */
@@ -90,6 +101,18 @@ public:
         if(_onClick != nullptr && isMouseHover())
         {
             _onClick();
+        }
+    }
+
+    /**
+     * @brief Executes the onHover action
+     * 
+     */
+    void onHover()
+    {
+        if(_onHover != nullptr)
+        {
+            _onHover();
         }
     }
 };
