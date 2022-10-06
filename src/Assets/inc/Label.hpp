@@ -73,7 +73,7 @@ public:
      * @param charSize The size of the characters.
      * @param color The color of the label.
      * 
-     * @throw ::std::invalid_argument Invalid font path
+     * @throw LabelException Invalid font path or couldn't get FontManager
      * 
      * @note The font file format must be .ttf
      */

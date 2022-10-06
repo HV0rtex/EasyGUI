@@ -78,8 +78,6 @@ private:
      * and loops through routines and fires all routines that match that event.
      * 
      * @param event The current window event
-     * 
-     * @warning Not yet implemented.
      */
     void handleEvents(const ::sf::Event& event);
 
@@ -101,6 +99,8 @@ public:
      * @param title The title of the application
      * 
      * @return Application* 
+     * 
+     * @throws ApplicationInstance Failed to instantiate application.
      */
     Application* getInstance(const unsigned& width = 0, const unsigned& height = 0, const char* title = nullptr);
 
@@ -115,7 +115,7 @@ public:
      * 
      * @returns Menu*
      * 
-     * @throw ::std::invalid_argument More than one start menu declared.
+     * @throw MenuException More than one start menu declared.
      */
     Menu* addMenu(const bool& isStart = false);
 
@@ -153,7 +153,7 @@ public:
      * 
      * @param id The index of the menu
      * 
-     * @throw ::std::invalid_arugment Invalid index provided
+     * @throw MenuException Invalid index provided
      */
     void setActiveMenu(const unsigned& index);
 
@@ -170,6 +170,7 @@ public:
      * @details Opens the application window and begins
      * handling the events according to configured routines.
      * 
+     * @throws ApplicationException No initial menu has been set.
      */
     void start();
 

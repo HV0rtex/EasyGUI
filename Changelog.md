@@ -18,6 +18,7 @@ Source documentation:
 
 Application control:
 - Logging system
+- Custom exceptions
 
 ## Fixed
 

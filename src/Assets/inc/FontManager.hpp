@@ -78,7 +78,7 @@ public:
      * @param fontPath The path to the font
      * 
      * @return ::sf::Font* 
-     * @retval NULL invalid font path
+     * @throws FontException couldn't get font image from path
      */
     ::sf::Font* getFont(const ::std::string& fontPath);
 
@@ -89,6 +89,8 @@ public:
      * from memory, as there are no labels using it.
      * 
      * @param usedFont The font of the destructed label
+     * 
+     * @throws FontException Invalid font received for removal
      */
     void removeFont(const ::sf::Font* usedFont);
 };

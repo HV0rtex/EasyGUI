@@ -18,7 +18,7 @@ namespace easyGUI
 {
 
 /**
- * @brief Exception thrown when an error occurs inside the Font Manager.
+ * @brief Exception thrown when an error occurs inside the Button.
  * 
  */
 class ButtonException : public AssetException
