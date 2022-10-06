@@ -34,7 +34,7 @@ void createMainMenu(easyGUI::Application* appInstance)
                 easyGUI::Point(220, 100),   // <--- Starting location
                 
                 "A demo application",       // <--- Label text
-                "./res/Arial2.ttf",          // <--- Text font path
+                "./res/Arial.ttf",          // <--- Text font path
                 
                 40,                         // <--- Desired character size
                 

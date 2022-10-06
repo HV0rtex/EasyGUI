@@ -107,7 +107,9 @@ Button::Button(
     {
         ERROR << err.what();
 
-        throw ButtonException("Label text will not be visible.");
+        ButtonException ex("Label text will not be visible.");
+
+        WARN << ex.what();
     }
 }
 
