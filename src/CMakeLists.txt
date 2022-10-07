@@ -21,3 +21,4 @@ find_package(SFML REQUIRED system window graphics network audio)
 
 add_subdirectory(Assets)
 add_subdirectory(Application)
+add_subdirectory(Logger)

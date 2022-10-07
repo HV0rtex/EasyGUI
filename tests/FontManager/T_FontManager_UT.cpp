@@ -54,5 +54,5 @@ TEST(FontManagerUT, GetFontWorks)
     ASSERT_EQ(ptr, ptr2);
 
     ASSERT_EQ(inst->getFont("/font/font/Path"), nullptr);
-    ASSERT_NO_THROW(inst->updateMaps(ptr));
+    ASSERT_NO_THROW(inst->removeFont(ptr));
 }

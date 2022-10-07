@@ -30,7 +30,6 @@
 #include <Component.hpp>
 #include <string>
 #include <vector>
-#include <map>
 
 namespace easyGUI
 {
@@ -38,7 +37,7 @@ namespace easyGUI
 /**
  * @brief Container of application components
  * 
- * A menu groups different application components under the same container
+ * @details A menu groups different application components under the same container
  * and usually corresponds to a specific application screen.
  */
 class Menu : public ::sf::Drawable

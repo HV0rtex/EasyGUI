@@ -29,6 +29,8 @@
 // Including dependencies
 #include <Routine.hpp>
 #include <Menu.hpp>
+#include <Logger.hpp>
+#include <Exceptions/MenuException.hpp>
 
 namespace easyGUI
 {
@@ -37,9 +39,7 @@ namespace easyGUI
  * @brief Emulates a windowed application
  * 
  * @details The class acts as a wrapper around the ::sf::RenderWindow, and provides
- * easier management of the events (such as onClick, onKeyPress, etc.) Furthermore,
- * when the RESPONSIVE option is set to True, the application will automatically resive the
- * GUI in order to match the new window size.
+ * easier management of the events (such as onClick, onKeyPress, etc.) 
  * 
  */
 class Application
@@ -54,9 +54,9 @@ private:
 
     Menu* _activeMenu;
 
-    // ----- Configurations -----
+    // ----- Control variables -----
 
-    char _responsive;
+    bool _startMenuSet;
 
     /**
      * @brief Constructor
@@ -75,11 +75,9 @@ private:
      * @brief Event handler
      * 
      * @details The function is fired whenever an event occurs at window level
-     * and loops through routines to find the best fit for the event.
+     * and loops through routines and fires all routines that match that event.
      * 
      * @param event The current window event
-     * 
-     * @warning Not yet implemented.
      */
     void handleEvents(const ::sf::Event& event);
 
@@ -106,21 +104,25 @@ public:
      * @param width The width of the window
      * @param height The height of the window
      * @param title The title of the application
-     * @param isResponsive Flag to mark if the application should be responsive or not
      * 
      * @return Application* 
+     * 
+     * @throws ApplicationInstance Failed to instantiate application.
      */
-    Application* getInstance(const unsigned& width, const unsigned& height, const char* title, const char& isResponsive = 0);
-    Application* getInstance();
+    Application* getInstance(const unsigned& width = 0, const unsigned& height = 0, const char* title = nullptr);
 
     /**
      * @brief Appends a new menu to the application
+     * 
+     * @details If no menu is specified as being a MAIN menu when calling
+     * this function, then the first call to Application#setActiveMenu will
+     * initialize that menu as being the MAIN menu.
      * 
      * @param isStart Denotes if the menu is to be displayed first
      * 
      * @returns Menu*
      * 
-     * @throw ::std::invalid_argument More than one start menu declared.
+     * @throw MenuException More than one start menu declared.
      */
     Menu* addMenu(const bool& isStart = false);
 
@@ -165,7 +167,7 @@ public:
      * 
      * @param id The index of the menu
      * 
-     * @throw ::std::invalid_arugment Invalid index provided
+     * @throw MenuException Invalid index provided
      */
     void setActiveMenu(const unsigned& index);
 
@@ -179,9 +181,10 @@ public:
     /**
      * @brief Starts the application
      * 
-     * @details Opens the application window and handles
-     * the events according to routines.
+     * @details Opens the application window and begins
+     * handling the events according to configured routines.
      * 
+     * @throws ApplicationException No initial menu has been set.
      */
     void start();
 

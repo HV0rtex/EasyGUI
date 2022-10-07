@@ -36,6 +36,8 @@ FontManager* FontManager::getInstance()
     if(instance == nullptr)
     {
         instance = new FontManager();
+
+        INFO << "Font manager is up and running.\n";
     }
 
     return instance;

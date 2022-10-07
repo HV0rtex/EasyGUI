@@ -40,19 +40,22 @@ add_library(
 target_include_directories(
     easyGUI-assets PUBLIC
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/inc
+    inc
+    ../Logger/inc
 )
 
 target_include_directories(
     easyGUI-assets-shared PUBLIC
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/inc
+    inc
+    ../Logger/inc
 )
 
 # ----- Linking dependencies -----
 
 target_link_libraries(
     easyGUI-assets
+    easyGUI-exceptions
     sfml-graphics
     sfml-window 
     sfml-system
@@ -60,6 +63,7 @@ target_link_libraries(
 
 target_link_libraries(
     easyGUI-assets-shared
+    easyGUI-exceptions-shared
     sfml-graphics 
     sfml-window
     sfml-system
@@ -69,4 +73,4 @@ target_link_libraries(
 
 install( TARGETS easyGUI-assets DESTINATION ${PROJECT_LIBRARY_DIR} )
 install( TARGETS easyGUI-assets-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
-install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )
+install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )

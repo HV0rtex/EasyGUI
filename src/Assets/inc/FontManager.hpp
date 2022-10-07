@@ -28,7 +28,9 @@
 
 // Including dependencies
 #include <SFML/Graphics/Font.hpp>
-#include <stdexcept>
+#include <Exceptions/FontException.hpp>
+#include <Logger.hpp>
+#include <utility>
 #include <map>
 #include <string>
 #include <memory>

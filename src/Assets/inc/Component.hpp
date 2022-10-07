@@ -29,6 +29,7 @@
 // Including dependencies
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <Logger.hpp>
 
 namespace easyGUI
 {

@@ -16,13 +16,10 @@
 
 // Including dependencies
 #include <Application.hpp>
+#include <Exceptions/AssetException.hpp>
+#include <Label.hpp>
 #include <Button.hpp>
 
 // Defining functions to create menus
 void createMainMenu(easyGUI::Application* appInstance);
 void createSecondMenu(easyGUI::Application* appInstance);
-
-// Button actions
-void exitButton_action ();
-void demoButton_action ();
-void backButton_action ();

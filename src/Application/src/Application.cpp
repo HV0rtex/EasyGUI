@@ -23,14 +23,9 @@ Application::Application(const unsigned& width, const unsigned& height, const ch
     _window = new ::sf::RenderWindow(::sf::VideoMode(width,height), title);
 }
 
-Application* Application::getInstance()
+Application* Application::getInstance(const unsigned& width, const unsigned& height, const char* title)
 {
-    return instance;
-}
-
-Application* Application::getInstance(const unsigned& width, const unsigned& height, const char* title, const char& isResponsive)
-{
-    if(title != nullptr)
+    if(title != nullptr && width > 0 && height > 0)
     {
         if(instance == nullptr)
         {
@@ -41,14 +36,16 @@ Application* Application::getInstance(const unsigned& width, const unsigned& hei
             // Adjust the window to the new configuration
             instance->_window->setSize(::sf::Vector2u(width, height));
             instance->_window->setTitle(title);
-        
-            instance->_responsive = isResponsive;
         }
-
-        return instance;
     }
 
-    return nullptr;
+    if(instance == nullptr)
+    {
+        ERROR << "Invalid parameters provided. Application instance not created.";
+        abort();
+    }
+
+    return instance;
 }
 
 void Application::executeForAll(void (*action)(Component*))
@@ -126,15 +123,16 @@ Menu* Application::addMenu(const bool& isStart)
 
     if(isStart)
     {
-        if(_activeMenu == nullptr)
+        if(!_startMenuSet)
         {
             _activeMenu = newMenu;
+            _startMenuSet = true;
         }
         else
         {
             delete newMenu;
 
-            throw ::std::invalid_argument("Multiple start menus detected.");
+            throw MenuException("Could not create initial menu because another initial menu was already created.");
         }
     }
 
@@ -150,10 +148,19 @@ void Application::setActiveMenu(const unsigned& index)
     if(index < menus.size())
     {
         _activeMenu = menus.at(index);
+
+        if(!_startMenuSet)
+        {
+            // A main menu can also be configured by manually setting
+            // the active menu.
+            INFO << "No start menu detected. Defaulting to the one specified in call.";
+
+            _startMenuSet = true;
+        }
     }
     else
     {
-        throw ::std::invalid_argument("Invalid menu ID provided.");
+        throw MenuException("Could not get hold of menu wiht id " + index);
     }
 }
 
@@ -165,8 +172,8 @@ void Application::addRoutine(Routine* routine)
 void Application::start()
 {
     if(_activeMenu == nullptr)
-    {
-        throw ::std::exception();
+    {   
+        throw ApplicationException("Attempting start with no initial menu.");
     }
 
     while(_window->isOpen())

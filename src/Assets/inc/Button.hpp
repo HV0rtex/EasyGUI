@@ -28,6 +28,7 @@
 
 // Including dependencies
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <Exceptions/ButtonException.hpp>
 #include <Label.hpp>
 
 namespace easyGUI
@@ -37,7 +38,7 @@ namespace easyGUI
  * @brief Implements a button component
  * 
  * @details Draws a button on a window. The class makes use of the
- * Label (@see Label) class in order to draw the text on the window.
+ * Label class in order to draw and configure the button's text.
  */
 class Button : public Component
 {
@@ -59,7 +60,7 @@ private:
     Point getLabelPosition(const unsigned& length, const unsigned& charSize) const;
 
     /**
-     * @brief Computes the correction to be applied to the char size
+     * @brief Computes the correction to be applied to the char size of the text
      * 
      * @param textLenght The length of the text
      * @param desiredSize The desired char size
