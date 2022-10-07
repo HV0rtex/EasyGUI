@@ -160,6 +160,22 @@ public:
      * @return false otherwise
      */
     bool isMouseHover() const;
+
+    // ----- Getters -----
+
+    /**
+     * @brief Returns the SFML RectangleShape
+     * 
+     * @return ::sf::RectangleShape& 
+     */
+    ::sf::RectangleShape& getInternalButton();
+
+    /**
+     * @brief Returns the button's text
+     * 
+     * @return Label* 
+     */
+    Label* getInternalText();
 };
 
 }

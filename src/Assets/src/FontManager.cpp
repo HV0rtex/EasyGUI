@@ -41,56 +41,20 @@ FontManager* FontManager::getInstance()
     return instance;
 }
 
-::sf::Font* FontManager::getFont(const ::std::string& fontPath)
+::std::shared_ptr<::sf::Font> FontManager::getFont(const ::std::string& fontPath)
 {
-    if(instance->fontMap.find(fontPath) != instance->fontMap.end())
+    if(storedFonts.find(fontPath) != storedFonts.end())
     {
-        instance->occurances[fontPath]++;
-
-        return instance->fontMap[fontPath];
+        return storedFonts[fontPath];
     }
 
-    instance->fontMap[fontPath] = new ::sf::Font();
-    
-    if(!instance->fontMap[fontPath]->loadFromFile(fontPath))
-    {
-        instance->fontMap.erase(fontPath);
-
-        return nullptr;
-    }
-
-    instance->occurances[fontPath] = 1;
-    instance->reverseFontMap[instance->fontMap[fontPath]] = fontPath;
-
-    return instance->fontMap[fontPath];
+    ::std::shared_ptr<::sf::Font> font = ::std::make_shared<::sf::Font>();
 }
 
-void FontManager::updateMaps(const ::sf::Font* usedFont)
-{
-    if(usedFont == nullptr)
-    {
-        throw ::std::invalid_argument("Invalid font being removed!");
-    }
-
-    ::std::string fontKey = instance->reverseFontMap[usedFont];
-
-    if( --instance->occurances[fontKey] <= 0 )
-    {
-        instance->fontMap.erase(fontKey);
-        instance->reverseFontMap.erase(usedFont);
-        instance->occurances.erase(fontKey);
-    }
-}
 
 FontManager::~FontManager()
 {
-    for(auto element : instance->reverseFontMap)
-    {
-        if(element.first != nullptr)
-        {
-            delete element.first;
-        }
-    }
+
 }
 
 }

@@ -64,4 +64,9 @@ Component* Menu::getComponent(const unsigned& index)
     return nullptr;
 }
 
+void Menu::setContainer(::sf::RenderWindow*& container)
+{
+    _container = container;
+}
+
 }

@@ -74,11 +74,8 @@ public:
      * 
      * @param container The window responsible of the component
      */
-    void setContainer(::sf::RenderWindow*& container)
-    {
-        _container = container;
-    }
-
+    void setContainer(::sf::RenderWindow*& container);
+    
     /**
      * @brief Retrieves a specific component
      * 

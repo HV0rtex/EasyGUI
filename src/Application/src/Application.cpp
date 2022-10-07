@@ -184,4 +184,9 @@ void Application::start()
     }
 }
 
+::sf::RenderWindow* Application::getWindow()
+{
+    return _window;
+}
+
 }

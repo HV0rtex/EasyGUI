@@ -57,10 +57,7 @@ public:
      * 
      * @param container The window responsible of the component
      */
-    void setContainer(::sf::RenderWindow*& container)
-    {
-        _container = container;
-    }
+    void setContainer(::sf::RenderWindow*& container);
 
     // ----- Interaction methods -----
 
@@ -77,44 +74,26 @@ public:
      * 
      * @param action Function to be called when component is clicked.
      */
-    void setOnClickAction( void (*action)() )
-    {
-        _onClick = action;
-    }
+    void setOnClickAction( void (*action)() );
 
     /**
      * @brief Sets the behaviour when the mouse is moved
      * 
      * @param action The action to be executed.
      */
-    void setOnHoverAction( void (*action)() )
-    {
-        _onHover = action;
-    }
+    void setOnHoverAction( void (*action)() );
 
     /**
      * @brief Executes the onClick action
      * 
      */
-    void onClick()
-    {
-        if(_onClick != nullptr && isMouseHover())
-        {
-            _onClick();
-        }
-    }
+    void onClick();
 
     /**
      * @brief Executes the onHover action
      * 
      */
-    void onHover()
-    {
-        if(_onHover != nullptr)
-        {
-            _onHover();
-        }
-    }
+    void onHover();
 };
 
 }

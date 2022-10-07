@@ -30,6 +30,8 @@
 #include <SFML/Graphics/Font.hpp>
 #include <stdexcept>
 #include <map>
+#include <string>
+#include <memory>
 
 namespace easyGUI
 {
@@ -46,9 +48,7 @@ class FontManager
 private:
     static FontManager* instance;
 
-    ::std::map < const ::sf::Font*, ::std::string > reverseFontMap;
-    ::std::map < ::std::string, ::sf::Font* > fontMap;
-    ::std::map < ::std::string, unsigned > occurances;
+    ::std::map<::std::string, ::std::shared_ptr<::sf::Font>> storedFonts;
 
     /**
      * @brief Constructor
@@ -75,20 +75,10 @@ public:
      * 
      * @param fontPath The path to the font
      * 
-     * @return ::sf::Font* 
+     * @return ::std::shared_ptr<::sf::Font*> 
      * @retval NULL invalid font path
      */
-    ::sf::Font* getFont(const ::std::string& fontPath);
-
-    /**
-     * @brief Updates the occurances of the font
-     * 
-     * @details If the occurances hits 0, then that font is removed
-     * from memory, as there are no labels using it.
-     * 
-     * @param usedFont The font of the destructed label
-     */
-    void updateMaps(const ::sf::Font* usedFont);
+    ::std::shared_ptr<::sf::Font> getFont(const ::std::string& fontPath);
 };
 
 }

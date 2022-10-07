@@ -15,20 +15,24 @@
 
 # ----- Defining library sets -----
 
+set(LIBRARY_SOURCES
+    src/FontManager.cpp
+    src/Label.cpp
+    src/Button.cpp
+    src/Converter.cpp
+    src/Component.cpp
+)
+
 add_library(
     easyGUI-assets STATIC
 
-    ./src/FontManager.cpp
-    ./src/Label.cpp
-    ./src/Button.cpp
+    ${LIBRARY_SOURCES}
 )
 
 add_library(
     easyGUI-assets-shared SHARED
 
-    ./src/FontManager.cpp
-    ./src/Label.cpp
-    ./src/Button.cpp
+    ${LIBRARY_SOURCES}
 )
 
 # ----- Defining includes -----

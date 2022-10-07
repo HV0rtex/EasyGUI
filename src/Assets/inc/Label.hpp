@@ -103,6 +103,14 @@ public:
      */
     bool isMouseHover() const;
 
+    // ----- Getters -----
+
+    /**
+     * @brief Returns the SFML text object
+     * 
+     * @return ::sf::Text& 
+     */
+    ::sf::Text& getInternalText();
 };
 
 }

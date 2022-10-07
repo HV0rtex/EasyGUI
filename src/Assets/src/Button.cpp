@@ -146,4 +146,14 @@ bool Button::isMouseHover() const
     return false;
 }
 
+::sf::RectangleShape& Button::getInternalButton()
+{
+    return _shape;
+}
+
+Label* Button::getInternalText()
+{
+    return _content;
+}
+
 }

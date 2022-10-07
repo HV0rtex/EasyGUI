@@ -154,6 +154,13 @@ public:
     Routine* getRoutine(const unsigned& index);
 
     /**
+     * @brief Returns the SFML RenderWindow
+     * 
+     * @return ::sf::RenderWindow* 
+     */
+    ::sf::RenderWindow* getWindow();
+
+    /**
      * @brief Changes the active menu
      * 
      * @param id The index of the menu
