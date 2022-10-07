@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Version V1.2.0 - Improvements (Under development)
+
+This release provides many performance improvements as well as some quality of life improvements
+such as access to the internal parts for more flexibility.
+
+## Added
+
+Application control:
+- Converter class to facilitate conversion between assets
+- Internal component getter methods
+
+## Fixed
+
+Application control:
+- Reworked FontManager internals
+
+## Removed
+
+Source control:
+- Removed the testing phase
+- Removed Unit Test artefact
+- Removed tests directory
+
 ## Version V1.1.0 - Documentation overhaul (Under development)
 
 This release provides an overhaul to the existing documentation and an improvement to the overall
