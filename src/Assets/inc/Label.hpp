@@ -47,7 +47,7 @@ namespace easyGUI
 class Label : public Component
 {
 private:
-    ::sf::Font* _font;
+    ::std::shared_ptr<::sf::Font> _font;
     ::sf::Text _text;
     ::sf::Color _textColor;
 

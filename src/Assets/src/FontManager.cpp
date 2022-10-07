@@ -51,6 +51,15 @@ FontManager* FontManager::getInstance()
     }
 
     ::std::shared_ptr<::sf::Font> font = ::std::make_shared<::sf::Font>();
+
+    if(!font.get()->loadFromFile(fontPath))
+    {
+        throw FontException("Could not get font from path");
+    }
+
+    storedFonts[fontPath] = font;
+
+    return font;
 }
 
 
