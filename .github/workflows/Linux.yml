@@ -17,12 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
-    - name: Downloading test framework
-      run: sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make
-
-    - name: Installing test framework
-      run: sudo cp /usr/src/gtest/lib/*.a /usr/lib && sudo ln -s /usr/lib/libgtest.a /usr/local/lib/libgtest.a && sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/libgtest_main.a
-
     - name: Installing SFML
       run: sudo apt-get install libsfml-dev
 
@@ -35,12 +29,6 @@ jobs:
     - name: Installing artifacts
       run: cd ${{github.workspace}}/build && make install
 
-    - name: Publishing tests
-      uses: actions/upload-artifact@master
-      with:
-        name: Unit_tests
-        path: ${{github.workspace}}/bin/tests
-
     - name: Generating documentation
       run: cd ${{github.workspace}} && sudo apt-get install doxygen && doxygen docs/doxyfile.txt
 
@@ -49,20 +37,3 @@ jobs:
       with:
         name: Documentation
         path: ${{github.workspace}}/docs/html
-
-  Testing:
-    needs: Build
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Downloading unit tests
-      uses: actions/download-artifact@master
-      with:
-        name: Unit_tests
-        path: ~/unit_tests
-
-    - name: Downloading SFML
-      run: sudo apt-get install libsfml-dev
-
-    - name: Executing tests
-      run: cd ~/unit_tests; for item in $(ls .); do chmod +x $item; if [[ $item = *UT ]]; then ./$item; if [[ $? != 0 ]]; then exit 1; fi fi done
