@@ -80,4 +80,9 @@ Label::Label(const Point& position, const ::std::string& text, const ::std::stri
     constructText(position, text, charSize);
 }
 
+::sf::Text& Label::getInternalText()
+{
+    return _text;
+}
+
 }
