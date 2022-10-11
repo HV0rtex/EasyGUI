@@ -6,6 +6,7 @@ sources:
   #Files or Directories to be Excluded are mentioned in exclusions
   exclusions:
     - 'test'
+    - 'tests'
     - 'generated'
     - 'mock'
     - 'thirdparty'
@@ -15,7 +16,6 @@ sources:
     - 'external'
     - 'build'
     - 'node_modules'
-    - 'assets'
     - 'gulp'
     - 'grunt'
     - 'library'
