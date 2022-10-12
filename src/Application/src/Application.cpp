@@ -48,20 +48,29 @@ Application* Application::getInstance(const unsigned& width, const unsigned& hei
     return instance;
 }
 
+void Application::executeForAll(void (*action)(Component*))
+{
+    unsigned index = 0;
+    Component* currentComp = _activeMenu->getComponent(0);
+
+    while(currentComp != nullptr)
+    {
+        action(currentComp);
+
+        index++;
+        currentComp = _activeMenu->getComponent(index);
+    }
+}
+
 void Application::handleEvents(const ::sf::Event& event)
 {
     if(event.type == ::sf::Event::MouseButtonPressed && event.mouseButton.button == ::sf::Mouse::Left)
     {
-        unsigned index = 0;
-        Component* currentComp = _activeMenu->getComponent(0);
-
-        while(currentComp != nullptr)
-        {
-            currentComp->onClick();
-
-            index++;
-            currentComp = _activeMenu->getComponent(index);
-        }
+        executeForAll([](Component* comp) {comp->onClick();});
+    }
+    else if(event.type == ::sf::Event::MouseMoved)
+    {
+        executeForAll([](Component* comp) {comp->onHover();});
     }
 
     for(Routine*& routine : routines)
