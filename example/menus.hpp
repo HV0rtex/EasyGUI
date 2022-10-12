@@ -19,6 +19,7 @@
 #include <Exceptions/AssetException.hpp>
 #include <Label.hpp>
 #include <Button.hpp>
+#include <Textbox.hpp>
 
 // Defining functions to create menus
 void createMainMenu(easyGUI::Application* appInstance);

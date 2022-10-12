@@ -13,6 +13,7 @@
 
 // Including dependencies
 #include <Button.hpp>
+#include <Textbox.hpp>
 
 namespace easyGUI
 {
@@ -43,6 +44,16 @@ public:
      * @retval nullptr Asset could not be converted
      */
     static Label* getLabel(Component* asset);
+
+    /**
+     * @brief Converts a component into a textbox
+     * 
+     * @param asset The component to be converted
+     * 
+     * @return Textbox* 
+     * @retval nullptr Asset could not be converted.
+     */
+    static TextBox* getTextbox(Component* asset);
 
 };
 

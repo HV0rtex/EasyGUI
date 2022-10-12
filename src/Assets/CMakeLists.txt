@@ -21,6 +21,7 @@ set(LIBRARY_SOURCES
     src/Button.cpp
     src/Converter.cpp
     src/Component.cpp
+    src/TextBox.cpp
 )
 
 add_library(

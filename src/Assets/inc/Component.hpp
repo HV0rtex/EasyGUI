@@ -88,13 +88,13 @@ public:
      * @brief Executes the onClick action
      * 
      */
-    void onClick();
+    virtual void onClick();
 
     /**
      * @brief Executes the onHover action
      * 
      */
-    void onHover();
+    virtual void onHover();
 };
 
 }

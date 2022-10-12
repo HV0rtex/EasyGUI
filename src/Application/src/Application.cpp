@@ -72,6 +72,13 @@ void Application::handleEvents(const ::sf::Event& event)
     {
         executeForAll([](Component* comp) {comp->onHover();});
     }
+    else if(event.type == ::sf::Event::TextEntered || event.type == ::sf::Event::KeyPressed)
+    {
+        if(TextBox::selectedBox != nullptr)
+        {
+            TextBox::selectedBox->updateText(event);
+        }
+    }
 
     for(Routine*& routine : routines)
     {

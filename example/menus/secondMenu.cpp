@@ -59,6 +59,23 @@ void createSecondMenu(easyGUI::Application* appInst)
             )
         );
 
+        menu->addComponent(
+            new easyGUI::TextBox(
+                easyGUI::Point(50,300),
+                easyGUI::Point(250, 350),
+
+                ::sf::Color::Black,
+                ::sf::Color::White,
+                ::sf::Color::White,
+
+                "Dummy text",
+                "./res/Arial.ttf",
+
+                25,
+                5
+            )
+        );
+
         menu->getComponent(1)->setOnClickAction(backButton_action);     // <--- Adding an action to be performed on click
     }
     catch(const easyGUI::AssetException* err)

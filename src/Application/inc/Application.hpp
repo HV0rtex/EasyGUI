@@ -29,6 +29,7 @@
 // Including dependencies
 #include <Routine.hpp>
 #include <Menu.hpp>
+#include <Converter.hpp>
 #include <Logger.hpp>
 #include <Exceptions/MenuException.hpp>
 
