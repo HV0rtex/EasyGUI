@@ -68,7 +68,6 @@ void createSecondMenu(easyGUI::Application* appInst)
                 ::sf::Color::White,
                 ::sf::Color::White,
 
-                "Dummy text",
                 "./res/Arial.ttf",
 
                 25,

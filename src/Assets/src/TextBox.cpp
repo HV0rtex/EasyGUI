@@ -51,14 +51,6 @@ Point TextBox::getLabelPosition(const unsigned& length, const unsigned& charSize
     return Point(_shape.getPosition().x + freeSpaceX / 2, _shape.getPosition().y + freeSpaceY / 2);
 }
 
-void TextBox::constructText(const Point& position, const ::std::string& text, const unsigned& charSize, ::sf::Color textColor)
-{
-    _text.setPosition(position.Xcoord, position.Ycoord);
-    _text.setFont(*_font.get());
-    _text.setFillColor(textColor);
-    _text.setCharacterSize(charSize);
-    _text.setString(text);
-}
 
 TextBox::TextBox(
     const Point& startLocation,
@@ -68,7 +60,6 @@ TextBox::TextBox(
     const ::sf::Color& outlineColor,
     const ::sf::Color& textColor,
 
-    const ::std::string& text,
     const ::std::string& fontPath,
 
     const unsigned& charSize,
@@ -82,13 +73,6 @@ TextBox::TextBox(
 
     desiredSize = charSize;
 
-    unsigned correction = getCharSizeCorrection(text.size(), charSize);
-
-    if(correction != 0)
-    {
-        WARN << "TextBox text doesn't fit. Resizing text...\n";
-    }
-
     try
     {
         FontManager* manager = nullptr;
@@ -101,7 +85,8 @@ TextBox::TextBox(
 
         _font = manager->getFont(fontPath);
 
-        constructText(getLabelPosition(text.size(), charSize - correction), text, charSize - correction, textColor);
+        _text.setFillColor(textColor);
+        _text.setFont(*_font.get());
     } 
     catch (const FontException& err)
     {
@@ -120,7 +105,6 @@ TextBox::TextBox(
     const ::sf::Color& outlineColor,
     const ::sf::Color& textColor,
 
-    const ::std::string& text,
     const ::std::string& fontPath,
 
     const unsigned& charSize,
@@ -132,7 +116,6 @@ TextBox(
     fillColor,
     outlineColor,
     textColor,
-    text,
     fontPath,
     charSize,
     thickness
@@ -171,31 +154,14 @@ bool TextBox::isMouseHover() const
     return _text;
 }
 
-void TextBox::updateText(const ::sf::Event& event)
+void TextBox::updateText(const ::sf::Uint32& text)
 {
-    if(selectedBox == nullptr || (event.type != ::sf::Event::TextEntered && (event.type != ::sf::Event::KeyPressed || event.key.code != ::sf::Keyboard::BackSpace)))
-        return;
+    ::sf::String newContent = _text.getString();
 
-    ::sf::Text& text = selectedBox->getInternalText();
-    ::sf::String newContent = text.getString();
-
-    // if(event.type == ::sf::Event::KeyPressed && event.key.code == ::sf::Keyboard::BackSpace)
-    // {
-    //     newContent.erase(newContent.getSize() - 1);
-    // }
-    if(event.type == ::sf::Event::KeyPressed)
-    {
-        if(event.text.unicode == ::sf::Keyboard::BackSpace)
-        {
-            newContent.erase(newContent.getSize() - 1);
-        }
-        else
-        {
-            WARN << event.text.unicode;
-
-            newContent.insert(newContent.getSize(), event.text.unicode);
-        }
-    }
+    if(text == 8 && !newContent.isEmpty())
+        newContent.erase(newContent.getSize() - 1);
+    else
+        newContent.insert(newContent.getSize(), text);
 
     unsigned correction = getCharSizeCorrection(newContent.getSize(), desiredSize);
 
@@ -207,9 +173,9 @@ void TextBox::updateText(const ::sf::Event& event)
 
     Point pos = getLabelPosition(newContent.getSize(), desiredSize - correction);
 
-    text.setString(newContent);
-    text.setPosition(pos.Xcoord, pos.Ycoord);
-    text.setCharacterSize(desiredSize - correction);
+    _text.setString(newContent);
+    _text.setPosition(pos.Xcoord, pos.Ycoord);
+    _text.setCharacterSize(desiredSize - correction);
 }
 
 void TextBox::onClick()
@@ -217,6 +183,11 @@ void TextBox::onClick()
     if(isMouseHover())
     {
         selectedBox = this;
+    }
+
+    if(_onClick != nullptr)
+    {
+        _onClick();
     }
 }
 

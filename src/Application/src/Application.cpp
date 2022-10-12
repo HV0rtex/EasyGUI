@@ -72,12 +72,9 @@ void Application::handleEvents(const ::sf::Event& event)
     {
         executeForAll([](Component* comp) {comp->onHover();});
     }
-    else if(event.type == ::sf::Event::TextEntered || event.type == ::sf::Event::KeyPressed)
+    else if(event.type == ::sf::Event::TextEntered && TextBox::selectedBox != nullptr)
     {
-        if(TextBox::selectedBox != nullptr)
-        {
-            TextBox::selectedBox->updateText(event);
-        }
+        TextBox::selectedBox->updateText(event.text.unicode);
     }
 
     for(Routine*& routine : routines)
@@ -155,6 +152,7 @@ void Application::setActiveMenu(const unsigned& index)
     if(index < menus.size())
     {
         _activeMenu = menus.at(index);
+        TextBox::selectedBox = nullptr;
 
         if(!_startMenuSet)
         {

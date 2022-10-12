@@ -17,7 +17,6 @@
 #include <Exceptions/TextBoxException.hpp>
 #include <Point.hpp>
 #include <SFML/Window/Mouse.hpp>
-#include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
 
@@ -55,10 +54,6 @@ private:
      */
     unsigned getCharSizeCorrection(const unsigned& textLenght, const unsigned& desiredSize) const;
 
-    // ----- Initializers -----
-
-    void constructText(const Point& position, const ::std::string& text, const unsigned& charSize, ::sf::Color textColor);
-
 public:
     static TextBox* selectedBox;
 
@@ -70,8 +65,7 @@ public:
      * @param fillColor The color of the button background
      * @param outlineColor The color of the button border
      * @param textColor The color of the text
-     * 
-     * @param text The button's text
+     *
      * @param fontPath The path to the font file
      * 
      * @param charSize The size of the characters
@@ -90,7 +84,6 @@ public:
         const ::sf::Color& outlineColor,
         const ::sf::Color& textColor,
 
-        const ::std::string& text,
         const ::std::string& fontPath,
 
         const unsigned& charSize,
@@ -107,13 +100,12 @@ public:
      * @param outlineColor The color of the button border
      * @param textColor The color of the text
      * 
-     * @param text The button's text
      * @param fontPath The path to the font file
      * 
      * @param charSize The size of the characters
      * @param thickness The thickness of the outline
      * 
-     * @throw ::std::invalid_argument Invalid font path
+     * @throw TextBoxException
      * 
      * @note The font file format must be .ttf
      */
@@ -126,7 +118,6 @@ public:
         const ::sf::Color& outlineColor,
         const ::sf::Color& textColor,
 
-        const ::std::string& text,
         const ::std::string& fontPath,
 
         const unsigned& charSize,
@@ -156,9 +147,9 @@ public:
      * The first one is TextEntered (when text is added) and second one is KeyPressed (when text is removed if the key
      * being pressed is backspace).
      * 
-     * @param event The event which triggered the update
+     * @param text The text that has been entered
      */
-    void updateText(const ::sf::Event& event);
+    void updateText(const ::sf::Uint32& text);
 
     // ----- Getters -----
 
