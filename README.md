@@ -40,7 +40,7 @@ easyGUI::Button myButton (
 myButton.addOnClickAction ( action );       // <-- action is a void function with no params
 ```
 
-This way, you don't need to worry wether the button text will fit. If the text fits inside the button borders, it will be automatically centered, otherwise the text / shape will be readjusted accordingly. For further information, please refer to our [User Manual](https://github.com/HV0rtex/EasyGUI/docs/userManual.pdf).
+This way, you don't need to worry wether the button text will fit. If the text fits inside the button borders, it will be automatically centered, otherwise the text / shape will be readjusted accordingly. For further information, please refer to our [User Manual](https://github.com/HV0rtex/EasyGUI/blob/main/docs/userManual.pdf).
 
 ## What is provided
 
@@ -54,7 +54,7 @@ Before attempting to use the extension you must make sure you have the following
 
 ## Installation
 
-After downloading the realease package for your operating system (Note: For Windows you need to check the OS version: 32/64 bit and download the corresponding package), check out the [Installation Guide](https://github.com/HV0rtex/EasyGUI/docs/installationGuide.pdf) in order to set everything up for your IDE.
+After downloading the realease package for your operating system (Note: For Windows you need to check the OS version: 32/64 bit and download the corresponding package), check out the [Installation Guide](https://github.com/HV0rtex/EasyGUI/blob/main/docs/installationGuide.pdf) in order to set everything up for your IDE.
 
 ## Support
 
