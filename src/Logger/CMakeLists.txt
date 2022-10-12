@@ -13,36 +13,38 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-# ----- Configuring GTest -----
+# ----- Defining library sets -----
 
-set(CMAKE_CXX_FLAGS -pthread)
+add_library(
+    easyGUI-exceptions STATIC
 
-find_package(GTest REQUIRED)
+    src/AssetException.cpp
+    src/ApplicationException.cpp
+)
 
-# ----- Configuring macro for unit tests -----
+add_library(
+    easyGUI-exceptions-shared SHARED
 
-macro(setup_unit_test)
-    set(multi_valued_args TEST_SOURCES TEST_INCLUDES TEST_LIBS)
+    src/AssetException.cpp
+    src/ApplicationException.cpp
+)
 
-    cmake_parse_arguments(UT "" "TEST_NAME" "${multi_valued_args}" ${ARGN})
+# ----- Defining includes -----
 
-    message( STATUS "Creating Unit Test...")
-    message( STATUS "TEST_NAME: ${UT_TEST_NAME}")
-    message( STATUS "TEST_SOURCES: ${UT_TEST_SOURCES}")
+target_include_directories(
+    easyGUI-exceptions PUBLIC
 
-    add_executable(${UT_TEST_NAME} ${UT_TEST_SOURCES})
+    inc
+)
 
-    target_include_directories(${UT_TEST_NAME} PRIVATE ${GTEST_INCLUDE_DIRS} ${UT_TEST_INCLUDES})
-    target_link_libraries(${UT_TEST_NAME} ${GTEST_BOTH_LIBRARIES} ${UT_TEST_LIBS})
+target_include_directories(
+    easyGUI-exceptions-shared PUBLIC
 
-    install(TARGETS ${UT_TEST_NAME} DESTINATION ${PROJECT_RUNTIME_DIR}/tests)
-endmacro()
+    inc
+)
 
-# ----- Adding unit tests to be built -----
+# ----- Installing library -----
 
-add_subdirectory(Label)
-add_subdirectory(FontManager)
-
-# ----- Installing resources -----
-
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res DESTINATION ${PROJECT_RUNTIME_DIR}/tests)
+install( TARGETS easyGUI-exceptions DESTINATION ${PROJECT_LIBRARY_DIR} )
+install( TARGETS easyGUI-exceptions-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
+install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )

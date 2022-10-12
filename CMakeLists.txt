@@ -28,7 +28,7 @@ project(
 
 set(PROJECT_RUNTIME_DIR ${PROJECT_SOURCE_DIR}/bin)
 set(PROJECT_LIBRARY_DIR ${PROJECT_SOURCE_DIR}/lib)
-set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
+set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/EasyGUI)
 
 # ----- Build config -----
 
@@ -63,6 +63,5 @@ add_compile_options(
 # ----- Building sources -----
 
 add_subdirectory(src)
-add_subdirectory(tests)
 
 # add_subdirectory(example)

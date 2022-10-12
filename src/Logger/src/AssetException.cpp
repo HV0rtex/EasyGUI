@@ -12,14 +12,34 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#pragma once
 
-// Including dependencies
-#include <Application.hpp>
+/**
+ * @file AssetException.cpp
+ * @author David Bogdan (david.bnicolae@gmail.com)
+ * @brief Implementation of the AssetException class
+ * @version 0.1
+ * @date 2022-10-05
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #include <Exceptions/AssetException.hpp>
-#include <Label.hpp>
-#include <Button.hpp>
 
-// Defining functions to create menus
-void createMainMenu(easyGUI::Application* appInstance);
-void createSecondMenu(easyGUI::Application* appInstance);
+namespace easyGUI
+{
+
+AssetException::~AssetException() {}
+AssetException::AssetException(::std::string message) : ::std::exception()
+{
+    _msg = "[ Asset ]";
+    _msg += message;
+    _msg += "\n";
+}
+
+const char* AssetException::what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW
+{
+    return _msg.c_str();
+}
+
+}

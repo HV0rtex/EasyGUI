@@ -12,14 +12,25 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
+/**
+ * @file Logger.hpp
+ * @author David Bogdan (david.bnicoale@gmail.com)
+ * @brief Definition of the logging macros
+ * @version 0.1
+ * @date 2022-09-27
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #pragma once
 
 // Including dependencies
-#include <Application.hpp>
-#include <Exceptions/AssetException.hpp>
-#include <Label.hpp>
-#include <Button.hpp>
+#include <iostream>
 
-// Defining functions to create menus
-void createMainMenu(easyGUI::Application* appInstance);
-void createSecondMenu(easyGUI::Application* appInstance);
+using std::cout;
+
+#define INFO cout << "[ INFO ] "
+#define WARN cout << "[ WARN ] "
+#define ERROR cout << "[ ERROR ] "

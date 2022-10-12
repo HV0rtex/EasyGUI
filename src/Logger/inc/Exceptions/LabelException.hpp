@@ -14,53 +14,43 @@
 
 
 /**
- * @file T_Label_UT.cpp
+ * @file LabelException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Unit tests for the label class
+ * @brief Definition of the LabelException class
  * @version 0.1
- * @date 2022-08-16
+ * @date 2022-10-05
  * 
  * @copyright Copyright (c) 2022
  * 
  */
 
+#pragma once
 
-#include <gtest/gtest.h>
-#include <Label.hpp>
+// Including dependencies
+#include <Exceptions/AssetException.hpp>
 
-TEST(LabelUnitTest, SimpleInitTest)
+namespace easyGUI
 {
-    ::easyGUI::Point pos;
-    ::easyGUI::Label* testObj; 
 
-    pos.Xcoord = 0;
-    pos.Ycoord = 0;
-
-    // Good case
-    ASSERT_NO_THROW(testObj = new ::easyGUI::Label(pos, "Example", "./res/Arial.ttf", 15, ::sf::Color(0,0,0)));
-}
-
-TEST(LabelUnitTest, InitFailsInvalidFont)
+/**
+ * @brief Exception thrown when an error occurs inside a Label.
+ * 
+ */
+class LabelException : public AssetException
 {
-    ::easyGUI::Point pos;
-    ::easyGUI::Label* testObj; 
+public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~LabelException() {}
 
-    pos.Xcoord = 0;
-    pos.Ycoord = 0;
-
-    try
-    {
-        testObj = new ::easyGUI::Label(pos, "Example", "some/random/path", 10, ::sf::Color(10,10,10));
-    
-        FAIL();
-    }
-    catch(const ::std::invalid_argument& e)
-    {
-        ASSERT_STREQ(e.what(), "Invalid font path!");
-    }
-    catch(...)
-    {
-        FAIL();
-    }
+    /**
+     * @brief Constructor
+     * 
+     * @param message The message to be displayed
+     */
+    LabelException(::std::string message) : AssetException( "[ Label ] " + message ) {}
+};
 
 }

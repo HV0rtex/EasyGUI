@@ -12,14 +12,45 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
+/** 
+ * @file FontException.hpp
+ * @author David Bogdan (david.bnicolae@gmail.com)
+ * @brief Definition of the FontException class
+ * @version 0.1
+ * @date 2022-10-05
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #pragma once
 
 // Including dependencies
-#include <Application.hpp>
 #include <Exceptions/AssetException.hpp>
-#include <Label.hpp>
-#include <Button.hpp>
 
-// Defining functions to create menus
-void createMainMenu(easyGUI::Application* appInstance);
-void createSecondMenu(easyGUI::Application* appInstance);
+namespace easyGUI
+{
+
+/**
+ * @brief Exception thrown when an error occurs inside the Font Manager.
+ * 
+ */
+class FontException : public AssetException
+{
+public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~FontException() {}
+
+    /**
+     * @brief Constructor
+     * 
+     * @param message The message to be displayed
+     */
+    FontException(::std::string message) : AssetException( "[ FontManager ] " + message ) {}
+};
+
+}

@@ -14,22 +14,32 @@
 
 
 /**
- * @file main.cpp
+ * @file ApplicationException.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Entry point to the Label unit tests
+ * @brief Implementation of the ApplicationException class
  * @version 0.1
- * @date 2022-08-16
+ * @date 2022-10-05
  * 
  * @copyright Copyright (c) 2022
  * 
  */
 
-#include <gtest/gtest.h>
+#include <Exceptions/ApplicationException.hpp>
 
+namespace easyGUI
+{
 
-GTEST_API_ int main(int argc, char **argv) {
-    printf("Running main() from %s\n", __FILE__);
-    testing::InitGoogleTest(&argc, argv);
+ApplicationException::~ApplicationException() {}
+ApplicationException::ApplicationException(::std::string message) : ::std::exception()
+{
+    _msg = "[ Application ] ";
+    _msg += message;
+    _msg += "\n";
+}
 
-    return RUN_ALL_TESTS();
+const char* ApplicationException::what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW
+{
+    return _msg.c_str();
+}
+
 }

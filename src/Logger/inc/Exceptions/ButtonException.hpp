@@ -14,43 +14,43 @@
 
 
 /**
- * @file T_Point_UT.cpp
+ * @file ButtonException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Unit tests for the Point structure
+ * @brief Definition of the ButtonException class
  * @version 0.1
- * @date 2022-08-16
+ * @date 2022-10-05
  * 
  * @copyright Copyright (c) 2022
  * 
  */
 
-#include <gtest/gtest.h>
-#include <Point.hpp>
+#pragma once
 
-TEST(PointUnitTest, SimpleInitTest) 
+// Including dependencies
+#include <Exceptions/AssetException.hpp>
+
+namespace easyGUI
 {
-    // Normal initialization
-    easyGUI::Point obj;
 
-    obj.Xcoord = 2;
-    obj.Ycoord = -1;
+/**
+ * @brief Exception thrown when an error occurs inside the Button.
+ * 
+ */
+class ButtonException : public AssetException
+{
+public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~ButtonException() {}
 
-    ASSERT_EQ(obj.Xcoord, 2);
-    ASSERT_EQ(obj.Ycoord, -1);
+    /**
+     * @brief Constructor
+     * 
+     * @param message The message to be displayed
+     */
+    ButtonException(::std::string message) : AssetException( "[ Button ] " + message ) {}
+};
 
-    // Copy construction
-    easyGUI::Point obj2(obj);
-
-    ASSERT_EQ(obj2.Xcoord, 2);
-    ASSERT_EQ(obj2.Ycoord, -1);
-
-    obj2.Xcoord = 0;
-
-    ASSERT_EQ(obj2.Xcoord, 0);
-    ASSERT_NE(obj.Xcoord, 0);
-
-    // Assignment
-    obj = obj2;
-
-    ASSERT_EQ(obj.Xcoord, 0);
 }

@@ -36,6 +36,8 @@ FontManager* FontManager::getInstance()
     if(instance == nullptr)
     {
         instance = new FontManager();
+
+        INFO << "Font manager is up and running.\n";
     }
 
     return instance;
@@ -56,7 +58,7 @@ FontManager* FontManager::getInstance()
     {
         instance->fontMap.erase(fontPath);
 
-        return nullptr;
+        throw FontException("Could not create font because path was invalid.");
     }
 
     instance->occurances[fontPath] = 1;
@@ -65,11 +67,11 @@ FontManager* FontManager::getInstance()
     return instance->fontMap[fontPath];
 }
 
-void FontManager::updateMaps(const ::sf::Font* usedFont)
+void FontManager::removeFont(const ::sf::Font* usedFont)
 {
     if(usedFont == nullptr)
     {
-        throw ::std::invalid_argument("Invalid font being removed!");
+        throw FontException("Cannot remove non-existent font.");
     }
 
     ::std::string fontKey = instance->reverseFontMap[usedFont];

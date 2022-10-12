@@ -35,9 +35,13 @@ namespace easyGUI
 /**
  * @brief Defines a way to control the application flow
  * 
- * @details A routine denotes a procedure which is colled if and only if specific
+ * @details A routine denotes a procedure which is called if and only if specific
  * application events are fired. That way, it allows the user to control the flow
  * of the application.
+ * 
+ * For instance a routine may be called when a mouse is pressed on a button, but a second
+ * routine may also fire if it is configured to fire whenever the mouse is pressed, regardless
+ * of the mouse position.
  * 
  */
 class Routine

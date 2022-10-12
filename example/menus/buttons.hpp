@@ -14,45 +14,26 @@
 
 
 /**
- * @file T_FontManager_UT.cpp
+ * @file buttons.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Unit tests for the font manager class
+ * @brief Includes the headers for all button callbacks
  * @version 0.1
- * @date 2022-08-16
+ * @date 2022-09-27
  * 
  * @copyright Copyright (c) 2022
  * 
  */
 
-#include <FontManager.hpp>
-#include <gtest/gtest.h>
+#pragma once
 
+// Dependencies
+#include <Application.hpp>
 
-TEST(FontManagerUT, SimpleInitTest)
-{
-    ::easyGUI::FontManager* inst = nullptr;
+// First menu buttons
 
-    ASSERT_NO_THROW(inst = inst->getInstance());
-    ASSERT_NE(inst, nullptr);
-}
+void demoButton_action();
+void exitButton_action();
 
-TEST(FontManagerUT, GetFontWorks)
-{
-    ::easyGUI::FontManager* inst = nullptr;
+// Second menu buttons
 
-    const ::sf::Font* ptr = nullptr;
-    const ::sf::Font* ptr2 = nullptr;
-
-    ASSERT_NO_THROW(inst = inst->getInstance());
-    ASSERT_NE(inst, nullptr);
-
-    ptr = inst->getFont("./res/Arial.ttf");
-    ptr2 = inst->getFont("./res/Arial.ttf");
-
-
-    ASSERT_NE(ptr, nullptr);
-    ASSERT_EQ(ptr, ptr2);
-
-    ASSERT_EQ(inst->getFont("/font/font/Path"), nullptr);
-    ASSERT_NO_THROW(inst->updateMaps(ptr));
-}
+void backButton_action();

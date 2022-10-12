@@ -16,6 +16,8 @@
 
 add_executable(
     demo
+
+    # Main
     demo.cpp
     
     # Menus
@@ -24,6 +26,11 @@ add_executable(
 
     # Routines
     routines/windowHandler.cpp
+
+    # Buttons
+    menus/buttons/backButton.cpp
+    menus/buttons/demoButton.cpp
+    menus/buttons/exitButton.cpp
 )
 
 target_include_directories(
@@ -32,6 +39,7 @@ target_include_directories(
     PUBLIC
     ../src/Application/inc/
     ../src/Assets/inc/
+    ../src/Logger/inc/
     ./
 )
 
@@ -39,6 +47,7 @@ target_link_libraries(
     demo
     easyGUI-application
     easyGUI-assets
+    easyGUI-exceptions
 )
 
 # ----- Installing project -----

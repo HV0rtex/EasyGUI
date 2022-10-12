@@ -12,14 +12,56 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
+/**
+ * @file AssetException.hpp
+ * @author David Bogdan (david.bnicolae@gmail.com)
+ * @brief Definition of the base exception class
+ * @version 0.1
+ * @date 2022-10-05
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #pragma once
 
 // Including dependencies
-#include <Application.hpp>
-#include <Exceptions/AssetException.hpp>
-#include <Label.hpp>
-#include <Button.hpp>
+#include <exception>
+#include <string>
 
-// Defining functions to create menus
-void createMainMenu(easyGUI::Application* appInstance);
-void createSecondMenu(easyGUI::Application* appInstance);
+namespace easyGUI
+{
+
+/**
+ * @brief Exception thrown when something goes wrong at Asset level.
+ * 
+ */
+class AssetException : public ::std::exception
+{
+private:
+    ::std::string _msg;
+
+public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~AssetException();
+
+    /**
+     * @brief Constructor
+     * 
+     * @param message The message to be displayed
+     */
+    AssetException(::std::string message);
+
+    /**
+     * @brief Returns the exception message
+     * 
+     * @return const char* 
+     */
+    const char* what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW;
+};
+
+}

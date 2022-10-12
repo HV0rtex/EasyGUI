@@ -14,22 +14,43 @@
 
 
 /**
- * @file main.cpp
+ * @file MenuException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Entry point to the FontManager unit tests
+ * @brief Definition of the MenuException class
  * @version 0.1
- * @date 2022-08-16
+ * @date 2022-10-05
  * 
  * @copyright Copyright (c) 2022
  * 
  */
 
-#include <gtest/gtest.h>
+#pragma once
 
+// Including dependencies
+#include <Exceptions/ApplicationException.hpp>
 
-GTEST_API_ int main(int argc, char **argv) {
-    printf("Running main() from %s\n", __FILE__);
-    testing::InitGoogleTest(&argc, argv);
+namespace easyGUI
+{
 
-    return RUN_ALL_TESTS();
+/**
+ * @brief Exception thrown when an error occurs with a Menu.
+ * 
+ */
+class MenuException : public ApplicationException
+{
+public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~MenuException() {}
+
+    /**
+     * @brief Constructor
+     * 
+     * @param message The message to be displayed
+     */
+    MenuException(::std::string message) : ApplicationException( "[ Menu ] " + message ) {}
+};
+
 }

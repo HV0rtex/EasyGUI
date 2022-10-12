@@ -28,7 +28,9 @@
 
 // Including dependencies
 #include <SFML/Graphics/Font.hpp>
-#include <stdexcept>
+#include <Exceptions/FontException.hpp>
+#include <Logger.hpp>
+#include <utility>
 #include <map>
 
 namespace easyGUI
@@ -76,7 +78,7 @@ public:
      * @param fontPath The path to the font
      * 
      * @return ::sf::Font* 
-     * @retval NULL invalid font path
+     * @throws FontException couldn't get font image from path
      */
     ::sf::Font* getFont(const ::std::string& fontPath);
 
@@ -87,8 +89,10 @@ public:
      * from memory, as there are no labels using it.
      * 
      * @param usedFont The font of the destructed label
+     * 
+     * @throws FontException Invalid font received for removal
      */
-    void updateMaps(const ::sf::Font* usedFont);
+    void removeFont(const ::sf::Font* usedFont);
 };
 
 }

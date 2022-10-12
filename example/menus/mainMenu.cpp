@@ -13,95 +13,74 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <menus.hpp>
-
-void demoButton_action ()
-{
-    easyGUI::Application* app = nullptr;
-    
-    app = app->getInstance();
-
-    if(app != nullptr)
-    {
-        app->setActiveMenu(1);
-    }
-}
-
-void exitButton_action ()
-{
-    easyGUI::Application* app = nullptr;
-    
-    app = app->getInstance();
-
-    if(app != nullptr)
-    {
-        app->stop();
-    }
-}
+#include "buttons.hpp"
 
 void createMainMenu(easyGUI::Application* appInstance)
 {
-    if(appInstance != nullptr)
+    if(appInstance == nullptr)
+        // Raise error if application has not been created
+        throw easyGUI::MenuException("Could not get hold of application instance.");
+
+    easyGUI::Menu* menu = appInstance->addMenu(true);   // Adds a new MAIN menu
+
+    if(menu == nullptr)
+        // Raise error if creating a menu fails
+        throw easyGUI::MenuException("Could not create menu.");
+
+    try
     {
-        easyGUI::Menu* menu = appInstance->addMenu(true);
+        menu->addComponent( 
+            new easyGUI::Label(             // <--- Label component
+                easyGUI::Point(220, 100),   // <--- Starting location
+                
+                "A demo application",       // <--- Label text
+                "./res/Arial.ttf",          // <--- Text font path
+                
+                40,                         // <--- Desired character size
+                
+                sf::Color(255,255,255)      // <--- Text color
+            ) 
+        );
+        
+        menu->addComponent( 
+            new easyGUI::Button(            // <--- Button component
+                easyGUI::Point(50, 200),    // <--- Starting location
+                easyGUI::Point(250,250),    // <--- Ending location
 
-        if(menu == nullptr)
-        {
-            throw std::exception();
-        }
+                ::sf::Color::Black,         // <--- Fill color
+                ::sf::Color::White,         // <--- Outline color
+                ::sf::Color::White,         // <--- Text color
+                
+                "Demo button",              // <--- Button text
+                "./res/Arial.ttf",          // <--- Text font path
+                
+                55,                         // <--- Desired character size 
+                5                           // <--- Outline thickness
+            )
+        );
 
-        try
-        {
-            menu->addComponent( 
-                new easyGUI::Label( 
-                    easyGUI::Point(220, 100),
-                    
-                    "A demo application", 
-                    "./res/Arial.ttf", 
-                    
-                    40, 
-                    
-                    sf::Color(255,255,255) 
-                ) 
-            );
-            
-            menu->addComponent( 
-                new easyGUI::Button( 
-                    easyGUI::Point(50, 200),
-                    easyGUI::Point(250,250), 
+        menu->addComponent( 
+            new easyGUI::Button( 
+                easyGUI::Point(50, 275),
+                easyGUI::Point(250,325), 
 
-                    ::sf::Color::Black, 
-                    ::sf::Color::White, 
-                    ::sf::Color::White, 
-                    
-                    "Demo button", 
-                    "./res/Arial.ttf", 
-                    
-                    25, 5
-                )
-            );
+                ::sf::Color::Black, 
+                ::sf::Color::White, 
+                ::sf::Color::White, 
+                
+                "Exit", 
+                "./res/Arial.ttf", 
+                
+                25, 5
+            )
+        );
 
-            menu->addComponent( 
-                new easyGUI::Button( 
-                    easyGUI::Point(50, 275),
-                    easyGUI::Point(250,325), 
-
-                    ::sf::Color::Black, 
-                    ::sf::Color::White, 
-                    ::sf::Color::White, 
-                    
-                    "Exit", 
-                    "./res/Arial.ttf", 
-                    
-                    25, 5
-                )
-            );
-
-            menu->getComponent(1)->setOnClickAction(demoButton_action);
-            menu->getComponent(2)->setOnClickAction(exitButton_action);
-        }
-        catch(...)
-        {
-            throw std::exception();
-        }
+        menu->getComponent(1)->setOnClickAction(demoButton_action);     // <--- Adding a callback to be executed on mouse press
+        menu->getComponent(2)->setOnClickAction(exitButton_action);
+    }
+    catch(const easyGUI::AssetException& err)
+    {
+        // Throw error if couldn't add components
+        ERROR << err.what();
     }
 }
