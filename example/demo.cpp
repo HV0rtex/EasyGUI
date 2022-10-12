@@ -17,16 +17,16 @@
 
 using namespace easyGUI;
 
-// Setting application parameters
-unsigned appWidth = 800;
-unsigned appHeight = 600;
-std::string appTitle = "Demo app";
-
-// Declaring application object
-Application* app = nullptr;
-
 int main()
 {
+    // Setting application parameters
+    unsigned appWidth = 800;
+    unsigned appHeight = 600;
+    std::string appTitle = "Demo app";
+
+    // Declaring application object
+    Application* app = nullptr;
+
     // Creating application
     app = app->getInstance(appWidth, appHeight, appTitle.c_str());
 
