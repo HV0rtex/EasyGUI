@@ -41,12 +41,4 @@ TextBox* Converter::getTextbox(Component* asset)
     return dynamic_cast<TextBox*>(asset);
 }
 
-TextBox* Converter::getPasswordBox(Component* asset)
-{
-    if(asset == nullptr)
-        return nullptr;
-
-    return dynamic_cast<PasswordBox*>(asset);
-}
-
 }

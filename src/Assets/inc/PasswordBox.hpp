@@ -36,7 +36,9 @@ namespace easyGUI
  * @brief A textbox that hides the text entered
  * 
  * @details This class acts just like a textbox, except it doesn't display the actual
- * text entered, but an array of stars (*).
+ * text entered, but an array of stars (*). For this reason, a Component* cannot be converted
+ * into a password box via the Converter class.
+ * 
  */
 class PasswordBox : public TextBox
 {

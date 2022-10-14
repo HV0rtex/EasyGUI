@@ -24,13 +24,19 @@ void PasswordBox::updateText(const ::sf::Uint32& text)
     ::sf::String newContent = _text.getString();
 
     if(text == 8 && !newContent.isEmpty())
+    {
         newContent.erase(newContent.getSize() - 1);
+
+        _passText.erase(_passText.end() - 1);
+    }
     else
+    {
         newContent.insert(newContent.getSize(), "*");
+    
+        _passText += ::sf::String(text).toAnsiString();
+    }
 
     unsigned correction = getCharSizeCorrection(newContent.getSize(), desiredSize);
-
-    _passText = newContent.toAnsiString();
 
     if(correction != 0)
     {

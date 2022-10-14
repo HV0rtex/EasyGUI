@@ -11,9 +11,7 @@ void demoButton_action ()
         easyGUI::Menu* menu = app->getActiveMenu();
 
         std::string user = easyGUI::Converter::getTextbox(menu->getComponent(3))->getText();
-        std::string pass = easyGUI::Converter::getPasswordBox(menu->getComponent(4))->getText();
-
-        INFO << pass << "\n";
+        std::string pass = easyGUI::Converter::getTextbox(menu->getComponent(4))->getText();
 
         if(user == "admin" && pass == "admin")
         {
