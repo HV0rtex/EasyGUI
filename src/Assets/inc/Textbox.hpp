@@ -64,6 +64,7 @@ protected:
 
 public:
     static TextBox* selectedBox;
+    static bool textBoxClicked;
 
     /**
      * @brief Constructor
@@ -181,6 +182,12 @@ public:
      * @return const ::std::string 
      */
     virtual const ::std::string getText() const;
+
+    /**
+     * @brief Erases all text from a textbox
+     * 
+     */
+    void clear();
 
     /**
      * @brief Updates the selected text box

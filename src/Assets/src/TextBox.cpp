@@ -183,6 +183,7 @@ void TextBox::onClick()
     if(isMouseHover())
     {
         selectedBox = this;
+        textBoxClicked = true;
     }
 
     if(_onClick != nullptr)
@@ -194,6 +195,11 @@ void TextBox::onClick()
 const ::std::string TextBox::getText() const
 {
     return _text.getString().toAnsiString();
+}
+
+void TextBox::clear()
+{
+    _text.setString("");
 }
 
 }

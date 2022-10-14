@@ -66,7 +66,12 @@ void Application::handleEvents(const ::sf::Event& event)
 {
     if(event.type == ::sf::Event::MouseButtonPressed && event.mouseButton.button == ::sf::Mouse::Left)
     {
+        TextBox::textBoxClicked = false;
+
         executeForAll([](Component* comp) {comp->onClick();});
+    
+        if(TextBox::textBoxClicked == false)
+            TextBox::selectedBox = nullptr;
     }
     else if(event.type == ::sf::Event::MouseMoved)
     {
