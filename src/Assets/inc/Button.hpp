@@ -90,7 +90,7 @@ public:
      * @param charSize The size of the characters
      * @param thickness The thickness of the outline
      * 
-     * @throw ::std::invalid_argument Invalid font path
+     * @throw ButtonException
      * 
      * @note The font file format must be .ttf
 
@@ -126,7 +126,7 @@ public:
      * @param charSize The size of the characters
      * @param thickness The thickness of the outline
      * 
-     * @throw ::std::invalid_argument Invalid font path
+     * @throw ButtonException
      * 
      * @note The font file format must be .ttf
      */

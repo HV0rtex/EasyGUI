@@ -93,7 +93,7 @@ Menu* Application::getMenu(const unsigned& index)
     return nullptr;
 }
 
-const Menu* Application::getActiveMenu() const
+Menu* Application::getActiveMenu()
 {
     return _activeMenu;
 }

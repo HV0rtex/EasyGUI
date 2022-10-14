@@ -191,4 +191,9 @@ void TextBox::onClick()
     }
 }
 
+const ::std::string TextBox::getText() const
+{
+    return _text.getString().toAnsiString();
+}
+
 }

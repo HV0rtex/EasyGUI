@@ -43,40 +43,94 @@ void createMainMenu(easyGUI::Application* appInstance)
         );
         
         menu->addComponent( 
-            new easyGUI::Button(            // <--- Button component
-                easyGUI::Point(50, 200),    // <--- Starting location
-                easyGUI::Point(250,250),    // <--- Ending location
+            new easyGUI::Label(
+                easyGUI::Point(100, 210),
+                
+                "Username",
+                "./res/Arial.ttf",
+                
+                25,
+                
+                sf::Color(255,255,255)
+            ) 
+        );
+
+        menu->addComponent( 
+            new easyGUI::Label(
+                easyGUI::Point(100, 310),
+                
+                "Password",
+                "./res/Arial.ttf",
+                
+                25,
+                
+                sf::Color(255,255,255)
+            ) 
+        );
+
+        menu->addComponent(
+            new easyGUI::TextBox(
+                easyGUI::Point(250, 200),   // <--- Top-left corner
+                easyGUI::Point(500, 250),   // <--- Bottom-right corner
 
                 ::sf::Color::Black,         // <--- Fill color
                 ::sf::Color::White,         // <--- Outline color
                 ::sf::Color::White,         // <--- Text color
                 
-                "Demo button",              // <--- Button text
                 "./res/Arial.ttf",          // <--- Text font path
                 
-                55,                         // <--- Desired character size 
+                25,                         // <--- Desired character size 
+                5                           // <--- Outline thickness    
+            )
+        );
+
+        menu->addComponent(
+            new easyGUI::PasswordBox(
+                easyGUI::Point(250, 300),   // <--- Top-left corner
+                easyGUI::Point(500, 350),   // <--- Bottom-right corner
+
+                ::sf::Color::Black,         // <--- Fill color
+                ::sf::Color::White,         // <--- Outline color
+                ::sf::Color::White,         // <--- Text color
+                
+                "./res/Arial.ttf",          // <--- Text font path
+                
+                25,                         // <--- Desired character size 
+                5                           // <--- Outline thickness    
+            )
+        );
+
+        menu->addComponent( 
+            new easyGUI::Button(            // <--- Button component
+                easyGUI::Point(250, 400),   // <--- Starting location
+                easyGUI::Point(500,450),    // <--- Ending location
+
+                ::sf::Color::Black,         // <--- Fill color
+                ::sf::Color::White,         // <--- Outline color
+                ::sf::Color::White,         // <--- Text color
+                
+                "Sign in",                  // <--- Button text
+                "./res/Arial.ttf",          // <--- Text font path
+                
+                25,                         // <--- Desired character size 
                 5                           // <--- Outline thickness
             )
         );
 
         menu->addComponent( 
-            new easyGUI::Button( 
-                easyGUI::Point(50, 275),
-                easyGUI::Point(250,325), 
-
-                ::sf::Color::Black, 
-                ::sf::Color::White, 
-                ::sf::Color::White, 
+            new easyGUI::Label(
+                easyGUI::Point(270, 470),
                 
-                "Exit", 
-                "./res/Arial.ttf", 
+                "Login with admin / admin",
+                "./res/Arial.ttf",
                 
-                25, 5
-            )
+                15,
+                
+                sf::Color(255,255,255)
+            ) 
         );
 
-        menu->getComponent(1)->setOnClickAction(demoButton_action);     // <--- Adding a callback to be executed on mouse press
-        menu->getComponent(2)->setOnClickAction(exitButton_action);
+        menu->getComponent(5)->setOnClickAction(demoButton_action);     // <--- Adding a callback to be executed on mouse press
     }
     catch(const easyGUI::AssetException& err)
     {

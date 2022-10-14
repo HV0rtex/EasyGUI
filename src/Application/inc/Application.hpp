@@ -143,7 +143,7 @@ public:
      * 
      * @return const Menu* 
      */
-    const Menu* getActiveMenu() const;
+    Menu* getActiveMenu();
 
     /**
      * @brief Gets a routine by its index

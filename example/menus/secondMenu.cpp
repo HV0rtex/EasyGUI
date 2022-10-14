@@ -60,18 +60,18 @@ void createSecondMenu(easyGUI::Application* appInst)
         );
 
         menu->addComponent(
-            new easyGUI::TextBox(
-                easyGUI::Point(50,300),
-                easyGUI::Point(250, 350),
+            new easyGUI::TextBox(           // <--- Creating a Text Box
+                easyGUI::Point(50,300),     // <--- Start location
+                easyGUI::Point(250, 350),   // <--- End location
 
-                ::sf::Color::Black,
-                ::sf::Color::White,
-                ::sf::Color::White,
+                ::sf::Color::Black,         // <--- Box fill color
+                ::sf::Color::White,         // <--- Outline (Border) color
+                ::sf::Color::White,         // <--- Text color
 
-                "./res/Arial.ttf",
+                "./res/Arial.ttf",          // <--- Text font
 
-                25,
-                5
+                25,                         // <--- Desired character size
+                5                           // <--- Outline thickness
             )
         );
 

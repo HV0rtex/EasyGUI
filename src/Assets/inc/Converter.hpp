@@ -13,7 +13,7 @@
 
 // Including dependencies
 #include <Button.hpp>
-#include <Textbox.hpp>
+#include <PasswordBox.hpp>
 
 namespace easyGUI
 {
@@ -54,6 +54,16 @@ public:
      * @retval nullptr Asset could not be converted.
      */
     static TextBox* getTextbox(Component* asset);
+
+    /**
+     * @brief Converts a component into a password box
+     * 
+     * @param asset The component to be converted
+     * 
+     * @return PasswordBox* 
+     * @retval nullptr Asset could not be converted.
+     */
+    static TextBox* getPasswordBox(Component* asset);
 
 };
 

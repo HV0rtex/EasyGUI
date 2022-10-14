@@ -1,9 +1,24 @@
+// Copyright © 2022 David Bogdan
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files 
+// (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, 
+// publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do 
+// so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+// FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
 /**
- * @file Textbox.hpp
+ * @file PasswordBox.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the textbox class
+ * @brief Definition of the password box class
  * @version 0.1
- * @date 2022-10-10
+ * @date 2022-10-14
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -12,58 +27,23 @@
 #pragma once
 
 // Including dependencies
-#include <Component.hpp>
-#include <FontManager.hpp>
-#include <Exceptions/TextBoxException.hpp>
-#include <Point.hpp>
-#include <SFML/Window/Mouse.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/Text.hpp>
+#include <Textbox.hpp>
 
 namespace easyGUI
 {
 
 /**
- * @brief Models a text box
+ * @brief A textbox that hides the text entered
  * 
- * @details This class provides a means for the end-user to input text and
- * enables the creation of forms (e.g. Login forms). The class provides methods
- * to access both the border and the text.
- * 
+ * @details This class acts just like a textbox, except it doesn't display the actual
+ * text entered, but an array of stars (*).
  */
-class TextBox : public Component
+class PasswordBox : public TextBox
 {
-protected:
-    ::sf::RectangleShape _shape;
-    ::sf::Text _text;
-    ::std::shared_ptr <::sf::Font> _font;
-
-    unsigned desiredSize;
-    
-    virtual void draw(::sf::RenderTarget& target, ::sf::RenderStates states) const;
-
-    // ----- Helper methods -----
-
-    /**
-     * @brief Computes the label's starting positon
-     * 
-     * @param length The length of the label's text
-     * @param charSize The size of the characters
-     * @return Point 
-     */
-    Point getLabelPosition(const unsigned& length, const unsigned& charSize) const;
-
-    /**
-     * @brief Computes the correction to be applied to the char size of the text
-     * 
-     * @param textLenght The length of the text
-     * @param desiredSize The desired char size
-     * @return unsigned
-     */
-    unsigned getCharSizeCorrection(const unsigned& textLenght, const unsigned& desiredSize) const;
+private:
+    ::std::string _passText;
 
 public:
-    static TextBox* selectedBox;
 
     /**
      * @brief Constructor
@@ -84,7 +64,7 @@ public:
      * @note The font file format must be .ttf
 
      */
-    TextBox(
+    PasswordBox(
         const Point& startLocation,
         const Point& endLocation,
 
@@ -96,7 +76,7 @@ public:
 
         const unsigned& charSize,
         const unsigned& thickness
-    );
+    ) : TextBox(startLocation, endLocation, fillColor, outlineColor, textColor, fontPath, charSize, thickness) {}
 
     /**
      * @brief Constructor
@@ -117,7 +97,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    TextBox(
+    PasswordBox(
         const Point& startLocation,
         const unsigned& width,
         const unsigned& height,
@@ -130,23 +110,20 @@ public:
 
         const unsigned& charSize,
         const unsigned& thickness
-    );
+    ) : TextBox(startLocation, width, height, fillColor, outlineColor, textColor, fontPath, charSize, thickness) {}
 
     // Block other forms of construction
 
-    TextBox()= delete;
-    TextBox(const TextBox& other)= delete;
-    TextBox& operator= (const TextBox& other)= delete;
-
-    // ----- Auxiliaries -----
+    PasswordBox()= delete;
+    PasswordBox(const TextBox& other)= delete;
+    PasswordBox& operator= (const TextBox& other)= delete;
 
     /**
-     * @brief Check if mouse is over the button
+     * @brief Returns a string containing the text in the box
      * 
-     * @return true Mouse is over the label
-     * @return false otherwise
+     * @return const ::std::string 
      */
-    bool isMouseHover() const;
+    const ::std::string getText() const;
 
     /**
      * @brief Updates the text of the keyboard
@@ -158,35 +135,6 @@ public:
      * @param text The text that has been entered
      */
     virtual void updateText(const ::sf::Uint32& text);
-
-    // ----- Getters -----
-
-    /**
-     * @brief Returns the SFML RectangleShape
-     * 
-     * @return ::sf::RectangleShape& 
-     */
-    ::sf::RectangleShape& getInternalBox();
-
-    /**
-     * @brief Returns the SFML Text
-     * 
-     * @return ::sf::Text& 
-     */
-    ::sf::Text& getInternalText();
-
-    /**
-     * @brief Returns a string containing the text in the box
-     * 
-     * @return const ::std::string 
-     */
-    virtual const ::std::string getText() const;
-
-    /**
-     * @brief Updates the selected text box
-     * 
-     */
-    void onClick();
 };
 
 }

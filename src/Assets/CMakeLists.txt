@@ -22,6 +22,7 @@ set(LIBRARY_SOURCES
     src/Converter.cpp
     src/Component.cpp
     src/TextBox.cpp
+    src/PasswordBox.cpp
 )
 
 add_library(
