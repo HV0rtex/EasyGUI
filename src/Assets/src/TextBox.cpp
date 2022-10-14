@@ -15,6 +15,7 @@ namespace easyGUI
 {
 
 TextBox* TextBox::selectedBox = nullptr;
+bool TextBox::textBoxClicked = false;
 
 unsigned TextBox::getCharSizeCorrection(const unsigned& length, const unsigned& charSize) const
 {

@@ -18,6 +18,7 @@ Application control:
 
 GUI Elements:
 - Text box
+- Password box
 - Check box
 - Image
 
@@ -25,6 +26,7 @@ GUI Elements:
 
 Application control:
 - Reworked FontManager internals
+- Reworked demo project to be more meaningful
 
 ## Removed
 
