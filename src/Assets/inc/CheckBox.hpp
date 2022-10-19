@@ -81,7 +81,7 @@ public:
      * @param allignment Denotes how to align the element in respect to the checkbox
      * @param content The content of the checkbox
      */
-    explicit CheckBox( const Point&, const Allignment&, Component*& );
+    explicit CheckBox( const Point&, const Allignment&, Component* );
 
     // ----- Auxiliaries -----
 

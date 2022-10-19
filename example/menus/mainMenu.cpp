@@ -36,9 +36,7 @@ void createMainMenu(easyGUI::Application* appInstance)
                 "A demo application",       // <--- Label text
                 "./res/Arial.ttf",          // <--- Text font path
                 
-                40,                         // <--- Desired character size
-                
-                sf::Color(255,255,255)      // <--- Text color
+                40                          // <--- Desired character size
             ) 
         );
         
@@ -49,9 +47,7 @@ void createMainMenu(easyGUI::Application* appInstance)
                 "Username",
                 "./res/Arial.ttf",
                 
-                25,
-                
-                sf::Color(255,255,255)
+                25
             ) 
         );
 
@@ -62,9 +58,7 @@ void createMainMenu(easyGUI::Application* appInstance)
                 "Password",
                 "./res/Arial.ttf",
                 
-                25,
-                
-                sf::Color(255,255,255)
+                25
             ) 
         );
 
@@ -72,15 +66,10 @@ void createMainMenu(easyGUI::Application* appInstance)
             new easyGUI::TextBox(
                 easyGUI::Point(250, 200),   // <--- Top-left corner
                 easyGUI::Point(500, 250),   // <--- Bottom-right corner
-
-                ::sf::Color::Black,         // <--- Fill color
-                ::sf::Color::White,         // <--- Outline color
-                ::sf::Color::White,         // <--- Text color
                 
                 "./res/Arial.ttf",          // <--- Text font path
                 
-                25,                         // <--- Desired character size 
-                5                           // <--- Outline thickness    
+                25                          // <--- Desired character size 
             )
         );
 
@@ -88,15 +77,10 @@ void createMainMenu(easyGUI::Application* appInstance)
             new easyGUI::PasswordBox(
                 easyGUI::Point(250, 300),   // <--- Top-left corner
                 easyGUI::Point(500, 350),   // <--- Bottom-right corner
-
-                ::sf::Color::Black,         // <--- Fill color
-                ::sf::Color::White,         // <--- Outline color
-                ::sf::Color::White,         // <--- Text color
                 
                 "./res/Arial.ttf",          // <--- Text font path
                 
-                25,                         // <--- Desired character size 
-                5                           // <--- Outline thickness    
+                25                          // <--- Desired character size 
             )
         );
 
@@ -104,29 +88,38 @@ void createMainMenu(easyGUI::Application* appInstance)
             new easyGUI::Button(            // <--- Button component
                 easyGUI::Point(250, 400),   // <--- Starting location
                 easyGUI::Point(500,450),    // <--- Ending location
-
-                ::sf::Color::Black,         // <--- Fill color
-                ::sf::Color::White,         // <--- Outline color
-                ::sf::Color::White,         // <--- Text color
                 
                 "Sign in",                  // <--- Button text
                 "./res/Arial.ttf",          // <--- Text font path
                 
-                25,                         // <--- Desired character size 
-                5                           // <--- Outline thickness
+                25                          // <--- Desired character size 
+            )
+        );
+
+        menu->addComponent(
+            new easyGUI::CheckBox(
+                easyGUI::Point(270, 470),
+                easyGUI::Allignment::RIGHT,
+
+                new easyGUI::Label(
+                    easyGUI::Point(270, 470),
+                    
+                    "Remember me",
+                    "./res/Arial.ttf",
+                    
+                    25     
+                )
             )
         );
 
         menu->addComponent( 
             new easyGUI::Label(
-                easyGUI::Point(270, 470),
+                easyGUI::Point(270, 570),
                 
                 "Login with admin / admin",
                 "./res/Arial.ttf",
                 
-                15,
-                
-                sf::Color(255,255,255)
+                15     
             ) 
         );
 

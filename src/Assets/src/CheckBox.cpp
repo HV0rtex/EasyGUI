@@ -72,13 +72,13 @@ void CheckBox::updateLocation(const Point& newLocation)
     }
 }
 
-CheckBox::CheckBox(const Point& startLocation, const Allignment& allignment, Component*& content)
+CheckBox::CheckBox(const Point& startLocation, const Allignment& allignment, Component* content)
 {
     _box.setPosition(startLocation.Xcoord, startLocation.Ycoord);
     _box.setFillColor(::sf::Color::Black);
     _box.setOutlineColor(::sf::Color::White);
-    _box.setOutlineThickness(5);
-    _box.setSize(::sf::Vector2f(10, 10));
+    _box.setOutlineThickness(3);
+    _box.setSize(::sf::Vector2f(20, 20));
 
     _component = content;
     _allignment = allignment;
@@ -86,7 +86,7 @@ CheckBox::CheckBox(const Point& startLocation, const Allignment& allignment, Com
     switch(allignment)
     {
         case Allignment::BOTTOM:
-            content->updateLocation(Point(startLocation.Xcoord, startLocation.Ycoord + 20));
+            content->updateLocation(Point(startLocation.Xcoord, startLocation.Ycoord + 10));
             break;
         
         case Allignment::TOP:
@@ -94,11 +94,11 @@ CheckBox::CheckBox(const Point& startLocation, const Allignment& allignment, Com
             break;
 
         case Allignment::LEFT:
-            content->updateLocation(Point(startLocation.Xcoord - 20, startLocation.Ycoord));
+            content->updateLocation(Point(startLocation.Xcoord - 20, startLocation.Ycoord - 5));
             break;
 
         case Allignment::RIGHT:
-            content->updateLocation(Point(startLocation.Xcoord + 20, startLocation.Ycoord));
+            content->updateLocation(Point(startLocation.Xcoord + 30, startLocation.Ycoord - 5));
             break;
 
         default:

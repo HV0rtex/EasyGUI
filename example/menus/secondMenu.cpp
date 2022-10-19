@@ -36,9 +36,8 @@ void createSecondMenu(easyGUI::Application* appInst)
                 "A second menu",            // <--- Label text
                 "./res/Arial.ttf",          // <--- Text font path
                 
-                40,                         // <--- Desired character size
+                40                          // <--- Desired character size
                 
-                sf::Color(255,255,255)      // <--- Text color
             ) 
         );
         
@@ -46,16 +45,11 @@ void createSecondMenu(easyGUI::Application* appInst)
             new easyGUI::Button(            // <--- Button component
                 easyGUI::Point(50, 200),    // <--- Starting location
                 easyGUI::Point(250,250),    // <--- Ending location
-
-                ::sf::Color::Black,         // <--- Fill color
-                ::sf::Color::White,         // <--- Outline color
-                ::sf::Color::White,         // <--- Text color
                 
                 "Go back",                  // <--- Button text
                 "./res/Arial.ttf",          // <--- Text font path
                 
-                25,                         // <--- Desired character size
-                5                           // <--- Outline thickness
+                25                          // <--- Desired character size
             )
         );
 
@@ -64,14 +58,9 @@ void createSecondMenu(easyGUI::Application* appInst)
                 easyGUI::Point(50,300),     // <--- Start location
                 easyGUI::Point(250, 350),   // <--- End location
 
-                ::sf::Color::Black,         // <--- Box fill color
-                ::sf::Color::White,         // <--- Outline (Border) color
-                ::sf::Color::White,         // <--- Text color
-
                 "./res/Arial.ttf",          // <--- Text font
 
-                25,                         // <--- Desired character size
-                5                           // <--- Outline thickness
+                25                          // <--- Desired character size
             )
         );
 
