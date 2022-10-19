@@ -59,7 +59,7 @@ public:
      * @param trigger Function that determines whether the routine is triggered
      * @param _response The response that is to be triggered by the routine
      */
-    Routine(bool (*trigger)(const ::sf::Event& action), void(*_response)());
+    explicit Routine(bool (*trigger)(const ::sf::Event& action), void(*_response)());
 
     /**
      * @brief Call operator

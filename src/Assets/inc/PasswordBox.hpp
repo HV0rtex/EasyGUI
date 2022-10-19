@@ -66,7 +66,7 @@ public:
      * @note The font file format must be .ttf
 
      */
-    PasswordBox(
+    explicit PasswordBox(
         const Point& startLocation,
         const Point& endLocation,
 
@@ -99,7 +99,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    PasswordBox(
+    explicit PasswordBox(
         const Point& startLocation,
         const unsigned& width,
         const unsigned& height,

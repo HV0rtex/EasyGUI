@@ -30,7 +30,6 @@
 #include <SFML/Graphics/Font.hpp>
 #include <Exceptions/FontException.hpp>
 #include <Logger.hpp>
-#include <utility>
 #include <map>
 #include <string>
 #include <memory>

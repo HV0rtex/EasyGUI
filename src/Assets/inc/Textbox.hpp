@@ -100,7 +100,7 @@ public:
      * @note The font file format must be .ttf
 
      */
-    TextBox(
+    explicit TextBox(
         const Point& startLocation,
         const Point& endLocation,
 
@@ -133,7 +133,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    TextBox(
+    explicit TextBox(
         const Point& startLocation,
         const unsigned& width,
         const unsigned& height,

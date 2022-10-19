@@ -95,7 +95,7 @@ public:
      * @note The font file format must be .ttf
 
      */
-    Button(
+    explicit Button(
         const Point& startLocation,
         const Point& endLocation,
 
@@ -130,7 +130,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    Button(
+    explicit Button(
         const Point& startLocation,
         const unsigned& width,
         const unsigned& height,

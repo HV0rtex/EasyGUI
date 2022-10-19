@@ -77,7 +77,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    Label(
+    explicit Label(
         const Point& position, 
         
         const ::std::string& text, 
