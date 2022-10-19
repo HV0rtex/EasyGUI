@@ -69,7 +69,7 @@ public:
      * @brief Destructor
      * 
      */
-    ~Label();
+    ~Label() = default;
 
     /**
      * @brief Constructor
@@ -83,7 +83,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    explicit Label(const Point&, const ::std::string&, const ::std::string&, const unsigned&);
+    Label(const Point&, const ::std::string&, const ::std::string&, const unsigned&);
 
     // Block other forms of construction
 

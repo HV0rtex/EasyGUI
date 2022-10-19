@@ -63,6 +63,8 @@ private:
     ::sf::RectangleShape _box;
     Component* _component;
 
+    Allignment _allignment;
+
     virtual void draw ( ::sf::RenderTarget&, ::sf::RenderStates ) const;
 
 public:

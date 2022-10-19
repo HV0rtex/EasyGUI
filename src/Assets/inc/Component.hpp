@@ -102,7 +102,7 @@ public:
      * 
      * @param newLocation The new location of the component
      */
-    virtual void updateLocation(const Point&);
+    virtual void updateLocation(const Point&) {}
 };
 
 }

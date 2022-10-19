@@ -96,7 +96,7 @@ public:
      * @note The font file format must be .ttf
 
      */
-    explicit TextBox( const Point&, const Point&, const ::std::string&, const unsigned& );
+    TextBox( const Point&, const Point&, const ::std::string&, const unsigned& );
 
     /**
      * @brief Constructor
@@ -113,7 +113,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    explicit TextBox( const Point&, const float&, const float&, const ::std::string&, const unsigned& );
+    TextBox( const Point&, const float&, const float&, const ::std::string&, const unsigned& );
 
     // Block other forms of construction
 

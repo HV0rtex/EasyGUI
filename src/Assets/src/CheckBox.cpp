@@ -29,12 +29,47 @@
 namespace easyGUI
 {
 
+CheckBox::~CheckBox()
+{
+    if(_component != nullptr)
+    {
+        delete _component;
+    }
+}
+
 void CheckBox::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 {
     target.draw(_box, states);
 
     if(_component != nullptr)
         target.draw(*_component, states);
+}
+
+void CheckBox::updateLocation(const Point& newLocation)
+{
+    _box.setPosition(newLocation.Xcoord, newLocation.Ycoord);
+
+    switch(_allignment)
+    {
+        case Allignment::BOTTOM:
+            _component->updateLocation(Point(newLocation.Xcoord, newLocation.Ycoord + 20));
+            break;
+        
+        case Allignment::TOP:
+            _component->updateLocation(Point(newLocation.Xcoord, newLocation.Ycoord - 20));
+            break;
+
+        case Allignment::LEFT:
+            _component->updateLocation(Point(newLocation.Xcoord - 20, newLocation.Ycoord));
+            break;
+
+        case Allignment::RIGHT:
+            _component->updateLocation(Point(newLocation.Xcoord + 20, newLocation.Ycoord));
+            break;
+
+        default:
+            break;
+    }
 }
 
 CheckBox::CheckBox(const Point& startLocation, const Allignment& allignment, Component*& content)
@@ -46,6 +81,7 @@ CheckBox::CheckBox(const Point& startLocation, const Allignment& allignment, Com
     _box.setSize(::sf::Vector2f(10, 10));
 
     _component = content;
+    _allignment = allignment;
 
     switch(allignment)
     {
@@ -87,7 +123,7 @@ void CheckBox::onClick()
 {
     if(isMouseHover())
     {
-        
+
 
         if(_onClick != nullptr)
         {
