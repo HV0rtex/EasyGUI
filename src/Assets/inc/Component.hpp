@@ -29,6 +29,7 @@
 // Including dependencies
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <Point.hpp>
 #include <Logger.hpp>
 
 namespace easyGUI
@@ -58,7 +59,7 @@ public:
      * 
      * @param container The window responsible of the component
      */
-    void setContainer(::sf::RenderWindow*& container);
+    void setContainer( ::sf::RenderWindow*& );
 
     // ----- Interaction methods -----
 
@@ -75,14 +76,14 @@ public:
      * 
      * @param action Function to be called when component is clicked.
      */
-    void setOnClickAction( void (*action)() );
+    void setOnClickAction( void (*)() );
 
     /**
      * @brief Sets the behaviour when the mouse is moved
      * 
      * @param action The action to be executed.
      */
-    void setOnHoverAction( void (*action)() );
+    void setOnHoverAction( void (*)() );
 
     /**
      * @brief Executes the onClick action
@@ -95,6 +96,13 @@ public:
      * 
      */
     virtual void onHover();
+
+    /**
+     * @brief Updates a component's location
+     * 
+     * @param newLocation The new location of the component
+     */
+    virtual void updateLocation(const Point&);
 };
 
 }

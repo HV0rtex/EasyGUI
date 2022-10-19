@@ -28,6 +28,7 @@
 
 // Including dependencies
 #include <Button.hpp>
+#include <CheckBox.hpp>
 #include <PasswordBox.hpp>
 
 namespace easyGUI
@@ -48,7 +49,7 @@ public:
      * @return Button* 
      * @retval nullptr Asset could not be converted
      */
-    static Button* getButton(Component* asset);
+    static Button* getButton( Component* );
 
     /**
      * @brief Converts a Component object into a label
@@ -58,7 +59,7 @@ public:
      * @return Label* 
      * @retval nullptr Asset could not be converted
      */
-    static Label* getLabel(Component* asset);
+    static Label* getLabel( Component* );
 
     /**
      * @brief Converts a component into a textbox
@@ -68,7 +69,17 @@ public:
      * @return Textbox* 
      * @retval nullptr Asset could not be converted.
      */
-    static TextBox* getTextbox(Component* asset);
+    static TextBox* getTextbox( Component* );
+
+    /**
+     * @brief Converts a component into a checkbox
+     *
+     * @param asset The component to be converted 
+     *
+     * @return CheckBox* 
+     * @retval nullptr Asset could not be converted
+     */
+    static CheckBox* getCheckBox( Component* );
 };
 
 }

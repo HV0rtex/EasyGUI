@@ -56,4 +56,12 @@ TextBox* Converter::getTextbox(Component* asset)
     return dynamic_cast<TextBox*>(asset);
 }
 
+CheckBox* Converter::getCheckBox(Component* asset)
+{
+    if(asset == nullptr)
+        return nullptr;
+
+    return dynamic_cast<CheckBox*>(asset);
+}
+
 }

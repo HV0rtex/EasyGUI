@@ -51,11 +51,18 @@ private:
     ::sf::Text _text;
     ::sf::Color _textColor;
 
-    virtual void draw(::sf::RenderTarget& target, ::sf::RenderStates states) const;
+    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const;
 
     // ----- Initializers -----
 
-    void constructText(const Point& position, const ::std::string& text, const unsigned& charSize);
+    /**
+     * @brief Initializes the label's text
+     * 
+     * @param location The position of the text
+     * @param text The text of the label
+     * @param charSize The character size
+     */
+    void constructText(const Point&, const ::std::string&, const unsigned&);
 
 public:
     /**
@@ -71,27 +78,18 @@ public:
      * @param text The text to be displayed.
      * @param fontPath The path to the font file.
      * @param charSize The size of the characters.
-     * @param color The color of the label.
      * 
      * @throw LabelException Invalid font path or couldn't get FontManager
      * 
      * @note The font file format must be .ttf
      */
-    explicit Label(
-        const Point& position, 
-        
-        const ::std::string& text, 
-        const ::std::string& fontPath, 
-        
-        const unsigned& charSize, 
-        const sf::Color& color
-    );
+    explicit Label(const Point&, const ::std::string&, const ::std::string&, const unsigned&);
 
     // Block other forms of construction
 
     Label()= delete;
-    Label(const Label& other)= delete;
-    Label& operator= (const Label& other)= delete;
+    Label(const Label&)= delete;
+    Label& operator= (const Label&)= delete;
 
     // ----- Auxiliaries -----
 
@@ -111,6 +109,13 @@ public:
      * @return ::sf::Text& 
      */
     ::sf::Text& getInternalText();
+
+    /**
+     * @brief Updates a component's location
+     * 
+     * @param newLocation The new location of the component
+     */
+    virtual void updateLocation(const Point&);
 };
 
 }

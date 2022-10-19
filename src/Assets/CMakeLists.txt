@@ -19,10 +19,11 @@ set(LIBRARY_SOURCES
     src/FontManager.cpp
     src/Label.cpp
     src/Button.cpp
-    src/Converter.cpp
     src/Component.cpp
     src/TextBox.cpp
     src/PasswordBox.cpp
+    src/CheckBox.cpp
+    src/Converter.cpp
 )
 
 add_library(

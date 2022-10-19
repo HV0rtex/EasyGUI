@@ -54,7 +54,7 @@ private:
     /**
      * @brief Constructor
      * 
-     * Private constructor in order to adhere to the singleton design pattern.
+     * @details Private constructor in order to adhere to the singleton design pattern.
      */
     FontManager() {}
 public:
@@ -79,7 +79,7 @@ public:
      * @return ::std::shared_ptr<::sf::Font*> 
      * @retval NULL invalid font path
      */
-    ::std::shared_ptr<::sf::Font> getFont(const ::std::string& fontPath);
+    ::std::shared_ptr<::sf::Font> getFont(const ::std::string&);
 };
 
 }

@@ -67,24 +67,30 @@ Point TextBox::getLabelPosition(const unsigned& length, const unsigned& charSize
     return Point(_shape.getPosition().x + freeSpaceX / 2, _shape.getPosition().y + freeSpaceY / 2);
 }
 
+void TextBox::updateLocation(const Point& newLocation)
+{
+    _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
+    
+    if(!_text.getString().isEmpty())
+    {
+        Point newTextLocation = getLabelPosition(_text.getString().getSize(), _text.getCharacterSize());
+
+        _text.setPosition(newTextLocation.Xcoord, newTextLocation.Ycoord);
+    }
+}
 
 TextBox::TextBox(
     const Point& startLocation,
     const Point& endLocation,
 
-    const ::sf::Color& fillColor,
-    const ::sf::Color& outlineColor,
-    const ::sf::Color& textColor,
-
     const ::std::string& fontPath,
 
-    const unsigned& charSize,
-    const unsigned& thickness)
+    const unsigned& charSize)
 {
     _shape.setPosition(startLocation.Xcoord, startLocation.Ycoord);
-    _shape.setFillColor(fillColor);
-    _shape.setOutlineColor(outlineColor);
-    _shape.setOutlineThickness(thickness);
+    _shape.setFillColor(::sf::Color::Black);
+    _shape.setOutlineColor(::sf::Color::White);
+    _shape.setOutlineThickness(5);
     _shape.setSize(::sf::Vector2f(endLocation.Xcoord - startLocation.Xcoord, endLocation.Ycoord - startLocation.Ycoord));
 
     desiredSize = charSize;
@@ -101,7 +107,7 @@ TextBox::TextBox(
 
         _font = manager->getFont(fontPath);
 
-        _text.setFillColor(textColor);
+        _text.setFillColor(::sf::Color::White);
         _text.setFont(*_font.get());
     } 
     catch (const FontException& err)
@@ -114,36 +120,26 @@ TextBox::TextBox(
 
 TextBox::TextBox(
     const Point& startLocation,
-    const unsigned& width,
-    const unsigned& height,
-
-    const ::sf::Color& fillColor,
-    const ::sf::Color& outlineColor,
-    const ::sf::Color& textColor,
+    const float& width,
+    const float& height,
 
     const ::std::string& fontPath,
 
-    const unsigned& charSize,
-    const unsigned& thickness) : 
-    
+    const unsigned& charSize) : 
 TextBox(
     startLocation, 
     Point(startLocation.Xcoord + width, startLocation.Ycoord + height),
-    fillColor,
-    outlineColor,
-    textColor,
     fontPath,
-    charSize,
-    thickness
+    charSize
 ) {}
 
 void TextBox::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 {
-    target.draw(_shape);
+    target.draw(_shape, states);
 
     if(!_text.getString().isEmpty())
     {
-        target.draw(_text);
+        target.draw(_text, states);
     }
 }
 

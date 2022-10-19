@@ -72,26 +72,27 @@ Point Button::getLabelPosition(const unsigned& length, const unsigned& charSize)
     return Point(_shape.getPosition().x + freeSpaceX / 2, _shape.getPosition().y + freeSpaceY / 2);
 }
 
+void Button::updateLocation(const Point& newLocation)
+{
+    _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
+    _content->updateLocation(getLabelPosition(_content->getInternalText().getString().getSize(), _content->getInternalText().getCharacterSize()));
+}
+
 Button::Button(
     const Point& startLocation,
     const Point& endLocation,
 
-    const ::sf::Color& fillColor,
-    const ::sf::Color& outlineColor,
-    const ::sf::Color& textColor,
-
     const ::std::string& text,
     const ::std::string& fontPath,
 
-    const unsigned& charSize,
-    const unsigned& thickness)
+    const unsigned& charSize)
 {
     _shape.setPosition(startLocation.Xcoord, startLocation.Ycoord);
-    _shape.setFillColor(fillColor);
-    _shape.setOutlineColor(outlineColor);
-    _shape.setOutlineThickness(thickness);
+    _shape.setFillColor(::sf::Color::Black);
+    _shape.setOutlineColor(::sf::Color::White);
+    _shape.setOutlineThickness(5);
     _shape.setSize(::sf::Vector2f(endLocation.Xcoord - startLocation.Xcoord, endLocation.Ycoord - startLocation.Ycoord));
-
+    
     unsigned correction = getCharSizeCorrection(text.size(), charSize);
 
     if(correction != 0)
@@ -101,7 +102,7 @@ Button::Button(
 
     try
     {
-        _content = new Label(getLabelPosition(text.size(), charSize - correction), text, fontPath, charSize - correction, textColor);
+        _content = new Label(getLabelPosition(text.size(), charSize - correction), text, fontPath, charSize - correction);
     } 
     catch (const LabelException& err)
     {
@@ -115,38 +116,28 @@ Button::Button(
 
 Button::Button(
     const Point& startLocation,
-    const unsigned& width,
-    const unsigned& height,
-
-    const ::sf::Color& fillColor,
-    const ::sf::Color& outlineColor,
-    const ::sf::Color& textColor,
+    const float& width,
+    const float& height,
 
     const ::std::string& text,
     const ::std::string& fontPath,
 
-    const unsigned& charSize,
-    const unsigned& thickness) : 
-    
+    const unsigned& charSize) : 
 Button(
     startLocation, 
     Point(startLocation.Xcoord + width, startLocation.Ycoord + height),
-    fillColor,
-    outlineColor,
-    textColor,
     text,
     fontPath,
-    charSize,
-    thickness
+    charSize
 ) {}
 
 void Button::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 {
-    target.draw(_shape);
+    target.draw(_shape, states);
 
     if(_content != nullptr)
     {
-        target.draw(*_content);
+        target.draw(*_content, states);
     }
 }
 

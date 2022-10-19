@@ -52,33 +52,17 @@ public:
      * 
      * @param startLocation The location of the top-left corner 
      * @param endLocation The location of the bottom-right corner
-     * @param fillColor The color of the button background
-     * @param outlineColor The color of the button border
-     * @param textColor The color of the text
-     *
+
      * @param fontPath The path to the font file
      * 
      * @param charSize The size of the characters
-     * @param thickness The thickness of the outline
      * 
-     * @throw ::std::invalid_argument Invalid font path
+     * @throw TextBoxException
      * 
      * @note The font file format must be .ttf
 
      */
-    explicit PasswordBox(
-        const Point& startLocation,
-        const Point& endLocation,
-
-        const ::sf::Color& fillColor,
-        const ::sf::Color& outlineColor,
-        const ::sf::Color& textColor,
-
-        const ::std::string& fontPath,
-
-        const unsigned& charSize,
-        const unsigned& thickness
-    ) : TextBox(startLocation, endLocation, fillColor, outlineColor, textColor, fontPath, charSize, thickness) {}
+    explicit PasswordBox( const Point&, const Point&, const ::std::string&, const unsigned& );
 
     /**
      * @brief Constructor
@@ -86,39 +70,22 @@ public:
      * @param startLocation The location of the top-left corner 
      * @param width The width of the button
      * @param height The height of the button
-     * @param fillColor The color of the button background
-     * @param outlineColor The color of the button border
-     * @param textColor The color of the text
      * 
      * @param fontPath The path to the font file
      * 
      * @param charSize The size of the characters
-     * @param thickness The thickness of the outline
      * 
      * @throw TextBoxException
      * 
      * @note The font file format must be .ttf
      */
-    explicit PasswordBox(
-        const Point& startLocation,
-        const unsigned& width,
-        const unsigned& height,
-
-        const ::sf::Color& fillColor,
-        const ::sf::Color& outlineColor,
-        const ::sf::Color& textColor,
-
-        const ::std::string& fontPath,
-
-        const unsigned& charSize,
-        const unsigned& thickness
-    ) : TextBox(startLocation, width, height, fillColor, outlineColor, textColor, fontPath, charSize, thickness) {}
+    explicit PasswordBox( const Point&, const float&, const float&, const ::std::string&, const unsigned& );
 
     // Block other forms of construction
 
-    PasswordBox()= delete;
-    PasswordBox(const TextBox& other)= delete;
-    PasswordBox& operator= (const TextBox& other)= delete;
+    PasswordBox() = delete;
+    PasswordBox( const TextBox& ) = delete;
+    PasswordBox& operator= ( const TextBox& ) = delete;
 
     /**
      * @brief Returns a string containing the text in the box
@@ -130,13 +97,9 @@ public:
     /**
      * @brief Updates the text of the keyboard
      * 
-     * @details This component uses ::sf::Event because there are two types of events which can cause text updates.
-     * The first one is TextEntered (when text is added) and second one is KeyPressed (when text is removed if the key
-     * being pressed is backspace).
-     * 
      * @param text The text that has been entered
      */
-    virtual void updateText(const ::sf::Uint32& text);
+    virtual void updateText( const ::sf::Uint32& );
 };
 
 }

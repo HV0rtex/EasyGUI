@@ -46,7 +46,7 @@ private:
     ::sf::RectangleShape _shape;
     Label* _content;
 
-    virtual void draw(::sf::RenderTarget& target, ::sf::RenderStates states) const;
+    virtual void draw( ::sf::RenderTarget&, ::sf::RenderStates ) const;
 
     // ----- Helper methods -----
 
@@ -57,7 +57,7 @@ private:
      * @param charSize The size of the characters
      * @return Point 
      */
-    Point getLabelPosition(const unsigned& length, const unsigned& charSize) const;
+    Point getLabelPosition( const unsigned&, const unsigned& ) const;
 
     /**
      * @brief Computes the correction to be applied to the char size of the text
@@ -66,7 +66,7 @@ private:
      * @param desiredSize The desired char size
      * @return unsigned
      */
-    unsigned getCharSizeCorrection(const unsigned& textLenght, const unsigned& desiredSize) const;
+    unsigned getCharSizeCorrection( const unsigned&, const unsigned& ) const;
 
 public:
     /**
@@ -80,35 +80,18 @@ public:
      * 
      * @param startLocation The location of the top-left corner 
      * @param endLocation The location of the bottom-right corner
-     * @param fillColor The color of the button background
-     * @param outlineColor The color of the button border
-     * @param textColor The color of the text
-     * 
+     *
      * @param text The button's text
      * @param fontPath The path to the font file
      * 
      * @param charSize The size of the characters
-     * @param thickness The thickness of the outline
      * 
      * @throw ButtonException
      * 
      * @note The font file format must be .ttf
 
      */
-    explicit Button(
-        const Point& startLocation,
-        const Point& endLocation,
-
-        const ::sf::Color& fillColor,
-        const ::sf::Color& outlineColor,
-        const ::sf::Color& textColor,
-
-        const ::std::string& text,
-        const ::std::string& fontPath,
-
-        const unsigned& charSize,
-        const unsigned& thickness
-    );
+    explicit Button( const Point&, const Point&, const ::std::string&, const ::std::string&, const unsigned& );
 
     /**
      * @brief Constructor
@@ -116,41 +99,23 @@ public:
      * @param startLocation The location of the top-left corner 
      * @param width The width of the button
      * @param height The height of the button
-     * @param fillColor The color of the button background
-     * @param outlineColor The color of the button border
-     * @param textColor The color of the text
      * 
      * @param text The button's text
      * @param fontPath The path to the font file
      * 
      * @param charSize The size of the characters
-     * @param thickness The thickness of the outline
      * 
      * @throw ButtonException
      * 
      * @note The font file format must be .ttf
      */
-    explicit Button(
-        const Point& startLocation,
-        const unsigned& width,
-        const unsigned& height,
-
-        const ::sf::Color& fillColor,
-        const ::sf::Color& outlineColor,
-        const ::sf::Color& textColor,
-
-        const ::std::string& text,
-        const ::std::string& fontPath,
-
-        const unsigned& charSize,
-        const unsigned& thickness
-    );
+    explicit Button( const Point&, const float&, const float&, const ::std::string&, const ::std::string&, const unsigned& );
 
     // Block other forms of construction
 
-    Button()= delete;
-    Button(const Button& other)= delete;
-    Button& operator= (const Button& other)= delete;
+    Button() = delete;
+    Button( const Button& ) = delete;
+    Button& operator= ( const Button& ) = delete;
 
     // ----- Auxiliaries -----
 
@@ -177,6 +142,13 @@ public:
      * @return Label* 
      */
     Label* getInternalText();
+
+    /**
+     * @brief Updates a component's location
+     * 
+     * @param newLocation The new location of the component
+     */
+    virtual void updateLocation(const Point&);
 };
 
 }

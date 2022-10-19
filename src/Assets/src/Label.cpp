@@ -56,12 +56,12 @@ bool Label::isMouseHover() const
     return false;
 }
 
-Label::~Label() 
+void Label::updateLocation(const Point& newLocation)
 {
-
+    _text.setPosition(newLocation.Xcoord, newLocation.Ycoord);
 }
 
-Label::Label(const Point& position, const ::std::string& text, const ::std::string& fontPath, const unsigned& charSize, const sf::Color& color)
+Label::Label(const Point& startLocation, const ::std::string& text, const ::std::string& fontPath, const unsigned& charSize)
 {
     try
     {
@@ -75,9 +75,9 @@ Label::Label(const Point& position, const ::std::string& text, const ::std::stri
 
         _font = manager->getFont(fontPath);
 
-        _textColor = color;
+        _textColor = ::sf::Color::White;
 
-        constructText(position, text, charSize);
+        constructText(startLocation, text, charSize);
     }
     catch(const FontException& err)
     {

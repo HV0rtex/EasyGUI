@@ -28,6 +28,7 @@
 
 // Including dependencies
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Window/Mouse.hpp>
 #include <Component.hpp>
 #include <Point.hpp>
 
@@ -62,7 +63,7 @@ private:
     ::sf::RectangleShape _box;
     Component* _component;
 
-    virtual void draw (::sf::RenderTarget& target, ::sf::RenderStates states);
+    virtual void draw ( ::sf::RenderTarget&, ::sf::RenderStates ) const;
 
 public:
     /**
@@ -78,11 +79,7 @@ public:
      * @param allignment Denotes how to align the element in respect to the checkbox
      * @param content The content of the checkbox
      */
-    explicit CheckBox(
-        const Point& startLocation,
-        const Allignment& allignment,
-        const Component*& content
-    );
+    explicit CheckBox( const Point&, const Allignment&, Component*& );
 
     // ----- Auxiliaries -----
 
@@ -99,6 +96,13 @@ public:
      * 
      */
     void onClick();
+
+    /**
+     * @brief Updates a component's location
+     * 
+     * @param newLocation The new location of the component
+     */
+    virtual void updateLocation(const Point&);
 };
 
 }

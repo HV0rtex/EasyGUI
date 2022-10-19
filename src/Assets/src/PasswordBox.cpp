@@ -29,6 +29,22 @@
 namespace easyGUI
 {
 
+PasswordBox::PasswordBox(
+    const Point& startLocation,
+    const Point& endLocation,
+    const ::std::string& fontPath,
+    const unsigned& charSize) :
+TextBox(startLocation, endLocation, fontPath, charSize) {}
+
+PasswordBox::PasswordBox(
+    const Point& startLocation,
+    const float& width,
+    const float& height,
+    const ::std::string& fontPath,
+    const unsigned& charSize) :
+TextBox(startLocation, width, height, fontPath, charSize) {}
+
+
 const ::std::string PasswordBox::getText() const
 {
     return _passText;
