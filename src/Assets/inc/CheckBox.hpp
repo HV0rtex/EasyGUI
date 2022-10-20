@@ -61,9 +61,12 @@ class CheckBox : public Component
 
 private:
     ::sf::RectangleShape _box;
-    Component* _component;
+    ::sf::RectangleShape _filler;
 
+    Component* _component;
     Allignment _allignment;
+
+    bool _checked;
 
     virtual void draw ( ::sf::RenderTarget&, ::sf::RenderStates ) const;
 
@@ -105,6 +108,16 @@ public:
      * @param newLocation The new location of the component
      */
     virtual void updateLocation(const Point&);
+
+    // ----- Getters -----
+
+    /**
+     * @brief Returns if the checkbox has been checked
+     * 
+     * @return true 
+     * @return false 
+     */
+    bool isChecked() const;
 };
 
 }

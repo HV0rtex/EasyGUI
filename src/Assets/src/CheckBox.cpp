@@ -43,11 +43,15 @@ void CheckBox::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 
     if(_component != nullptr)
         target.draw(*_component, states);
+
+    if(_checked)
+        target.draw(_filler, states);
 }
 
 void CheckBox::updateLocation(const Point& newLocation)
 {
     _box.setPosition(newLocation.Xcoord, newLocation.Ycoord);
+    _filler.setPosition(newLocation.Xcoord + 7, newLocation.Ycoord + 7);
 
     switch(_allignment)
     {
@@ -80,8 +84,15 @@ CheckBox::CheckBox(const Point& startLocation, const Allignment& allignment, Com
     _box.setOutlineThickness(3);
     _box.setSize(::sf::Vector2f(20, 20));
 
+    _filler.setPosition(startLocation.Xcoord + 7, startLocation.Ycoord + 7);
+    _filler.setFillColor(::sf::Color::White);
+    _filler.setOutlineColor(::sf::Color::White);
+    _filler.setSize(::sf::Vector2f(6,6));
+    _filler.setOutlineThickness(3);
+
     _component = content;
     _allignment = allignment;
+    _checked = false;
 
     switch(allignment)
     {
@@ -123,13 +134,18 @@ void CheckBox::onClick()
 {
     if(isMouseHover())
     {
-
+        _checked = !_checked;
 
         if(_onClick != nullptr)
         {
             _onClick();
         }
     }
+}
+
+bool CheckBox::isChecked() const
+{
+    return _checked;
 }
 
 }
