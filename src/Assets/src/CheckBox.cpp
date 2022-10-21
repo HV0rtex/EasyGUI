@@ -76,6 +76,44 @@ void CheckBox::updateLocation(const Point& newLocation)
     }
 }
 
+void CheckBox::addComponent(Component* element)
+{
+    if(element == nullptr)
+        return;
+
+    _component = element;
+
+    allignComponent(Point(_box.getPosition().x, _box.getPosition().y));
+}
+
+void CheckBox::allignComponent(const Point& startLocation)
+{
+    if(_component == nullptr)
+        return;
+
+    switch(_allignment)
+    {
+        case Allignment::BOTTOM:
+            _component->updateLocation(Point(startLocation.Xcoord, startLocation.Ycoord + 10));
+            break;
+        
+        case Allignment::TOP:
+            _component->updateLocation(Point(startLocation.Xcoord, startLocation.Ycoord - 20));
+            break;
+
+        case Allignment::LEFT:
+            _component->updateLocation(Point(startLocation.Xcoord - 20, startLocation.Ycoord - 5));
+            break;
+
+        case Allignment::RIGHT:
+            _component->updateLocation(Point(startLocation.Xcoord + 30, startLocation.Ycoord - 5));
+            break;
+
+        default:
+            break;
+    }
+}
+
 CheckBox::CheckBox(const Point& startLocation, const Allignment& allignment, Component* content)
 {
     _box.setPosition(startLocation.Xcoord, startLocation.Ycoord);
@@ -94,27 +132,7 @@ CheckBox::CheckBox(const Point& startLocation, const Allignment& allignment, Com
     _allignment = allignment;
     _checked = false;
 
-    switch(allignment)
-    {
-        case Allignment::BOTTOM:
-            content->updateLocation(Point(startLocation.Xcoord, startLocation.Ycoord + 10));
-            break;
-        
-        case Allignment::TOP:
-            content->updateLocation(Point(startLocation.Xcoord, startLocation.Ycoord - 20));
-            break;
-
-        case Allignment::LEFT:
-            content->updateLocation(Point(startLocation.Xcoord - 20, startLocation.Ycoord - 5));
-            break;
-
-        case Allignment::RIGHT:
-            content->updateLocation(Point(startLocation.Xcoord + 30, startLocation.Ycoord - 5));
-            break;
-
-        default:
-            break;
-    }
+    allignComponent(startLocation);
 }
 
 bool CheckBox::isMouseHover() const

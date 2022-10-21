@@ -43,7 +43,7 @@ public:
      * @brief Destructor
      * 
      */
-    virtual ~TextBoxException() {}
+    virtual ~TextBoxException() = default;
 
     /**
      * @brief Constructor

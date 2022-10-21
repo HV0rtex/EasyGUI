@@ -27,7 +27,7 @@
 #pragma once
 
 // Including dependencies
-#include <Exceptions/AssetException.hpp>
+#include <Exceptions/ManagerException.hpp>
 
 namespace easyGUI
 {
@@ -36,7 +36,7 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside the Font Manager.
  * 
  */
-class FontException : public AssetException
+class FontException : public ManagerException
 {
 public:
     /**
@@ -50,7 +50,7 @@ public:
      * 
      * @param message The message to be displayed
      */
-    FontException(::std::string message) : AssetException( "[ FontManager ] " + message ) {}
+    FontException(::std::string message) : ManagerException( "[ Font Manager ] " + message ) {}
 };
 
 }

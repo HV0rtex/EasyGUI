@@ -54,7 +54,7 @@ public:
      * 
      * @param message The message to be displayed
      */
-    AssetException(::std::string message);
+    AssetException(::std::string);
 
     /**
      * @brief Returns the exception message

@@ -13,59 +13,44 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-/**
- * @file FontManager.cpp
+/** 
+ * @file ManagerException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Implementation of the FontManager class
+ * @brief Definition of the ManagerException class
  * @version 0.1
- * @date 2022-08-19
+ * @date 2022-10-05
  * 
  * @copyright Copyright (c) 2022
  * 
  */
 
-#include <FontManager.hpp>
+#pragma once
+
+// Including dependencies
+#include <Exceptions/AssetException.hpp>
 
 namespace easyGUI
 {
 
-FontManager* FontManager::instance = 0;
-
-FontManager* FontManager::getInstance()
+/**
+ * @brief Exception thrown when an error occurs inside the  Manager.
+ * 
+ */
+class ManagerException : public AssetException
 {
-    if(instance == nullptr)
-    {
-        instance = new FontManager();
+public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~ManagerException() = default;
 
-        INFO << "Font manager is up and running.\n";
-    }
-
-    return instance;
-}
-
-::std::shared_ptr<::sf::Font> FontManager::getFont(const ::std::string& fontPath)
-{
-    if(storedFonts.find(fontPath) != storedFonts.end())
-    {
-        return storedFonts[fontPath];
-    }
-
-    ::std::shared_ptr<::sf::Font> font = ::std::make_shared<::sf::Font>();
-
-    if(!font.get()->loadFromFile(fontPath))
-    {
-        throw FontException("Could not get font from path");
-    }
-
-    storedFonts[fontPath] = font;
-
-    return font;
-}
-
-
-FontManager::~FontManager()
-{
-
-}
+    /**
+     * @brief Constructor
+     * 
+     * @param message The message to be displayed
+     */
+    ManagerException(::std::string message) : AssetException( message ) {}
+};
 
 }

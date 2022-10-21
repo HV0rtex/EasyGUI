@@ -28,7 +28,7 @@
 
 // Including dependencies
 #include <Component.hpp>
-#include <FontManager.hpp>
+#include <Manager.hpp>
 #include <Exceptions/TextBoxException.hpp>
 #include <Point.hpp>
 #include <SFML/Window/Mouse.hpp>

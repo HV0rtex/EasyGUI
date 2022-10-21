@@ -43,7 +43,7 @@ public:
      * @brief Destructor
      * 
      */
-    virtual ~LabelException() {}
+    virtual ~LabelException() = default;
 
     /**
      * @brief Constructor

@@ -30,7 +30,7 @@
 #include <Component.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Mouse.hpp>
-#include <FontManager.hpp>
+#include <Manager.hpp>
 #include <Exceptions/LabelException.hpp>
 #include <Point.hpp>
 

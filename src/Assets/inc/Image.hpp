@@ -14,11 +14,11 @@
 
 
 /**
- * @file FontManager.hpp
+ * @file Image.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the FontManager wrapper class
+ * @brief Definition of the Image class
  * @version 0.1
- * @date 2022-08-19
+ * @date 2022-10-20
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -27,59 +27,18 @@
 #pragma once
 
 // Including dependencies
-#include <SFML/Graphics/Font.hpp>
-#include <Exceptions/FontException.hpp>
-#include <Logger.hpp>
-#include <map>
-#include <string>
-#include <memory>
+#include <Component.hpp>
 
 namespace easyGUI
 {
 
 /**
- * @brief Wrapper around ::sf::Font class
+ * @brief Draws an image to the screen
  * 
- * @details The purpose of this wrapper is to optimize the space usage by
- * creating the same font only once and providing shared access to it
- * via pointers. 
  */
-class FontManager
+class Image : public Component
 {
-private:
-    static FontManager* instance;
 
-    ::std::map<::std::string, ::std::shared_ptr<::sf::Font>> storedFonts;
-
-    /**
-     * @brief Constructor
-     * 
-     * @details Private constructor in order to adhere to the singleton design pattern.
-     */
-    FontManager() {}
-public:
-    /**
-     * @brief Destructor
-     * 
-     */
-    ~FontManager();
- 
-    /**
-     * @brief Returns the manager instance
-     * 
-     * @return FontManager* 
-     */
-    FontManager* getInstance();
-
-    /**
-     * @brief Returns the font
-     * 
-     * @param fontPath The path to the font
-     * 
-     * @return ::std::shared_ptr<::sf::Font*> 
-     * @retval NULL invalid font path
-     */
-    ::std::shared_ptr<::sf::Font> getFont(const ::std::string&);
 };
 
 }

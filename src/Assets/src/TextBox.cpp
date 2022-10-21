@@ -105,7 +105,7 @@ TextBox::TextBox(
             throw TextBoxException("Could not get hold of Font Manager.");
         }
 
-        _font = manager->getFont(fontPath);
+        _font = manager->getAsset(fontPath);
 
         _text.setFillColor(::sf::Color::White);
         _text.setFont(*_font.get());

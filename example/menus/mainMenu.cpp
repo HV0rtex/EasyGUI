@@ -15,119 +15,32 @@
 #include <menus.hpp>
 #include "buttons.hpp"
 
-void createMainMenu(easyGUI::Application* appInstance)
+using namespace easyGUI;
+
+void createMainMenu(Application* appInstance)
 {
     if(appInstance == nullptr)
         // Raise error if application has not been created
-        throw easyGUI::MenuException("Could not get hold of application instance.");
+        throw MenuException("Could not get hold of application instance.");
 
-    easyGUI::Menu* menu = appInstance->addMenu(true);   // Adds a new MAIN menu
+    Menu* menu = appInstance->addMenu(true);   // Adds a new MAIN menu
 
     if(menu == nullptr)
         // Raise error if creating a menu fails
-        throw easyGUI::MenuException("Could not create menu.");
+        throw MenuException("Could not create menu.");
 
-    try
-    {
-        menu->addComponent( 
-            new easyGUI::Label(             // <--- Label component
-                easyGUI::Point(220, 100),   // <--- Starting location
-                
-                "A demo application",       // <--- Label text
-                "./res/Arial.ttf",          // <--- Text font path
-                
-                40                          // <--- Desired character size
-            ) 
-        );
-        
-        menu->addComponent( 
-            new easyGUI::Label(
-                easyGUI::Point(100, 210),
-                
-                "Username",
-                "./res/Arial.ttf",
-                
-                25
-            ) 
-        );
+    AddElement(menu, new Label(Point(220, 100), "A demo application", "./res/Arial.ttf", 40));
+    AddElement(menu, new Label(Point(100, 210), "Username", "./res/Arial.ttf", 25));
+    AddElement(menu, new Label(Point(100, 310), "Password", "./res/Arial.ttf", 25));
 
-        menu->addComponent( 
-            new easyGUI::Label(
-                easyGUI::Point(100, 310),
-                
-                "Password",
-                "./res/Arial.ttf",
-                
-                25
-            ) 
-        );
+    AddElement(menu, new TextBox(Point(250, 200), Point(500, 250), "./res/Arial.ttf", 25));
+    AddElement(menu, new PasswordBox(Point(250, 300), Point(500, 350), "./res/Arial.ttf", 25));
+    
+    AddElement(menu, new Button(Point(250, 400), Point(500, 450), "Sign in", "./res/Arial.ttf", 25));
+    
+    AddElement(menu, new CheckBox(Point(270, 470), Allignment::RIGHT, new Label(Point(270, 470), "Remember me", "./res/Arial.ttf", 25)));
+    AddElement(menu, new Label(Point(270, 500), "Login with admin / admin", "./res/Arial.ttf", 15));
 
-        menu->addComponent(
-            new easyGUI::TextBox(
-                easyGUI::Point(250, 200),   // <--- Top-left corner
-                easyGUI::Point(500, 250),   // <--- Bottom-right corner
-                
-                "./res/Arial.ttf",          // <--- Text font path
-                
-                25                          // <--- Desired character size 
-            )
-        );
-
-        menu->addComponent(
-            new easyGUI::PasswordBox(
-                easyGUI::Point(250, 300),   // <--- Top-left corner
-                easyGUI::Point(500, 350),   // <--- Bottom-right corner
-                
-                "./res/Arial.ttf",          // <--- Text font path
-                
-                25                          // <--- Desired character size 
-            )
-        );
-
-        menu->addComponent( 
-            new easyGUI::Button(            // <--- Button component
-                easyGUI::Point(250, 400),   // <--- Starting location
-                easyGUI::Point(500,450),    // <--- Ending location
-                
-                "Sign in",                  // <--- Button text
-                "./res/Arial.ttf",          // <--- Text font path
-                
-                25                          // <--- Desired character size 
-            )
-        );
-
-        menu->addComponent(
-            new easyGUI::CheckBox(
-                easyGUI::Point(270, 470),
-                easyGUI::Allignment::RIGHT,
-
-                new easyGUI::Label(
-                    easyGUI::Point(270, 470),
-                    
-                    "Remember me",
-                    "./res/Arial.ttf",
-                    
-                    25     
-                )
-            )
-        );
-
-        menu->addComponent( 
-            new easyGUI::Label(
-                easyGUI::Point(270, 570),
-                
-                "Login with admin / admin",
-                "./res/Arial.ttf",
-                
-                15     
-            ) 
-        );
-
+    if(Converter::getButton(menu->getComponent(5)) != nullptr)
         menu->getComponent(5)->setOnClickAction(demoButton_action);     // <--- Adding a callback to be executed on mouse press
-    }
-    catch(const easyGUI::AssetException& err)
-    {
-        // Throw error if couldn't add components
-        ERROR << err.what();
-    }
 }

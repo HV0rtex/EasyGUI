@@ -70,6 +70,13 @@ private:
 
     virtual void draw ( ::sf::RenderTarget&, ::sf::RenderStates ) const;
 
+    /**
+     * @brief Alligns the component next to the checkbox.
+     * 
+     * @param startLocation The location of the checkbox
+     */
+    void allignComponent(const Point&);
+
 public:
     /**
      * @brief Destructor
@@ -82,11 +89,19 @@ public:
      * 
      * @param startLocation The location of the text box
      * @param allignment Denotes how to align the element in respect to the checkbox
-     * @param content The content of the checkbox
+     * @param content The content of the checkbox. Defaults to NULL.
      */
-    explicit CheckBox( const Point&, const Allignment&, Component* );
+    explicit CheckBox( const Point&, const Allignment&, Component* = nullptr );
 
     // ----- Auxiliaries -----
+
+    /**
+     * @brief Adds a component to the checkbox in respect
+     * to the defined allignment
+     * 
+     * @param element The component to be alligned next to the textbox
+     */
+    void addComponent(Component*);
 
     /**
      * @brief Check if mouse is over the button

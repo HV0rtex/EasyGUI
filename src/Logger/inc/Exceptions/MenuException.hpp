@@ -43,7 +43,7 @@ public:
      * @brief Destructor
      * 
      */
-    virtual ~MenuException() {}
+    virtual ~MenuException() = default;
 
     /**
      * @brief Constructor

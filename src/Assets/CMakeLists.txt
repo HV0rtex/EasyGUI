@@ -16,7 +16,6 @@
 # ----- Defining library sets -----
 
 set(LIBRARY_SOURCES
-    src/FontManager.cpp
     src/Label.cpp
     src/Button.cpp
     src/Component.cpp

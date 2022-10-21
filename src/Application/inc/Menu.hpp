@@ -27,6 +27,8 @@
 #pragma once
 
 // Including dependencies
+#include <Exceptions/AssetException.hpp>
+#include <Logger.hpp>
 #include <Component.hpp>
 #include <string>
 #include <vector>
@@ -84,4 +86,16 @@ public:
     Component* getComponent(const unsigned& index);
 };
 
+/**
+ * @brief Safely appends a component to a menu.
+ * 
+ * @details Attempts to append a component to a menu. The function
+ * handles any possible error thrown by the component, so that it will
+ * not affect the rest of the application.
+ * 
+ * @param targetMenu The menu to which the component is appended
+ * @param element The component to append
+ * 
+ */
+void AddElement(Menu*, Component*);
 }

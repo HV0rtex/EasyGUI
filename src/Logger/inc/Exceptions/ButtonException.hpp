@@ -43,7 +43,7 @@ public:
      * @brief Destructor
      * 
      */
-    virtual ~ButtonException() {}
+    virtual ~ButtonException() = default;
 
     /**
      * @brief Constructor

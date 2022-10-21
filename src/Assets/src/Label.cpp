@@ -73,7 +73,7 @@ Label::Label(const Point& startLocation, const ::std::string& text, const ::std:
             throw LabelException("Could not get hold of Font Manager.");
         }
 
-        _font = manager->getFont(fontPath);
+        _font = manager->getAsset(fontPath);
 
         _textColor = ::sf::Color::White;
 
