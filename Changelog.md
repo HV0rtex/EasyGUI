@@ -5,16 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Version V1.2.0 - GUI Overhaul
+## Version V2.0.0
 
 This release provides many performance improvements as well as some quality of life improvements
-such as access to the internal parts for more flexibility.
+such as access to the internal parts for more flexibility. On top of that, more GUI elements are 
+added and the documentation has been improved.
 
 ## Added
 
 Application control:
 - Converter class to facilitate conversion between assets
 - Internal component getter methods
+- Components can now be moved by routines
 
 GUI Elements:
 - Text box
@@ -24,9 +26,14 @@ GUI Elements:
 
 ## Fixed
 
-Application control:
-- Reworked FontManager internals
+Source files:
 - Reworked demo project to be more meaningful
+- Lowered header file dimensions
+
+GUI Elements:
+- Reworked FontManager as a template class that manages multiple assets.
+- Lowered the amount of arguments in constructors (missing arguments have been set as default options)
+
 
 ## Removed
 

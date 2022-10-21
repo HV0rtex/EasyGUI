@@ -14,9 +14,9 @@
 
 
 /**
- * @file FontManager.hpp
+ * @file Manager.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the FontManager wrapper class
+ * @brief Definition of the Manager class
  * @version 0.1
  * @date 2022-08-19
  * 
@@ -28,7 +28,9 @@
 
 // Including dependencies
 #include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <Exceptions/FontException.hpp>
+#include <Exceptions/TextureException.hpp>
 #include <Exceptions/ManagerException.hpp>
 #include <Logger.hpp>
 #include <map>
@@ -106,7 +108,9 @@ public:
         {
             if(typeid(T) == typeid(::sf::Font))
                 throw FontException("Could not get font from path");
-            
+            else if(typeid(T) == typeid(::sf::Texture))
+                throw TextureException("Could not load texture using given path");
+
             throw ManagerException("Could not get resource from path");
         }
 
@@ -120,5 +124,6 @@ template <typename T> Manager<T>* Manager<T>::instance = nullptr;
 
 // Aliasing common managers
 using FontManager = Manager<::sf::Font>;
+using TextureManager = Manager<::sf::Texture>;
 
 }
