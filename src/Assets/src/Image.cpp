@@ -42,7 +42,7 @@ Image::Image(const Point& startLocation, const Point& endLocation, const ::std::
 
     if(manager == nullptr)
     {
-        // throw ImageException("Could not get hold of Manager asset");
+        throw ImageException("Could not get hold of Manager asset");
     }
 
     try
@@ -57,11 +57,11 @@ Image::Image(const Point& startLocation, const Point& endLocation, const ::std::
 
         _object.setScale(::sf::Vector2f(factorX, factorY));
     }
-    catch(ManagerException* err)
+    catch(const ManagerException& err)
     {
-        ERROR << err->what();
+        ERROR << err.what();
 
-        // throw ImageException("Could not load image from file");
+        throw ImageException("Could not load image from file");
     }
 }
 

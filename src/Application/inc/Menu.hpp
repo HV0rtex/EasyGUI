@@ -89,7 +89,7 @@ public:
 /**
  * @brief Safely appends a component to a menu.
  * 
- * @details Attempts to append a component to a menu. The function
+ * @details Attempts to append a component to a menu. The macro
  * handles any possible error thrown by the component, so that it will
  * not affect the rest of the application.
  * 
@@ -97,5 +97,16 @@ public:
  * @param element The component to append
  * 
  */
-void AddElement(Menu*, Component*);
+#define AddElement(targetMenu, element)         \
+{                                               \
+    try                                         \
+    {                                           \
+        targetMenu->addComponent(element);      \
+    }                                           \
+    catch(const AssetException& e)              \
+    {                                           \
+        ERROR << e.what();                      \
+    }                                           \
+}
+
 }

@@ -29,18 +29,6 @@
 namespace easyGUI
 {
 
-void AddElement(Menu* targetMenu, Component* element)
-{
-    try
-    {
-        targetMenu->addComponent(element);
-    }
-    catch(AssetException* err)
-    {
-        ERROR << err->what();
-    }
-}
-
 Menu::~Menu()
 {
     for(Component*& element : _components)

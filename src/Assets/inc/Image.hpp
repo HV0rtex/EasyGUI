@@ -28,6 +28,7 @@
 
 // Including dependencies
 #include <SFML/Graphics/Sprite.hpp>
+#include <Exceptions/ImageException.hpp>
 #include <Component.hpp>
 #include <Manager.hpp>
 
