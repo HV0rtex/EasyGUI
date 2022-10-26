@@ -29,6 +29,7 @@
 // Including dependencies
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Mouse.hpp>
 #include <Point.hpp>
 #include <Logger.hpp>
 

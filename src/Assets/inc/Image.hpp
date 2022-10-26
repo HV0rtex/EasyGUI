@@ -27,7 +27,9 @@
 #pragma once
 
 // Including dependencies
+#include <SFML/Graphics/Sprite.hpp>
 #include <Component.hpp>
+#include <Manager.hpp>
 
 namespace easyGUI
 {
@@ -38,7 +40,55 @@ namespace easyGUI
  */
 class Image : public Component
 {
+private:
+    ::std::shared_ptr<::sf::Texture> _image;
+    ::sf::Sprite _object;
 
+    void draw(::sf::RenderTarget&, ::sf::RenderStates) const;
+public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    ~Image() = default;
+
+    /**
+     * @brief Constructor
+     * 
+     * @param startLocation The top-left corner of the image
+     * @param endLocation The bottom-left corner of the image
+     * @param path The path to the image
+     * 
+     * @throws ImageException could not load image
+     */
+    Image(const Point&, const Point&, const ::std::string&);
+
+    /**
+     * @brief Constructor
+     * 
+     * @param startLocation The top-left corner of the image
+     * @param width The width of the image
+     * @param height The height of the image
+     * @param path The path to the image
+     * 
+     * @throws ImageException could not load image
+     */
+    Image(const Point&, const float&, const float&, const std::string&);
+
+    /**
+     * @brief Check if mouse is over the button
+     * 
+     * @return true Mouse is over the label
+     * @return false otherwise
+     */
+    bool isMouseHover() const;
+
+    /**
+     * @brief Updates a component's location
+     * 
+     * @param newLocation The new location of the component
+     */
+    void updateLocation(const Point&);
 };
 
 }

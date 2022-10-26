@@ -28,7 +28,6 @@
 
 // Including dependencies
 #include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Window/Mouse.hpp>
 #include <Component.hpp>
 #include <Point.hpp>
 

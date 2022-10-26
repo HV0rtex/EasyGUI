@@ -110,7 +110,7 @@ TextBox::TextBox(
         _text.setFillColor(::sf::Color::White);
         _text.setFont(*_font.get());
     } 
-    catch (const FontException& err)
+    catch (const ManagerException& err)
     {
         ERROR << err.what();
 

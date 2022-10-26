@@ -31,7 +31,6 @@
 #include <Manager.hpp>
 #include <Exceptions/TextBoxException.hpp>
 #include <Point.hpp>
-#include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
 

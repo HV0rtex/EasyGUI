@@ -29,7 +29,6 @@
 // Including dependencies
 #include <Component.hpp>
 #include <SFML/Graphics/Text.hpp>
-#include <SFML/Window/Mouse.hpp>
 #include <Manager.hpp>
 #include <Exceptions/LabelException.hpp>
 #include <Point.hpp>

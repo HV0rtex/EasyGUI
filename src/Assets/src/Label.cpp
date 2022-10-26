@@ -79,7 +79,7 @@ Label::Label(const Point& startLocation, const ::std::string& text, const ::std:
 
         constructText(startLocation, text, charSize);
     }
-    catch(const FontException& err)
+    catch(const ManagerException& err)
     {
         ERROR << err.what();
 
