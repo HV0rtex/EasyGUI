@@ -31,6 +31,7 @@ void createSecondMenu(Application* appInst)
 
     AddElement(menu, new Label(Point(220, 100), "A second menu", "./res/Arial.ttf", 40));
     AddElement(menu, new Button(Point(50, 200), Point(250, 250), "Go back", "./res/Arial.ttf", 25));
+    AddElement(menu, new Image(Point(200, 300), Point(250, 350), "./res/image.jpeg"));
     
     if(Converter::getButton(menu->getComponent(1)) != nullptr)
         menu->getComponent(1)->setOnClickAction(backButton_action);

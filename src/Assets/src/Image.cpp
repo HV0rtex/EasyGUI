@@ -55,7 +55,7 @@ Image::Image(const Point& startLocation, const Point& endLocation, const ::std::
         float factorX = (startLocation.Xcoord + _object.getTextureRect().width) / endLocation.Xcoord;
         float factorY = (startLocation.Ycoord + _object.getTextureRect().height) / endLocation.Ycoord;
 
-        _object.setScale(::sf::Vector2f(factorX, factorY));
+        _object.setScale(::sf::Vector2f(1 / factorX, 1 / factorY));
     }
     catch(const ManagerException& err)
     {
