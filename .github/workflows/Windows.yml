@@ -20,7 +20,7 @@ jobs:
       run: mkdir ${{github.workspace}}/build && cd ${{github.workspace}}/build && cmake -G "MinGW Makefiles" -DCMAKE_PREFIX_PATH="../SFML-2.5.1/lib/cmake" ../
       
     - name: Building project
-      run: cmake --build . && cmake --install .
+      run: cd ${{github.workspace}}/build && cmake --build . && cmake --install .
       
     - name: Publishing package
       uses: actions/upload-artifact@master
