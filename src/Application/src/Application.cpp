@@ -66,14 +66,10 @@ Application* Application::getInstance(const unsigned& width, const unsigned& hei
 void Application::executeForAll(void (*action)(Component*))
 {
     unsigned index = 0;
-    Component* currentComp = _activeMenu->getComponent(0);
-
-    while(currentComp != nullptr)
+    
+    for(Component*& currentComponent : _activeMenu->getAllComponents())
     {
-        action(currentComp);
-
-        index++;
-        currentComp = _activeMenu->getComponent(index);
+        action(currentComponent);
     }
 }
 
@@ -103,11 +99,11 @@ void Application::handleEvents(const ::sf::Event& event)
     }
 }
 
-Menu* Application::getMenu(const unsigned& index)
+Menu* Application::getMenu(const ::std::string& id)
 {
-    if(index < menus.size())
+    if(menus.find(id) != menus.end())
     {
-        return menus.at(index);
+        return menus.at(id);
     }
 
     return nullptr;
@@ -137,12 +133,17 @@ Application::~Application()
 {
     for(auto menu : menus)
     {
-        delete menu;
+        delete menu.second;
     }
 }
 
-Menu* Application::addMenu(const bool& isStart)
+Menu* Application::addMenu(const ::std::string& id, const bool& isStart)
 {
+    if(menus.find(id) != menus.end())
+    {
+        throw MenuException("A menu with this ID exists already");
+    }
+
     Menu* newMenu = new Menu();
 
     if(isStart)
@@ -162,16 +163,16 @@ Menu* Application::addMenu(const bool& isStart)
 
     newMenu->setContainer(_window);
 
-    menus.push_back(newMenu);
+    menus.insert(::std::make_pair(id, newMenu));
 
     return newMenu;
 }
 
-void Application::setActiveMenu(const unsigned& index)
+void Application::setActiveMenu(const ::std::string& id)
 {
-    if(index < menus.size())
+    if(menus.find(id) != menus.end())
     {
-        _activeMenu = menus.at(index);
+        _activeMenu = menus.at(id);
         TextBox::selectedBox = nullptr;
 
         if(!_startMenuSet)
@@ -185,7 +186,7 @@ void Application::setActiveMenu(const unsigned& index)
     }
     else
     {
-        throw MenuException("Could not get hold of menu wiht id " + index);
+        throw MenuException("Could not get hold of menu wiht id: " + id);
     }
 }
 

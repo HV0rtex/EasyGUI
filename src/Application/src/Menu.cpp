@@ -31,37 +31,53 @@ namespace easyGUI
 
 Menu::~Menu()
 {
-    for(Component*& element : _components)
+    for(::std::pair<::std::string, Component*> element : _components)
     {
-        delete element;
+        delete element.second;
     }
 }
 
 Menu::Menu() {}
 
-void Menu::addComponent(Component* component)
+void Menu::addComponent(Component* component, const ::std::string& ID)
 {
-    _components.push_back(component);
-
+    if(_components.find(ID) != _components.end())
+    {
+        throw MenuException("A component with that ID already exists");
+    }
+    
+    _components.insert(::std::make_pair(ID, component));
     component->setContainer(_container);
 }
 
 void Menu::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 {
-    for(Component* const element : _components)
+    for(::std::pair<::std::string, Component*> element : _components)
     {
-        target.draw(*element, states);
+        target.draw(*element.second, states);
     }
 }
 
-Component* Menu::getComponent(const unsigned& index)
+Component* Menu::getComponent(const ::std::string& ID)
 {
-    if(index < _components.size())
+    if(_components.find(ID) != _components.end())
     {
-        return _components.at(index);
+        return _components.at(ID);
     }
 
     return nullptr;
+}
+
+::std::vector<Component*> Menu::getAllComponents()
+{
+    ::std::vector<Component*> temp;
+
+    for(auto element : _components)
+    {
+        temp.push_back(element.second);
+    }
+
+    return temp;
 }
 
 void Menu::setContainer(::sf::RenderWindow*& container)

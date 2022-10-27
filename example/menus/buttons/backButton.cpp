@@ -8,9 +8,9 @@ void backButton_action ()
 
     if(app != nullptr)
     {
-        app->setActiveMenu(0);
+        app->setActiveMenu("mainMenu");
 
-        easyGUI::Converter::getTextbox(app->getActiveMenu()->getComponent(3))->clear();
-        easyGUI::Converter::getTextbox(app->getActiveMenu()->getComponent(4))->clear();
+        easyGUI::Converter::getTextbox(app->getActiveMenu()->getComponent("uName"))->clear();
+        easyGUI::Converter::getTextbox(app->getActiveMenu()->getComponent("pass"))->clear();
     }
 }

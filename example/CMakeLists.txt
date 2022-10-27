@@ -30,7 +30,6 @@ add_executable(
     # Buttons
     menus/buttons/backButton.cpp
     menus/buttons/demoButton.cpp
-    menus/buttons/exitButton.cpp
 )
 
 target_include_directories(

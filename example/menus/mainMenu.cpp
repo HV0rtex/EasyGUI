@@ -23,24 +23,24 @@ void createMainMenu(Application* appInstance)
         // Raise error if application has not been created
         throw MenuException("Could not get hold of application instance.");
 
-    Menu* menu = appInstance->addMenu(true);   // Adds a new MAIN menu
+    Menu* menu = appInstance->addMenu("mainMenu", true);   // Adds a new MAIN menu
 
     if(menu == nullptr)
         // Raise error if creating a menu fails
         throw MenuException("Could not create menu.");
 
-    AddElement(menu, new Label(Point(220, 100), "A demo application", "./res/Arial.ttf", 40));
-    AddElement(menu, new Label(Point(100, 210), "Username", "./res/Arial.ttf", 25));
-    AddElement(menu, new Label(Point(100, 310), "Password", "./res/Arial.ttf", 25));
+    AddElement(menu, new Label(Point(220, 100), "A demo application", "./res/Arial.ttf", 40), "title");
+    AddElement(menu, new Label(Point(100, 210), "Username", "./res/Arial.ttf", 25), "uNameLabel");
+    AddElement(menu, new Label(Point(100, 310), "Password", "./res/Arial2.ttf", 25), "passLabel");
 
-    AddElement(menu, new TextBox(Point(250, 200), Point(500, 250), "./res/Arial.ttf", 25));
-    AddElement(menu, new PasswordBox(Point(250, 300), Point(500, 350), "./res/Arial.ttf", 25));
+    AddElement(menu, new TextBox(Point(250, 200), Point(500, 250), "./res/Arial.ttf", 25), "uName");
+    AddElement(menu, new PasswordBox(Point(250, 300), Point(500, 350), "./res/Arial.ttf", 25), "pass");
     
-    AddElement(menu, new Button(Point(250, 400), Point(500, 450), "Sign in", "./res/Arial.ttf", 25));
+    AddElement(menu, new Button(Point(250, 400), Point(500, 450), "Sign in", "./res/Arial.ttf", 25), "submit");
     
-    AddElement(menu, new CheckBox(Point(270, 470), Allignment::RIGHT, new Label(Point(270, 470), "Remember me", "./res/Arial.ttf", 25)));
-    AddElement(menu, new Label(Point(270, 500), "Login with admin / admin", "./res/Arial.ttf", 15));
+    AddElement(menu, new CheckBox(Point(270, 470), Allignment::RIGHT, new Label(Point(270, 470), "Remember me", "./res/Arial.ttf", 25)), "checkbox");
+    AddElement(menu, new Label(Point(270, 500), "Login with admin / admin", "./res/Arial.ttf", 15), "hint");
 
-    if(Converter::getButton(menu->getComponent(5)) != nullptr)
-        menu->getComponent(5)->setOnClickAction(demoButton_action);     // <--- Adding a callback to be executed on mouse press
+    if(Converter::getButton(menu->getComponent("submit")) != nullptr)
+        menu->getComponent("submit")->setOnClickAction(demoButton_action);     // <--- Adding a callback to be executed on mouse press
 }

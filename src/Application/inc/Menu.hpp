@@ -28,10 +28,12 @@
 
 // Including dependencies
 #include <Exceptions/AssetException.hpp>
+#include <Exceptions/MenuException.hpp>
 #include <Logger.hpp>
 #include <Component.hpp>
 #include <string>
 #include <vector>
+#include <map>
 
 namespace easyGUI
 {
@@ -46,9 +48,9 @@ class Menu : public ::sf::Drawable
 {
 private:
     ::sf::RenderWindow* _container;
-    ::std::vector < Component* > _components;
+    ::std::map <::std::string, Component* > _components;
 
-    virtual void draw(::sf::RenderTarget& target, ::sf::RenderStates states) const;
+    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const;
 
 public:
     /**
@@ -67,23 +69,33 @@ public:
      * @brief Adds a new component to the menu
      * 
      * @param component The component to be added
+     * @param ID A unique ID for the component
+     * 
+     * @throws MenuException A component with that ID already exists
      */
-    void addComponent(Component* component);
+    void addComponent(Component*, const ::std::string&);
 
     /**
      * @brief Set the Component's container
      * 
      * @param container The window responsible of the component
      */
-    void setContainer(::sf::RenderWindow*& container);
+    void setContainer(::sf::RenderWindow*&);
     
     /**
      * @brief Retrieves a specific component
      * 
-     * @param index The index of the component
+     * @param ID The ID of the component
      * @return Component* 
      */
-    Component* getComponent(const unsigned& index);
+    Component* getComponent(const ::std::string&);
+
+    /**
+     * @brief Returns a vector with all components
+     * 
+     * @return ::std::vector<Component*> 
+     */
+    ::std::vector<Component*> getAllComponents();
 };
 
 /**
@@ -97,16 +109,16 @@ public:
  * @param element The component to append
  * 
  */
-#define AddElement(targetMenu, element)         \
-{                                               \
-    try                                         \
-    {                                           \
-        targetMenu->addComponent(element);      \
-    }                                           \
-    catch(const AssetException& e)              \
-    {                                           \
-        ERROR << e.what();                      \
-    }                                           \
+#define AddElement(targetMenu, element, id)         \
+{                                                   \
+    try                                             \
+    {                                               \
+    targetMenu->addComponent(element, id);          \
+    }                                               \
+    catch(const AssetException& e)                  \
+    {                                               \
+        ERROR << e.what();                          \
+    }                                               \
 }
 
 }
