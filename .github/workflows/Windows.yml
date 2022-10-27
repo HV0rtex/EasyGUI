@@ -17,7 +17,7 @@ jobs:
       run: mkdir ${{github.workspace}}\downloads && curl https://www.sfml-dev.org/files/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit.zip --output "${{github.workspace}}/downloads/SFML-64.zip" && unzip "${{github.workspace}}/downloads/SFML-64.zip"
     
     - name: Configuring CMake
-      run: mkdir ${{github.workspace}}/build && cd ${{github.workspace}}/build && cmake -G "MinGW Makefiles" -DCMAKE_PREFIX_PATH="../downloads/SFML-2.5.1/lib/cmake" ../
+      run: mkdir ${{github.workspace}}/build && cd ${{github.workspace}}/build && cmake -G "MinGW Makefiles" -DCMAKE_PREFIX_PATH="../SFML-2.5.1/lib/cmake" ../
       
     - name: Building project
       run: cmake --build . && cmake --install .
