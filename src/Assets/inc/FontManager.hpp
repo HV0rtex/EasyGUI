@@ -70,7 +70,7 @@ public:
      * 
      * @return FontManager* 
      */
-    FontManager* getInstance();
+    static FontManager* getInstance();
 
     /**
      * @brief Returns the font

@@ -58,18 +58,19 @@ bool Label::isMouseHover() const
 
 Label::~Label() 
 {
-    FontManager* manager = nullptr;
-    manager = manager->getInstance();
+    FontManager* manager = FontManager::getInstance();
 
-    manager->removeFont(_text.getFont());
+    if(manager != nullptr)
+    {
+        manager->removeFont(_text.getFont());
+    }
 }
 
 Label::Label(const Point& position, const ::std::string& text, const ::std::string& fontPath, const unsigned& charSize, const sf::Color& color)
 {
     try
     {
-        FontManager* manager = nullptr;
-        manager = manager->getInstance();
+        FontManager* manager = FontManager::getInstance();
 
         if(manager == nullptr)
         {
