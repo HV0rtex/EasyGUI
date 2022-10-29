@@ -49,7 +49,8 @@ private:
     static Application* instance;
 
     ::sf::RenderWindow* _window;
- 
+    ::sf::View defaultView;
+
     ::std::vector < Routine* > routines;
     ::std::map <::std::string, Menu* > menus;
 

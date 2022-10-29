@@ -45,7 +45,7 @@ private:
     ::std::shared_ptr<::sf::Texture> _image;
     ::sf::Sprite _object;
 
-    void draw(::sf::RenderTarget&, ::sf::RenderStates) const;
+    void draw( ::sf::RenderTarget&, ::sf::RenderStates ) const;
 public:
     /**
      * @brief Destructor
@@ -62,7 +62,7 @@ public:
      * 
      * @throws ImageException could not load image
      */
-    Image(const Point&, const Point&, const ::std::string&);
+    Image( const Point&, const Point&, const ::std::string& );
 
     /**
      * @brief Constructor
@@ -74,7 +74,13 @@ public:
      * 
      * @throws ImageException could not load image
      */
-    Image(const Point&, const float&, const float&, const std::string&);
+    Image( const Point&, const float&, const float&, const std::string& );
+
+    // Block other forms of construction
+
+    Image() = delete;
+    Image( const Image& ) = delete;
+    Image* operator= ( const Image& ) = delete;
 
     /**
      * @brief Check if mouse is over the button
@@ -89,7 +95,16 @@ public:
      * 
      * @param newLocation The new location of the component
      */
-    void updateLocation(const Point&);
+    void updateLocation( const Point& );
+
+    /**
+     * @brief Scales a component 
+     * 
+     * @param factorX The X factor
+     * @param factorY The Y factor
+     */
+    void scale( const float&, const float& ) {}
+
 };
 
 }

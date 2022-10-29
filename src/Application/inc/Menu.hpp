@@ -96,6 +96,16 @@ public:
      * @return ::std::vector<Component*> 
      */
     ::std::vector<Component*> getAllComponents();
+
+    /**
+     * @brief Scales all components of the menu
+     * 
+     * @details Adjusts both the position and the size of each component.
+     * 
+     * @param factorX The X factor
+     * @param factorY The Y factor
+     */
+    void scaleComponents(const float&, const float&);
 };
 
 /**

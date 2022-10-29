@@ -26,6 +26,9 @@ GUI Elements:
 
 ## Fixed
 
+Application control:
+- Menus and components are linked to a unique ID now
+
 Source files:
 - Reworked demo project to be more meaningful
 - Lowered header file dimensions

@@ -53,7 +53,13 @@ protected:
     void (*_onClick)() = nullptr;
     void (*_onHover)() = nullptr;
 
+    Point _standardPosition;
 public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    ~Component() = default;
 
     /**
      * @brief Set the Component's container
@@ -103,7 +109,15 @@ public:
      * 
      * @param newLocation The new location of the component
      */
-    virtual void updateLocation(const Point&) {}
+    virtual void updateLocation( const Point& ) = 0;
+
+    /**
+     * @brief Scales a component 
+     * 
+     * @param factorX The X factor
+     * @param factorY The Y factor
+     */
+    virtual void scale( const float&, const float& ) = 0;
 };
 
 }

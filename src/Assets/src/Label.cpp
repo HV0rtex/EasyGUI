@@ -76,6 +76,8 @@ Label::Label(const Point& startLocation, const ::std::string& text, const ::std:
         _font = manager->getAsset(fontPath);
 
         _textColor = ::sf::Color::White;
+        _standardPosition = startLocation;
+        _standardCharSize = charSize;
 
         constructText(startLocation, text, charSize);
     }
@@ -90,6 +92,11 @@ Label::Label(const Point& startLocation, const ::std::string& text, const ::std:
 ::sf::Text& Label::getInternalText()
 {
     return _text;
+}
+
+void Label::scale(const float& factorX, const float& factorY)
+{
+
 }
 
 }
