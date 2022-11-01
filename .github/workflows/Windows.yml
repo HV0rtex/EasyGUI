@@ -1,0 +1,33 @@
+name: Windows
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  Build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Installing SFML for 64 bits
+      run: mkdir ${{github.workspace}}\downloads && curl https://www.sfml-dev.org/files/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit.zip --output "${{github.workspace}}/downloads/SFML-64.zip" && unzip "${{github.workspace}}/downloads/SFML-64.zip"
+    
+    - name: Configuring CMake
+      run: mkdir ${{github.workspace}}/build && cd ${{github.workspace}}/build && cmake -G "MinGW Makefiles" -DCMAKE_PREFIX_PATH="../SFML-2.5.1/lib/cmake" ../
+      
+    - name: Building project
+      run: cd ${{github.workspace}}/build && cmake --build . && cmake --install .
+      
+    - name: Publishing package
+      uses: actions/upload-artifact@master
+      with:
+        name: Windows-64bit
+        path: |
+          ${{github.workspace}}\bin
+          ${{github.workspace}}\lib
+          ${{github.workspace}}\include 
+          ${{github.workspace}}\example

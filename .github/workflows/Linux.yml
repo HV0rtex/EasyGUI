@@ -29,8 +29,27 @@ jobs:
     - name: Installing artifacts
       run: cd ${{github.workspace}}/build && make install
 
+    - name: Publishing package
+      uses: actions/upload-artifact@master
+      with:
+        name: Linux
+        path: |
+          ${{github.workspace}}/bin
+          ${{github.workspace}}/lib
+          ${{github.workspace}}/include
+          ${{github.workspace}}/example
+
+  Documentation:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Installing doxygen
+      run: sudo apt-get install doxygen
+
     - name: Generating documentation
-      run: cd ${{github.workspace}} && sudo apt-get install doxygen && doxygen docs/doxyfile.txt
+      run: cd ${{github.workspace}} && doxygen docs/doxyfile.txt
 
     - name: Publishing documentation
       uses: actions/upload-artifact@master
