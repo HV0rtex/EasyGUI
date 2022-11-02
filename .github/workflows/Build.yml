@@ -1,4 +1,4 @@
-name: Linux
+name: Build
 
 on:
   push:
@@ -19,9 +19,9 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-        - { name: Windows,        os: windows-latest  }
-        - { name: Linux,          os: ubuntu-latest }
-        - { name: MacOS,          os: macos-latest  }
+        - { name: Windows,  os: windows-latest }
+        - { name: Linux,    os: ubuntu-latest  }
+        - { name: MacOS,    os: macos-latest   }
         
     steps:
     - uses: actions/checkout@master
