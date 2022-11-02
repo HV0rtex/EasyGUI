@@ -147,8 +147,9 @@ bool TextBox::isMouseHover() const
     if(_container != nullptr)
     {
         ::sf::Vector2i currentPosition = ::sf::Mouse::getPosition(*_container);
+        ::sf::Vector2f worldPos = _container->mapPixelToCoords(currentPosition);
 
-        if(_shape.getGlobalBounds().contains(currentPosition.x, currentPosition.y))
+        if(_shape.getGlobalBounds().contains(worldPos.x, worldPos.y))
             return true;
     }
 

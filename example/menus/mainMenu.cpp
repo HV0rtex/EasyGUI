@@ -31,7 +31,7 @@ void createMainMenu(Application* appInstance)
 
     AddElement(menu, new Label(Point(220, 100), "A demo application", "./res/Arial.ttf", 40), "title");
     AddElement(menu, new Label(Point(100, 210), "Username", "./res/Arial.ttf", 25), "uNameLabel");
-    AddElement(menu, new Label(Point(100, 310), "Password", "./res/Arial2.ttf", 25), "passLabel");
+    AddElement(menu, new Label(Point(100, 310), "Password", "./res/Arial.ttf", 25), "passLabel");
 
     AddElement(menu, new TextBox(Point(250, 200), Point(500, 250), "./res/Arial.ttf", 25), "uName");
     AddElement(menu, new PasswordBox(Point(250, 300), Point(500, 350), "./res/Arial.ttf", 25), "pass");

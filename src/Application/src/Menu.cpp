@@ -85,12 +85,4 @@ void Menu::setContainer(::sf::RenderWindow*& container)
     _container = container;
 }
 
-void Menu::scaleComponents(const float& factorX, const float& factorY)
-{
-    for(::std::pair<::std::string, Component*> element : _components)
-    {
-        element.second->scale(factorX, factorY);
-    }
-}
-
 }

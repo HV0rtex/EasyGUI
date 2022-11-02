@@ -36,16 +36,6 @@ Application* Application::instance = 0;
 Application::Application(const unsigned& width, const unsigned& height, const char* title)
 {
     _window = new ::sf::RenderWindow(::sf::VideoMode(width,height), title);
-
-    defaultView = _window->getView();
-}
-
-void Application::performScaling(const float& factorX, const float& factorY)
-{
-    for(::std::pair<::std::string, Menu*> element : menus)
-    {
-        element.second->scaleComponents(factorX, factorY);
-    }
 }
 
 Application* Application::getInstance(const unsigned& width, const unsigned& height, const char* title)
@@ -60,7 +50,6 @@ Application* Application::getInstance(const unsigned& width, const unsigned& hei
         {
             // Adjust the window to the new configuration
             instance->_window->setSize(::sf::Vector2u(width, height));
-            instance->performScaling(width / _standardWidth, height / _standardHeight);
             instance->_window->setTitle(title);
         }
     }
@@ -105,9 +94,10 @@ void Application::handleEvents(const ::sf::Event& event)
     }
     else if(event.type == ::sf::Event::Resized)
     {
-        INFO << "Current size: " << event.size.width << " --- " << event.size.width / _standardWidth << "\n";
-        INFO << "Current height: " << event.size.height << " --- " << event.size.height / _standardHeight << "\n";
-        performScaling(event.size.width / _standardWidth, event.size.height / _standardHeight);
+        ::sf::View newView = _window->getDefaultView();
+        newView.setSize(event.size.width, event.size.height);
+        
+        _window->setView(newView);
     }
 
     for(Routine*& routine : routines)

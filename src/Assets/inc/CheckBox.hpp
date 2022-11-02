@@ -132,15 +132,6 @@ public:
      * @return false 
      */
     bool isChecked() const;
-
-    /**
-     * @brief Scales a component 
-     * 
-     * @param factorX The X factor
-     * @param factorY The Y factor
-     */
-    void scale( const float&, const float& ) {}
-
 };
 
 }

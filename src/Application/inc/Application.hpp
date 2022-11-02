@@ -49,7 +49,6 @@ private:
     static Application* instance;
 
     ::sf::RenderWindow* _window;
-    ::sf::View defaultView;
 
     ::std::vector < Routine* > routines;
     ::std::map <::std::string, Menu* > menus;
@@ -71,7 +70,7 @@ private:
      * @param title The title of the application
      * 
      */
-    Application(const unsigned&, const unsigned&, const char*);
+    Application( const unsigned&, const unsigned&, const char* );
 
     /**
      * @brief Event handler
@@ -81,14 +80,14 @@ private:
      * 
      * @param event The current window event
      */
-    void handleEvents(const ::sf::Event&);
+    void handleEvents( const ::sf::Event& );
 
     /**
      * @brief Executes a given action for all components of the active menu
      * 
      * @param action The action to be executed for the component
      */
-    void executeForAll(void (*)(Component*));
+    void executeForAll( void (*)(Component*) );
 
 public:
     /**
@@ -111,7 +110,7 @@ public:
      * 
      * @throws ApplicationInstance Failed to instantiate application.
      */
-    Application* getInstance(const unsigned& = 0, const unsigned& = 0, const char* = nullptr);
+    Application* getInstance( const unsigned& = 0, const unsigned& = 0, const char* = nullptr );
 
     /**
      * @brief Appends a new menu to the application
@@ -128,7 +127,7 @@ public:
      * @throws MenuException More than one start menu declared.
      * @throws MenuException A menu with that ID already exists.
      */
-    Menu* addMenu(const ::std::string&, const bool& = false);
+    Menu* addMenu( const ::std::string&, const bool& = false );
 
     /**
      * @brief Gets a menu by its index
@@ -139,7 +138,7 @@ public:
      * @retval NULL invalid menu index
      * @retval Menu The menu linked to that index.
      */
-    Menu* getMenu(const ::std::string&);
+    Menu* getMenu( const ::std::string& );
 
     /**
      * @brief Retruns the active menu
@@ -157,7 +156,7 @@ public:
      * @retval NULL invalid index
      * @retval Routine The routine linked to that index.
      */
-    Routine* getRoutine(const unsigned&);
+    Routine* getRoutine( const unsigned& );
 
     /**
      * @brief Returns the SFML RenderWindow
@@ -173,14 +172,14 @@ public:
      * 
      * @throw MenuException Invalid index provided
      */
-    void setActiveMenu(const ::std::string&);
+    void setActiveMenu( const ::std::string& );
 
     /**
      * @brief Adds a new routine to the application
      * 
      * @param routine The routine to be added
      */
-    void addRoutine(Routine*);
+    void addRoutine( Routine* );
 
     /**
      * @brief Starts the application

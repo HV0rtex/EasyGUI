@@ -50,8 +50,6 @@ private:
     ::sf::Text _text;
     ::sf::Color _textColor;
 
-    unsigned _standardCharSize;
-
     virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const;
 
     // ----- Initializers -----
@@ -117,15 +115,6 @@ public:
      * @param newLocation The new location of the component
      */
     virtual void updateLocation( const Point& );
-
-    /**
-     * @brief Scales a component 
-     * 
-     * @param factorX The X factor
-     * @param factorY The Y factor
-     */
-    void scale( const float&, const float& );
-
 };
 
 }

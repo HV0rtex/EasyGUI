@@ -140,8 +140,9 @@ bool CheckBox::isMouseHover() const
     if(_container != nullptr)
     {
         ::sf::Vector2i currentPosition = ::sf::Mouse::getPosition(*_container);
+        ::sf::Vector2f worldPos = _container->mapPixelToCoords(currentPosition);
 
-        if(_box.getGlobalBounds().contains(currentPosition.x, currentPosition.y))
+        if(_box.getGlobalBounds().contains(worldPos.x, worldPos.y))
             return true;
     }
 
