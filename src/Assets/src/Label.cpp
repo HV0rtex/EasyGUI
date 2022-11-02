@@ -65,7 +65,7 @@ Label::Label(const Point& startLocation, const ::std::string& text, const ::std:
 {
     try
     {
-        FontManager* manager = manager->getInstance();
+        FontManager* manager = FontManager::getInstance();
 
         if(manager == nullptr)
         {

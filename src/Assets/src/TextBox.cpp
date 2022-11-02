@@ -97,8 +97,7 @@ TextBox::TextBox(
 
     try
     {
-        FontManager* manager = nullptr;
-        manager = manager->getInstance();
+        FontManager* manager = FontManager::getInstance();
 
         if(manager == nullptr)
         {

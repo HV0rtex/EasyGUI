@@ -72,7 +72,7 @@ public:
      * 
      * @return FontManager* 
      */
-    Manager* getInstance()
+    static Manager* getInstance()
     {
         if(instance == nullptr)
         {
