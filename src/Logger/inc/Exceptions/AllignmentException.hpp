@@ -14,11 +14,11 @@
 
 
 /**
- * @file Point.hpp
+ * @file AllignmentException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the Point class
+ * @brief Definition of the AllignmentException class
  * @version 0.1
- * @date 2022-08-15
+ * @date 2022-10-05
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -27,74 +27,30 @@
 #pragma once
 
 // Including dependencies
-#include <utility>
+#include <Exceptions/AssetException.hpp>
 
 namespace easyGUI
 {
 
 /**
- * @brief Stores the coordinates of a point.
+ * @brief Exception thrown when an error occurs inside the Allignment.
  * 
  */
-struct Point
+class AllignmentException : public AssetException
 {
-    float Xcoord;
-    float Ycoord;
-
+public:
     /**
-     * @brief Default constructor
+     * @brief Destructor
      * 
      */
-    Point() = default;
+    virtual ~AllignmentException() = default;
 
     /**
      * @brief Constructor
      * 
-     * @param x The X-coordinate
-     * @param y The Y-coordinate
+     * @param message The message to be displayed
      */
-    explicit Point(const float&, const float&);
-
-    /**
-     * @brief Copy-Constructor
-     * 
-     * @param other A point to copy from
-     */
-    Point(const Point&) noexcept;
-
-    /**
-     * @brief Move-constructor
-     * 
-     * @param other A point to be moved here
-     */
-    Point(Point&&) noexcept;
-
-    /**
-     * @brief Assignment operator
-     * 
-     * @param other A point to copy from
-     * 
-     * @return Point& 
-     */
-    Point& operator= (const Point&) noexcept;
-
-    /**
-     * @brief Move assignment operator
-     * 
-     * @param other A point to be moved here
-     * 
-     * @return Point& 
-     */
-    Point& operator= (Point&&) noexcept;
-
-    /**
-     * @brief Adds two points
-     * 
-     * @param other the point to be added
-     * 
-     * @return Point 
-     */
-    Point operator+ (const Point&) const noexcept;
+    AllignmentException(::std::string message) : AssetException( "[ Allignment ] " + message ) {}
 };
 
 }

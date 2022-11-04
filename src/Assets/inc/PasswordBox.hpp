@@ -62,7 +62,7 @@ public:
      * @note The font file format must be .ttf
 
      */
-    PasswordBox( const Point&, const Point&, const ::std::string&, const unsigned& );
+    PasswordBox(const Point&, const Point&, const ::std::string&, const unsigned&);
 
     /**
      * @brief Constructor
@@ -79,27 +79,27 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    PasswordBox( const Point&, const float&, const float&, const ::std::string&, const unsigned& );
+    PasswordBox(const Point&, const float&, const float&, const ::std::string&, const unsigned&);
 
     // Block other forms of construction
 
     PasswordBox() = delete;
-    PasswordBox( const TextBox& ) = delete;
-    PasswordBox& operator= ( const TextBox& ) = delete;
+    PasswordBox(const TextBox&) = delete;
+    PasswordBox& operator= (const TextBox&) = delete;
 
     /**
      * @brief Returns a string containing the text in the box
      * 
      * @return const ::std::string 
      */
-    const ::std::string getText() const;
+    const ::std::string getText() const override;
 
     /**
      * @brief Updates the text of the keyboard
      * 
      * @param text The text that has been entered
      */
-    virtual void updateText( const ::sf::Uint32& );
+    virtual void updateText(const ::sf::Uint32&) override;
 };
 
 }

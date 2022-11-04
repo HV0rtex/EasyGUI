@@ -97,7 +97,7 @@ TextBox::TextBox(
 
     try
     {
-        FontManager* manager = FontManager::getInstance();
+        ::std::shared_ptr<FontManager> manager = FontManager::getInstance();
 
         if(manager == nullptr)
         {

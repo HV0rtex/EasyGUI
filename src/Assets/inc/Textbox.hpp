@@ -54,7 +54,7 @@ protected:
 
     unsigned desiredSize;
     
-    virtual void draw( ::sf::RenderTarget&, ::sf::RenderStates ) const;
+    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 
     // ----- Helper methods -----
 
@@ -65,7 +65,7 @@ protected:
      * @param charSize The size of the characters
      * @return Point 
      */
-    Point getLabelPosition( const unsigned&, const unsigned& ) const;
+    Point getLabelPosition(const unsigned&, const unsigned&) const;
 
     /**
      * @brief Computes the correction to be applied to the char size of the text
@@ -74,7 +74,7 @@ protected:
      * @param desiredSize The desired char size
      * @return unsigned
      */
-    unsigned getCharSizeCorrection( const unsigned&, const unsigned& ) const;
+    unsigned getCharSizeCorrection(const unsigned&, const unsigned&) const;
 
 public:
     static TextBox* selectedBox;
@@ -95,7 +95,7 @@ public:
      * @note The font file format must be .ttf
 
      */
-    TextBox( const Point&, const Point&, const ::std::string&, const unsigned& );
+    TextBox(const Point&, const Point&, const ::std::string&, const unsigned&);
 
     /**
      * @brief Constructor
@@ -112,13 +112,13 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    TextBox( const Point&, const float&, const float&, const ::std::string&, const unsigned& );
+    TextBox(const Point&, const float&, const float&, const ::std::string&, const unsigned&);
 
     // Block other forms of construction
 
     TextBox() = delete;
-    TextBox( const TextBox& ) = delete;
-    TextBox& operator= ( const TextBox& ) = delete;
+    TextBox(const TextBox&) = delete;
+    TextBox& operator= (const TextBox&) = delete;
 
     // ----- Auxiliaries -----
 
@@ -128,14 +128,14 @@ public:
      * @return true Mouse is over the label
      * @return false otherwise
      */
-    bool isMouseHover() const;
+    bool isMouseHover() const override;
 
     /**
      * @brief Updates the text of the keyboard
      * 
      * @param text The text that has been entered
      */
-    virtual void updateText( const ::sf::Uint32& );
+    virtual void updateText(const ::sf::Uint32&);
 
     // ----- Getters -----
 
@@ -170,14 +170,14 @@ public:
      * @brief Updates the selected text box
      * 
      */
-    void onClick();
+    void onClick() override;
 
     /**
      * @brief Updates a component's location
      * 
      * @param newLocation The new location of the component
      */
-    virtual void updateLocation( const Point& );
+    virtual void updateLocation(const Point&) override;
 };
 
 }

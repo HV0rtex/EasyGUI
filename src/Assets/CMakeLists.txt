@@ -16,6 +16,8 @@
 # ----- Defining library sets -----
 
 set(LIBRARY_SOURCES
+    src/Point.cpp
+    src/AllignmentTool.cpp
     src/Label.cpp
     src/Button.cpp
     src/Component.cpp

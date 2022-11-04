@@ -29,6 +29,7 @@
 // Including dependencies
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <Exceptions/ButtonException.hpp>
+#include <AlignmentTool.hpp>
 #include <Label.hpp>
 
 namespace easyGUI
@@ -46,7 +47,7 @@ private:
     ::sf::RectangleShape _shape;
     Label* _content;
 
-    virtual void draw( ::sf::RenderTarget&, ::sf::RenderStates ) const;
+    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 
     // ----- Helper methods -----
 
@@ -57,7 +58,7 @@ private:
      * @param charSize The size of the characters
      * @return Point 
      */
-    Point getLabelPosition( const unsigned&, const unsigned& ) const;
+    Point getLabelPosition(const unsigned&, const unsigned&) const;
 
     /**
      * @brief Computes the correction to be applied to the char size of the text
@@ -66,7 +67,7 @@ private:
      * @param desiredSize The desired char size
      * @return unsigned
      */
-    unsigned getCharSizeCorrection( const unsigned&, const unsigned& ) const;
+    unsigned getCharSizeCorrection(const unsigned&, const unsigned&) const;
 
 public:
     /**
@@ -91,7 +92,7 @@ public:
      * @note The font file format must be .ttf
 
      */
-    Button( const Point&, const Point&, const ::std::string&, const ::std::string&, const unsigned& );
+    Button(const Point&, const Point&, const ::std::string&, const ::std::string&, const unsigned&);
 
     /**
      * @brief Constructor
@@ -109,7 +110,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    Button( const Point&, const float&, const float&, const ::std::string&, const ::std::string&, const unsigned& );
+    Button(const Point&, const float&, const float&, const ::std::string&, const ::std::string&, const unsigned&);
 
     // Block other forms of construction
 
@@ -125,7 +126,7 @@ public:
      * @return true Mouse is over the label
      * @return false otherwise
      */
-    bool isMouseHover() const;
+    bool isMouseHover() const override;
 
     // ----- Getters -----
 
@@ -148,7 +149,7 @@ public:
      * 
      * @param newLocation The new location of the component
      */
-    void updateLocation( const Point& );
+    void updateLocation(const Point&) override;
 };
 
 }

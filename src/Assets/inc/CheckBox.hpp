@@ -67,7 +67,7 @@ private:
 
     bool _checked;
 
-    virtual void draw ( ::sf::RenderTarget&, ::sf::RenderStates ) const;
+    virtual void draw (::sf::RenderTarget&, ::sf::RenderStates) const override;
 
     /**
      * @brief Alligns the component next to the checkbox.
@@ -90,7 +90,7 @@ public:
      * @param allignment Denotes how to align the element in respect to the checkbox
      * @param content The content of the checkbox. Defaults to NULL.
      */
-    explicit CheckBox( const Point&, const Allignment&, Component* = nullptr );
+    explicit CheckBox(const Point&, const Allignment&, Component* = nullptr);
 
     // ----- Auxiliaries -----
 
@@ -108,20 +108,20 @@ public:
      * @return true Mouse is over the label
      * @return false otherwise
      */
-    bool isMouseHover() const;
+    bool isMouseHover() const override;
 
     /**
      * @brief Updates the selected text box
      * 
      */
-    void onClick();
+    void onClick() override;
 
     /**
      * @brief Updates a component's location
      * 
      * @param newLocation The new location of the component
      */
-    virtual void updateLocation( const Point& );
+    virtual void updateLocation(const Point&) override;
 
     // ----- Getters -----
 

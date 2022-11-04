@@ -17,6 +17,8 @@ Application control:
 - Converter class to facilitate conversion between assets
 - Internal component getter methods
 - Components can now be moved by routines
+- Application now scales with window size
+- Added option to align elements in respect to other elements or the window
 
 GUI Elements:
 - Text box
@@ -28,6 +30,7 @@ GUI Elements:
 
 Application control:
 - Menus and components are linked to a unique ID now
+- Fixed memory leaks caused by singletons.
 
 Source files:
 - Reworked demo project to be more meaningful
@@ -36,7 +39,6 @@ Source files:
 GUI Elements:
 - Reworked FontManager as a template class that manages multiple assets.
 - Lowered the amount of arguments in constructors (missing arguments have been set as default options)
-
 
 ## Removed
 

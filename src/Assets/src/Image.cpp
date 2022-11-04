@@ -37,7 +37,7 @@ void Image::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 
 Image::Image(const Point& startLocation, const Point& endLocation, const ::std::string& path)
 {
-    TextureManager* manager = TextureManager::getInstance();
+    ::std::shared_ptr<TextureManager> manager = TextureManager::getInstance();
 
     if(manager == nullptr)
     {

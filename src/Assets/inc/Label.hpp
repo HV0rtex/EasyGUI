@@ -50,7 +50,7 @@ private:
     ::sf::Text _text;
     ::sf::Color _textColor;
 
-    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const;
+    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 
     // ----- Initializers -----
 
@@ -98,7 +98,7 @@ public:
      * @return true Mouse is over the label
      * @return false otherwise
      */
-    bool isMouseHover() const;
+    bool isMouseHover() const override;
 
     // ----- Getters -----
 
@@ -114,7 +114,7 @@ public:
      * 
      * @param newLocation The new location of the component
      */
-    virtual void updateLocation( const Point& );
+    virtual void updateLocation(const Point&) override;
 };
 
 }
