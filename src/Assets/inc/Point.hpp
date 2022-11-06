@@ -27,6 +27,7 @@
 #pragma once
 
 // Including dependencies
+#include <SFML/System/Vector2.hpp>
 #include <utility>
 
 namespace easyGUI
@@ -54,6 +55,13 @@ struct Point
      * @param y The Y-coordinate
      */
     explicit Point(const float&, const float&);
+
+    /**
+     * @brief Converts Vector2f to Point
+     * 
+     * @param vector The SFML equivalent
+     */
+    explicit Point(const ::sf::Vector2f&);
 
     /**
      * @brief Copy-Constructor
@@ -95,6 +103,24 @@ struct Point
      * @return Point 
      */
     Point operator+ (const Point&) const noexcept;
+
+    /**
+     * @brief Divides both coordinates by a factor
+     * 
+     * @param factor The divisor
+     * 
+     * @return Point 
+     */
+    Point operator/ (const float&) const noexcept;
+
+    /**
+     * @brief Multiplies both coordinates by a factor
+     * 
+     * @param factor The factor
+     * 
+     * @return Point 
+     */
+    Point operator* (const float&) const noexcept;
 };
 
 }

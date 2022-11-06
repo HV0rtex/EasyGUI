@@ -30,23 +30,48 @@ namespace easyGUI
 }
 
 
-Point AllignmentTool::getAllignment(const Anchor* anchor, const Modes& mode, const Point& offset)
+Point AllignmentTool::getAllignment(const Anchor* source, const Anchor* anchor, const Binding& mode, const Point& offset)
 {
-    if(anchor == nullptr)
+    if(anchor == nullptr || source == nullptr)
         throw AllignmentException("Invalid anchor.");
 
-    switch (mode)
+    Point desiredLocation;
+
+    switch (mode.second)
     {
-    case Modes::LEFT:
-        return anchor->getLEFT() + offset;
-    case Modes::RIGHT:
-        return anchor->getRIGHT() + offset;
-    case Modes::TOP:
-        return anchor->getTOP() + offset;
-    case Modes::BOTTOM:
-        return anchor->getBOTTOM() + offset;
-    case Modes::CENTER:
-        return anchor->getCENTER() + offset;
+    case Mode::LEFT:
+        desiredLocation = anchor->getLEFT() + offset;
+        break;
+    case Mode::RIGHT:
+        desiredLocation = anchor->getRIGHT() + offset;
+        break;
+    case Mode::TOP:
+        desiredLocation = anchor->getTOP() + offset;
+        break;
+    case Mode::BOTTOM:
+        desiredLocation = anchor->getBOTTOM() + offset;
+        break;
+    case Mode::CENTER:
+        desiredLocation = anchor->getCENTER() + offset;
+        break;
+    default:
+        throw AllignmentException("Invalid allignment mode");
+        break;
+    }
+
+    // TO-DO : plan and redo all
+    switch (mode.first)
+    {
+    case Mode::LEFT:
+        return desiredLocation + source->getLEFT();
+    case Mode::RIGHT:
+        return desiredLocation + (source->getRIGHT() * -1) + source->getBOTTOM();
+    case Mode::TOP:
+        return desiredLocation + anchor->getLEFT();
+    case Mode::BOTTOM:
+        return desiredLocation + anchor->getLEFT();
+    case Mode::CENTER:
+        return desiredLocation + anchor->getLEFT();
     default:
         throw AllignmentException("Invalid allignment mode");
         break;

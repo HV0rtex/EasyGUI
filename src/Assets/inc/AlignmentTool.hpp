@@ -55,35 +55,35 @@ public:
      * 
      * @return Point& 
      */
-    virtual Point& getLEFT() const = 0;
+    virtual Point getLEFT() const = 0;
 
     /**
      * @brief Returns the point rightmost of the Anchor
      * 
      * @return Point& 
      */
-    virtual Point& getRIGHT() const = 0;
+    virtual Point getRIGHT() const = 0;
 
     /**
      * @brief Returns the lowest point of the Anchor
      * 
      * @return Point& 
      */
-    virtual Point& getBOTTOM() const = 0;
+    virtual Point getBOTTOM() const = 0;
 
     /**
      * @brief Returns the highest point of the Anchor
      * 
      * @return Point& 
      */
-    virtual Point& getTOP() const = 0;
+    virtual Point getTOP() const = 0;
 
     /**
      * @brief Returns the point at the center of the Anchor
      * 
      * @return Point& 
      */
-    virtual Point& getCENTER() const = 0;
+    virtual Point getCENTER() const = 0;
 };
 
 /**
@@ -104,13 +104,16 @@ private:
      */
     AllignmentTool() = default;
 public:
-    enum Modes {
+    enum Mode {
         LEFT,
         RIGHT,
         BOTTOM,
         TOP,
         CENTER
     };
+
+    typedef ::std::pair<Mode, Mode> Binding;
+
 
     /**
      * @brief Destructor
@@ -128,13 +131,14 @@ public:
     /**
      * @brief Computes the position of an element
      * 
+     * @param source The object to be alligned.
      * @param anchor The anchor used for allignment
      * @param mode How to allign the element
      * @param offest An offest to be applied between the component and the element
      * 
      * @return Point
      */
-    Point getAllignment(const Anchor*, const Modes&, const Point&);
+    Point getAllignment(const Anchor*, const Anchor*, const Binding&, const Point&);
 };
 
 }

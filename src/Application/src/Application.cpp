@@ -229,4 +229,29 @@ void Application::start()
     return _window;
 }
 
+Point Application::getLEFT() const
+{
+    return Point(0, _window->getDefaultView().getSize().y / 2);
+}
+
+Point Application::getRIGHT() const
+{
+    return Point(_window->getDefaultView().getSize().x, _window->getDefaultView().getSize().y / 2);
+}
+
+Point Application::getTOP() const
+{
+    return Point(_window->getDefaultView().getSize().x / 2, 0);
+}
+
+Point Application::getBOTTOM() const
+{
+    return Point(_window->getDefaultView().getSize().x / 2, _window->getDefaultView().getSize().y);
+}
+
+Point Application::getCENTER() const
+{
+    return Point(_window->getDefaultView().getCenter());
+}
+
 }

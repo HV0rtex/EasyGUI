@@ -32,6 +32,7 @@
 #include <Converter.hpp>
 #include <Logger.hpp>
 #include <Exceptions/MenuException.hpp>
+#include <AlignmentTool.hpp>
 
 namespace easyGUI
 {
@@ -43,7 +44,7 @@ namespace easyGUI
  * easier management of the events (such as onClick, onKeyPress, etc.) 
  * 
  */
-class Application
+class Application : public Anchor
 {
 private:
     static Application* instance;
@@ -197,6 +198,14 @@ public:
      * @details Closes the application window.
      */
     void stop();
+
+    // ----- Inherited from anchor -----
+
+    Point getLEFT() const override;
+    Point getRIGHT() const override;
+    Point getBOTTOM() const override;
+    Point getTOP() const override;
+    Point getCENTER() const override;
 };
 
 }

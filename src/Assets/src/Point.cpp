@@ -55,6 +55,12 @@ Point& Point::operator=(const Point& other) noexcept
     return *this;
 }
 
+Point::Point(const ::sf::Vector2f& vector)
+{
+    Xcoord = vector.x;
+    Ycoord = vector.y;
+}
+
 Point& Point::operator=(Point&& other) noexcept
 {
     if(&other != this)
@@ -71,6 +77,22 @@ Point Point::operator+ (const Point& other) const noexcept
     return Point(
         Xcoord + other.Xcoord,
         Ycoord + other.Ycoord
+    );
+}
+
+Point Point::operator* (const float& factor) const noexcept
+{
+    return Point(
+        Xcoord * factor,
+        Ycoord * factor
+    );
+}
+
+Point Point::operator/ (const float& factor) const noexcept
+{
+    return Point(
+        Xcoord / factor,
+        Ycoord / factor
     );
 }
 
