@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ "main", "F0010-GUI-Overhaul" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
