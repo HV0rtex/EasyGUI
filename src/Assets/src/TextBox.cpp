@@ -169,6 +169,7 @@ bool TextBox::isMouseHover() const
 void TextBox::updateText(const ::sf::Uint32& text)
 {
     ::sf::String newContent = _text.getString();
+    ::std::shared_ptr<AllignmentTool> tool = AllignmentTool::getInstance();
 
     if(text == 8 && !newContent.isEmpty())
         newContent.erase(newContent.getSize() - 1);
@@ -182,12 +183,19 @@ void TextBox::updateText(const ::sf::Uint32& text)
         WARN << "TextBox text doesn't fit. Resizing text...\n";
     }
 
+    try
+    {
+        Label dummy(Point(), newContent.toAnsiString(), _font, desiredSize - correction);
+        Point pos = tool->getAllignment(&dummy, this, Binding(Mode::LEFT, Mode::LEFT), Point(20, 0));
 
-    Point pos = getLabelPosition(newContent.getSize(), desiredSize - correction);
-
-    _text.setString(newContent);
-    _text.setPosition(pos.Xcoord, pos.Ycoord);
-    _text.setCharacterSize(desiredSize - correction);
+        _text.setString(newContent);
+        _text.setPosition(pos.Xcoord - 1, pos.Ycoord - 7);
+        _text.setCharacterSize(desiredSize - correction);
+    }
+    catch(AssetException& e)
+    {
+        ERROR << e.what() << '\n';
+    }
 }
 
 void TextBox::onClick()
@@ -212,6 +220,31 @@ const ::std::string TextBox::getText() const
 void TextBox::clear()
 {
     _text.setString("");
+}
+
+Point TextBox::getLEFT() const
+{
+    return Point(_shape.getGlobalBounds().left, _shape.getGlobalBounds().top + _shape.getGlobalBounds().height / 2);
+}
+
+Point TextBox::getRIGHT() const
+{
+    return Point(_shape.getGlobalBounds().left + _shape.getGlobalBounds().width, _shape.getGlobalBounds().top + _shape.getGlobalBounds().height / 2);
+}
+
+Point TextBox::getTOP() const
+{
+    return Point(_shape.getGlobalBounds().left + _shape.getGlobalBounds().width / 2, _shape.getGlobalBounds().top);
+}
+
+Point TextBox::getBOTTOM() const
+{
+    return Point(_shape.getGlobalBounds().left + _shape.getGlobalBounds().width / 2, _shape.getGlobalBounds().top + _shape.getGlobalBounds().height);
+}
+
+Point TextBox::getCENTER() const
+{
+    return Point(_shape.getGlobalBounds().left + _shape.getGlobalBounds().width / 2, _shape.getGlobalBounds().top + _shape.getGlobalBounds().height / 2);
 }
 
 }

@@ -29,6 +29,7 @@
 // Including dependencies
 #include <SFML/Graphics/Sprite.hpp>
 #include <Exceptions/ImageException.hpp>
+#include <AlignmentTool.hpp>
 #include <Component.hpp>
 #include <Manager.hpp>
 
@@ -39,7 +40,7 @@ namespace easyGUI
  * @brief Draws an image to the screen
  * 
  */
-class Image : public Component
+class Image : public Component, public Anchor
 {
 private:
     ::std::shared_ptr<::sf::Texture> _image;
@@ -96,6 +97,43 @@ public:
      * @param newLocation The new location of the component
      */
     void updateLocation(const Point&) override;
+
+    // ----- Inherited from Anchor -----
+
+    /**
+     * @brief Returns the point leftmost of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getLEFT() const override;
+
+    /**
+     * @brief Returns the point rightmost of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getRIGHT() const override;
+
+    /**
+     * @brief Returns the lowest point of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getBOTTOM() const override;
+
+    /**
+     * @brief Returns the highest point of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getTOP() const override;
+
+    /**
+     * @brief Returns the point at the center of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getCENTER() const override;
 };
 
 }

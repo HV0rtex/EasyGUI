@@ -61,23 +61,6 @@ unsigned Button::getCharSizeCorrection(const unsigned& length, const unsigned& c
     return correction;
 }
 
-Point Button::getLabelPosition(const unsigned& length, const unsigned& charSize) const
-{
-    float lenghtInPix = length * charSize / 1.9;
-    float heightInPix = charSize * 1.55;
-
-    float freeSpaceX = _shape.getSize().x - lenghtInPix;
-    float freeSpaceY = _shape.getSize().y - heightInPix;
-
-    return Point(_shape.getPosition().x + freeSpaceX / 2, _shape.getPosition().y + freeSpaceY / 2);
-}
-
-void Button::updateLocation(const Point& newLocation)
-{
-    _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
-    _content->updateLocation(getLabelPosition(_content->getInternalText().getString().getSize(), _content->getInternalText().getCharacterSize()));
-}
-
 Button::Button(
     const Point& startLocation,
     const Point& endLocation,
@@ -102,7 +85,12 @@ Button::Button(
 
     try
     {
-        _content = new Label(getLabelPosition(text.size(), charSize - correction), text, fontPath, charSize - correction);
+        std::shared_ptr<AllignmentTool> tool = AllignmentTool::getInstance();
+
+        _content = new Label(Point(), text, fontPath, charSize - correction);
+    
+        Point p = tool->getAllignment(_content, this, Binding(Mode::CENTER, Mode::CENTER));
+        _content->updateLocation(p + Point(-1, -7));
     } 
     catch (const LabelException& err)
     {
@@ -164,6 +152,41 @@ bool Button::isMouseHover() const
 Label* Button::getInternalText()
 {
     return _content;
+}
+
+void Button::updateLocation(const Point& newLocation)
+{
+    _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
+
+    ::std::shared_ptr<AllignmentTool> tool = AllignmentTool::getInstance();
+
+    Point p = tool->getAllignment(_content, this, Binding(Mode::CENTER, Mode::CENTER));
+    _content->updateLocation(p + Point(-1, -7));
+}
+
+Point Button::getLEFT() const
+{
+    return Point(_shape.getGlobalBounds().left, _shape.getGlobalBounds().top + _shape.getGlobalBounds().height / 2);
+}
+
+Point Button::getRIGHT() const
+{
+    return Point(_shape.getGlobalBounds().left + _shape.getGlobalBounds().width, _shape.getGlobalBounds().top + _shape.getGlobalBounds().height / 2);
+}
+
+Point Button::getTOP() const
+{
+    return Point(_shape.getGlobalBounds().left + _shape.getGlobalBounds().width / 2, _shape.getGlobalBounds().top);
+}
+
+Point Button::getBOTTOM() const
+{
+    return Point(_shape.getGlobalBounds().left + _shape.getGlobalBounds().width / 2, _shape.getGlobalBounds().top + _shape.getGlobalBounds().height);
+}
+
+Point Button::getCENTER() const
+{
+    return Point(_shape.getGlobalBounds().left + _shape.getGlobalBounds().width / 2, _shape.getGlobalBounds().top + _shape.getGlobalBounds().height / 2);
 }
 
 }

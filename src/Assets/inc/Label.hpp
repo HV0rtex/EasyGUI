@@ -27,10 +27,11 @@
 #pragma once
 
 // Including dependencies
-#include <Component.hpp>
 #include <SFML/Graphics/Text.hpp>
-#include <Manager.hpp>
 #include <Exceptions/LabelException.hpp>
+#include <Manager.hpp>
+#include <AlignmentTool.hpp>
+#include <Component.hpp>
 #include <Point.hpp>
 
 namespace easyGUI
@@ -43,7 +44,7 @@ namespace easyGUI
  * to make the implementation of Labels easier for the end-user. For custom 
  * labels, you can inherit this class.
  */
-class Label : public Component
+class Label : public Component, public Anchor
 {
 private:
     ::std::shared_ptr<::sf::Font> _font;
@@ -84,6 +85,19 @@ public:
      */
     Label(const Point&, const ::std::string&, const ::std::string&, const unsigned&);
 
+    /**
+     * @brief Constructor
+     * 
+     * @param position The position where the text should be placed.
+     * @param text The text to be displayed.
+     * @param font A pointer to the font
+     * @param charSize The size of the characters.
+     * 
+     * @throw LabelException Invalid font received
+     * 
+     */
+    Label(const Point&, const ::std::string&, const ::std::shared_ptr<::sf::Font>&, const unsigned&);
+
     // Block other forms of construction
 
     Label()= delete;
@@ -115,6 +129,43 @@ public:
      * @param newLocation The new location of the component
      */
     virtual void updateLocation(const Point&) override;
+
+    // ----- Inherited from Anchor -----
+
+    /**
+     * @brief Returns the point leftmost of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getLEFT() const override;
+
+    /**
+     * @brief Returns the point rightmost of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getRIGHT() const override;
+
+    /**
+     * @brief Returns the lowest point of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getBOTTOM() const override;
+
+    /**
+     * @brief Returns the highest point of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getTOP() const override;
+
+    /**
+     * @brief Returns the point at the center of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getCENTER() const override;
 };
 
 }

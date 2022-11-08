@@ -41,7 +41,7 @@ namespace easyGUI
  * @details Draws a button on a window. The class makes use of the
  * Label class in order to draw and configure the button's text.
  */
-class Button : public Component
+class Button : public Component, public Anchor
 {
 private:
     ::sf::RectangleShape _shape;
@@ -50,15 +50,6 @@ private:
     virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 
     // ----- Helper methods -----
-
-    /**
-     * @brief Computes the label's starting positon
-     * 
-     * @param length The length of the label's text
-     * @param charSize The size of the characters
-     * @return Point 
-     */
-    Point getLabelPosition(const unsigned&, const unsigned&) const;
 
     /**
      * @brief Computes the correction to be applied to the char size of the text
@@ -150,6 +141,43 @@ public:
      * @param newLocation The new location of the component
      */
     void updateLocation(const Point&) override;
+
+    // ----- Inherited from Anchor -----
+
+    /**
+     * @brief Returns the point leftmost of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getLEFT() const override;
+
+    /**
+     * @brief Returns the point rightmost of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getRIGHT() const override;
+
+    /**
+     * @brief Returns the lowest point of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getBOTTOM() const override;
+
+    /**
+     * @brief Returns the highest point of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getTOP() const override;
+
+    /**
+     * @brief Returns the point at the center of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getCENTER() const override;
 };
 
 }

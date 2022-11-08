@@ -28,7 +28,6 @@
 
 // Including dependencies
 #include <Button.hpp>
-#include <CheckBox.hpp>
 #include <PasswordBox.hpp>
 #include <Image.hpp>
 
@@ -71,16 +70,6 @@ public:
      * @retval nullptr Asset could not be converted.
      */
     static TextBox* getTextbox( Component* );
-
-    /**
-     * @brief Converts a component into a checkbox
-     *
-     * @param asset The component to be converted 
-     *
-     * @return CheckBox* 
-     * @retval nullptr Asset could not be converted
-     */
-    static CheckBox* getCheckBox( Component* );
 
     /**
      * @brief Converts a component into an image

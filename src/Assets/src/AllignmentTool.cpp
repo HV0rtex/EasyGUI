@@ -59,23 +59,31 @@ Point AllignmentTool::getAllignment(const Anchor* source, const Anchor* anchor, 
         break;
     }
 
-    // TO-DO : plan and redo all
+    Point delta;
+
     switch (mode.first)
     {
     case Mode::LEFT:
-        return desiredLocation + source->getLEFT();
+        delta = desiredLocation + (source->getLEFT() * -1); 
+        break;
     case Mode::RIGHT:
-        return desiredLocation + (source->getRIGHT() * -1) + source->getBOTTOM();
+        delta = desiredLocation + (source->getRIGHT() * -1); 
+        break;
     case Mode::TOP:
-        return desiredLocation + anchor->getLEFT();
+        delta = desiredLocation + (source->getTOP() * -1); 
+        break;
     case Mode::BOTTOM:
-        return desiredLocation + anchor->getLEFT();
+        delta = desiredLocation + (source->getBOTTOM() * -1); 
+        break;
     case Mode::CENTER:
-        return desiredLocation + anchor->getLEFT();
+        delta = desiredLocation + (source->getCENTER() * -1); 
+        break;
     default:
         throw AllignmentException("Invalid allignment mode");
         break;
     }
+
+    return Point(source->getLEFT().Xcoord + delta.Xcoord, source->getTOP().Ycoord + delta.Ycoord);
 }
 
 }

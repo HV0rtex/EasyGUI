@@ -32,7 +32,8 @@
 #include <Exceptions/TextBoxException.hpp>
 #include <Point.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/Text.hpp>
+#include <Label.hpp>
+#include <AlignmentTool.hpp>
 
 namespace easyGUI
 {
@@ -45,7 +46,7 @@ namespace easyGUI
  * to access both the border and the text.
  * 
  */
-class TextBox : public Component
+class TextBox : public Component, public Anchor
 {
 protected:
     ::sf::RectangleShape _shape;
@@ -178,6 +179,43 @@ public:
      * @param newLocation The new location of the component
      */
     virtual void updateLocation(const Point&) override;
+
+    // ----- Inherited from Anchor -----
+
+    /**
+     * @brief Returns the point leftmost of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getLEFT() const override;
+
+    /**
+     * @brief Returns the point rightmost of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getRIGHT() const override;
+
+    /**
+     * @brief Returns the lowest point of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getBOTTOM() const override;
+
+    /**
+     * @brief Returns the highest point of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getTOP() const override;
+
+    /**
+     * @brief Returns the point at the center of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getCENTER() const override;
 };
 
 }

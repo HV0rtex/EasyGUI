@@ -86,4 +86,29 @@ void Image::updateLocation(const Point& newLocation)
     _object.setPosition(newLocation.Xcoord, newLocation.Ycoord);
 }
 
+Point Image::getLEFT() const
+{
+    return Point(_object.getGlobalBounds().left, _object.getGlobalBounds().top + _object.getGlobalBounds().height / 2);
+}
+
+Point Image::getRIGHT() const
+{
+    return Point(_object.getGlobalBounds().left + _object.getGlobalBounds().width, _object.getGlobalBounds().top + _object.getGlobalBounds().height / 2);
+}
+
+Point Image::getTOP() const
+{
+    return Point(_object.getGlobalBounds().left + _object.getGlobalBounds().width / 2, _object.getGlobalBounds().top);
+}
+
+Point Image::getBOTTOM() const
+{
+    return Point(_object.getGlobalBounds().left + _object.getGlobalBounds().width / 2, _object.getGlobalBounds().top + _object.getGlobalBounds().height);
+}
+
+Point Image::getCENTER() const
+{
+    return Point(_object.getGlobalBounds().left + _object.getGlobalBounds().width / 2, _object.getGlobalBounds().top + _object.getGlobalBounds().height / 2);
+}
+
 }

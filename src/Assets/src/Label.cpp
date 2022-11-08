@@ -62,6 +62,19 @@ void Label::updateLocation(const Point& newLocation)
     _text.setPosition(newLocation.Xcoord, newLocation.Ycoord);
 }
 
+Label::Label(const Point& startLocation, const ::std::string& text, const ::std::shared_ptr<::sf::Font>& font, const unsigned& charSize)
+{
+    if(font == nullptr)
+    {
+        throw LabelException("Invalid font received");
+    }
+
+    _font = font;
+    _textColor = ::sf::Color::White;
+
+    constructText(startLocation, text, charSize);
+}
+
 Label::Label(const Point& startLocation, const ::std::string& text, const ::std::string& fontPath, const unsigned& charSize)
 {
     try
@@ -90,6 +103,31 @@ Label::Label(const Point& startLocation, const ::std::string& text, const ::std:
 ::sf::Text& Label::getInternalText()
 {
     return _text;
+}
+
+Point Label::getLEFT() const
+{
+    return Point(_text.getGlobalBounds().left - 1, _text.getGlobalBounds().top - 7 + _text.getGlobalBounds().height / 2);
+}
+
+Point Label::getRIGHT() const
+{
+    return Point(_text.getGlobalBounds().left - 1 + _text.getGlobalBounds().width, _text.getGlobalBounds().top - 7 + _text.getGlobalBounds().height / 2);
+}
+
+Point Label::getTOP() const
+{
+    return Point(_text.getGlobalBounds().left - 1 + _text.getGlobalBounds().width / 2, _text.getGlobalBounds().top - 7);
+}
+
+Point Label::getBOTTOM() const
+{
+    return Point(_text.getGlobalBounds().left - 1 + _text.getGlobalBounds().width / 2, _text.getGlobalBounds().top - 7+ _text.getGlobalBounds().height);
+}
+
+Point Label::getCENTER() const
+{
+    return Point(_text.getGlobalBounds().left - 1 + _text.getGlobalBounds().width / 2, _text.getGlobalBounds().top - 7 + _text.getGlobalBounds().height / 2);
 }
 
 }

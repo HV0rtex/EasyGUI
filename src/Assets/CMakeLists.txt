@@ -23,7 +23,6 @@ set(LIBRARY_SOURCES
     src/Component.cpp
     src/TextBox.cpp
     src/PasswordBox.cpp
-    src/CheckBox.cpp
     src/Image.cpp
     src/Converter.cpp
 )

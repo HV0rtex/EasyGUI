@@ -86,6 +86,17 @@ public:
     virtual Point getCENTER() const = 0;
 };
 
+enum Mode {
+    LEFT,
+    RIGHT,
+    BOTTOM,
+    TOP,
+    CENTER
+};
+
+typedef ::std::pair<Mode, Mode> Binding;
+
+
 /**
  * @brief Class responsible with computing positions
  * 
@@ -104,17 +115,6 @@ private:
      */
     AllignmentTool() = default;
 public:
-    enum Mode {
-        LEFT,
-        RIGHT,
-        BOTTOM,
-        TOP,
-        CENTER
-    };
-
-    typedef ::std::pair<Mode, Mode> Binding;
-
-
     /**
      * @brief Destructor
      * 
@@ -138,7 +138,7 @@ public:
      * 
      * @return Point
      */
-    Point getAllignment(const Anchor*, const Anchor*, const Binding&, const Point&);
+    Point getAllignment(const Anchor*, const Anchor*, const Binding&, const Point& = Point());
 };
 
 }

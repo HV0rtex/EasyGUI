@@ -65,9 +65,7 @@ void createMainMenu(Application* appInstance)
     
         "submit"
     );
-    
-    AddElement(menu, new CheckBox(Point(270, 470), Allignment::RIGHT, new Label(Point(270, 470), "Remember me", "./res/Arial.ttf", 25)), "checkbox");
-    
+     
     if(Converter::getButton(menu->getComponent("submit")) != nullptr)
         menu->getComponent("submit")->setOnClickAction(demoButton_action);     // <--- Adding a callback to be executed on mouse press
 }

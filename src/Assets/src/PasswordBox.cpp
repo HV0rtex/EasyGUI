@@ -74,11 +74,21 @@ void PasswordBox::updateText(const ::sf::Uint32& text)
         WARN << "TextBox text doesn't fit. Resizing text...\n";
     }
 
-    Point pos = getLabelPosition(newContent.getSize(), desiredSize - correction);
+    try
+    {
+        ::std::shared_ptr<AllignmentTool> tool = AllignmentTool::getInstance();
 
-    _text.setString(newContent);
-    _text.setPosition(pos.Xcoord, pos.Ycoord);
-    _text.setCharacterSize(desiredSize - correction);
+        Label dummy(Point(), newContent.toAnsiString(), _font, desiredSize - correction);
+        Point pos = tool->getAllignment(&dummy, this, Binding(Mode::LEFT, Mode::LEFT), Point(20, 0));
+
+        _text.setString(newContent);
+        _text.setPosition(pos.Xcoord - 1, pos.Ycoord - 7);
+        _text.setCharacterSize(desiredSize - correction);
+    }
+    catch(AssetException& e)
+    {
+        ERROR << e.what() << '\n';
+    }
 }
 
 }
