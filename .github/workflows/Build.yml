@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "F0010-GUI-Overhaul" ]
   pull_request:
     branches: [ "main" ]
 
@@ -54,6 +54,10 @@ jobs:
 
     - name: Installing artifacts
       run: cd ${{github.workspace}}/build && make install
+
+    - name: Move Windows "shared" .a files
+      if: runner.os == 'Windows'
+      run: copy ${{github.workspace}}/bin/*.a ${{github.workspace}}/lib && del ${{github.workspace}}/bin/*.a
 
     - name: Publishing package
       uses: actions/upload-artifact@master
