@@ -169,7 +169,7 @@ bool TextBox::isMouseHover() const
 void TextBox::updateText(const ::sf::Uint32& text)
 {
     ::sf::String newContent = _text.getString();
-    ::std::shared_ptr<AllignmentTool> tool = AllignmentTool::getInstance();
+    ::std::shared_ptr<AlignmentTool> tool = AlignmentTool::getInstance();
 
     if(text == 8 && !newContent.isEmpty())
         newContent.erase(newContent.getSize() - 1);
@@ -186,13 +186,13 @@ void TextBox::updateText(const ::sf::Uint32& text)
     try
     {
         Label dummy(Point(), newContent.toAnsiString(), _font, desiredSize - correction);
-        Point pos = tool->getAllignment(&dummy, this, Binding(Mode::LEFT, Mode::LEFT), Point(20, 0));
+        Point pos = tool->getAlignment(dummy, *this, Binding(Mode::LEFT, Mode::LEFT), Point(20, 0));
 
         _text.setString(newContent);
         _text.setPosition(pos.Xcoord - 1, pos.Ycoord - 7);
         _text.setCharacterSize(desiredSize - correction);
     }
-    catch(AssetException& e)
+    catch(LabelException& e)
     {
         ERROR << e.what() << '\n';
     }

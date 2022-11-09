@@ -16,7 +16,7 @@
 /**
  * @file AlignmentTool.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the Anchor interface and AllignmentTool class
+ * @brief Definition of the Anchor interface and AlignmentTool class
  * @version 0.1
  * @date 2022-11-02
  * 
@@ -27,7 +27,6 @@
 #pragma once
 
 // Including dependencies
-#include <Exceptions/AllignmentException.hpp>
 #include <Point.hpp>
 #include <memory>
 
@@ -104,41 +103,41 @@ typedef ::std::pair<Mode, Mode> Binding;
  * of the GUI in respect to other elements, called Anchors. 
  * 
  */
-class AllignmentTool
+class AlignmentTool
 {
 private:
-    static ::std::shared_ptr<AllignmentTool> _instance;
+    static ::std::shared_ptr<AlignmentTool> _instance;
 
     /**
      * @brief Constructor
      * 
      */
-    AllignmentTool() = default;
+    AlignmentTool() = default;
 public:
     /**
      * @brief Destructor
      * 
      */
-    ~AllignmentTool() = default;
+    ~AlignmentTool() = default;
 
     /**
-     * @brief Returns an instance of the allignment tool
+     * @brief Returns an instance of the Alignment tool
      * 
-     * @return AllignmentTool* 
+     * @return AlignmentTool* 
      */
-    static ::std::shared_ptr<AllignmentTool> getInstance();
+    static ::std::shared_ptr<AlignmentTool> getInstance() noexcept;
 
     /**
      * @brief Computes the position of an element
      * 
      * @param source The object to be alligned.
-     * @param anchor The anchor used for allignment
+     * @param anchor The anchor used for Alignment
      * @param mode How to allign the element
      * @param offest An offest to be applied between the component and the element
      * 
      * @return Point
      */
-    Point getAllignment(const Anchor*, const Anchor*, const Binding&, const Point& = Point());
+    Point getAlignment(const Anchor&, const Anchor&, const Binding&, const Point& = Point()) noexcept;
 };
 
 }

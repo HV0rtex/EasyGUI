@@ -85,11 +85,11 @@ Button::Button(
 
     try
     {
-        std::shared_ptr<AllignmentTool> tool = AllignmentTool::getInstance();
+        std::shared_ptr<AlignmentTool> tool = AlignmentTool::getInstance();
 
         _content = new Label(Point(), text, fontPath, charSize - correction);
     
-        Point p = tool->getAllignment(_content, this, Binding(Mode::CENTER, Mode::CENTER));
+        Point p = tool->getAlignment(*_content, *this, Binding(Mode::CENTER, Mode::CENTER));
         _content->updateLocation(p + Point(-1, -7));
     } 
     catch (const LabelException& err)
@@ -158,9 +158,9 @@ void Button::updateLocation(const Point& newLocation)
 {
     _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
 
-    ::std::shared_ptr<AllignmentTool> tool = AllignmentTool::getInstance();
+    ::std::shared_ptr<AlignmentTool> tool = AlignmentTool::getInstance();
 
-    Point p = tool->getAllignment(_content, this, Binding(Mode::CENTER, Mode::CENTER));
+    Point p = tool->getAlignment(*_content, *this, Binding(Mode::CENTER, Mode::CENTER));
     _content->updateLocation(p + Point(-1, -7));
 }
 

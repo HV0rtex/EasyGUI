@@ -76,16 +76,16 @@ void PasswordBox::updateText(const ::sf::Uint32& text)
 
     try
     {
-        ::std::shared_ptr<AllignmentTool> tool = AllignmentTool::getInstance();
+        ::std::shared_ptr<AlignmentTool> tool = AlignmentTool::getInstance();
 
         Label dummy(Point(), newContent.toAnsiString(), _font, desiredSize - correction);
-        Point pos = tool->getAllignment(&dummy, this, Binding(Mode::LEFT, Mode::LEFT), Point(20, 0));
+        Point pos = tool->getAlignment(dummy, *this, Binding(Mode::LEFT, Mode::LEFT), Point(20, 0));
 
         _text.setString(newContent);
         _text.setPosition(pos.Xcoord - 1, pos.Ycoord - 7);
         _text.setCharacterSize(desiredSize - correction);
     }
-    catch(AssetException& e)
+    catch(LabelException& e)
     {
         ERROR << e.what() << '\n';
     }

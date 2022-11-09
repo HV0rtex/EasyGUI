@@ -17,45 +17,39 @@
 namespace easyGUI
 {
 
-::std::shared_ptr<AllignmentTool> AllignmentTool::_instance = nullptr;
+::std::shared_ptr<AlignmentTool> AlignmentTool::_instance = nullptr;
 
-::std::shared_ptr<AllignmentTool> AllignmentTool::getInstance()
+::std::shared_ptr<AlignmentTool> AlignmentTool::getInstance() noexcept
 {
     if(_instance == nullptr)
     {
-        _instance = ::std::make_shared<AllignmentTool>(AllignmentTool());
+        _instance = ::std::make_shared<AlignmentTool>(AlignmentTool());
     }
 
     return _instance;
 }
 
 
-Point AllignmentTool::getAllignment(const Anchor* source, const Anchor* anchor, const Binding& mode, const Point& offset)
+Point AlignmentTool::getAlignment(const Anchor& source, const Anchor& anchor, const Binding& mode, const Point& offset) noexcept
 {
-    if(anchor == nullptr || source == nullptr)
-        throw AllignmentException("Invalid anchor.");
-
     Point desiredLocation;
 
     switch (mode.second)
     {
     case Mode::LEFT:
-        desiredLocation = anchor->getLEFT() + offset;
+        desiredLocation = anchor.getLEFT() + offset;
         break;
     case Mode::RIGHT:
-        desiredLocation = anchor->getRIGHT() + offset;
+        desiredLocation = anchor.getRIGHT() + offset;
         break;
     case Mode::TOP:
-        desiredLocation = anchor->getTOP() + offset;
+        desiredLocation = anchor.getTOP() + offset;
         break;
     case Mode::BOTTOM:
-        desiredLocation = anchor->getBOTTOM() + offset;
+        desiredLocation = anchor.getBOTTOM() + offset;
         break;
     case Mode::CENTER:
-        desiredLocation = anchor->getCENTER() + offset;
-        break;
-    default:
-        throw AllignmentException("Invalid allignment mode");
+        desiredLocation = anchor.getCENTER() + offset;
         break;
     }
 
@@ -64,26 +58,23 @@ Point AllignmentTool::getAllignment(const Anchor* source, const Anchor* anchor, 
     switch (mode.first)
     {
     case Mode::LEFT:
-        delta = desiredLocation + (source->getLEFT() * -1); 
+        delta = desiredLocation + (source.getLEFT() * -1); 
         break;
     case Mode::RIGHT:
-        delta = desiredLocation + (source->getRIGHT() * -1); 
+        delta = desiredLocation + (source.getRIGHT() * -1); 
         break;
     case Mode::TOP:
-        delta = desiredLocation + (source->getTOP() * -1); 
+        delta = desiredLocation + (source.getTOP() * -1); 
         break;
     case Mode::BOTTOM:
-        delta = desiredLocation + (source->getBOTTOM() * -1); 
+        delta = desiredLocation + (source.getBOTTOM() * -1); 
         break;
     case Mode::CENTER:
-        delta = desiredLocation + (source->getCENTER() * -1); 
-        break;
-    default:
-        throw AllignmentException("Invalid allignment mode");
+        delta = desiredLocation + (source.getCENTER() * -1); 
         break;
     }
 
-    return Point(source->getLEFT().Xcoord + delta.Xcoord, source->getTOP().Ycoord + delta.Ycoord);
+    return Point(source.getLEFT().Xcoord + delta.Xcoord, source.getTOP().Ycoord + delta.Ycoord);
 }
 
 }
