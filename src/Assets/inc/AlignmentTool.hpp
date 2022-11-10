@@ -27,8 +27,11 @@
 #pragma once
 
 // Including dependencies
+#include <Component.hpp>
 #include <Point.hpp>
 #include <memory>
+#include <vector>
+#include <map>
 
 namespace easyGUI
 {
@@ -100,13 +103,29 @@ typedef ::std::pair<Mode, Mode> Binding;
  * @brief Class responsible with computing positions
  * 
  * @details This class is a Singleton which is used when you want to allign elements
- * of the GUI in respect to other elements, called Anchors. 
+ * of the GUI in respect to other elements, called Anchors. Whenever an element becomes
+ * bound to an anchor, it becomes unmovable. Meaning the only way to alter its position
+ * is by moving the anchor it is bound to.
  * 
  */
 class AlignmentTool
 {
 private:
     static ::std::shared_ptr<AlignmentTool> _instance;
+    ::std::map<const Anchor*, ::std::vector<::std::pair<::std::pair<Anchor*, Binding>, const Point>>> _bindings;
+
+    /**
+     * @brief Computes the position of an element
+     * 
+     * @param source The object to be alligned.
+     * @param anchor The anchor used for Alignment
+     * @param mode How to allign the element
+     * @param offest An offest to be applied between the component and the element
+     * 
+     * @return Point
+     */
+    Point getAlignment(const Anchor&, const Anchor&, const Binding&, const Point& = Point()) noexcept;
+
 
     /**
      * @brief Constructor
@@ -128,16 +147,21 @@ public:
     static ::std::shared_ptr<AlignmentTool> getInstance() noexcept;
 
     /**
-     * @brief Computes the position of an element
+     * @brief Creates a binding between two elements
      * 
-     * @param source The object to be alligned.
-     * @param anchor The anchor used for Alignment
-     * @param mode How to allign the element
-     * @param offest An offest to be applied between the component and the element
-     * 
-     * @return Point
+     * @param source The bound element
+     * @param anchor The "free" element
+     * @param binding The type of binding between elements
+     * @param offset The desired offset
      */
-    Point getAlignment(const Anchor&, const Anchor&, const Binding&, const Point& = Point()) noexcept;
+    void createBinding(Anchor&, const Anchor&, const Binding&, const Point& = Point());
+
+    /**
+     * @brief Updates all the elements bound to an anchor
+     * 
+     * @param source The anchor that moved
+     */
+    void triggerUpdate(const Anchor&);
 };
 
 }

@@ -33,7 +33,7 @@ Button::~Button()
 {
     if(_content != nullptr)
     {
-        delete _content;
+        delete[] _content;
     }
 }
 
@@ -86,18 +86,20 @@ Button::Button(
     try
     {
         std::shared_ptr<AlignmentTool> tool = AlignmentTool::getInstance();
-
         _content = new Label(Point(), text, fontPath, charSize - correction);
     
-        Point p = tool->getAlignment(*_content, *this, Binding(Mode::CENTER, Mode::CENTER));
-        _content->updateLocation(p + Point(-1, -7));
+        tool->createBinding(*_content, *this, Binding(Mode::CENTER, Mode::CENTER), Point(-1, -7));
     } 
     catch (const LabelException& err)
     {
         ERROR << err.what();
 
         ButtonException ex("Label text will not be visible.");
-        _content = nullptr;
+        if(_content != nullptr)
+        {
+            delete[] _content;
+            _content = nullptr;
+        }
 
         WARN << ex.what();
     }
@@ -149,9 +151,14 @@ bool Button::isMouseHover() const
     return _shape;
 }
 
-Label* Button::getInternalText()
+::sf::Text* Button::getInternalText()
 {
-    return _content;
+    if(_content == nullptr)
+    {
+        return nullptr;
+    }
+
+    return &_content->getInternalText();
 }
 
 void Button::updateLocation(const Point& newLocation)
@@ -159,9 +166,7 @@ void Button::updateLocation(const Point& newLocation)
     _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
 
     ::std::shared_ptr<AlignmentTool> tool = AlignmentTool::getInstance();
-
-    Point p = tool->getAlignment(*_content, *this, Binding(Mode::CENTER, Mode::CENTER));
-    _content->updateLocation(p + Point(-1, -7));
+    tool->triggerUpdate(*this);
 }
 
 Point Button::getLEFT() const

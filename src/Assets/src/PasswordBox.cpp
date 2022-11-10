@@ -52,7 +52,10 @@ const ::std::string PasswordBox::getText() const
 
 void PasswordBox::updateText(const ::sf::Uint32& text)
 {
-    ::sf::String newContent = _text.getString();
+    if(_text == nullptr)
+        return;
+
+    ::sf::String newContent = _text->getInternalText().getString();
 
     if(text == 8 && !newContent.isEmpty())
     {
@@ -74,21 +77,11 @@ void PasswordBox::updateText(const ::sf::Uint32& text)
         WARN << "TextBox text doesn't fit. Resizing text...\n";
     }
 
-    try
-    {
-        ::std::shared_ptr<AlignmentTool> tool = AlignmentTool::getInstance();
+    ::std::shared_ptr<AlignmentTool> tool = AlignmentTool::getInstance();
 
-        Label dummy(Point(), newContent.toAnsiString(), _font, desiredSize - correction);
-        Point pos = tool->getAlignment(dummy, *this, Binding(Mode::LEFT, Mode::LEFT), Point(20, 0));
-
-        _text.setString(newContent);
-        _text.setPosition(pos.Xcoord - 1, pos.Ycoord - 7);
-        _text.setCharacterSize(desiredSize - correction);
-    }
-    catch(LabelException& e)
-    {
-        ERROR << e.what() << '\n';
-    }
+    _text->getInternalText().setString(newContent);
+    _text->getInternalText().setCharacterSize(desiredSize - correction);
+    tool->triggerUpdate(*this);
 }
 
 }

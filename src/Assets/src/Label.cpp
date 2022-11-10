@@ -95,6 +95,7 @@ Label::Label(const Point& startLocation, const ::std::string& text, const ::std:
     catch(const ManagerException& err)
     {
         ERROR << err.what();
+        this->~Label();
 
         throw LabelException("Could not get font from Font Manager. Cannot create Label.");
     }

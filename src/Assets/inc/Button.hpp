@@ -131,9 +131,9 @@ public:
     /**
      * @brief Returns the button's text
      * 
-     * @return Label* 
+     * @return ::sf::Text*
      */
-    Label* getInternalText();
+    ::sf::Text* getInternalText();
 
     /**
      * @brief Updates a component's location

@@ -56,27 +56,12 @@ unsigned TextBox::getCharSizeCorrection(const unsigned& length, const unsigned& 
     return correction;
 }
 
-Point TextBox::getLabelPosition(const unsigned& length, const unsigned& charSize) const
-{
-    float lenghtInPix = length * charSize / 1.9;
-    float heightInPix = charSize * 1.55;
-
-    float freeSpaceX = _shape.getSize().x - lenghtInPix;
-    float freeSpaceY = _shape.getSize().y - heightInPix;
-
-    return Point(_shape.getPosition().x + freeSpaceX / 2, _shape.getPosition().y + freeSpaceY / 2);
-}
-
 void TextBox::updateLocation(const Point& newLocation)
 {
     _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
     
-    if(!_text.getString().isEmpty())
-    {
-        Point newTextLocation = getLabelPosition(_text.getString().getSize(), _text.getCharacterSize());
-
-        _text.setPosition(newTextLocation.Xcoord, newTextLocation.Ycoord);
-    }
+    ::std::shared_ptr<AlignmentTool> tool = AlignmentTool::getInstance();
+    tool->triggerUpdate(*this);
 }
 
 TextBox::TextBox(
@@ -97,21 +82,15 @@ TextBox::TextBox(
 
     try
     {
-        ::std::shared_ptr<FontManager> manager = FontManager::getInstance();
+        ::std::shared_ptr<AlignmentTool> tool = AlignmentTool::getInstance();
 
-        if(manager == nullptr)
-        {
-            throw TextBoxException("Could not get hold of Font Manager.");
-        }
-
-        _font = manager->getAsset(fontPath);
-
-        _text.setFillColor(::sf::Color::White);
-        _text.setFont(*_font.get());
+        _text = new Label(Point(), "", fontPath, charSize);
+        tool->createBinding(*_text, *this, Binding(Mode::LEFT, Mode::LEFT), Point(19, -7));
     } 
-    catch (const ManagerException& err)
+    catch (const LabelException& err)
     {
         ERROR << err.what();
+        this->~TextBox();
 
         throw TextBoxException("Label text will not be visible.");
     }
@@ -136,9 +115,9 @@ void TextBox::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 {
     target.draw(_shape, states);
 
-    if(!_text.getString().isEmpty())
+    if(!_text->getInternalText().getString().isEmpty())
     {
-        target.draw(_text, states);
+        target.draw(*_text, states);
     }
 }
 
@@ -156,6 +135,20 @@ bool TextBox::isMouseHover() const
     return false;
 }
 
+TextBox::~TextBox()
+{
+    if(selectedBox == this)
+    {
+        selectedBox = nullptr;
+        textBoxClicked = false;
+    }
+    
+    if(_text != nullptr)
+    {
+        delete[] _text;
+    }
+}
+
 ::sf::RectangleShape& TextBox::getInternalBox()
 {
     return _shape;
@@ -163,12 +156,12 @@ bool TextBox::isMouseHover() const
 
 ::sf::Text& TextBox::getInternalText()
 {
-    return _text;
+    return _text->getInternalText();
 }
 
 void TextBox::updateText(const ::sf::Uint32& text)
 {
-    ::sf::String newContent = _text.getString();
+    ::sf::String newContent = _text->getInternalText().getString();
     ::std::shared_ptr<AlignmentTool> tool = AlignmentTool::getInstance();
 
     if(text == 8 && !newContent.isEmpty())
@@ -183,19 +176,10 @@ void TextBox::updateText(const ::sf::Uint32& text)
         WARN << "TextBox text doesn't fit. Resizing text...\n";
     }
 
-    try
-    {
-        Label dummy(Point(), newContent.toAnsiString(), _font, desiredSize - correction);
-        Point pos = tool->getAlignment(dummy, *this, Binding(Mode::LEFT, Mode::LEFT), Point(20, 0));
+    _text->getInternalText().setString(newContent);
+    _text->getInternalText().setCharacterSize(desiredSize - correction);
 
-        _text.setString(newContent);
-        _text.setPosition(pos.Xcoord - 1, pos.Ycoord - 7);
-        _text.setCharacterSize(desiredSize - correction);
-    }
-    catch(LabelException& e)
-    {
-        ERROR << e.what() << '\n';
-    }
+    tool->triggerUpdate(*this);
 }
 
 void TextBox::onClick()
@@ -214,12 +198,12 @@ void TextBox::onClick()
 
 const ::std::string TextBox::getText() const
 {
-    return _text.getString().toAnsiString();
+    return _text->getInternalText().getString().toAnsiString();
 }
 
 void TextBox::clear()
 {
-    _text.setString("");
+    _text->getInternalText().setString("");
 }
 
 Point TextBox::getLEFT() const

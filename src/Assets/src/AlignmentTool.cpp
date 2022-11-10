@@ -16,7 +16,6 @@
 
 namespace easyGUI
 {
-
 ::std::shared_ptr<AlignmentTool> AlignmentTool::_instance = nullptr;
 
 ::std::shared_ptr<AlignmentTool> AlignmentTool::getInstance() noexcept
@@ -51,6 +50,8 @@ Point AlignmentTool::getAlignment(const Anchor& source, const Anchor& anchor, co
     case Mode::CENTER:
         desiredLocation = anchor.getCENTER() + offset;
         break;
+    default:
+        break;
     }
 
     Point delta;
@@ -72,9 +73,38 @@ Point AlignmentTool::getAlignment(const Anchor& source, const Anchor& anchor, co
     case Mode::CENTER:
         delta = desiredLocation + (source.getCENTER() * -1); 
         break;
+    default:
+        break;
     }
 
     return Point(source.getLEFT().Xcoord + delta.Xcoord, source.getTOP().Ycoord + delta.Ycoord);
+}
+
+void AlignmentTool::createBinding(Anchor& source, const Anchor& anchor, const Binding& binding, const Point& offset)
+{
+    if(_bindings.find(&anchor) == _bindings.end())
+    {
+        _bindings.emplace(&anchor, ::std::vector<::std::pair<::std::pair<Anchor*, Binding>, const Point>>());
+    }
+
+    _bindings[&anchor].push_back(
+        ::std::pair<::std::pair<Anchor*, Binding>, const Point>(
+            ::std::pair<Anchor*, Binding>(&source, binding), offset
+        ));
+
+    // A newly created binding will trigger an update
+    triggerUpdate(anchor);
+}
+
+void AlignmentTool::triggerUpdate(const Anchor& source)
+{
+    for(const ::std::pair<::std::pair<Anchor*, Binding>, const Point>& pair : _bindings[&source])
+    {
+        if(dynamic_cast<Component*>(pair.first.first) != nullptr)
+            dynamic_cast<Component*>(pair.first.first)->updateLocation(
+                getAlignment(*pair.first.first, source, pair.first.second, pair.second)
+            );
+    }
 }
 
 }

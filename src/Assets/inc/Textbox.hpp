@@ -27,11 +27,8 @@
 #pragma once
 
 // Including dependencies
-#include <Component.hpp>
-#include <Manager.hpp>
-#include <Exceptions/TextBoxException.hpp>
-#include <Point.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <Exceptions/TextBoxException.hpp>
 #include <Label.hpp>
 #include <AlignmentTool.hpp>
 
@@ -50,23 +47,13 @@ class TextBox : public Component, public Anchor
 {
 protected:
     ::sf::RectangleShape _shape;
-    ::sf::Text _text;
-    ::std::shared_ptr <::sf::Font> _font;
+    Label* _text;
 
     unsigned desiredSize;
     
     virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 
     // ----- Helper methods -----
-
-    /**
-     * @brief Computes the label's starting positon
-     * 
-     * @param length The length of the label's text
-     * @param charSize The size of the characters
-     * @return Point 
-     */
-    Point getLabelPosition(const unsigned&, const unsigned&) const;
 
     /**
      * @brief Computes the correction to be applied to the char size of the text
@@ -80,6 +67,12 @@ protected:
 public:
     static TextBox* selectedBox;
     static bool textBoxClicked;
+
+    /**
+     * @brief Destructor
+     * 
+     */
+    ~TextBox();
 
     /**
      * @brief Constructor
@@ -150,7 +143,7 @@ public:
     /**
      * @brief Returns the SFML Text
      * 
-     * @return ::sf::Text& 
+     * @return ::sf::Text*
      */
     ::sf::Text& getInternalText();
 

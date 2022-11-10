@@ -42,9 +42,6 @@ Label* Converter::getLabel(Component* asset)
     if(asset == nullptr)
         return nullptr;
 
-    if(dynamic_cast<Button*>(asset) != nullptr)
-        return dynamic_cast<Button*>(asset)->getInternalText();
-
     return dynamic_cast<Label*>(asset);
 }
 
