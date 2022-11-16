@@ -16,6 +16,23 @@
 
 namespace easyGUI
 {
+
+bool Anchor::isMovable() const
+{
+    return movable_ == 1;
+}
+
+void Anchor::blockAnchor()
+{
+    movable_ = 0;
+}
+
+void Anchor::freeAnchor()
+{
+    movable_ = 1;
+}
+
+
 ::std::shared_ptr<AlignmentTool> AlignmentTool::_instance = nullptr;
 
 ::std::shared_ptr<AlignmentTool> AlignmentTool::getInstance() noexcept
@@ -92,6 +109,8 @@ void AlignmentTool::createBinding(Anchor& source, const Anchor& anchor, const Bi
             ::std::pair<Anchor*, Binding>(&source, binding), offset
         ));
 
+    source.blockAnchor();
+
     // A newly created binding will trigger an update
     triggerUpdate(anchor);
 }
@@ -101,9 +120,16 @@ void AlignmentTool::triggerUpdate(const Anchor& source)
     for(const ::std::pair<::std::pair<Anchor*, Binding>, const Point>& pair : _bindings[&source])
     {
         if(dynamic_cast<Component*>(pair.first.first) != nullptr)
+        {
+            // Temporarily frees anchor
+            pair.first.first->freeAnchor();
+
             dynamic_cast<Component*>(pair.first.first)->updateLocation(
                 getAlignment(*pair.first.first, source, pair.first.second, pair.second)
             );
+
+            pair.first.first->blockAnchor();
+        }
     }
 }
 

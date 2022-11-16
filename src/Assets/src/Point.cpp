@@ -49,8 +49,11 @@ Point::Point(Point&& other) noexcept
 
 Point& Point::operator=(const Point& other) noexcept
 {
-    Xcoord = other.Xcoord;
-    Ycoord = other.Ycoord;
+    if(&other != this)
+    {
+        Xcoord = other.Xcoord;
+        Ycoord = other.Ycoord;
+    }
 
     return *this;
 }
@@ -90,6 +93,11 @@ Point Point::operator* (const float& factor) const noexcept
 
 Point Point::operator/ (const float& factor) const noexcept
 {
+    if(factor == 0)
+    {
+        return Point();
+    }
+
     return Point(
         Xcoord / factor,
         Ycoord / factor

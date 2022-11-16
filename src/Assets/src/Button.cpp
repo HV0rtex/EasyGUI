@@ -163,6 +163,11 @@ bool Button::isMouseHover() const
 
 void Button::updateLocation(const Point& newLocation)
 {
+    if(!isMovable())
+    {
+        throw AssetException("Attempting to move an imovable object.");
+    }
+
     _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
 
     ::std::shared_ptr<AlignmentTool> tool = AlignmentTool::getInstance();

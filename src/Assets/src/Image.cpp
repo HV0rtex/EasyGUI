@@ -83,6 +83,11 @@ bool Image::isMouseHover() const
 
 void Image::updateLocation(const Point& newLocation)
 {
+    if(!isMovable())
+    {
+        throw AssetException("Attempting to move an imovable object.");
+    }
+
     _object.setPosition(newLocation.Xcoord, newLocation.Ycoord);
 }
 

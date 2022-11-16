@@ -36,6 +36,9 @@
 namespace easyGUI
 {
 
+// Stub declaration
+class AlignmentTool;
+
 /**
  * @brief Defines an anchor on the window
  * 
@@ -45,12 +48,35 @@ namespace easyGUI
  */
 class Anchor
 {
+private:
+    char movable_;
+
+    /**
+     * @brief Makes anchor imovable
+     * 
+     */
+    void blockAnchor();
+
+    /**
+     * @brief Makes anchor imovable
+     * 
+     */
+    void freeAnchor();
+
 public:
+    friend class AlignmentTool;
+
     /**
      * @brief Destructor
      * 
      */
     virtual ~Anchor() = default;
+
+    /**
+     * @brief Constructor
+     * 
+     */
+    Anchor() : movable_(1) {}
 
     /**
      * @brief Returns the point leftmost of the Anchor
@@ -86,6 +112,13 @@ public:
      * @return Point& 
      */
     virtual Point getCENTER() const = 0;
+
+    /**
+     * @brief Checks if an anchor can be moved
+     * 
+     * @return bool
+     */
+    bool isMovable() const;
 };
 
 enum Mode {
@@ -125,7 +158,6 @@ private:
      * @return Point
      */
     Point getAlignment(const Anchor&, const Anchor&, const Binding&, const Point& = Point()) noexcept;
-
 
     /**
      * @brief Constructor
