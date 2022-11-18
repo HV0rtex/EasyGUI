@@ -24,6 +24,7 @@ set(LIBRARY_SOURCES
     src/TextBox.cpp
     src/PasswordBox.cpp
     src/Image.cpp
+    src/CheckBox.cpp
     src/Converter.cpp
 )
 

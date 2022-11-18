@@ -65,8 +65,8 @@ void TextBox::updateLocation(const Point& newLocation)
 
     _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
     
-    ::std::shared_ptr<AlignmentTool> tool = AlignmentTool::getInstance();
-    tool->triggerUpdate(*this);
+    AlignmentTool& tool = AlignmentTool::getInstance();
+    tool.triggerUpdate(*this);
 }
 
 TextBox::TextBox(
@@ -87,10 +87,10 @@ TextBox::TextBox(
 
     try
     {
-        ::std::shared_ptr<AlignmentTool> tool = AlignmentTool::getInstance();
+        AlignmentTool& tool = AlignmentTool::getInstance();
 
         _text = new Label(Point(), "", fontPath, charSize);
-        tool->createBinding(*_text, *this, Binding(Mode::LEFT, Mode::LEFT), Point(19, -7));
+        tool.createBinding(*_text, *this, Binding(Mode::LEFT, Mode::LEFT), Point(19, -7));
     } 
     catch (const LabelException& err)
     {
@@ -167,7 +167,7 @@ TextBox::~TextBox()
 void TextBox::updateText(const ::sf::Uint32& text)
 {
     ::sf::String newContent = _text->getInternalText().getString();
-    ::std::shared_ptr<AlignmentTool> tool = AlignmentTool::getInstance();
+    AlignmentTool& tool = AlignmentTool::getInstance();
 
     if(text == 8 && !newContent.isEmpty())
         newContent.erase(newContent.getSize() - 1);
@@ -184,7 +184,7 @@ void TextBox::updateText(const ::sf::Uint32& text)
     _text->getInternalText().setString(newContent);
     _text->getInternalText().setCharacterSize(desiredSize - correction);
 
-    tool->triggerUpdate(*this);
+    tool.triggerUpdate(*this);
 }
 
 void TextBox::onClick()

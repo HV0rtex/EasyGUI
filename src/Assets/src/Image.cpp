@@ -37,16 +37,11 @@ void Image::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 
 Image::Image(const Point& startLocation, const Point& endLocation, const ::std::string& path)
 {
-    ::std::shared_ptr<TextureManager> manager = TextureManager::getInstance();
-
-    if(manager == nullptr)
-    {
-        throw ImageException("Could not get hold of Manager asset");
-    }
+    TextureManager& manager = TextureManager::getInstance();
 
     try
     {
-        _image = manager->getAsset(path);
+        _image = manager.getAsset(path);
 
         _object.setTexture(*_image.get());
         _object.setPosition(startLocation.Xcoord, startLocation.Ycoord);

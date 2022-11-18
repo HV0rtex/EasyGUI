@@ -12,6 +12,18 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
+/**
+ * @file AlignmentTool.cpp
+ * @author David Bogdan (david.bnicolae@gmail.com)
+ * @brief Implementation of the AlignmentTool
+ * @version 0.1
+ * @date 2022-11-18
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #include <AlignmentTool.hpp>
 
 namespace easyGUI
@@ -32,15 +44,9 @@ void Anchor::freeAnchor()
     movable_ = 1;
 }
 
-
-::std::shared_ptr<AlignmentTool> AlignmentTool::_instance = nullptr;
-
-::std::shared_ptr<AlignmentTool> AlignmentTool::getInstance() noexcept
+AlignmentTool& AlignmentTool::getInstance()
 {
-    if(_instance == nullptr)
-    {
-        _instance = ::std::make_shared<AlignmentTool>(AlignmentTool());
-    }
+    static AlignmentTool _instance;
 
     return _instance;
 }
@@ -53,19 +59,19 @@ Point AlignmentTool::getAlignment(const Anchor& source, const Anchor& anchor, co
     switch (mode.second)
     {
     case Mode::LEFT:
-        desiredLocation = anchor.getLEFT() + offset;
+        desiredLocation = ::std::move(anchor.getLEFT() + offset);
         break;
     case Mode::RIGHT:
-        desiredLocation = anchor.getRIGHT() + offset;
+        desiredLocation = ::std::move(anchor.getRIGHT() + offset);
         break;
     case Mode::TOP:
-        desiredLocation = anchor.getTOP() + offset;
+        desiredLocation = ::std::move(anchor.getTOP() + offset);
         break;
     case Mode::BOTTOM:
-        desiredLocation = anchor.getBOTTOM() + offset;
+        desiredLocation = ::std::move(anchor.getBOTTOM() + offset);
         break;
     case Mode::CENTER:
-        desiredLocation = anchor.getCENTER() + offset;
+        desiredLocation = ::std::move(anchor.getCENTER() + offset);
         break;
     default:
         break;
@@ -76,19 +82,19 @@ Point AlignmentTool::getAlignment(const Anchor& source, const Anchor& anchor, co
     switch (mode.first)
     {
     case Mode::LEFT:
-        delta = desiredLocation + (source.getLEFT() * -1); 
+        delta = ::std::move(desiredLocation + (source.getLEFT() * -1)); 
         break;
     case Mode::RIGHT:
-        delta = desiredLocation + (source.getRIGHT() * -1); 
+        delta = ::std::move(desiredLocation + (source.getRIGHT() * -1)); 
         break;
     case Mode::TOP:
-        delta = desiredLocation + (source.getTOP() * -1); 
+        delta = ::std::move(desiredLocation + (source.getTOP() * -1)); 
         break;
     case Mode::BOTTOM:
-        delta = desiredLocation + (source.getBOTTOM() * -1); 
+        delta = ::std::move(desiredLocation + (source.getBOTTOM() * -1)); 
         break;
     case Mode::CENTER:
-        delta = desiredLocation + (source.getCENTER() * -1); 
+        delta = ::std::move(desiredLocation + (source.getCENTER() * -1)); 
         break;
     default:
         break;

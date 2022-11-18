@@ -77,11 +77,11 @@ void PasswordBox::updateText(const ::sf::Uint32& text)
         WARN << "TextBox text doesn't fit. Resizing text...\n";
     }
 
-    ::std::shared_ptr<AlignmentTool> tool = AlignmentTool::getInstance();
+    AlignmentTool& tool = AlignmentTool::getInstance();
 
     _text->getInternalText().setString(newContent);
     _text->getInternalText().setCharacterSize(desiredSize - correction);
-    tool->triggerUpdate(*this);
+    tool.triggerUpdate(*this);
 }
 
 }

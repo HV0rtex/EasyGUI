@@ -29,7 +29,7 @@
 // Including dependencies
 #include <Component.hpp>
 #include <Point.hpp>
-#include <memory>
+#include <utility>
 #include <vector>
 #include <map>
 
@@ -144,7 +144,6 @@ typedef ::std::pair<Mode, Mode> Binding;
 class AlignmentTool
 {
 private:
-    static ::std::shared_ptr<AlignmentTool> _instance;
     ::std::map<const Anchor*, ::std::vector<::std::pair<::std::pair<Anchor*, Binding>, const Point>>> _bindings;
 
     /**
@@ -176,7 +175,7 @@ public:
      * 
      * @return AlignmentTool* 
      */
-    static ::std::shared_ptr<AlignmentTool> getInstance() noexcept;
+    static AlignmentTool& getInstance();
 
     /**
      * @brief Creates a binding between two elements

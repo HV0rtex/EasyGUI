@@ -84,14 +84,9 @@ Label::Label(const Point& startLocation, const ::std::string& text, const ::std:
 {
     try
     {
-        ::std::shared_ptr<FontManager> manager = FontManager::getInstance();
+        FontManager& manager = FontManager::getInstance();
 
-        if(manager == nullptr)
-        {
-            throw LabelException("Could not get hold of Font Manager.");
-        }
-
-        _font = manager->getAsset(fontPath);
+        _font = manager.getAsset(fontPath);
 
         _textColor = ::sf::Color::White;
 

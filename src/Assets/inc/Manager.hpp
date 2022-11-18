@@ -50,8 +50,6 @@ namespace easyGUI
 template < typename T> class Manager
 {
 private:
-    static ::std::shared_ptr<Manager> instance;
-
     ::std::map<::std::string, ::std::shared_ptr<T>> storedResources;
 
     /**
@@ -72,14 +70,9 @@ public:
      * 
      * @return ::std::shared_ptr<Manager<T>>
      */
-    static ::std::shared_ptr<Manager> getInstance()
+    static Manager& getInstance()
     {
-        if(instance == nullptr)
-        {
-            instance = ::std::make_shared<Manager<T>>(Manager());
-
-            INFO << "Manager created for resource type " << typeid(T).name() << "\n";
-        }
+        static Manager instance;
 
         return instance;
     }
@@ -112,8 +105,6 @@ public:
         return res;  
     }
 };
-
-template <typename T> ::std::shared_ptr<Manager<T>> Manager<T>::instance = nullptr; 
 
 // Aliasing common managers
 using FontManager = Manager<::sf::Font>;
