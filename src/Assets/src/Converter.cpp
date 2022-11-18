@@ -61,5 +61,14 @@ Image* Converter::getImage(Component* asset)
     return dynamic_cast<Image*>(asset);
 }
 
+CheckBox* Converter::getCheckBox(Component* asset)
+{
+    if(asset == nullptr)
+        return nullptr;
+
+    return dynamic_cast<CheckBox*>(asset);
+}
+
+
 
 }

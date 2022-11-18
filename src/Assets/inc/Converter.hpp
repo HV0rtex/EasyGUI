@@ -30,6 +30,7 @@
 #include <Button.hpp>
 #include <PasswordBox.hpp>
 #include <Image.hpp>
+#include <CheckBox.hpp>
 
 namespace easyGUI
 {
@@ -80,6 +81,16 @@ public:
      * @retval nullptr Asset could not be converted
      */
     static Image* getImage( Component* );
+
+    /**
+     * @brief Converts a component into a check box
+     *
+     * @param asset The component to be converted 
+     *
+     * @return CheckBox* 
+     * @retval nullptr Asset could not be converted
+     */
+    static CheckBox* getCheckBox( Component* );
 };
 
 }
