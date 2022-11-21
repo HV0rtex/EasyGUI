@@ -40,14 +40,14 @@ jobs:
 
     - name: Prepare SFML build
       shell: bash
-      run: cmake -S $GITHUB_WORKSPACE/SFML -B $GITHUB_WORKSPACE/SFML/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install
+      run: cmake -S $${{github.workspace}}/SFML -B $${{github.workspace}}/SFML/build -DCMAKE_INSTALL_PREFIX=$${{github.workspace}}/SFML/install
 
     - name: SFML - Build
       shell: bash
       run: cmake --build $GITHUB_WORKSPACE/SFML/build --config ${{env.BUILD_TYPE}} --target install
     
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DSFML_DIR=$GITHUB_WORKSPACE/SFML/install/lib/cmake/SFML
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake
 
     - name: Building project
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
