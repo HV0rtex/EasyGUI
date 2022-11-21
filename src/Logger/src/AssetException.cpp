@@ -37,8 +37,7 @@ AssetException::AssetException(::std::string message) : ::std::exception()
     _msg += "\n";
 }
 
-const char* AssetException::what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW
-{
+const char* AssetException::what() const noexcept {
     return _msg.c_str();
 }
 

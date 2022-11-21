@@ -40,7 +40,7 @@ jobs:
 
     - name: Prepare SFML build
       shell: bash
-      run: cmake -S ${{github.workspace}}/SFML -B ${{github.workspace}}/SFML/build -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/SFML/install
+      run: cmake -S $GITHUB_WORKSPACE/SFML -B $GITHUB_WORKSPACE/SFML/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install
 
     - name: SFML - Build
       shell: bash

@@ -37,7 +37,7 @@ ApplicationException::ApplicationException(::std::string message) : ::std::excep
     _msg += "\n";
 }
 
-const char* ApplicationException::what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW
+const char* ApplicationException::what() const noexcept
 {
     return _msg.c_str();
 }
