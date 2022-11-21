@@ -50,7 +50,7 @@ public:
      * 
      * @param message The message to be displayed
      */
-    CheckBoxException(::std::string message) : AssetException( "[ CheckBox ] " + message ) {}
+    explicit CheckBoxException(::std::string message) : AssetException( "[ CheckBox ] " + message ) {}
 };
 
 }

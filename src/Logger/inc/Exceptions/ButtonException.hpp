@@ -50,7 +50,7 @@ public:
      * 
      * @param message The message to be displayed
      */
-    ButtonException(::std::string message) : AssetException( "[ Button ] " + message ) {}
+    explicit ButtonException(::std::string message) : AssetException( "[ Button ] " + message ) {}
 };
 
 }

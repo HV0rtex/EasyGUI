@@ -71,11 +71,10 @@ Component* Menu::getComponent(const ::std::string& ID)
 ::std::vector<Component*> Menu::getAllComponents()
 {
     ::std::vector<Component*> temp;
-
-    for(auto element : _components)
-    {
-        temp.push_back(element.second);
-    }
+    ::std::transform(_components.begin(), _components.end(), ::std::back_inserter(temp),
+        [](::std::pair<::std::string, Component*> el) {
+            return el.second;
+    });
 
     return temp;
 }

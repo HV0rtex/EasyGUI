@@ -50,7 +50,7 @@ public:
      * 
      * @param message The message to be displayed
      */
-    TextBoxException(::std::string message) : AssetException( "[ TextBox ] " + message ) {}
+    explicit TextBoxException(::std::string message) : AssetException( "[ TextBox ] " + message ) {}
 };
 
 }

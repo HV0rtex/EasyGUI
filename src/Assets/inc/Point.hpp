@@ -84,7 +84,7 @@ struct Point
      * 
      * @return Point& 
      */
-    Point& operator= (const Point&) noexcept;
+    const Point& operator= (const Point&) noexcept;
 
     /**
      * @brief Move assignment operator
@@ -93,7 +93,7 @@ struct Point
      * 
      * @return Point& 
      */
-    Point& operator= (Point&&) noexcept;
+    const Point& operator= (Point&&) noexcept;
 
     /**
      * @brief Adds two points

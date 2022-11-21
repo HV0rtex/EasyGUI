@@ -50,7 +50,7 @@ public:
      * 
      * @param message The message to be displayed
      */
-    LabelException(::std::string message) : AssetException( "[ Label ] " + message ) {}
+    explicit LabelException(::std::string message) : AssetException( "[ Label ] " + message ) {}
 };
 
 }

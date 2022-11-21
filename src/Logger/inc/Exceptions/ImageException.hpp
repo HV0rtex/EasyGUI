@@ -50,7 +50,7 @@ public:
      * 
      * @param message The message to be displayed
      */
-    ImageException(::std::string message) : AssetException( "[ Image ] " + message ) {}
+    explicit ImageException(::std::string message) : AssetException( "[ Image ] " + message ) {}
 };
 
 }

@@ -109,16 +109,16 @@ public:
  * @param element The component to append
  * 
  */
-#define AddElement(targetMenu, element, id)         \
-{                                                   \
-    try                                             \
-    {                                               \
-    targetMenu->addComponent(element, id);          \
-    }                                               \
-    catch(const AssetException& e)                  \
-    {                                               \
-        ERROR << e.what();                          \
-    }                                               \
+#define AddElement(targetMenu, element, id)                     \
+{                                                               \
+    try                                                         \
+    {                                                           \
+        (targetMenu)->addComponent((element), (id));            \
+    }                                                           \
+    catch(const AssetException& e)                              \
+    {                                                           \
+        ERROR << e.what();                                      \
+    }                                                           \
 }
 
 }

@@ -54,7 +54,7 @@ public:
      * 
      * @param message The message to be displayed
      */
-    ApplicationException(::std::string);
+    explicit ApplicationException(::std::string);
 
     /**
      * @brief Returns the exception message
