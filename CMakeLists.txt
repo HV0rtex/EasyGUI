@@ -32,29 +32,71 @@ set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/EasyGUI)
 
 # ----- Build config -----
 
-add_compile_options(
-     -pedantic
-     -O3
-	 -Wall
-	 -Wcast-align
-	 -Wcast-qual
-	 -Wdisabled-optimization
-	 -Wformat=2
-	 -Winit-self
-	 -Wmissing-declarations
-	 -Wmissing-include-dirs
-	 -Wold-style-cast
-	 -Woverloaded-virtual
-	 -Wredundant-decls
-	 -Wshadow
-	 -Wsign-conversion
-	 -Wsign-promo
-	 -Wstrict-overflow=5
-	 -Wswitch-default
-	 -Wundef
-	 -Werror
-	 -Wno-unused
-)
+if(UNIX)
+	add_compile_options(
+		-pedantic
+		-O3
+		-Wall
+		-Wextra
+		-Wcast-align
+		-Wcast-qual
+		-Wdisabled-optimization
+		-Wformat=2
+		-Winit-self
+		-Wlogical-op
+		-Wmissing-declarations
+		-Wmissing-include-dirs
+		-Wnoexcept
+		-Wold-style-cast
+		-Woverloaded-virtual
+		-Wredundant-decls
+		-Wshadow
+		-Wsign-conversion
+		-Wsign-promo
+		-Wstrict-null-sentinel
+		-Wstrict-overflow=5
+		-Wswitch-default
+		-Wundef
+		-Werror
+		-Wno-unused
+	)
+endif()
+
+if(WIN32)
+	add_compile_options(
+		-O3
+		-Wall
+		-Wx
+		-W4
+	)
+endif()
+
+if(APPLE)
+	add_compile_options(
+		-pedantic
+		-O3
+		-Wall
+		-Wextra
+		-Wcast-align
+		-Wcast-qual
+		-Wdisabled-optimization
+		-Wformat=2
+		-Winit-self
+		-Wmissing-declarations
+		-Wmissing-include-dirs
+		-Wold-style-cast
+		-Woverloaded-virtual
+		-Wredundant-decls
+		-Wshadow
+		-Wsign-conversion
+		-Wsign-promo
+		-Wstrict-overflow=5
+		-Wswitch-default
+		-Wundef
+		-Werror
+		-Wno-unused
+	)
+endif()
 
 # ----- Building sources -----
 
