@@ -102,7 +102,7 @@ struct Point
      * 
      * @return Point 
      */
-    Point operator+ (const Point&) const noexcept __attribute_pure__;
+    Point operator+ (const Point&) const noexcept;
 
     /**
      * @brief Divides both coordinates by a factor
@@ -111,7 +111,7 @@ struct Point
      * 
      * @return Point 
      */
-    Point operator/ (const float&) const noexcept __attribute_pure__;
+    Point operator/ (const float&) const noexcept;
 
     /**
      * @brief Multiplies both coordinates by a factor
@@ -120,7 +120,7 @@ struct Point
      * 
      * @return Point 
      */
-    Point operator* (const float&) const noexcept __attribute_pure__;
+    Point operator* (const float&) const noexcept;
 };
 
 }
