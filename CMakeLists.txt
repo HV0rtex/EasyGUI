@@ -36,7 +36,6 @@ add_compile_options(
      -pedantic
      -O3
 	 -Wall
-	 -Wextra
 	 -Wcast-align
 	 -Wcast-qual
 	 -Wdisabled-optimization
