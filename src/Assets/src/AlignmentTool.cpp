@@ -59,19 +59,19 @@ Point AlignmentTool::getAlignment(const Anchor& source, const Anchor& anchor, co
     switch (mode.second)
     {
     case Mode::LEFT:
-        desiredLocation = ::std::move(anchor.getLEFT() + offset);
+        desiredLocation = anchor.getLEFT() + offset;
         break;
     case Mode::RIGHT:
-        desiredLocation = ::std::move(anchor.getRIGHT() + offset);
+        desiredLocation = anchor.getRIGHT() + offset;
         break;
     case Mode::TOP:
-        desiredLocation = ::std::move(anchor.getTOP() + offset);
+        desiredLocation = anchor.getTOP() + offset;
         break;
     case Mode::BOTTOM:
-        desiredLocation = ::std::move(anchor.getBOTTOM() + offset);
+        desiredLocation = anchor.getBOTTOM() + offset;
         break;
     case Mode::CENTER:
-        desiredLocation = ::std::move(anchor.getCENTER() + offset);
+        desiredLocation = anchor.getCENTER() + offset;
         break;
     default:
         break;
@@ -82,19 +82,19 @@ Point AlignmentTool::getAlignment(const Anchor& source, const Anchor& anchor, co
     switch (mode.first)
     {
     case Mode::LEFT:
-        delta = ::std::move(desiredLocation + (source.getLEFT() * -1)); 
+        delta = desiredLocation + (source.getLEFT() * -1); 
         break;
     case Mode::RIGHT:
-        delta = ::std::move(desiredLocation + (source.getRIGHT() * -1)); 
+        delta = desiredLocation + (source.getRIGHT() * -1); 
         break;
     case Mode::TOP:
-        delta = ::std::move(desiredLocation + (source.getTOP() * -1)); 
+        delta = desiredLocation + (source.getTOP() * -1); 
         break;
     case Mode::BOTTOM:
-        delta = ::std::move(desiredLocation + (source.getBOTTOM() * -1)); 
+        delta = desiredLocation + (source.getBOTTOM() * -1); 
         break;
     case Mode::CENTER:
-        delta = ::std::move(desiredLocation + (source.getCENTER() * -1)); 
+        delta = desiredLocation + (source.getCENTER() * -1); 
         break;
     default:
         break;

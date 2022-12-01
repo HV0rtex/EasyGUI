@@ -61,13 +61,15 @@ endif()
 
 if(WIN32)
 	add_compile_options(
-		-O3
+		-O2
+		-Oi
+		-GL
 		-Wall
-		-Werror
+		-WX
 	)
 endif()
 
 # ----- Building sources -----
 
 add_subdirectory(src)
-# add_subdirectory(example)
+add_subdirectory(example)
