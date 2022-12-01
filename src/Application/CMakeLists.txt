@@ -50,7 +50,7 @@ target_include_directories(
 # ----- Linking dependencies -----
 
 target_link_libraries(
-    easyGUI-Application
+    easyGUI-application
     easyGUI-assets
     easyGUI-exceptions
     sfml-graphics
