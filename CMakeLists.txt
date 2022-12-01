@@ -64,7 +64,7 @@ if(WIN32)
 		-O2
 		-Oi
 		-GL
-		-Wall
+		-W3
 		-WX
 	)
 endif()
