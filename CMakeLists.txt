@@ -63,11 +63,9 @@ if(WIN32)
 	add_compile_options(
 		-O2
 		-Oi
-		-GL
 	)
 endif()
 
 # ----- Building sources -----
 
 add_subdirectory(src)
-add_subdirectory(example)
