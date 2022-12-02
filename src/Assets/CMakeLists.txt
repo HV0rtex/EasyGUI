@@ -28,6 +28,25 @@ set(LIBRARY_SOURCES
     src/Converter.cpp
 )
 
+set(LIBRARY_HEADERS
+    inc/AlignmentTool.hpp
+    inc/Button.hpp
+    inc/Label.hpp
+    inc/Component.hpp
+    inc/Textbox.hpp
+    inc/PasswordBox.hpp
+    inc/Image.hpp
+    inc/CheckBox.hpp
+    inc/Converter.hpp
+)
+
+if(WIN32)
+    set(LIBRARY_HEADERS
+        ${LIBRARY_HEADERS}
+        inc/assets_export.hpp
+    )
+endif()
+
 add_library(
     easyGUI-assets-s STATIC
 
@@ -38,6 +57,7 @@ add_library(
     easyGUI-assets SHARED
 
     ${LIBRARY_SOURCES}
+    ${LIBRARY_HEADERS}
 )
 
 # ----- Defining includes -----

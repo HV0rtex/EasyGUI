@@ -12,6 +12,26 @@
 # FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+set(LIBRARY_HEADERS
+    inc/Logger.hpp
+    inc/Exceptions/ApplicationException.hpp
+    inc/Exceptions/AssetException.hpp
+    inc/Exceptions/ButtonException.hpp
+    inc/Exceptions/CheckBoxException.hpp
+    inc/Exceptions/ImageException.hpp
+    inc/Exceptions/LabelException.hpp
+    inc/Exceptions/ManagerException.hpp
+    inc/Exceptions/MenuException.hpp
+    inc/Exceptions/TextBoxException.hpp
+)
+
+if(WIN32)
+    set(LIBRARY_HEADERS
+        ${LIBRARY_HEADERS}
+        inc/exceptions_export.hpp
+    )
+endif()
+
 
 # ----- Defining library sets -----
 
@@ -27,6 +47,8 @@ add_library(
 
     src/AssetException.cpp
     src/ApplicationException.cpp
+
+    ${LIBRARY_HEADERS}
 )
 
 # ----- Defining includes -----

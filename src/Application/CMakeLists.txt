@@ -12,6 +12,19 @@
 # FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+set(LIBRARY_HEADERS
+    inc/Routine.hpp
+    inc/Menu.hpp
+    inc/Application.hpp
+)
+
+if(WIN32)
+    set(LIBRARY_HEADERS
+        ${LIBRARY_HEADERS}
+        inc/application_export.hpp
+    )
+endif()
+
 
 # ----- Defining library sets -----
 
@@ -27,6 +40,8 @@ add_library(
     ./src/Application.cpp
     ./src/Routine.cpp
     ./src/Menu.cpp
+
+    ${LIBRARY_HEADERS}
 )
 
 # ----- Defining includes -----
