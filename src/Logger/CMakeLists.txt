@@ -12,18 +12,6 @@
 # FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-set(LIBRARY_HEADERS
-    inc/Logger.hpp
-    inc/Exceptions/ApplicationException.hpp
-    inc/Exceptions/AssetException.hpp
-    inc/Exceptions/ButtonException.hpp
-    inc/Exceptions/CheckBoxException.hpp
-    inc/Exceptions/ImageException.hpp
-    inc/Exceptions/LabelException.hpp
-    inc/Exceptions/ManagerException.hpp
-    inc/Exceptions/MenuException.hpp
-    inc/Exceptions/TextBoxException.hpp
-)
 
 # ----- Defining library sets -----
 
@@ -39,8 +27,6 @@ add_library(
 
     src/AssetException.cpp
     src/ApplicationException.cpp
-
-    ${LIBRARY_HEADERS}
 )
 
 # ----- Generating export headers -----
@@ -49,7 +35,7 @@ if(WIN32)
     GENERATE_EXPORT_HEADER(easyGUI-exceptions
         BASE_NAME easyGUI-exceptions
         EXPORT_MACRO_NAME EXCEPTION_EXPORTS
-        EXPORT_FILE_NAME ${CMAKE_CURRENT_DIR}/inc/exception_export.hpp
+        EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/inc/exception_export.hpp
         STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
     )
 endif()
