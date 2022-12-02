@@ -44,6 +44,18 @@ add_library(
     ${LIBRARY_HEADERS}
 )
 
+# ----- Generating export headers -----
+
+if(WIN32)
+    GENERATE_EXPORT_HEADER(easyGUI-application
+        BASE_NAME easyGUI-application
+        EXPORT_MACRO_NAME APPLICATION_EXPORTS
+        EXPORT_FILE_NAME ${CMAKE_CURRENT_DIR}/inc/application_export.hpp
+        STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
+    )
+endif()
+
+
 # ----- Defining includes -----
 
 target_include_directories(
@@ -61,17 +73,6 @@ target_include_directories(
     ../Assets/inc
     ../Logger/inc
 )
-
-# ----- Generating export headers -----
-
-if(WIN32)
-    GENERATE_EXPORT_HEADER(easyGUI-application
-        BASE_NAME easyGUI-application
-        EXPORT_MACRO_NAME APPLICATION_EXPORTS
-        EXPORT_FILE_NAME ${CMAKE_CURRENT_DIR}/inc/application_export.hpp
-        STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
-    )
-endif()
 
 # ----- Linking dependencies -----
 
