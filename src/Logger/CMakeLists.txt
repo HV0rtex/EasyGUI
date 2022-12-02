@@ -16,14 +16,14 @@
 # ----- Defining library sets -----
 
 add_library(
-    easyGUI-exceptions STATIC
+    easyGUI-exceptions-s STATIC
 
     src/AssetException.cpp
     src/ApplicationException.cpp
 )
 
 add_library(
-    easyGUI-exceptions-shared SHARED
+    easyGUI-exceptions SHARED
 
     src/AssetException.cpp
     src/ApplicationException.cpp
@@ -32,19 +32,29 @@ add_library(
 # ----- Defining includes -----
 
 target_include_directories(
-    easyGUI-exceptions PUBLIC
+    easyGUI-exceptions-s PUBLIC
 
     inc
 )
 
 target_include_directories(
-    easyGUI-exceptions-shared PUBLIC
+    easyGUI-exceptions PUBLIC
 
     inc
 )
+# ----- Generating export headers -----
+
+if(WIN32)
+    GENERATE_EXPORT_HEADER(easyGUI-exceptions
+        BASE_NAME easyGUI-exceptions
+        EXPORT_MACRO_NAME EXCEPTION_EXPORTS
+        EXPORT_FILE_NAME ${CMAKE_CURRENT_DIR}/inc/exception_export.hpp
+        STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
+    )
+endif()
 
 # ----- Installing library -----
 
-install( TARGETS easyGUI-exceptions DESTINATION ${PROJECT_LIBRARY_DIR} )
-install( TARGETS easyGUI-exceptions-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
+install( TARGETS easyGUI-exceptions-s DESTINATION ${PROJECT_LIBRARY_DIR} )
+install( TARGETS easyGUI-exceptions DESTINATION ${PROJECT_RUNTIME_DIR} )
 install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )

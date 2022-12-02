@@ -26,6 +26,10 @@
 
 #pragma once
 
+#ifdef _WIN32
+#include <assets_export.hpp>
+#endif
+
 // Including dependencies
 #include <Button.hpp>
 #include <PasswordBox.hpp>
@@ -39,7 +43,11 @@ namespace easyGUI
  * @brief Responsible for conversions between components
  * 
  */
+#ifdef _WIN32
+class ASSETS_EXPORTS Converter
+#else
 class Converter
+#endif
 {
 public:
     /**

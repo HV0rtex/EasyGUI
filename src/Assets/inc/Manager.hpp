@@ -26,6 +26,10 @@
 
 #pragma once
 
+#ifdef _WIN32
+#include <assets_export.hpp>
+#endif
+
 // Including dependencies
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -47,7 +51,11 @@ namespace easyGUI
  * 
  * @tparam T The type of resource managed by the class
  */
-template < typename T> class Manager
+#ifdef _WIN32
+template <typename T> class ASSETS_EXPORTS Manager
+#else
+template <typename T> class Manager
+#endif
 {
 private:
     ::std::map<::std::string, ::std::shared_ptr<T>> storedResources;

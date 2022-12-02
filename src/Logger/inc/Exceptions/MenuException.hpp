@@ -26,6 +26,10 @@
 
 #pragma once
 
+#ifdef _WIN32
+#include <exceptions_export.hpp>
+#endif
+
 // Including dependencies
 #include <Exceptions/ApplicationException.hpp>
 
@@ -36,7 +40,11 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs with a Menu.
  * 
  */
+#ifdef _WIN32
+class EXCEPTIONS_EXPORTS MenuException : public ApplicationException
+#else
 class MenuException : public ApplicationException
+#endif
 {
 public:
     /**

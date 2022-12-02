@@ -26,6 +26,10 @@
 
 #pragma once
 
+#ifdef _WIN32
+#include <assets_export.hpp>
+#endif
+
 // Including dependencies
 #include <SFML/Graphics/Text.hpp>
 #include <Exceptions/LabelException.hpp>
@@ -44,7 +48,11 @@ namespace easyGUI
  * to make the implementation of Labels easier for the end-user. For custom 
  * labels, you can inherit this class.
  */
+#ifdef _WIN32
+class ASSETS_EXPORTS Label : public Component, public Anchor
+#else
 class Label : public Component, public Anchor
+#endif
 {
 private:
     ::std::shared_ptr<::sf::Font> _font;

@@ -29,18 +29,25 @@ set(LIBRARY_SOURCES
 )
 
 add_library(
-    easyGUI-assets STATIC
+    easyGUI-assets-s STATIC
 
     ${LIBRARY_SOURCES}
 )
 
 add_library(
-    easyGUI-assets-shared SHARED
+    easyGUI-assets SHARED
 
     ${LIBRARY_SOURCES}
 )
 
 # ----- Defining includes -----
+
+target_include_directories(
+    easyGUI-assets-s PUBLIC
+
+    inc
+    ../Logger/inc
+)
 
 target_include_directories(
     easyGUI-assets PUBLIC
@@ -49,26 +56,30 @@ target_include_directories(
     ../Logger/inc
 )
 
-target_include_directories(
-    easyGUI-assets-shared PUBLIC
+# ----- Generating export headers -----
 
-    inc
-    ../Logger/inc
-)
+if(WIN32)
+    GENERATE_EXPORT_HEADER(easyGUI-assets
+        BASE_NAME easyGUI-assets
+        EXPORT_MACRO_NAME ASSETS_EXPORTS
+        EXPORT_FILE_NAME ${CMAKE_CURRENT_DIR}/inc/assets_export.hpp
+        STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
+    )
+endif()
 
 # ----- Linking dependencies -----
 
 target_link_libraries(
-    easyGUI-assets
-    easyGUI-exceptions
+    easyGUI-assets-s
+    easyGUI-exceptions-s
     sfml-graphics
     sfml-window 
     sfml-system
 )
 
 target_link_libraries(
-    easyGUI-assets-shared
-    easyGUI-exceptions-shared
+    easyGUI-assets
+    easyGUI-exceptions
     sfml-graphics 
     sfml-window
     sfml-system
@@ -76,6 +87,6 @@ target_link_libraries(
 
 # ----- Installing library -----
 
-install( TARGETS easyGUI-assets DESTINATION ${PROJECT_LIBRARY_DIR} )
-install( TARGETS easyGUI-assets-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
+install( TARGETS easyGUI-assets-s DESTINATION ${PROJECT_LIBRARY_DIR} )
+install( TARGETS easyGUI-assets DESTINATION ${PROJECT_RUNTIME_DIR} )
 install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )

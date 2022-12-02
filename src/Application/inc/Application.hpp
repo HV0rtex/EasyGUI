@@ -26,6 +26,10 @@
 
 #pragma once
 
+#ifdef _WIN32
+    #include <application_exports.hpp>
+#endif
+
 // Including dependencies
 #include <Routine.hpp>
 #include <Menu.hpp>
@@ -44,7 +48,11 @@ namespace easyGUI
  * easier management of the events (such as onClick, onKeyPress, etc.) 
  * 
  */
+#ifdef _WIN32
+class APPLICATION_EXPORTS Application : public Anchor
+#else
 class Application : public Anchor
+#endif
 {
 private:
     static Application* instance;

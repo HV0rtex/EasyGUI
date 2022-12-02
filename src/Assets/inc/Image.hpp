@@ -26,6 +26,10 @@
 
 #pragma once
 
+#ifdef _WIN32
+#include <assets_export.hpp>
+#endif
+
 // Including dependencies
 #include <SFML/Graphics/Sprite.hpp>
 #include <Exceptions/ImageException.hpp>
@@ -40,7 +44,11 @@ namespace easyGUI
  * @brief Draws an image to the screen
  * 
  */
+#ifdef _WIN32
+class ASSETS_EXPORTS Image : public Component, public Anchor
+#else
 class Image : public Component, public Anchor
+#endif
 {
 private:
     ::std::shared_ptr<::sf::Texture> _image;

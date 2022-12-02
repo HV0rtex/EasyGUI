@@ -16,20 +16,28 @@
 # ----- Defining library sets -----
 
 add_library(
-    easyGUI-application STATIC
+    easyGUI-application-s STATIC
     ./src/Application.cpp
     ./src/Routine.cpp
     ./src/Menu.cpp
 )
 
 add_library(
-    easyGUI-application-shared SHARED
+    easyGUI-application SHARED
     ./src/Application.cpp
     ./src/Routine.cpp
     ./src/Menu.cpp
 )
 
 # ----- Defining includes -----
+
+target_include_directories(
+    easyGUI-application-s PUBLIC
+
+    inc
+    ../Assets/inc
+    ../Logger/inc
+)
 
 target_include_directories(
     easyGUI-application PUBLIC
@@ -39,15 +47,27 @@ target_include_directories(
     ../Logger/inc
 )
 
-target_include_directories(
-    easyGUI-application-shared PUBLIC
+# ----- Generating export headers -----
 
-    inc
-    ../Assets/inc
-    ../Logger/inc
-)
+if(WIN32)
+    GENERATE_EXPORT_HEADER(easyGUI-application
+        BASE_NAME easyGUI-application
+        EXPORT_MACRO_NAME APPLICATION_EXPORTS
+        EXPORT_FILE_NAME ${CMAKE_CURRENT_DIR}/inc/application_export.hpp
+        STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
+    )
+endif()
 
 # ----- Linking dependencies -----
+
+target_link_libraries(
+    easyGUI-application-s
+    easyGUI-assets-s
+    easyGUI-exceptions-s
+    sfml-graphics
+    sfml-window
+    sfml-system
+)
 
 target_link_libraries(
     easyGUI-application
@@ -58,17 +78,8 @@ target_link_libraries(
     sfml-system
 )
 
-target_link_libraries(
-    easyGUI-application-shared
-    easyGUI-assets-shared
-    easyGUI-exceptions-shared
-    sfml-graphics
-    sfml-window
-    sfml-system
-)
-
 # ----- Installing library -----
 
-install( TARGETS easyGUI-application DESTINATION ${PROJECT_LIBRARY_DIR} )
-install( TARGETS easyGUI-application-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
+install( TARGETS easyGUI-application-s DESTINATION ${PROJECT_LIBRARY_DIR} )
+install( TARGETS easyGUI-application DESTINATION ${PROJECT_RUNTIME_DIR} )
 install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )

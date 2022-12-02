@@ -64,6 +64,8 @@ if(WIN32)
 		-O2
 		-Oi
 	)
+
+	include(GenerateExportHeader)
 endif()
 
 # ----- Building sources -----

@@ -26,6 +26,10 @@
 
 #pragma once
 
+#ifdef _WIN32
+#include <assets_export.hpp>
+#endif
+
 // Including dependencies
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -45,7 +49,11 @@ namespace easyGUI
  * however this one is mandatory for all GUI elements.
  * 
  */
+#ifdef _WIN32
+class ASSETS_EXPORTS Component : public ::sf::Drawable
+#else
 class Component : public ::sf::Drawable
+#endif
 {
 protected:
     ::sf::RenderWindow* _container;

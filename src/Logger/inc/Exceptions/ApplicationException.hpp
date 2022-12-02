@@ -26,6 +26,10 @@
 
 #pragma once
 
+#ifdef _WIN32
+#include <exceptions_export.hpp>
+#endif
+
 // Including dependencies
 #include <exception>
 #include <string>
@@ -37,7 +41,11 @@ namespace easyGUI
  * @brief Exception thrown when something goes wrong at Application level.
  * 
  */
+#ifdef _WIN32
+class EXCEPTIONS_EXPORTS ApplicationException : public ::std::exception
+#else
 class ApplicationException : public ::std::exception
+#endif
 {
 private:
     ::std::string _msg;
