@@ -40,13 +40,6 @@ set(LIBRARY_HEADERS
     inc/Converter.hpp
 )
 
-if(WIN32)
-    set(LIBRARY_HEADERS
-        ${LIBRARY_HEADERS}
-        inc/assets_export.hpp
-    )
-endif()
-
 add_library(
     easyGUI-assets-s STATIC
 

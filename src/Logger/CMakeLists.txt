@@ -25,14 +25,6 @@ set(LIBRARY_HEADERS
     inc/Exceptions/TextBoxException.hpp
 )
 
-if(WIN32)
-    set(LIBRARY_HEADERS
-        ${LIBRARY_HEADERS}
-        inc/exceptions_export.hpp
-    )
-endif()
-
-
 # ----- Defining library sets -----
 
 add_library(

@@ -18,14 +18,6 @@ set(LIBRARY_HEADERS
     inc/Application.hpp
 )
 
-if(WIN32)
-    set(LIBRARY_HEADERS
-        ${LIBRARY_HEADERS}
-        inc/application_export.hpp
-    )
-endif()
-
-
 # ----- Defining library sets -----
 
 add_library(
