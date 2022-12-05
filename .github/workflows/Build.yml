@@ -57,7 +57,7 @@ jobs:
 
     - name: Move Windows "shared" .a files
       if: runner.os == 'Windows'
-      run: copy ${{github.workspace}}/bin/*.lib0 ${{github.workspace}}/lib && del ${{github.workspace}}/bin/*.lib
+      run: copy ${{github.workspace}}/bin/*.lib ${{github.workspace}}/lib && del ${{github.workspace}}/bin/*.lib
 
     - name: Publishing package
       uses: actions/upload-artifact@master
