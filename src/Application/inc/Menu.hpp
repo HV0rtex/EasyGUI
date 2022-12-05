@@ -26,10 +26,6 @@
 
 #pragma once
 
-#ifdef _WIN32
-#include <application_export.hpp>
-#endif
-
 // Including dependencies
 #include <Exceptions/AssetException.hpp>
 #include <Exceptions/MenuException.hpp>
@@ -49,7 +45,7 @@ namespace easyGUI
  * and usually corresponds to a specific application screen.
  */
 #ifdef _WIN32
-class APPLICATION_EXPORTS Menu : public ::sf::Drawable
+class __declspec(dllexport) Menu : public ::sf::Drawable
 #else
 class Menu : public ::sf::Drawable
 #endif
@@ -117,19 +113,6 @@ public:
  * @param element The component to append
  * 
  */
-#ifdef _WIN32
-#define APPLICATION_EXPORTS AddElement(targetMenu, element, id)                     \
-{                                                                                   \
-    try                                                                             \
-    {                                                                               \
-        (targetMenu)->addComponent((element), (id));                                \
-    }                                                                               \
-    catch(const AssetException& e)                                                  \
-    {                                                                               \
-        ERROR << e.what();                                                          \
-    }                                                                               \
-}
-#else
 #define AddElement(targetMenu, element, id)                     \
 {                                                               \
     try                                                         \
@@ -141,6 +124,5 @@ public:
         ERROR << e.what();                                      \
     }                                                           \
 }
-#endif
 
 }

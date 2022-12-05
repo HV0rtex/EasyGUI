@@ -26,10 +26,6 @@
 
 #pragma once
 
-#ifdef _WIN32
-#include <exceptions_export.hpp>
-#endif
-
 // Including dependencies
 #include <exception>
 #include <string>
@@ -42,7 +38,7 @@ namespace easyGUI
  * 
  */
 #ifdef _WIN32
-class EXCEPTIONS_EXPORTS AssetException : public ::std::exception
+class __declspec(dllexport) AssetException : public ::std::exception
 #else
 class AssetException : public ::std::exception
 #endif

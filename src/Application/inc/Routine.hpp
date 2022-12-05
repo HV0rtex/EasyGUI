@@ -26,10 +26,6 @@
 
 #pragma once
 
-#ifdef _WIN32
-#include <application_export.hpp>
-#endif
-
 // Including dependencies
 #include <SFML/Window/Event.hpp>
 
@@ -49,7 +45,7 @@ namespace easyGUI
  * 
  */
 #ifdef _WIN32
-class APPLICATION_EXPORTS Routine
+class __declspec(dllexport) Routine
 #else
 class Routine
 #endif

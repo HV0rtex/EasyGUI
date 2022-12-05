@@ -26,9 +26,6 @@
 
 #pragma once
 
-#ifdef _WIN32
-#include <assets_export.hpp>
-#endif
 
 // Including dependencies
 #include <SFML/Graphics/RectangleShape.hpp>
@@ -42,7 +39,7 @@ namespace easyGUI
 {
 
 #ifdef _WIN32
-class ASSETS_EXPORTS CheckBox : public Component, public Anchor
+class __declspec(dllexport) CheckBox : public Component, public Anchor
 #else
 class CheckBox : public Component, public Anchor
 #endif

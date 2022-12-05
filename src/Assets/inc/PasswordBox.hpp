@@ -26,10 +26,6 @@
 
 #pragma once
 
-#ifdef _WIN32
-#include <assets_export.hpp>
-#endif
-
 // Including dependencies
 #include <Textbox.hpp>
 
@@ -45,7 +41,7 @@ namespace easyGUI
  * 
  */
 #ifdef _WIN32
-class ASSETS_EXPORTS PasswordBox : public TextBox
+class __declspec(dllexport) PasswordBox : public TextBox
 #else
 class PasswordBox : public TextBox
 #endif

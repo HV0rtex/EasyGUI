@@ -29,18 +29,6 @@ add_library(
     ./src/Menu.cpp
 )
 
-# ----- Generating export headers -----
-
-if(WIN32)
-    GENERATE_EXPORT_HEADER(easyGUI-application
-        BASE_NAME easyGUI-application
-        EXPORT_MACRO_NAME APPLICATION_EXPORTS
-        EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/inc/application_export.hpp
-        STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
-    )
-endif()
-
-
 # ----- Defining includes -----
 
 target_include_directories(

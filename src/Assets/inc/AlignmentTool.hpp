@@ -26,10 +26,6 @@
 
 #pragma once
 
-#ifdef _WIN32
-#include <assets_export.hpp>
-#endif
-
 // Including dependencies
 #include <Component.hpp>
 #include <Point.hpp>
@@ -42,7 +38,7 @@ namespace easyGUI
 
 // Stub declaration
 #ifdef _WIN32
-class ASSETS_EXPORTS AlignmentTool;
+class __declspec(dllexport) AlignmentTool;
 #else
 class AlignmentTool;
 #endif
@@ -55,7 +51,7 @@ class AlignmentTool;
  * 
  */
 #ifdef _WIN32
-class ASSETS_EXPORTS Anchor
+class __declspec(dllexport) Anchor
 #else
 class Anchor
 #endif
@@ -154,7 +150,7 @@ typedef ::std::pair<Mode, Mode> Binding;
  * 
  */
 #ifdef _WIN32
-class ASSETS_EXPORTS AlignmentTool
+class __declspec(dllexport) AlignmentTool
 #else
 class AlignmentTool
 #endif

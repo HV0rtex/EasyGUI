@@ -26,10 +26,6 @@
 
 #pragma once
 
-#ifdef _WIN32
-#include <assets_export.hpp>
-#endif
-
 // Including dependencies
 #include <SFML/Graphics/Sprite.hpp>
 #include <Exceptions/ImageException.hpp>
@@ -45,7 +41,7 @@ namespace easyGUI
  * 
  */
 #ifdef _WIN32
-class ASSETS_EXPORTS Image : public Component, public Anchor
+class __declspec(dllexport) Image : public Component, public Anchor
 #else
 class Image : public Component, public Anchor
 #endif

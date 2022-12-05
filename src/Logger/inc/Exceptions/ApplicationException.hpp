@@ -26,10 +26,6 @@
 
 #pragma once
 
-#ifdef _WIN32
-#include <exceptions_export.hpp>
-#endif
-
 // Including dependencies
 #include <exception>
 #include <string>
@@ -42,7 +38,7 @@ namespace easyGUI
  * 
  */
 #ifdef _WIN32
-class EXCEPTIONS_EXPORTS ApplicationException : public ::std::exception
+class __declspec(dllexport) ApplicationException : public ::std::exception
 #else
 class ApplicationException : public ::std::exception
 #endif

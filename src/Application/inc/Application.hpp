@@ -26,10 +26,6 @@
 
 #pragma once
 
-#ifdef _WIN32
-    #include <application_exports.hpp>
-#endif
-
 // Including dependencies
 #include <Routine.hpp>
 #include <Menu.hpp>
@@ -49,7 +45,7 @@ namespace easyGUI
  * 
  */
 #ifdef _WIN32
-class APPLICATION_EXPORTS Application : public Anchor
+class __declspec(dllexport) Application : public Anchor
 #else
 class Application : public Anchor
 #endif

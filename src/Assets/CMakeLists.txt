@@ -42,17 +42,6 @@ add_library(
     ${LIBRARY_SOURCES}
 )
 
-# ----- Generating export headers -----
-
-if(WIN32)
-    GENERATE_EXPORT_HEADER(easyGUI-assets
-        BASE_NAME easyGUI-assets
-        EXPORT_MACRO_NAME ASSETS_EXPORTS
-        EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/inc/assets_export.hpp
-        STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
-    )
-endif()
-
 # ----- Defining includes -----
 
 target_include_directories(

@@ -26,10 +26,6 @@
 
 #pragma once
 
-#ifdef _WIN32
-#include <assets_export.hpp>
-#endif
-
 // Including dependencies
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <Exceptions/ButtonException.hpp>
@@ -46,7 +42,7 @@ namespace easyGUI
  * Label class in order to draw and configure the button's text.
  */
 #ifdef _WIN32
-class ASSETS_EXPORTS Button : public Component, public Anchor
+class __declspec(dllexport) Button : public Component, public Anchor
 #else
 class Button : public Component, public Anchor
 #endif

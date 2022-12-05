@@ -26,10 +26,6 @@
 
 #pragma once
 
-#ifdef _WIN32
-#include <assets_export.hpp>
-#endif
-
 // Including dependencies
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -50,7 +46,7 @@ namespace easyGUI
  * 
  */
 #ifdef _WIN32
-class ASSETS_EXPORTS Component : public ::sf::Drawable
+class __declspec(dllexport) Component : public ::sf::Drawable
 #else
 class Component : public ::sf::Drawable
 #endif

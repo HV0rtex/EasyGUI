@@ -29,18 +29,6 @@ add_library(
     src/ApplicationException.cpp
 )
 
-# ----- Generating export headers -----
-
-if(WIN32)
-    GENERATE_EXPORT_HEADER(easyGUI-exceptions
-        BASE_NAME easyGUI-exceptions
-        EXPORT_MACRO_NAME EXCEPTION_EXPORTS
-        EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/inc/exceptions_export.hpp
-        STATIC_DEFINE SHARED_EXPORTS_BUILT_AS_STATIC
-    )
-endif()
-
-
 # ----- Defining includes -----
 
 target_include_directories(

@@ -26,10 +26,6 @@
 
 #pragma once
 
-#ifdef _WIN32
-#include <assets_export.hpp>
-#endif
-
 // Including dependencies
 #include <SFML/System/Vector2.hpp>
 #include <utility>
@@ -42,7 +38,7 @@ namespace easyGUI
  * 
  */
 #ifdef _WIN32
-struct ASSETS_EXPORTS Point
+struct __declspec(dllexport) Point
 #else
 struct Point
 #endif

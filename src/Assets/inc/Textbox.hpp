@@ -26,10 +26,6 @@
 
 #pragma once
 
-#ifdef _WIN32
-#include <assets_export.hpp>
-#endif
-
 // Including dependencies
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <Exceptions/TextBoxException.hpp>
@@ -48,7 +44,7 @@ namespace easyGUI
  * 
  */
 #ifdef _WIN32
-class ASSETS_EXPORTS TextBox : public Component, public Anchor
+class __declspec(dllexport) TextBox : public Component, public Anchor
 #else
 class TextBox : public Component, public Anchor
 #endif

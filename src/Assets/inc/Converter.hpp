@@ -26,10 +26,6 @@
 
 #pragma once
 
-#ifdef _WIN32
-#include <assets_export.hpp>
-#endif
-
 // Including dependencies
 #include <Button.hpp>
 #include <PasswordBox.hpp>
@@ -44,7 +40,7 @@ namespace easyGUI
  * 
  */
 #ifdef _WIN32
-class ASSETS_EXPORTS Converter
+class __declspec(dllexport) Converter
 #else
 class Converter
 #endif
