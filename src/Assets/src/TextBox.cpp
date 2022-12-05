@@ -14,30 +14,25 @@
 
 
 /**
- * @file Button.cpp
+ * @file TextBox.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Implementation of the button class
+ * @brief Implementation of the TextBox class
  * @version 0.1
- * @date 2022-09-11
+ * @date 2022-10-10
  * 
  * @copyright Copyright (c) 2022
  * 
  */
 
-#include <Button.hpp>
+#include <Textbox.hpp>
 
 namespace easyGUI
 {
 
-Button::~Button()
-{
-    if(_content != nullptr)
-    {
-        delete[] _content;
-    }
-}
+TextBox* TextBox::selectedBox = nullptr;
+bool TextBox::textBoxClicked = false;
 
-unsigned Button::getCharSizeCorrection(const unsigned& length, const unsigned& charSize) const
+unsigned TextBox::getCharSizeCorrection(const unsigned& length, const unsigned& charSize) const
 {
     float lenghtInPix = length * charSize / 1.9;
     float heightInPix = charSize * 1.55;
@@ -61,11 +56,23 @@ unsigned Button::getCharSizeCorrection(const unsigned& length, const unsigned& c
     return correction;
 }
 
-Button::Button(
+void TextBox::updateLocation(const Point& newLocation)
+{
+    if(!isMovable())
+    {
+        throw AssetException("Attempting to move an imovable object.");
+    }
+
+    _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
+    
+    AlignmentTool& tool = AlignmentTool::getInstance();
+    tool.triggerUpdate(*this);
+}
+
+TextBox::TextBox(
     const Point& startLocation,
     const Point& endLocation,
 
-    const ::std::string& text,
     const ::std::string& fontPath,
 
     const unsigned& charSize)
@@ -75,64 +82,51 @@ Button::Button(
     _shape.setOutlineColor(::sf::Color::White);
     _shape.setOutlineThickness(5);
     _shape.setSize(::sf::Vector2f(endLocation.Xcoord - startLocation.Xcoord, endLocation.Ycoord - startLocation.Ycoord));
-    
-    unsigned correction = getCharSizeCorrection(text.size(), charSize);
 
-    if(correction != 0)
-    {
-        WARN << "Button text doesn't fit. Resizing text...\n";
-    }
+    desiredSize = charSize;
 
     try
     {
         AlignmentTool& tool = AlignmentTool::getInstance();
-        _content = new Label(Point(), text, fontPath, charSize - correction);
-    
-        tool.createBinding(*_content, *this, Binding(Mode::CENTER, Mode::CENTER), Point(-1, -7));
+
+        _text = new Label(Point(), "", fontPath, charSize);
+        tool.createBinding(*_text, *this, Binding(Mode::LEFT, Mode::LEFT), Point(19, -7));
     } 
     catch (const LabelException& err)
     {
         ERROR << err.what();
+        this->~TextBox();
 
-        ButtonException ex("Label text will not be visible.");
-        if(_content != nullptr)
-        {
-            delete[] _content;
-            _content = nullptr;
-        }
-
-        WARN << ex.what();
+        throw TextBoxException("Label text will not be visible.");
     }
 }
 
-Button::Button(
+TextBox::TextBox(
     const Point& startLocation,
     const float& width,
     const float& height,
 
-    const ::std::string& text,
     const ::std::string& fontPath,
 
     const unsigned& charSize) : 
-Button(
+TextBox(
     startLocation, 
     Point(startLocation.Xcoord + width, startLocation.Ycoord + height),
-    text,
     fontPath,
     charSize
 ) {}
 
-void Button::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
+void TextBox::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 {
     target.draw(_shape, states);
 
-    if(_content != nullptr)
+    if(!_text->getInternalText().getString().isEmpty())
     {
-        target.draw(*_content, states);
+        target.draw(*_text, states);
     }
 }
 
-bool Button::isMouseHover() const
+bool TextBox::isMouseHover() const
 {
     if(_container != nullptr)
     {
@@ -146,55 +140,98 @@ bool Button::isMouseHover() const
     return false;
 }
 
-::sf::RectangleShape& Button::getInternalButton()
+TextBox::~TextBox()
+{
+    if(selectedBox == this)
+    {
+        selectedBox = nullptr;
+        textBoxClicked = false;
+    }
+    
+    if(_text != nullptr)
+    {
+        delete[] _text;
+    }
+}
+
+::sf::RectangleShape& TextBox::getInternalBox()
 {
     return _shape;
 }
 
-::sf::Text* Button::getInternalText()
+::sf::Text& TextBox::getInternalText()
 {
-    if(_content == nullptr)
-    {
-        return nullptr;
-    }
-
-    return &_content->getInternalText();
+    return _text->getInternalText();
 }
 
-void Button::updateLocation(const Point& newLocation)
+void TextBox::updateText(const ::sf::Uint32& text)
 {
-    if(!isMovable())
+    ::sf::String newContent = _text->getInternalText().getString();
+    AlignmentTool& tool = AlignmentTool::getInstance();
+
+    if(text == 8 && !newContent.isEmpty())
+        newContent.erase(newContent.getSize() - 1);
+    else
+        newContent.insert(newContent.getSize(), text);
+
+    unsigned correction = getCharSizeCorrection(newContent.getSize(), desiredSize);
+
+    if(correction != 0)
     {
-        throw AssetException("Attempting to move an imovable object.");
+        WARN << "TextBox text doesn't fit. Resizing text...\n";
     }
 
-    _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
+    _text->getInternalText().setString(newContent);
+    _text->getInternalText().setCharacterSize(desiredSize - correction);
 
-    AlignmentTool& tool = AlignmentTool::getInstance();
     tool.triggerUpdate(*this);
 }
 
-Point Button::getLEFT() const
+void TextBox::onClick()
+{
+    if(isMouseHover())
+    {
+        selectedBox = this;
+        textBoxClicked = true;
+    }
+
+    if(_onClick != nullptr)
+    {
+        _onClick();
+    }
+}
+
+const ::std::string TextBox::getText() const
+{
+    return _text->getInternalText().getString().toAnsiString();
+}
+
+void TextBox::clear()
+{
+    _text->getInternalText().setString("");
+}
+
+Point TextBox::getLEFT() const
 {
     return Point(_shape.getGlobalBounds().left, _shape.getGlobalBounds().top + _shape.getGlobalBounds().height / 2);
 }
 
-Point Button::getRIGHT() const
+Point TextBox::getRIGHT() const
 {
     return Point(_shape.getGlobalBounds().left + _shape.getGlobalBounds().width, _shape.getGlobalBounds().top + _shape.getGlobalBounds().height / 2);
 }
 
-Point Button::getTOP() const
+Point TextBox::getTOP() const
 {
     return Point(_shape.getGlobalBounds().left + _shape.getGlobalBounds().width / 2, _shape.getGlobalBounds().top);
 }
 
-Point Button::getBOTTOM() const
+Point TextBox::getBOTTOM() const
 {
     return Point(_shape.getGlobalBounds().left + _shape.getGlobalBounds().width / 2, _shape.getGlobalBounds().top + _shape.getGlobalBounds().height);
 }
 
-Point Button::getCENTER() const
+Point TextBox::getCENTER() const
 {
     return Point(_shape.getGlobalBounds().left + _shape.getGlobalBounds().width / 2, _shape.getGlobalBounds().top + _shape.getGlobalBounds().height / 2);
 }

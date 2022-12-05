@@ -15,72 +15,57 @@
 #include <menus.hpp>
 #include "buttons.hpp"
 
-void createMainMenu(easyGUI::Application* appInstance)
+using namespace easyGUI;
+
+void createMainMenu(Application* appInstance)
 {
     if(appInstance == nullptr)
         // Raise error if application has not been created
-        throw easyGUI::MenuException("Could not get hold of application instance.");
+        throw MenuException("Could not get hold of application instance.");
 
-    easyGUI::Menu* menu = appInstance->addMenu(true);   // Adds a new MAIN menu
+    Menu* menu = appInstance->addMenu("mainMenu", true);   // Adds a new MAIN menu
 
     if(menu == nullptr)
         // Raise error if creating a menu fails
-        throw easyGUI::MenuException("Could not create menu.");
+        throw MenuException("Could not create menu.");
 
-    try
-    {
-        menu->addComponent( 
-            new easyGUI::Label(             // <--- Label component
-                easyGUI::Point(220, 100),   // <--- Starting location
-                
-                "A demo application",       // <--- Label text
-                "./res/Arial.ttf",          // <--- Text font path
-                
-                40,                         // <--- Desired character size
-                
-                sf::Color(255,255,255)      // <--- Text color
-            ) 
-        );
-        
-        menu->addComponent( 
-            new easyGUI::Button(            // <--- Button component
-                easyGUI::Point(50, 200),    // <--- Starting location
-                easyGUI::Point(250,250),    // <--- Ending location
+    AddElement(menu,                // <--- The menu where the component is appended
+        new Label(                  // <--- The type of component being appended
+            Point(220, 100),        // <--- The position of the component
+            "A demo application",   // <--- The text of the label
+            "./res/Arial.ttf",      // <--- The font of the label
+            40),                    // <--- Desired character size
 
-                ::sf::Color::Black,         // <--- Fill color
-                ::sf::Color::White,         // <--- Outline color
-                ::sf::Color::White,         // <--- Text color
-                
-                "Demo button",              // <--- Button text
-                "./res/Arial.ttf",          // <--- Text font path
-                
-                55,                         // <--- Desired character size 
-                5                           // <--- Outline thickness
-            )
-        );
+        "title"                     // <--- A unique ID for the component
+    );
 
-        menu->addComponent( 
-            new easyGUI::Button( 
-                easyGUI::Point(50, 275),
-                easyGUI::Point(250,325), 
+    AddElement(menu, new Label(Point(100, 210), "Username", "./res/Arial.ttf", 25), "uNameLabel");
+    AddElement(menu, new Label(Point(100, 310), "Password", "./res/Arial.ttf", 25), "passLabel");
+    AddElement(menu, new Label(Point(270, 500), "Login with admin / admin", "./res/Arial.ttf", 15), "hint");
 
-                ::sf::Color::Black, 
-                ::sf::Color::White, 
-                ::sf::Color::White, 
-                
-                "Exit", 
-                "./res/Arial.ttf", 
-                
-                25, 5
-            )
-        );
-
-        menu->getComponent(1)->setOnClickAction(demoButton_action);     // <--- Adding a callback to be executed on mouse press
-        menu->getComponent(2)->setOnClickAction(exitButton_action);
-    }
-    catch(const easyGUI::AssetException& err)
-    {
-        // Throw error if couldn't add components
-        ERROR << err.what();
-    }
+    AddElement(menu, 
+        new TextBox(
+            Point(250, 200),        // <--- Tpp-left corner of the box
+            Point(500, 250),        // <--- Bottom-right corner of the box
+            "./res/Arial.ttf",      // <--- Font of the text
+            25),                    // <--- Desired character size
+            
+        "uName"
+    );
+    
+    AddElement(menu, new PasswordBox(Point(250, 300), Point(500, 350), "./res/Arial.ttf", 25), "pass");
+    
+    AddElement(menu, 
+        new Button(
+            Point(250, 400),        // <--- The top-left of the button
+            Point(500, 450),        // <--- The bottom-right corner of the button
+            "Sign in",              // <--- The text of the button
+            "./res/Arial.ttf",      // <--- The font of the text
+            25),                    // <--- Desired character size
+    
+        "submit"
+    );
+     
+    if(Converter::getButton(menu->getComponent("submit")) != nullptr)
+        menu->getComponent("submit")->setOnClickAction(demoButton_action);     // <--- Adding a callback to be executed on mouse press
 }

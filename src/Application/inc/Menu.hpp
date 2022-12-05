@@ -27,9 +27,13 @@
 #pragma once
 
 // Including dependencies
+#include <Exceptions/AssetException.hpp>
+#include <Exceptions/MenuException.hpp>
+#include <Logger.hpp>
 #include <Component.hpp>
 #include <string>
 #include <vector>
+#include <map>
 
 namespace easyGUI
 {
@@ -40,13 +44,17 @@ namespace easyGUI
  * @details A menu groups different application components under the same container
  * and usually corresponds to a specific application screen.
  */
+#ifdef _WIN32
+class __declspec(dllexport) Menu : public ::sf::Drawable
+#else
 class Menu : public ::sf::Drawable
+#endif
 {
 private:
     ::sf::RenderWindow* _container;
-    ::std::vector < Component* > _components;
+    ::std::map <::std::string, Component* > _components;
 
-    virtual void draw(::sf::RenderTarget& target, ::sf::RenderStates states) const;
+    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const;
 
 public:
     /**
@@ -65,26 +73,56 @@ public:
      * @brief Adds a new component to the menu
      * 
      * @param component The component to be added
+     * @param ID A unique ID for the component
+     * 
+     * @throws MenuException A component with that ID already exists
      */
-    void addComponent(Component* component);
+    void addComponent(Component*, const ::std::string&);
 
     /**
      * @brief Set the Component's container
      * 
      * @param container The window responsible of the component
      */
-    void setContainer(::sf::RenderWindow*& container)
-    {
-        _container = container;
-    }
-
+    void setContainer(::sf::RenderWindow*&);
+    
     /**
      * @brief Retrieves a specific component
      * 
-     * @param index The index of the component
+     * @param ID The ID of the component
      * @return Component* 
      */
-    Component* getComponent(const unsigned& index);
+    Component* getComponent(const ::std::string&);
+
+    /**
+     * @brief Returns a vector with all components
+     * 
+     * @return ::std::vector<Component*> 
+     */
+    ::std::vector<Component*> getAllComponents();
 };
+
+/**
+ * @brief Safely appends a component to a menu.
+ * 
+ * @details Attempts to append a component to a menu. The macro
+ * handles any possible error thrown by the component, so that it will
+ * not affect the rest of the application.
+ * 
+ * @param targetMenu The menu to which the component is appended
+ * @param element The component to append
+ * 
+ */
+#define AddElement(targetMenu, element, id)                     \
+{                                                               \
+    try                                                         \
+    {                                                           \
+        (targetMenu)->addComponent((element), (id));            \
+    }                                                           \
+    catch(const AssetException& e)                              \
+    {                                                           \
+        ERROR << e.what();                                      \
+    }                                                           \
+}
 
 }

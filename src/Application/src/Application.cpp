@@ -1,3 +1,18 @@
+// Copyright © 2022 David Bogdan
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files 
+// (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, 
+// publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do 
+// so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+// FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
 /**
  * @file Application.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
@@ -51,14 +66,10 @@ Application* Application::getInstance(const unsigned& width, const unsigned& hei
 void Application::executeForAll(void (*action)(Component*))
 {
     unsigned index = 0;
-    Component* currentComp = _activeMenu->getComponent(0);
-
-    while(currentComp != nullptr)
+    
+    for(Component*& currentComponent : _activeMenu->getAllComponents())
     {
-        action(currentComp);
-
-        index++;
-        currentComp = _activeMenu->getComponent(index);
+        action(currentComponent);
     }
 }
 
@@ -66,11 +77,27 @@ void Application::handleEvents(const ::sf::Event& event)
 {
     if(event.type == ::sf::Event::MouseButtonPressed && event.mouseButton.button == ::sf::Mouse::Left)
     {
+        TextBox::textBoxClicked = false;
+
         executeForAll([](Component* comp) {comp->onClick();});
+    
+        if(TextBox::textBoxClicked == false)
+            TextBox::selectedBox = nullptr;
     }
     else if(event.type == ::sf::Event::MouseMoved)
     {
         executeForAll([](Component* comp) {comp->onHover();});
+    }
+    else if(event.type == ::sf::Event::TextEntered && TextBox::selectedBox != nullptr)
+    {
+        TextBox::selectedBox->updateText(event.text.unicode);
+    }
+    else if(event.type == ::sf::Event::Resized)
+    {
+        ::sf::View newView = _window->getDefaultView();
+        newView.setSize(event.size.width, event.size.height);
+        
+        _window->setView(newView);
     }
 
     for(Routine*& routine : routines)
@@ -79,17 +106,17 @@ void Application::handleEvents(const ::sf::Event& event)
     }
 }
 
-Menu* Application::getMenu(const unsigned& index)
+Menu* Application::getMenu(const ::std::string& id)
 {
-    if(index < menus.size())
+    if(menus.find(id) != menus.end())
     {
-        return menus.at(index);
+        return menus.at(id);
     }
 
     return nullptr;
 }
 
-const Menu* Application::getActiveMenu() const
+Menu* Application::getActiveMenu()
 {
     return _activeMenu;
 }
@@ -113,12 +140,17 @@ Application::~Application()
 {
     for(auto menu : menus)
     {
-        delete menu;
+        delete menu.second;
     }
 }
 
-Menu* Application::addMenu(const bool& isStart)
+Menu* Application::addMenu(const ::std::string& id, const bool& isStart)
 {
+    if(menus.find(id) != menus.end())
+    {
+        throw MenuException("A menu with this ID exists already");
+    }
+
     Menu* newMenu = new Menu();
 
     if(isStart)
@@ -138,16 +170,17 @@ Menu* Application::addMenu(const bool& isStart)
 
     newMenu->setContainer(_window);
 
-    menus.push_back(newMenu);
+    menus.insert(::std::make_pair(id, newMenu));
 
     return newMenu;
 }
 
-void Application::setActiveMenu(const unsigned& index)
+void Application::setActiveMenu(const ::std::string& id)
 {
-    if(index < menus.size())
+    if(menus.find(id) != menus.end())
     {
-        _activeMenu = menus.at(index);
+        _activeMenu = menus.at(id);
+        TextBox::selectedBox = nullptr;
 
         if(!_startMenuSet)
         {
@@ -160,7 +193,7 @@ void Application::setActiveMenu(const unsigned& index)
     }
     else
     {
-        throw MenuException("Could not get hold of menu wiht id " + index);
+        throw MenuException("Could not get hold of menu wiht id: " + id);
     }
 }
 
@@ -189,6 +222,36 @@ void Application::start()
         _window->draw(*_activeMenu);
         _window->display();
     }
+}
+
+::sf::RenderWindow* Application::getWindow()
+{
+    return _window;
+}
+
+Point Application::getLEFT() const
+{
+    return Point(0, _window->getDefaultView().getSize().y / 2);
+}
+
+Point Application::getRIGHT() const
+{
+    return Point(_window->getDefaultView().getSize().x, _window->getDefaultView().getSize().y / 2);
+}
+
+Point Application::getTOP() const
+{
+    return Point(_window->getDefaultView().getSize().x / 2, 0);
+}
+
+Point Application::getBOTTOM() const
+{
+    return Point(_window->getDefaultView().getSize().x / 2, _window->getDefaultView().getSize().y);
+}
+
+Point Application::getCENTER() const
+{
+    return Point(_window->getDefaultView().getCenter());
 }
 
 }

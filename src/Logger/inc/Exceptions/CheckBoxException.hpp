@@ -12,45 +12,49 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include <routines.hpp>
-#include <menus.hpp>
 
-using namespace easyGUI;
+/**
+ * @file CheckBoxException.hpp
+ * @author David Bogdan (david.bnicolae@gmail.com)
+ * @brief Definition of the CheckBoxException class
+ * @version 0.1
+ * @date 2022-10-05
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
-int main()
+#pragma once
+
+// Including dependencies
+#include <Exceptions/AssetException.hpp>
+
+namespace easyGUI
 {
-    // Setting application parameters
-    unsigned appWidth = 800;
-    unsigned appHeight = 600;
-    std::string appTitle = "Demo app";
 
-    // Declaring application object
-    Application* app = nullptr;
+/**
+ * @brief Exception thrown when an error occurs inside the CheckBox.
+ * 
+ */
+#ifdef _WIN32
+class __declspec(dllexport) CheckBoxException : public AssetException
+#else
+class CheckBoxException : public AssetException
+#endif
+{
+public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~CheckBoxException() = default;
 
-    // Creating application
-    app = app->getInstance(appWidth, appHeight, appTitle.c_str());
+    /**
+     * @brief Constructor
+     * 
+     * @param message The message to be displayed
+     */
+    explicit CheckBoxException(::std::string message) : AssetException( "[ CheckBox ] " + message ) {}
+};
 
-    // Creating routines
-    Routine windowHandler(windowHandler_trigger, windowHandler_action);
-    
-    // Adding routine to app
-    app->addRoutine(&windowHandler);
-
-    try
-    {
-        // Creating menus
-        createMainMenu(app);
-        createSecondMenu(app);
-
-        // Starting the application
-        app->start();
-    }
-    catch(const ApplicationException* err)
-    {
-        ERROR << err->what();
-
-        return 1;
-    }
-    
-    return 0;
 }

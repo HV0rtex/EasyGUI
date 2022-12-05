@@ -44,7 +44,11 @@ namespace easyGUI
  * of the mouse position.
  * 
  */
+#ifdef _WIN32
+class __declspec(dllexport) Routine
+#else
 class Routine
+#endif
 {
 private:
     bool (*_trigger)(const ::sf::Event& action);
@@ -59,7 +63,7 @@ public:
      * @param trigger Function that determines whether the routine is triggered
      * @param _response The response that is to be triggered by the routine
      */
-    Routine(bool (*trigger)(const ::sf::Event& action), void(*_response)());
+    explicit Routine(bool (*trigger)(const ::sf::Event& action), void(*_response)());
 
     /**
      * @brief Call operator

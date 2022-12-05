@@ -36,21 +36,25 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside the Button.
  * 
  */
+#ifdef _WIN32
+class __declspec(dllexport) ButtonException : public AssetException
+#else
 class ButtonException : public AssetException
+#endif
 {
 public:
     /**
      * @brief Destructor
      * 
      */
-    virtual ~ButtonException() {}
+    virtual ~ButtonException() = default;
 
     /**
      * @brief Constructor
      * 
      * @param message The message to be displayed
      */
-    ButtonException(::std::string message) : AssetException( "[ Button ] " + message ) {}
+    explicit ButtonException(::std::string message) : AssetException( "[ Button ] " + message ) {}
 };
 
 }

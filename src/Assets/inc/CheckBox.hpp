@@ -14,11 +14,11 @@
 
 
 /**
- * @file Button.hpp
+ * @file CheckBox.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the Button class
+ * @brief Definition of the CheckBox class
  * @version 0.1
- * @date 2022-09-01
+ * @date 2022-11-18
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -26,68 +26,52 @@
 
 #pragma once
 
+
 // Including dependencies
 #include <SFML/Graphics/RectangleShape.hpp>
-#include <Exceptions/ButtonException.hpp>
+#include <Exceptions/CheckBoxException.hpp>
 #include <AlignmentTool.hpp>
-#include <Label.hpp>
+#include <Component.hpp>
+#include <Logger.hpp>
+#include <Point.hpp>
 
 namespace easyGUI
 {
 
-/**
- * @brief Implements a button component
- * 
- * @details Draws a button on a window. The class makes use of the
- * Label class in order to draw and configure the button's text.
- */
 #ifdef _WIN32
-class __declspec(dllexport) Button : public Component, public Anchor
+class __declspec(dllexport) CheckBox : public Component, public Anchor
 #else
-class Button : public Component, public Anchor
+class CheckBox : public Component, public Anchor
 #endif
 {
 private:
-    ::sf::RectangleShape _shape;
-    Label* _content;
+    ::sf::RectangleShape _box, _filler;
+    Component* _content;
+
+    char _isChecked;
 
     virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
-
-    // ----- Helper methods -----
-
-    /**
-     * @brief Computes the correction to be applied to the char size of the text
-     * 
-     * @param textLenght The length of the text
-     * @param desiredSize The desired char size
-     * @return unsigned
-     */
-    unsigned getCharSizeCorrection(const unsigned&, const unsigned&) const;
 
 public:
     /**
      * @brief Destructor
      * 
      */
-    ~Button();
+    ~CheckBox();
 
     /**
      * @brief Constructor
      * 
      * @param startLocation The location of the top-left corner 
      * @param endLocation The location of the bottom-right corner
+     * 
+     * @param content A component to be bound to the checkbox
+     * @param binding How to aling the components
+     * 
+     * @throw CheckBoxException
      *
-     * @param text The button's text
-     * @param fontPath The path to the font file
-     * 
-     * @param charSize The size of the characters
-     * 
-     * @throw ButtonException
-     * 
-     * @note The font file format must be .ttf
-
      */
-    Button(const Point&, const Point&, const ::std::string&, const ::std::string&, const unsigned&);
+    CheckBox(const Point&, const Point&, Component*&, const Binding&);
 
     /**
      * @brief Constructor
@@ -96,22 +80,18 @@ public:
      * @param width The width of the button
      * @param height The height of the button
      * 
-     * @param text The button's text
-     * @param fontPath The path to the font file
+     * @param content A component to be bound to the checkbox
+     * @param binding How to align the components
      * 
-     * @param charSize The size of the characters
-     * 
-     * @throw ButtonException
-     * 
-     * @note The font file format must be .ttf
+     * @throw CheckBoxException
      */
-    Button(const Point&, const float&, const float&, const ::std::string&, const ::std::string&, const unsigned&);
+    CheckBox(const Point&, const float&, const float&, Component*&, const Binding&);
 
     // Block other forms of construction
 
-    Button() = delete;
-    Button( const Button& ) = delete;
-    Button& operator= ( const Button& ) = delete;
+    CheckBox() = delete;
+    CheckBox( const CheckBox& ) = delete;
+    CheckBox& operator= ( const CheckBox& ) = delete;
 
     // ----- Auxiliaries -----
 
@@ -130,14 +110,30 @@ public:
      * 
      * @return ::sf::RectangleShape& 
      */
-    ::sf::RectangleShape& getInternalButton();
+    ::sf::RectangleShape& getInternalBox();
 
     /**
-     * @brief Returns the button's text
+     * @brief Returns the filler rectangles
      * 
-     * @return ::sf::Text*
+     * @return ::sf::RectangleShape& 
      */
-    ::sf::Text* getInternalText();
+    ::sf::RectangleShape& getFiller();
+
+    /**
+     * @brief Returns the component bound to the checkbox
+     * 
+     * @return Component&
+     */
+    Component& getInternalComponent();
+
+    /**
+     * @brief Checks if the box has been checked
+     * 
+     * @return bool
+     */
+    bool isChecked() const;
+
+    // ----- Methods -----
 
     /**
      * @brief Updates a component's location
@@ -145,6 +141,12 @@ public:
      * @param newLocation The new location of the component
      */
     void updateLocation(const Point&) override;
+
+    /**
+     * @brief Checks / Unchecks the checkbox
+     * 
+     */
+    void onClick() override;
 
     // ----- Inherited from Anchor -----
 
@@ -183,5 +185,6 @@ public:
      */
     Point getCENTER() const override;
 };
+
 
 }

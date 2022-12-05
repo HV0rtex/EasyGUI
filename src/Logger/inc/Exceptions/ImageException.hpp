@@ -13,10 +13,10 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-/** 
- * @file FontException.hpp
+/**
+ * @file ImageException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the FontException class
+ * @brief Definition of the ImageException class
  * @version 0.1
  * @date 2022-10-05
  * 
@@ -33,24 +33,28 @@ namespace easyGUI
 {
 
 /**
- * @brief Exception thrown when an error occurs inside the Font Manager.
+ * @brief Exception thrown when an error occurs inside a Image.
  * 
  */
-class FontException : public AssetException
+#ifdef _WIN32
+class __declspec(dllexport) ImageException : public AssetException
+#else
+class ImageException : public AssetException
+#endif
 {
 public:
     /**
      * @brief Destructor
      * 
      */
-    virtual ~FontException() {}
+    virtual ~ImageException() = default;
 
     /**
      * @brief Constructor
      * 
      * @param message The message to be displayed
      */
-    FontException(::std::string message) : AssetException( "[ FontManager ] " + message ) {}
+    explicit ImageException(::std::string message) : AssetException( "[ Image ] " + message ) {}
 };
 
 }

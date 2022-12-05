@@ -36,21 +36,25 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside a Label.
  * 
  */
+#ifdef _WIN32
+class __declspec(dllexport) LabelException : public AssetException
+#else
 class LabelException : public AssetException
+#endif
 {
 public:
     /**
      * @brief Destructor
      * 
      */
-    virtual ~LabelException() {}
+    virtual ~LabelException() = default;
 
     /**
      * @brief Constructor
      * 
      * @param message The message to be displayed
      */
-    LabelException(::std::string message) : AssetException( "[ Label ] " + message ) {}
+    explicit LabelException(::std::string message) : AssetException( "[ Label ] " + message ) {}
 };
 
 }

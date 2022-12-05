@@ -36,21 +36,25 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs with a Menu.
  * 
  */
+#ifdef _WIN32
+class __declspec(dllexport) MenuException : public ApplicationException
+#else
 class MenuException : public ApplicationException
+#endif
 {
 public:
     /**
      * @brief Destructor
      * 
      */
-    virtual ~MenuException() {}
+    virtual ~MenuException() = default;
 
     /**
      * @brief Constructor
      * 
      * @param message The message to be displayed
      */
-    MenuException(::std::string message) : ApplicationException( "[ Menu ] " + message ) {}
+    explicit MenuException(::std::string message) : ApplicationException( "[ Menu ] " + message ) {}
 };
 
 }

@@ -37,7 +37,11 @@ namespace easyGUI
  * @brief Exception thrown when something goes wrong at Application level.
  * 
  */
+#ifdef _WIN32
+class __declspec(dllexport) ApplicationException : public ::std::exception
+#else
 class ApplicationException : public ::std::exception
+#endif
 {
 private:
     ::std::string _msg;
@@ -54,14 +58,14 @@ public:
      * 
      * @param message The message to be displayed
      */
-    ApplicationException(::std::string message);
+    explicit ApplicationException(::std::string);
 
     /**
      * @brief Returns the exception message
      * 
      * @return const char* 
      */
-    const char* what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW;     
+    const char* what() const noexcept;     
 };
 
 }

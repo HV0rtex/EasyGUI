@@ -12,45 +12,63 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include <routines.hpp>
-#include <menus.hpp>
 
-using namespace easyGUI;
+/**
+ * @file Converter.cpp
+ * @author David Bogdan (david.bnicolae@gmail.com)
+ * @brief Implementation of the Converter class
+ * @version 0.1
+ * @date 2022-10-07
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
-int main()
+#include <Converter.hpp>
+
+namespace easyGUI
 {
-    // Setting application parameters
-    unsigned appWidth = 800;
-    unsigned appHeight = 600;
-    std::string appTitle = "Demo app";
 
-    // Declaring application object
-    Application* app = nullptr;
+Button* Converter::getButton(Component* asset)
+{
+    if(asset == nullptr)
+        return nullptr;
 
-    // Creating application
-    app = app->getInstance(appWidth, appHeight, appTitle.c_str());
+    return dynamic_cast<Button*>(asset);
+}
 
-    // Creating routines
-    Routine windowHandler(windowHandler_trigger, windowHandler_action);
-    
-    // Adding routine to app
-    app->addRoutine(&windowHandler);
+Label* Converter::getLabel(Component* asset)
+{
+    if(asset == nullptr)
+        return nullptr;
 
-    try
-    {
-        // Creating menus
-        createMainMenu(app);
-        createSecondMenu(app);
+    return dynamic_cast<Label*>(asset);
+}
 
-        // Starting the application
-        app->start();
-    }
-    catch(const ApplicationException* err)
-    {
-        ERROR << err->what();
+TextBox* Converter::getTextbox(Component* asset)
+{
+    if(asset == nullptr)
+        return nullptr;
 
-        return 1;
-    }
-    
-    return 0;
+    return dynamic_cast<TextBox*>(asset);
+}
+
+Image* Converter::getImage(Component* asset)
+{
+    if(asset == nullptr)
+        return nullptr;
+
+    return dynamic_cast<Image*>(asset);
+}
+
+CheckBox* Converter::getCheckBox(Component* asset)
+{
+    if(asset == nullptr)
+        return nullptr;
+
+    return dynamic_cast<CheckBox*>(asset);
+}
+
+
+
 }

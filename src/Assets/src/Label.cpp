@@ -37,7 +37,7 @@ void Label::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 void Label::constructText(const Point& position, const ::std::string& text, const unsigned& charSize)
 {
     _text.setPosition(position.Xcoord, position.Ycoord);
-    _text.setFont(*_font);
+    _text.setFont(*_font.get());
     _text.setFillColor(_textColor);
     _text.setCharacterSize(charSize);
     _text.setString(text);
@@ -48,47 +48,87 @@ bool Label::isMouseHover() const
     if(_container != nullptr)
     {
         ::sf::Vector2i currentPosition = ::sf::Mouse::getPosition(*_container);
+        ::sf::Vector2f worldPos = _container->mapPixelToCoords(currentPosition);
 
-        if(_text.getGlobalBounds().contains(currentPosition.x, currentPosition.y))
+        if(_text.getGlobalBounds().contains(worldPos.x, worldPos.y))
             return true;
     }
 
     return false;
 }
 
-Label::~Label() 
+void Label::updateLocation(const Point& newLocation)
 {
-    FontManager* manager = FontManager::getInstance();
-
-    if(manager != nullptr)
+    if(!isMovable())
     {
-        manager->removeFont(_text.getFont());
+        throw AssetException("Attempting to move an imovable object.");
     }
+
+    _text.setPosition(newLocation.Xcoord, newLocation.Ycoord);
 }
 
-Label::Label(const Point& position, const ::std::string& text, const ::std::string& fontPath, const unsigned& charSize, const sf::Color& color)
+Label::Label(const Point& startLocation, const ::std::string& text, const ::std::shared_ptr<::sf::Font>& font, const unsigned& charSize)
+{
+    if(font == nullptr)
+    {
+        throw LabelException("Invalid font received");
+    }
+
+    _font = font;
+    _textColor = ::sf::Color::White;
+
+    constructText(startLocation, text, charSize);
+}
+
+Label::Label(const Point& startLocation, const ::std::string& text, const ::std::string& fontPath, const unsigned& charSize)
 {
     try
     {
-        FontManager* manager = FontManager::getInstance();
+        FontManager& manager = FontManager::getInstance();
 
-        if(manager == nullptr)
-        {
-            throw LabelException("Could not get hold of Font Manager.");
-        }
+        _font = manager.getAsset(fontPath);
 
-        _font = manager->getFont(fontPath);
+        _textColor = ::sf::Color::White;
 
-        _textColor = color;
-
-        constructText(position, text, charSize);
+        constructText(startLocation, text, charSize);
     }
-    catch(const FontException& err)
+    catch(const ManagerException& err)
     {
         ERROR << err.what();
+        this->~Label();
 
         throw LabelException("Could not get font from Font Manager. Cannot create Label.");
     }
+}
+
+::sf::Text& Label::getInternalText()
+{
+    return _text;
+}
+
+Point Label::getLEFT() const
+{
+    return Point(_text.getGlobalBounds().left - 1, _text.getGlobalBounds().top - 7 + _text.getGlobalBounds().height / 2);
+}
+
+Point Label::getRIGHT() const
+{
+    return Point(_text.getGlobalBounds().left - 1 + _text.getGlobalBounds().width, _text.getGlobalBounds().top - 7 + _text.getGlobalBounds().height / 2);
+}
+
+Point Label::getTOP() const
+{
+    return Point(_text.getGlobalBounds().left - 1 + _text.getGlobalBounds().width / 2, _text.getGlobalBounds().top - 7);
+}
+
+Point Label::getBOTTOM() const
+{
+    return Point(_text.getGlobalBounds().left - 1 + _text.getGlobalBounds().width / 2, _text.getGlobalBounds().top - 7+ _text.getGlobalBounds().height);
+}
+
+Point Label::getCENTER() const
+{
+    return Point(_text.getGlobalBounds().left - 1 + _text.getGlobalBounds().width / 2, _text.getGlobalBounds().top - 7 + _text.getGlobalBounds().height / 2);
 }
 
 }

@@ -29,6 +29,8 @@
 // Including dependencies
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Mouse.hpp>
+#include <Point.hpp>
 #include <Logger.hpp>
 
 namespace easyGUI
@@ -43,7 +45,11 @@ namespace easyGUI
  * however this one is mandatory for all GUI elements.
  * 
  */
+#ifdef _WIN32
+class __declspec(dllexport) Component : public ::sf::Drawable
+#else
 class Component : public ::sf::Drawable
+#endif
 {
 protected:
     ::sf::RenderWindow* _container;
@@ -52,16 +58,18 @@ protected:
     void (*_onHover)() = nullptr;
 
 public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    ~Component() = default;
 
     /**
      * @brief Set the Component's container
      * 
      * @param container The window responsible of the component
      */
-    void setContainer(::sf::RenderWindow*& container)
-    {
-        _container = container;
-    }
+    void setContainer( ::sf::RenderWindow*& );
 
     // ----- Interaction methods -----
 
@@ -78,44 +86,33 @@ public:
      * 
      * @param action Function to be called when component is clicked.
      */
-    void setOnClickAction( void (*action)() )
-    {
-        _onClick = action;
-    }
+    void setOnClickAction( void (*)() );
 
     /**
      * @brief Sets the behaviour when the mouse is moved
      * 
      * @param action The action to be executed.
      */
-    void setOnHoverAction( void (*action)() )
-    {
-        _onHover = action;
-    }
+    void setOnHoverAction( void (*)() );
 
     /**
      * @brief Executes the onClick action
      * 
      */
-    void onClick()
-    {
-        if(_onClick != nullptr && isMouseHover())
-        {
-            _onClick();
-        }
-    }
+    virtual void onClick();
 
     /**
      * @brief Executes the onHover action
      * 
      */
-    void onHover()
-    {
-        if(_onHover != nullptr)
-        {
-            _onHover();
-        }
-    }
+    virtual void onHover();
+
+    /**
+     * @brief Updates a component's location
+     * 
+     * @param newLocation The new location of the component
+     */
+    virtual void updateLocation( const Point& ) = 0;
 };
 
 }

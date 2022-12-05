@@ -12,45 +12,52 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include <routines.hpp>
-#include <menus.hpp>
 
-using namespace easyGUI;
+/**
+ * @file Component.cpp
+ * @author David Bogdan (david.bnicolae@gmail.com)
+ * @brief Implementation of the Component class
+ * @version 0.1
+ * @date 2022-10-07
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
-int main()
+#include <Component.hpp>
+
+namespace easyGUI
 {
-    // Setting application parameters
-    unsigned appWidth = 800;
-    unsigned appHeight = 600;
-    std::string appTitle = "Demo app";
 
-    // Declaring application object
-    Application* app = nullptr;
-
-    // Creating application
-    app = app->getInstance(appWidth, appHeight, appTitle.c_str());
-
-    // Creating routines
-    Routine windowHandler(windowHandler_trigger, windowHandler_action);
-    
-    // Adding routine to app
-    app->addRoutine(&windowHandler);
-
-    try
+void Component::onClick()
+{
+    if(_onClick != nullptr && isMouseHover())
     {
-        // Creating menus
-        createMainMenu(app);
-        createSecondMenu(app);
-
-        // Starting the application
-        app->start();
+        _onClick();
     }
-    catch(const ApplicationException* err)
+}
+
+void Component::onHover()
+{
+    if(_onHover != nullptr)
     {
-        ERROR << err->what();
-
-        return 1;
+        _onHover();
     }
-    
-    return 0;
+}
+
+void Component::setContainer(::sf::RenderWindow*& container)
+{
+    _container = container;
+}
+
+void Component::setOnClickAction(void (*action)())
+{
+    _onClick = action;
+}
+
+void Component::setOnHoverAction(void (*action)())
+{
+    _onHover = action;
+}
+
 }

@@ -27,11 +27,11 @@
 #pragma once
 
 // Including dependencies
-#include <Component.hpp>
 #include <SFML/Graphics/Text.hpp>
-#include <SFML/Window/Mouse.hpp>
-#include <FontManager.hpp>
 #include <Exceptions/LabelException.hpp>
+#include <Manager.hpp>
+#include <AlignmentTool.hpp>
+#include <Component.hpp>
 #include <Point.hpp>
 
 namespace easyGUI
@@ -44,25 +44,36 @@ namespace easyGUI
  * to make the implementation of Labels easier for the end-user. For custom 
  * labels, you can inherit this class.
  */
-class Label : public Component
+#ifdef _WIN32
+class __declspec(dllexport) Label : public Component, public Anchor
+#else
+class Label : public Component, public Anchor
+#endif
 {
 private:
-    ::sf::Font* _font;
+    ::std::shared_ptr<::sf::Font> _font;
     ::sf::Text _text;
     ::sf::Color _textColor;
 
-    virtual void draw(::sf::RenderTarget& target, ::sf::RenderStates states) const;
+    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 
     // ----- Initializers -----
 
-    void constructText(const Point& position, const ::std::string& text, const unsigned& charSize);
+    /**
+     * @brief Initializes the label's text
+     * 
+     * @param location The position of the text
+     * @param text The text of the label
+     * @param charSize The character size
+     */
+    void constructText(const Point&, const ::std::string&, const unsigned&);
 
 public:
     /**
      * @brief Destructor
      * 
      */
-    ~Label();
+    ~Label() = default;
 
     /**
      * @brief Constructor
@@ -71,27 +82,31 @@ public:
      * @param text The text to be displayed.
      * @param fontPath The path to the font file.
      * @param charSize The size of the characters.
-     * @param color The color of the label.
      * 
      * @throw LabelException Invalid font path or couldn't get FontManager
      * 
      * @note The font file format must be .ttf
      */
-    Label(
-        const Point& position, 
-        
-        const ::std::string& text, 
-        const ::std::string& fontPath, 
-        
-        const unsigned& charSize, 
-        const sf::Color& color
-    );
+    Label(const Point&, const ::std::string&, const ::std::string&, const unsigned&);
+
+    /**
+     * @brief Constructor
+     * 
+     * @param position The position where the text should be placed.
+     * @param text The text to be displayed.
+     * @param font A pointer to the font
+     * @param charSize The size of the characters.
+     * 
+     * @throw LabelException Invalid font received
+     * 
+     */
+    Label(const Point&, const ::std::string&, const ::std::shared_ptr<::sf::Font>&, const unsigned&);
 
     // Block other forms of construction
 
     Label()= delete;
-    Label(const Label& other)= delete;
-    Label& operator= (const Label& other)= delete;
+    Label(const Label&)= delete;
+    Label& operator= (const Label&)= delete;
 
     // ----- Auxiliaries -----
 
@@ -101,8 +116,60 @@ public:
      * @return true Mouse is over the label
      * @return false otherwise
      */
-    bool isMouseHover() const;
+    bool isMouseHover() const override;
 
+    // ----- Getters -----
+
+    /**
+     * @brief Returns the SFML text object
+     * 
+     * @return ::sf::Text& 
+     */
+    ::sf::Text& getInternalText();
+
+    /**
+     * @brief Updates a component's location
+     * 
+     * @param newLocation The new location of the component
+     */
+    virtual void updateLocation(const Point&) override;
+
+    // ----- Inherited from Anchor -----
+
+    /**
+     * @brief Returns the point leftmost of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getLEFT() const override;
+
+    /**
+     * @brief Returns the point rightmost of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getRIGHT() const override;
+
+    /**
+     * @brief Returns the lowest point of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getBOTTOM() const override;
+
+    /**
+     * @brief Returns the highest point of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getTOP() const override;
+
+    /**
+     * @brief Returns the point at the center of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getCENTER() const override;
 };
 
 }

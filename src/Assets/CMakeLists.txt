@@ -15,23 +15,41 @@
 
 # ----- Defining library sets -----
 
-add_library(
-    easyGUI-assets STATIC
+set(LIBRARY_SOURCES
+    src/Point.cpp
+    src/AlignmentTool.cpp
+    src/Label.cpp
+    src/Button.cpp
+    src/Component.cpp
+    src/TextBox.cpp
+    src/PasswordBox.cpp
+    src/Image.cpp
+    src/CheckBox.cpp
+    src/Converter.cpp
+)
 
-    ./src/FontManager.cpp
-    ./src/Label.cpp
-    ./src/Button.cpp
+# ----- Defining library sets -----
+
+add_library(
+    easyGUI-assets-s STATIC
+
+    ${LIBRARY_SOURCES}
 )
 
 add_library(
-    easyGUI-assets-shared SHARED
+    easyGUI-assets SHARED
 
-    ./src/FontManager.cpp
-    ./src/Label.cpp
-    ./src/Button.cpp
+    ${LIBRARY_SOURCES}
 )
 
 # ----- Defining includes -----
+
+target_include_directories(
+    easyGUI-assets-s PUBLIC
+
+    inc
+    ../Logger/inc
+)
 
 target_include_directories(
     easyGUI-assets PUBLIC
@@ -40,26 +58,19 @@ target_include_directories(
     ../Logger/inc
 )
 
-target_include_directories(
-    easyGUI-assets-shared PUBLIC
-
-    inc
-    ../Logger/inc
-)
-
 # ----- Linking dependencies -----
 
 target_link_libraries(
-    easyGUI-assets
-    easyGUI-exceptions
+    easyGUI-assets-s
+    easyGUI-exceptions-s
     sfml-graphics
     sfml-window 
     sfml-system
 )
 
 target_link_libraries(
-    easyGUI-assets-shared
-    easyGUI-exceptions-shared
+    easyGUI-assets
+    easyGUI-exceptions
     sfml-graphics 
     sfml-window
     sfml-system
@@ -67,6 +78,6 @@ target_link_libraries(
 
 # ----- Installing library -----
 
-install( TARGETS easyGUI-assets DESTINATION ${PROJECT_LIBRARY_DIR} )
-install( TARGETS easyGUI-assets-shared DESTINATION ${PROJECT_RUNTIME_DIR} )
+install( TARGETS easyGUI-assets-s DESTINATION ${PROJECT_LIBRARY_DIR} )
+install( TARGETS easyGUI-assets DESTINATION ${PROJECT_RUNTIME_DIR} )
 install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )

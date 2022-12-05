@@ -29,8 +29,10 @@
 // Including dependencies
 #include <Routine.hpp>
 #include <Menu.hpp>
+#include <Converter.hpp>
 #include <Logger.hpp>
 #include <Exceptions/MenuException.hpp>
+#include <AlignmentTool.hpp>
 
 namespace easyGUI
 {
@@ -42,15 +44,19 @@ namespace easyGUI
  * easier management of the events (such as onClick, onKeyPress, etc.) 
  * 
  */
-class Application
+#ifdef _WIN32
+class __declspec(dllexport) Application : public Anchor
+#else
+class Application : public Anchor
+#endif
 {
 private:
     static Application* instance;
 
     ::sf::RenderWindow* _window;
- 
+
     ::std::vector < Routine* > routines;
-    ::std::vector < Menu* > menus;
+    ::std::map <::std::string, Menu* > menus;
 
     Menu* _activeMenu;
 
@@ -69,7 +75,7 @@ private:
      * @param title The title of the application
      * 
      */
-    Application(const unsigned& width, const unsigned& height, const char* title);
+    Application( const unsigned&, const unsigned&, const char* );
 
     /**
      * @brief Event handler
@@ -79,14 +85,14 @@ private:
      * 
      * @param event The current window event
      */
-    void handleEvents(const ::sf::Event& event);
+    void handleEvents( const ::sf::Event& );
 
     /**
      * @brief Executes a given action for all components of the active menu
      * 
      * @param action The action to be executed for the component
      */
-    void executeForAll(void (*action)(Component*));
+    void executeForAll( void (*)(Component*) );
 
 public:
     /**
@@ -109,7 +115,7 @@ public:
      * 
      * @throws ApplicationInstance Failed to instantiate application.
      */
-    Application* getInstance(const unsigned& width = 0, const unsigned& height = 0, const char* title = nullptr);
+    Application* getInstance( const unsigned& = 0, const unsigned& = 0, const char* = nullptr );
 
     /**
      * @brief Appends a new menu to the application
@@ -118,31 +124,33 @@ public:
      * this function, then the first call to Application#setActiveMenu will
      * initialize that menu as being the MAIN menu.
      * 
+     * @param ID The ID of the menu
      * @param isStart Denotes if the menu is to be displayed first
      * 
      * @returns Menu*
      * 
-     * @throw MenuException More than one start menu declared.
+     * @throws MenuException More than one start menu declared.
+     * @throws MenuException A menu with that ID already exists.
      */
-    Menu* addMenu(const bool& isStart = false);
+    Menu* addMenu( const ::std::string&, const bool& = false );
 
     /**
      * @brief Gets a menu by its index
      * 
-     * @param index The index of the menu
+     * @param ID The unique ID of the menu
      * 
      * @return Menu*
      * @retval NULL invalid menu index
      * @retval Menu The menu linked to that index.
      */
-    Menu* getMenu(const unsigned& index);
+    Menu* getMenu( const ::std::string& );
 
     /**
      * @brief Retruns the active menu
      * 
      * @return const Menu* 
      */
-    const Menu* getActiveMenu() const;
+    Menu* getActiveMenu();
 
     /**
      * @brief Gets a routine by its index
@@ -153,23 +161,30 @@ public:
      * @retval NULL invalid index
      * @retval Routine The routine linked to that index.
      */
-    Routine* getRoutine(const unsigned& index);
+    Routine* getRoutine( const unsigned& );
+
+    /**
+     * @brief Returns the SFML RenderWindow
+     * 
+     * @return ::sf::RenderWindow* 
+     */
+    ::sf::RenderWindow* getWindow();
 
     /**
      * @brief Changes the active menu
      * 
-     * @param id The index of the menu
+     * @param id The ID of the menu
      * 
      * @throw MenuException Invalid index provided
      */
-    void setActiveMenu(const unsigned& index);
+    void setActiveMenu( const ::std::string& );
 
     /**
      * @brief Adds a new routine to the application
      * 
      * @param routine The routine to be added
      */
-    void addRoutine(Routine* routine);
+    void addRoutine( Routine* );
 
     /**
      * @brief Starts the application
@@ -187,6 +202,14 @@ public:
      * @details Closes the application window.
      */
     void stop();
+
+    // ----- Inherited from anchor -----
+
+    Point getLEFT() const override;
+    Point getRIGHT() const override;
+    Point getBOTTOM() const override;
+    Point getTOP() const override;
+    Point getCENTER() const override;
 };
 
 }

@@ -5,7 +5,49 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Version V1.1.0 - Documentation overhaul (Under development)
+## Version V2.0.0
+
+This release provides many performance improvements as well as some quality of life improvements
+such as access to the internal parts for more flexibility. On top of that, more GUI elements are 
+added and the documentation has been improved.
+
+## Added
+
+Application control:
+- Converter class to facilitate conversion between assets
+- Internal component getter methods
+- Components can now be moved by routines
+- Application now scales with window size
+- Added option to align elements in respect to other elements or the window
+
+GUI Elements:
+- Text box
+- Password box
+- Check box
+- Image
+
+## Fixed
+
+Application control:
+- Menus and components are linked to a unique ID now
+- Fixed memory leaks caused by singletons.
+
+Source files:
+- Reworked demo project to be more meaningful
+- Lowered header file dimensions
+
+GUI Elements:
+- Reworked FontManager as a template class that manages multiple assets.
+- Lowered the amount of arguments in constructors (missing arguments have been set as default options)
+
+## Removed
+
+Source control:
+- Removed the testing phase
+- Removed Unit Test artefact
+- Removed tests directory
+
+## Version V1.1.0 - Documentation overhaul (7.10.2022)
 
 This release provides an overhaul to the existing documentation and an improvement to the overall
 understanding and ease of use of the extension.

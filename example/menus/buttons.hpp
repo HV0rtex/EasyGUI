@@ -28,6 +28,7 @@
 
 // Dependencies
 #include <Application.hpp>
+#include <Converter.hpp>
 
 // First menu buttons
 

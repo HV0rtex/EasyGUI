@@ -24,6 +24,12 @@
  * 
  */
 
+#pragma once
+
+// Including dependencies
+#include <SFML/System/Vector2.hpp>
+#include <utility>
+
 namespace easyGUI
 {
 
@@ -31,13 +37,94 @@ namespace easyGUI
  * @brief Stores the coordinates of a point.
  * 
  */
+#ifdef _WIN32
+struct __declspec(dllexport) Point
+#else
 struct Point
+#endif
 {
     float Xcoord;
     float Ycoord;
 
-    Point() : Xcoord(0), Ycoord(0) {}
-    Point(const float& x, const float& y) : Xcoord(x), Ycoord(y) {}
+    /**
+     * @brief Default constructor
+     * 
+     */
+    Point() = default;
+
+    /**
+     * @brief Constructor
+     * 
+     * @param x The X-coordinate
+     * @param y The Y-coordinate
+     */
+    explicit Point(const float&, const float&);
+
+    /**
+     * @brief Converts Vector2f to Point
+     * 
+     * @param vector The SFML equivalent
+     */
+    explicit Point(const ::sf::Vector2f&);
+
+    /**
+     * @brief Copy-Constructor
+     * 
+     * @param other A point to copy from
+     */
+    Point(const Point&) noexcept;
+
+    /**
+     * @brief Move-constructor
+     * 
+     * @param other A point to be moved here
+     */
+    Point(Point&&) noexcept;
+
+    /**
+     * @brief Assignment operator
+     * 
+     * @param other A point to copy from
+     * 
+     * @return Point& 
+     */
+    const Point& operator= (const Point&) noexcept;
+
+    /**
+     * @brief Move assignment operator
+     * 
+     * @param other A point to be moved here
+     * 
+     * @return Point& 
+     */
+    const Point& operator= (Point&&) noexcept;
+
+    /**
+     * @brief Adds two points
+     * 
+     * @param other the point to be added
+     * 
+     * @return Point 
+     */
+    Point operator+ (const Point&) const noexcept;
+
+    /**
+     * @brief Divides both coordinates by a factor
+     * 
+     * @param factor The divisor
+     * 
+     * @return Point 
+     */
+    Point operator/ (const float&) const noexcept;
+
+    /**
+     * @brief Multiplies both coordinates by a factor
+     * 
+     * @param factor The factor
+     * 
+     * @return Point 
+     */
+    Point operator* (const float&) const noexcept;
 };
 
 }

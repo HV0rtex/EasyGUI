@@ -14,11 +14,11 @@
 
 
 /**
- * @file Button.hpp
+ * @file Image.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the Button class
+ * @brief Definition of the Image class
  * @version 0.1
- * @date 2022-09-01
+ * @date 2022-10-20
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -27,93 +27,65 @@
 #pragma once
 
 // Including dependencies
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <Exceptions/ButtonException.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <Exceptions/ImageException.hpp>
 #include <AlignmentTool.hpp>
-#include <Label.hpp>
+#include <Component.hpp>
+#include <Manager.hpp>
 
 namespace easyGUI
 {
 
 /**
- * @brief Implements a button component
+ * @brief Draws an image to the screen
  * 
- * @details Draws a button on a window. The class makes use of the
- * Label class in order to draw and configure the button's text.
  */
 #ifdef _WIN32
-class __declspec(dllexport) Button : public Component, public Anchor
+class __declspec(dllexport) Image : public Component, public Anchor
 #else
-class Button : public Component, public Anchor
+class Image : public Component, public Anchor
 #endif
 {
 private:
-    ::sf::RectangleShape _shape;
-    Label* _content;
+    ::std::shared_ptr<::sf::Texture> _image;
+    ::sf::Sprite _object;
 
-    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
-
-    // ----- Helper methods -----
-
-    /**
-     * @brief Computes the correction to be applied to the char size of the text
-     * 
-     * @param textLenght The length of the text
-     * @param desiredSize The desired char size
-     * @return unsigned
-     */
-    unsigned getCharSizeCorrection(const unsigned&, const unsigned&) const;
-
+    void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 public:
     /**
      * @brief Destructor
      * 
      */
-    ~Button();
+    ~Image() = default;
 
     /**
      * @brief Constructor
      * 
-     * @param startLocation The location of the top-left corner 
-     * @param endLocation The location of the bottom-right corner
-     *
-     * @param text The button's text
-     * @param fontPath The path to the font file
+     * @param startLocation The top-left corner of the image
+     * @param endLocation The bottom-left corner of the image
+     * @param path The path to the image
      * 
-     * @param charSize The size of the characters
-     * 
-     * @throw ButtonException
-     * 
-     * @note The font file format must be .ttf
-
+     * @throws ImageException could not load image
      */
-    Button(const Point&, const Point&, const ::std::string&, const ::std::string&, const unsigned&);
+    Image(const Point&, const Point&, const ::std::string&);
 
     /**
      * @brief Constructor
      * 
-     * @param startLocation The location of the top-left corner 
-     * @param width The width of the button
-     * @param height The height of the button
+     * @param startLocation The top-left corner of the image
+     * @param width The width of the image
+     * @param height The height of the image
+     * @param path The path to the image
      * 
-     * @param text The button's text
-     * @param fontPath The path to the font file
-     * 
-     * @param charSize The size of the characters
-     * 
-     * @throw ButtonException
-     * 
-     * @note The font file format must be .ttf
+     * @throws ImageException could not load image
      */
-    Button(const Point&, const float&, const float&, const ::std::string&, const ::std::string&, const unsigned&);
+    Image(const Point&, const float&, const float&, const std::string&);
 
     // Block other forms of construction
 
-    Button() = delete;
-    Button( const Button& ) = delete;
-    Button& operator= ( const Button& ) = delete;
-
-    // ----- Auxiliaries -----
+    Image() = delete;
+    Image(const Image&) = delete;
+    Image& operator= (const Image&) = delete;
 
     /**
      * @brief Check if mouse is over the button
@@ -122,22 +94,6 @@ public:
      * @return false otherwise
      */
     bool isMouseHover() const override;
-
-    // ----- Getters -----
-
-    /**
-     * @brief Returns the SFML RectangleShape
-     * 
-     * @return ::sf::RectangleShape& 
-     */
-    ::sf::RectangleShape& getInternalButton();
-
-    /**
-     * @brief Returns the button's text
-     * 
-     * @return ::sf::Text*
-     */
-    ::sf::Text* getInternalText();
 
     /**
      * @brief Updates a component's location

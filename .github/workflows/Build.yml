@@ -1,0 +1,88 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  Build:
+    name: ${{ matrix.platform.name }}
+    runs-on: ${{ matrix.platform.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+        - { name: Windows,  os: windows-latest }
+        - { name: Linux,    os: ubuntu-latest  }
+        - { name: MacOS,    os: macos-latest   }
+        
+    steps:
+    - uses: actions/checkout@master
+    
+    - name: Install Linux Dependencies
+      if: runner.os == 'Linux'
+      run: sudo apt-get update && sudo apt-get install libxrandr-dev libxcursor-dev libudev-dev libopenal-dev libflac-dev libvorbis-dev libgl1-mesa-dev libegl1-mesa-dev
+
+    - name: Checkout SFML
+      uses: actions/checkout@master
+      with:
+        fetch-depth: 0
+        repository: SFML/SFML
+        ref: 2.6.x
+        path: SFML
+
+    - name: Prepare SFML build
+      shell: bash
+      run: cmake -S $GITHUB_WORKSPACE/SFML -B $GITHUB_WORKSPACE/SFML/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install
+
+    - name: SFML - Build
+      shell: bash
+      run: cmake --build $GITHUB_WORKSPACE/SFML/build --config ${{env.BUILD_TYPE}} --target install
+    
+    - name: Configure CMake
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake
+
+    - name: Building project
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+    - name: Installing artifacts
+      run: cd ${{github.workspace}}/build && cmake --install .
+
+    - name: Move Windows "shared" .a files
+      if: runner.os == 'Windows'
+      run: copy ${{github.workspace}}/bin/*.lib ${{github.workspace}}/lib && del ${{github.workspace}}/bin/*.lib
+
+    - name: Publishing package
+      uses: actions/upload-artifact@master
+      with:
+        name: ${{matrix.platform.name}}
+        path: |
+          ${{github.workspace}}/bin
+          ${{github.workspace}}/lib
+          ${{github.workspace}}/include
+          ${{github.workspace}}/example
+
+  Documentation:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Installing doxygen
+      run: sudo apt-get install doxygen
+
+    - name: Generating documentation
+      run: cd ${{github.workspace}} && doxygen docs/doxyfile.txt
+
+    - name: Publishing documentation
+      uses: actions/upload-artifact@master
+      with:
+        name: Documentation
+        path: ${{github.workspace}}/docs/html
