@@ -5,11 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Version V2.0.0
+## Version V2.0.0 - GUI Overhaul (5.12.2022)
 
 This release provides many performance improvements as well as some quality of life improvements
 such as access to the internal parts for more flexibility. On top of that, more GUI elements are 
 added and the documentation has been improved.
+
+Furthermore, the extension is now officially supported on all major operating systems (Windows, Linux adn MacOS).
 
 ## Added
 
