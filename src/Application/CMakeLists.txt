@@ -60,8 +60,8 @@ target_link_libraries(
 
 target_link_libraries(
     easyGUI-application
-    easyGUI-assets
-    easyGUI-exceptions
+    easyGUI-assets-s
+    easyGUI-exceptions-s
     sfml-graphics
     sfml-window
     sfml-system
