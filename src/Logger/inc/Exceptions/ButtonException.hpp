@@ -37,7 +37,7 @@ namespace easyGUI
  * 
  */
 #ifdef _WIN32
-class __declspec(dllimport) ButtonException : public AssetException
+class __declspec(dllexport) ButtonException : public AssetException
 #else
 class ButtonException : public AssetException
 #endif

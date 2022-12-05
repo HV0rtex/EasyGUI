@@ -37,7 +37,7 @@ namespace easyGUI
  * 
  */
 #ifdef _WIN32
-class __declspec(dllimport) CheckBoxException : public AssetException
+class __declspec(dllexport) CheckBoxException : public AssetException
 #else
 class CheckBoxException : public AssetException
 #endif

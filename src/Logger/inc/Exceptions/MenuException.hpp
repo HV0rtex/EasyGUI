@@ -37,7 +37,7 @@ namespace easyGUI
  * 
  */
 #ifdef _WIN32
-class __declspec(dllimport) MenuException : public ApplicationException
+class __declspec(dllexport) MenuException : public ApplicationException
 #else
 class MenuException : public ApplicationException
 #endif

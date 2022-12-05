@@ -37,7 +37,7 @@ namespace easyGUI
  * 
  */
 #ifdef _WIN32
-class __declspec(dllimport) ManagerException : public AssetException
+class __declspec(dllexport) ManagerException : public AssetException
 #else
 class ManagerException : public AssetException
 #endif

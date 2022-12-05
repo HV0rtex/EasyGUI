@@ -37,7 +37,7 @@ namespace easyGUI
  * 
  */
 #ifdef _WIN32
-class __declspec(dllimport) TextBoxException : public AssetException
+class __declspec(dllexport) TextBoxException : public AssetException
 #else
 class TextBoxException : public AssetException
 #endif
