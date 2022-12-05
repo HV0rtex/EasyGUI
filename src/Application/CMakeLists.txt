@@ -57,15 +57,25 @@ target_link_libraries(
     sfml-window
     sfml-system
 )
-
-target_link_libraries(
-    easyGUI-application
-    easyGUI-assets-s
-    easyGUI-exceptions-s
-    sfml-graphics
-    sfml-window
-    sfml-system
-)
+if(WIN32)
+    target_link_libraries(
+        easyGUI-application
+        easyGUI-assets-s
+        easyGUI-exceptions-s
+        sfml-graphics
+        sfml-window
+        sfml-system
+    )
+else()
+    target_link_libraries(
+        easyGUI-application
+        easyGUI-assets
+        easyGUI-exceptions
+        sfml-graphics
+        sfml-window
+        sfml-system
+    )
+endif()
 
 # ----- Installing library -----
 
