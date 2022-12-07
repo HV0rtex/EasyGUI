@@ -64,6 +64,7 @@ jobs:
           ${{github.workspace}}/lib
           ${{github.workspace}}/include
           ${{github.workspace}}/example
+          ${{github.workspace}}/SFML/install
 
   Documentation:
     runs-on: ubuntu-latest
