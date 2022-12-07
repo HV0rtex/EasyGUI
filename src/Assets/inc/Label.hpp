@@ -44,11 +44,7 @@ namespace easyGUI
  * to make the implementation of Labels easier for the end-user. For custom 
  * labels, you can inherit this class.
  */
-#ifdef _WIN32
-class __declspec(dllexport) Label : public Component, public Anchor
-#else
 class Label : public Component, public Anchor
-#endif
 {
 private:
     ::std::shared_ptr<::sf::Font> _font;

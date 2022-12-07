@@ -47,11 +47,7 @@ namespace easyGUI
  * 
  * @tparam T The type of resource managed by the class
  */
-#ifdef _WIN32
-template <typename T> class __declspec(dllexport) Manager
-#else
 template <typename T> class Manager
-#endif
 {
 private:
     ::std::map<::std::string, ::std::shared_ptr<T>> storedResources;

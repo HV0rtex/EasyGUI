@@ -36,11 +36,7 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside the  Manager.
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) ManagerException : public AssetException
-#else
 class ManagerException : public AssetException
-#endif
 {
 public:
     /**

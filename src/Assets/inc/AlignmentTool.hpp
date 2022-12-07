@@ -37,11 +37,7 @@ namespace easyGUI
 {
 
 // Stub declaration
-#ifdef _WIN32
-class __declspec(dllexport) AlignmentTool;
-#else
 class AlignmentTool;
-#endif
 
 /**
  * @brief Defines an anchor on the window
@@ -50,11 +46,7 @@ class AlignmentTool;
  * to allign themselves in the window.
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) Anchor
-#else
 class Anchor
-#endif
 {
 private:
     char movable_;
@@ -149,11 +141,7 @@ typedef ::std::pair<Mode, Mode> Binding;
  * is by moving the anchor it is bound to.
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) AlignmentTool
-#else
 class AlignmentTool
-#endif
 {
 private:
     ::std::map<const Anchor*, ::std::vector<::std::pair<::std::pair<Anchor*, Binding>, const Point>>> _bindings;

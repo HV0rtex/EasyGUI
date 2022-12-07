@@ -37,11 +37,7 @@ namespace easyGUI
  * @brief Exception thrown when something goes wrong at Asset level.
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) AssetException : public ::std::exception
-#else
 class AssetException : public ::std::exception
-#endif
 {
 private:
     ::std::string _msg;

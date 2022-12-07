@@ -37,11 +37,7 @@ namespace easyGUI
  * @brief Stores the coordinates of a point.
  * 
  */
-#ifdef _WIN32
-struct __declspec(dllexport) Point
-#else
 struct Point
-#endif
 {
     float Xcoord;
     float Ycoord;

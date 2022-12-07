@@ -40,11 +40,7 @@ namespace easyGUI
  * @brief Draws an image to the screen
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) Image : public Component, public Anchor
-#else
 class Image : public Component, public Anchor
-#endif
 {
 private:
     ::std::shared_ptr<::sf::Texture> _image;

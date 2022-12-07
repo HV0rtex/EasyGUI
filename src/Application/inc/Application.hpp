@@ -44,11 +44,7 @@ namespace easyGUI
  * easier management of the events (such as onClick, onKeyPress, etc.) 
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) Application : public Anchor
-#else
 class Application : public Anchor
-#endif
 {
 private:
     static Application* instance;

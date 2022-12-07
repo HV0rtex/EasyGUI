@@ -36,11 +36,7 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside the CheckBox.
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) CheckBoxException : public AssetException
-#else
 class CheckBoxException : public AssetException
-#endif
 {
 public:
     /**

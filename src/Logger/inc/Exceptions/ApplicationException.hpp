@@ -37,11 +37,7 @@ namespace easyGUI
  * @brief Exception thrown when something goes wrong at Application level.
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) ApplicationException : public ::std::exception
-#else
 class ApplicationException : public ::std::exception
-#endif
 {
 private:
     ::std::string _msg;

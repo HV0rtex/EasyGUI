@@ -44,11 +44,7 @@ namespace easyGUI
  * of the mouse position.
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) Routine
-#else
 class Routine
-#endif
 {
 private:
     bool (*_trigger)(const ::sf::Event& action);
