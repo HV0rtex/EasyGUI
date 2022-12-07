@@ -36,11 +36,7 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside a Label.
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) LabelException : public AssetException
-#else
 class LabelException : public AssetException
-#endif
 {
 public:
     /**

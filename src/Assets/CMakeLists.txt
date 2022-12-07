@@ -36,11 +36,13 @@ add_library(
     ${LIBRARY_SOURCES}
 )
 
-add_library(
-    easyGUI-assets SHARED
+if(NOT WIN32)
+    add_library(
+        easyGUI-assets SHARED
 
-    ${LIBRARY_SOURCES}
-)
+        ${LIBRARY_SOURCES}
+    )
+endif()
 
 # ----- Defining includes -----
 
@@ -51,12 +53,14 @@ target_include_directories(
     ../Logger/inc
 )
 
-target_include_directories(
-    easyGUI-assets PUBLIC
+if(NOT WIN32)
+    target_include_directories(
+        easyGUI-assets PUBLIC
 
-    inc
-    ../Logger/inc
-)
+        inc
+        ../Logger/inc
+    )
+endif()
 
 # ----- Linking dependencies -----
 
@@ -68,16 +72,22 @@ target_link_libraries(
     sfml-system
 )
 
-target_link_libraries(
-    easyGUI-assets
-    easyGUI-exceptions
-    sfml-graphics 
-    sfml-window
-    sfml-system
-)
+if(NOT WIN32)
+    target_link_libraries(
+        easyGUI-assets
+        easyGUI-exceptions
+        sfml-graphics 
+        sfml-window
+        sfml-system
+    )
+endif()
 
 # ----- Installing library -----
 
 install( TARGETS easyGUI-assets-s DESTINATION ${PROJECT_LIBRARY_DIR} )
-install( TARGETS easyGUI-assets DESTINATION ${PROJECT_RUNTIME_DIR} )
+
+if(NOT WIN32)
+    install( TARGETS easyGUI-assets DESTINATION ${PROJECT_RUNTIME_DIR} )
+endif()
+
 install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )

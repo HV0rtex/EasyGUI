@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Version V2.0.1 - Windows maintanance (7.12.2022)
+
+This release drops the support for **shared libraries** on Windows OS, due to linkage errors found in testing.
+The support will be continued once the errors have been fixed in an upcomming version. Furthermore, this patch fixes
+static linkage on windows.
+
+## Removed
+- Windows SHARED libraries
+
+## Fixed
+- Windows STATIC libraries
+
 ## Version V2.0.0 - GUI Overhaul (5.12.2022)
 
 This release provides many performance improvements as well as some quality of life improvements

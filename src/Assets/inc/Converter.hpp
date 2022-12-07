@@ -39,11 +39,7 @@ namespace easyGUI
  * @brief Responsible for conversions between components
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) Converter
-#else
 class Converter
-#endif
 {
 public:
     /**

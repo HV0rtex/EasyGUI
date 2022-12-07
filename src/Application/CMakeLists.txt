@@ -22,12 +22,14 @@ add_library(
     ./src/Menu.cpp
 )
 
-add_library(
-    easyGUI-application SHARED
-    ./src/Application.cpp
-    ./src/Routine.cpp
-    ./src/Menu.cpp
-)
+if(NOT WIN32)
+    add_library(
+        easyGUI-application SHARED
+        ./src/Application.cpp
+        ./src/Routine.cpp
+        ./src/Menu.cpp
+    )
+endif()
 
 # ----- Defining includes -----
 
@@ -39,13 +41,15 @@ target_include_directories(
     ../Logger/inc
 )
 
-target_include_directories(
-    easyGUI-application PUBLIC
+if(NOT WIN32)
+    target_include_directories(
+        easyGUI-application PUBLIC
 
-    inc
-    ../Assets/inc
-    ../Logger/inc
-)
+        inc
+        ../Assets/inc
+        ../Logger/inc
+    )
+endif()
 
 # ----- Linking dependencies -----
 
@@ -57,16 +61,7 @@ target_link_libraries(
     sfml-window
     sfml-system
 )
-if(WIN32)
-    target_link_libraries(
-        easyGUI-application
-        easyGUI-assets-s
-        easyGUI-exceptions-s
-        sfml-graphics
-        sfml-window
-        sfml-system
-    )
-else()
+if(NOT WIN32)
     target_link_libraries(
         easyGUI-application
         easyGUI-assets
@@ -80,5 +75,9 @@ endif()
 # ----- Installing library -----
 
 install( TARGETS easyGUI-application-s DESTINATION ${PROJECT_LIBRARY_DIR} )
-install( TARGETS easyGUI-application DESTINATION ${PROJECT_RUNTIME_DIR} )
+
+if(NOT WIN32)
+    install( TARGETS easyGUI-application DESTINATION ${PROJECT_RUNTIME_DIR} )
+endif()
+
 install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )

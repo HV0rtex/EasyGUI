@@ -40,11 +40,7 @@ namespace easyGUI
  * into a password box via the Converter class.
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) PasswordBox : public TextBox
-#else
 class PasswordBox : public TextBox
-#endif
 {
 private:
     ::std::string _passText;

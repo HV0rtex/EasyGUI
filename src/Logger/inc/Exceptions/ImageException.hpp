@@ -36,11 +36,7 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside a Image.
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) ImageException : public AssetException
-#else
 class ImageException : public AssetException
-#endif
 {
 public:
     /**

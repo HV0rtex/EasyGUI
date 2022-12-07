@@ -36,11 +36,7 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside the Button.
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) ButtonException : public AssetException
-#else
 class ButtonException : public AssetException
-#endif
 {
 public:
     /**

@@ -43,11 +43,7 @@ namespace easyGUI
  * to access both the border and the text.
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) TextBox : public Component, public Anchor
-#else
 class TextBox : public Component, public Anchor
-#endif
 {
 protected:
     ::sf::RectangleShape _shape;

@@ -36,11 +36,7 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside the TextBox.
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) TextBoxException : public AssetException
-#else
 class TextBoxException : public AssetException
-#endif
 {
 public:
     /**

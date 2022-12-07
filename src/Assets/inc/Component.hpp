@@ -45,11 +45,7 @@ namespace easyGUI
  * however this one is mandatory for all GUI elements.
  * 
  */
-#ifdef _WIN32
-class __declspec(dllexport) Component : public ::sf::Drawable
-#else
 class Component : public ::sf::Drawable
-#endif
 {
 protected:
     ::sf::RenderWindow* _container;
