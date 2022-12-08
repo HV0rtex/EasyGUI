@@ -74,7 +74,10 @@ if(${BUILD_SHARED_LIBRARIES})
     )
 
     if(WIN32)
-        GENERATE_EXPORT_HEADER(easyGUI-assets)
+        GENERATE_EXPORT_HEADER(
+            easyGUI-assets
+            EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/inc/assets-export.hpp
+        )
     endif()
 else()
     target_link_libraries(

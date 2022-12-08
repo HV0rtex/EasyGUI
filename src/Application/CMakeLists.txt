@@ -25,7 +25,10 @@ if(${BUILD_SHARED_LIBRARIES})
     )
 
     if(WIN32)
-        GENERATE_EXPORT_HEADER(easyGUI-application)
+        GENERATE_EXPORT_HEADER(
+            easyGUI-application
+            EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/inc/application-export.hpp
+        )
     endif()
 else()
     add_library(
