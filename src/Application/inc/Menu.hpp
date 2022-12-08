@@ -27,7 +27,7 @@
 #pragma once
 
 // Including dependencies
-#if WIN32 && BUILD_SHARED_LIBRARIES
+#if _WIN32 && BUILD_SHARED_LIBRARIES
     #include <application-export.hpp>
 #endif
 
