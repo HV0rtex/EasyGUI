@@ -40,7 +40,11 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside the Button.
  * 
  */
+#if _WIN32 && BUILD_SHARED_LIBRARIES
+class EXCEPTIONS_EXPORTS ButtonException : public AssetException
+#else
 class ButtonException : public AssetException
+#endif
 {
 public:
     /**

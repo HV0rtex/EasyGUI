@@ -40,7 +40,11 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside the TextBox.
  * 
  */
+#if _WIN32 && BUILD_SHARED_LIBRARIES
+class EXCEPTIONS_EXPORTS TextBoxException : public AssetException
+#else
 class TextBoxException : public AssetException
+#endif
 {
 public:
     /**

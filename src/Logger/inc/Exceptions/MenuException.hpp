@@ -40,7 +40,11 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs with a Menu.
  * 
  */
+#if _WIN32 && BUILD_SHARED_LIBRARIES
+class EXCEPTIONS_EXPORTS MenuException : public ApplicationException
+#else
 class MenuException : public ApplicationException
+#endif
 {
 public:
     /**

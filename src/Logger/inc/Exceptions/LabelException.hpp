@@ -40,7 +40,11 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside a Label.
  * 
  */
+#if _WIN32 && BUILD_SHARED_LIBRARIES
+class EXCEPTIONS_EXPORTS LabelException : public AssetException
+#else
 class LabelException : public AssetException
+#endif
 {
 public:
     /**

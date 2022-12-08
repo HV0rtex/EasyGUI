@@ -44,6 +44,7 @@ if(${BUILD_SHARED_LIBRARIES})
         GENERATE_EXPORT_HEADER(
             easyGUI-exceptions 
             EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/inc/exceptions-export.hpp
+            EXPORT_MACRO_NAME EXCEPTIONS_EXPORTS
         )
     endif()
 else()

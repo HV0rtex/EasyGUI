@@ -48,7 +48,11 @@ namespace easyGUI
  * easier management of the events (such as onClick, onKeyPress, etc.) 
  * 
  */
-class Application : public Anchor
+#if _WIN32 && BUILD_SHARED_LIBRARIES
+    class APPLICATION_EXPORTS Application : public Anchor
+#else
+    class Application : public Anchor
+#endif
 {
 private:
     static Application* instance;

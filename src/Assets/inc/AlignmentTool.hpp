@@ -50,7 +50,11 @@ class AlignmentTool;
  * to allign themselves in the window.
  * 
  */
+#if _WIN32 && BUILD_SHARED_LIBRARIES
+class ASSETS_EXPORTS Anchor
+#else
 class Anchor
+#endif
 {
 private:
     char movable_;
@@ -145,7 +149,11 @@ typedef ::std::pair<Mode, Mode> Binding;
  * is by moving the anchor it is bound to.
  * 
  */
+#if _WIN32 && BUILD_SHARED_LIBRARIES
+class ASSETS_EXPORTS AlignmentTool
+#else
 class AlignmentTool
+#endif
 {
 private:
     ::std::map<const Anchor*, ::std::vector<::std::pair<::std::pair<Anchor*, Binding>, const Point>>> _bindings;

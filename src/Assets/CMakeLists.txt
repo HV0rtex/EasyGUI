@@ -77,6 +77,7 @@ if(${BUILD_SHARED_LIBRARIES})
         GENERATE_EXPORT_HEADER(
             easyGUI-assets
             EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/inc/assets-export.hpp
+            EXPORT_MACRO_NAME ASSETS_EXPORTS
         )
     endif()
 else()

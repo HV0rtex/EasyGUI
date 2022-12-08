@@ -48,7 +48,11 @@ namespace easyGUI
  * of the mouse position.
  * 
  */
+#if _WIN32 && BUILD_SHARED_LIBRARIES
+class APPLICATION_EXPORTS Routine
+#else
 class Routine
+#endif
 {
 private:
     bool (*_trigger)(const ::sf::Event& action);

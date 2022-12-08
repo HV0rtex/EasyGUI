@@ -41,7 +41,11 @@ namespace easyGUI
  * @brief Stores the coordinates of a point.
  * 
  */
+#if _WIN32 && BUILD_SHARED_LIBRARIES
+struct ASSETS_EXPORTS Point
+#else
 struct Point
+#endif
 {
     float Xcoord;
     float Ycoord;

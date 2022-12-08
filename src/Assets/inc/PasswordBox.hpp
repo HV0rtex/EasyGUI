@@ -44,7 +44,11 @@ namespace easyGUI
  * into a password box via the Converter class.
  * 
  */
+#if _WIN32 && BUILD_SHARED_LIBRARIES
+class ASSETS_EXPORTS PasswordBox : public TextBox
+#else
 class PasswordBox : public TextBox
+#endif
 {
 private:
     ::std::string _passText;

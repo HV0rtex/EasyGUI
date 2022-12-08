@@ -40,7 +40,11 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside the  Manager.
  * 
  */
+#if _WIN32 && BUILD_SHARED_LIBRARIES
+class EXCEPTIONS_EXPORTS ManagerException : public AssetException
+#else
 class ManagerException : public AssetException
+#endif
 {
 public:
     /**

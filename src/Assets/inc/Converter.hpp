@@ -43,7 +43,11 @@ namespace easyGUI
  * @brief Responsible for conversions between components
  * 
  */
+#if _WIN32 && BUILD_SHARED_LIBRARIES
+class ASSETS_EXPORTS Converter
+#else
 class Converter
+#endif
 {
 public:
     /**

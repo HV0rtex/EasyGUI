@@ -48,7 +48,11 @@ namespace easyGUI
  * @details A menu groups different application components under the same container
  * and usually corresponds to a specific application screen.
  */
+#if _WIN32 && BUILD_SHARED_LIBRARIES
+class APPLICATION_EXPORTS Menu : public ::sf::Drawable
+#else
 class Menu : public ::sf::Drawable
+#endif
 {
 private:
     ::sf::RenderWindow* _container;
