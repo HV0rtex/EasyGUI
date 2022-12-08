@@ -72,6 +72,10 @@ if(${BUILD_SHARED_LIBRARIES})
         sfml-window
         sfml-system
     )
+
+    if(WIN32)
+        GENERATE_EXPORT_HEADER(easyGUI-assets)
+    endif()
 else()
     target_link_libraries(
         easyGUI-assets-s
@@ -85,7 +89,10 @@ endif()
 # ----- Installing library -----
 
 if(${BUILD_SHARED_LIBRARIES})
-    install( TARGETS easyGUI-assets DESTINATION ${PROJECT_RUNTIME_DIR} )
+    install( TARGETS easyGUI-assets 
+        RUNTIME DESTINATION ${PROJECT_RUNTIME_DIR} 
+        ARCHIVE DESTINATION ${PROJECT_LIBRARY_DIR}
+    )
 else()
     install( TARGETS easyGUI-assets-s DESTINATION ${PROJECT_LIBRARY_DIR} )
 endif()

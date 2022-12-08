@@ -39,6 +39,10 @@ if(${BUILD_SHARED_LIBRARIES})
 
         inc
     )
+
+    if(WIN32)
+        GENERATE_EXPORT_HEADER(easyGUI-exceptions)
+    endif()
 else()
     target_include_directories(
         easyGUI-exceptions-s PUBLIC
@@ -50,7 +54,10 @@ endif()
 # ----- Installing library -----
 
 if(${BUILD_SHARED_LIBRARIES})
-    install( TARGETS easyGUI-exceptions DESTINATION ${PROJECT_RUNTIME_DIR} )
+    install( TARGETS easyGUI-exceptions
+        RUNTIME DESTINATION ${PROJECT_RUNTIME_DIR} 
+        ARCHIVE DESTINATION ${PROJECT_LIBRARY_DIR}
+    )
 else()
     install( TARGETS easyGUI-exceptions-s DESTINATION ${PROJECT_LIBRARY_DIR} )
 endif()

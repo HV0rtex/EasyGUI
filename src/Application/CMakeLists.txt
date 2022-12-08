@@ -23,6 +23,10 @@ if(${BUILD_SHARED_LIBRARIES})
         ./src/Routine.cpp
         ./src/Menu.cpp
     )
+
+    if(WIN32)
+        GENERATE_EXPORT_HEADER(easyGUI-application)
+    endif()
 else()
     add_library(
         easyGUI-application-s STATIC
@@ -78,7 +82,10 @@ endif()
 # ----- Installing library -----
 
 if(${BUILD_SHARED_LIBRARIES})
-    install( TARGETS easyGUI-application DESTINATION ${PROJECT_RUNTIME_DIR} )
+    install( TARGETS easyGUI-application 
+        RUNTIME DESTINATION ${PROJECT_RUNTIME_DIR} 
+        ARCHIVE DESTINATION ${PROJECT_LIBRARY_DIR}
+    )
 else()
     install( TARGETS easyGUI-application-s DESTINATION ${PROJECT_LIBRARY_DIR} )
 endif()
