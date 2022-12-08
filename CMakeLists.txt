@@ -65,7 +65,9 @@ if(WIN32)
 		-Oi
 	)
 
-	include(GenerateExportHeader)
+	if(${BUILD_SHARED_LIBRARIES})
+		include(GenerateExportHeader)
+	endif()
 endif()
 
 # ----- Building sources -----

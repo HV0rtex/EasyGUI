@@ -15,16 +15,16 @@
 
 # ----- Defining library sets -----
 
-add_library(
-    easyGUI-exceptions-s STATIC
-
-    src/AssetException.cpp
-    src/ApplicationException.cpp
-)
-
-if(NOT WIN32)
+if(${BUILD_SHARED_LIBRARIES})
     add_library(
         easyGUI-exceptions SHARED
+
+        src/AssetException.cpp
+        src/ApplicationException.cpp
+    )
+else()
+    add_library(
+        easyGUI-exceptions-s STATIC
 
         src/AssetException.cpp
         src/ApplicationException.cpp
@@ -33,15 +33,15 @@ endif()
 
 # ----- Defining includes -----
 
-target_include_directories(
-    easyGUI-exceptions-s PUBLIC
-
-    inc
-)
-
-if(NOT WIN32)
+if(${BUILD_SHARED_LIBRARIES})
     target_include_directories(
         easyGUI-exceptions PUBLIC
+
+        inc
+    )
+else()
+    target_include_directories(
+        easyGUI-exceptions-s PUBLIC
 
         inc
     )
@@ -49,10 +49,10 @@ endif()
 
 # ----- Installing library -----
 
-install( TARGETS easyGUI-exceptions-s DESTINATION ${PROJECT_LIBRARY_DIR} )
-
-if(NOT WIN32)
+if(${BUILD_SHARED_LIBRARIES})
     install( TARGETS easyGUI-exceptions DESTINATION ${PROJECT_RUNTIME_DIR} )
+else()
+    install( TARGETS easyGUI-exceptions-s DESTINATION ${PROJECT_LIBRARY_DIR} )
 endif()
 
 install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )
