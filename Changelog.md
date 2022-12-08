@@ -8,14 +8,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version V2.1.0 - Performance update (Unreleased)
 
 This release introduces new UI Elements and brings some performance improvements across all operating systems.
+This version also introduces some new customization options for Labels and Images. Furthermore, with each release
+package comes an executable which can be used to setup projects faster by providing code generation methods.
 
 ## Added
+
+Project management:
+- Added CLI for managing projects
 
 GUI Elements:
 - Line separator
 - Textarea
 - Dropdown
 - Slider
+
+Costumization options:
+- Images can now be framed.
+- Added text decoration options (bold, italic, underline)
 
 ## Fixed
 
