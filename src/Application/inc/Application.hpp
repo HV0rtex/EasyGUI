@@ -27,6 +27,10 @@
 #pragma once
 
 // Including dependencies
+#if WIN32 && BUILD_SHARED_LIBRARIES
+    #include <application-export.hpp>
+#endif
+
 #include <Routine.hpp>
 #include <Menu.hpp>
 #include <Converter.hpp>

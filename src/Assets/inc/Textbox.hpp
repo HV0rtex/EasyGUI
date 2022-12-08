@@ -27,6 +27,10 @@
 #pragma once
 
 // Including dependencies
+#if WIN32 && BUILD_SHARED_LIBRARIES
+    #include <assets-export.hpp>
+#endif
+
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <Exceptions/TextBoxException.hpp>
 #include <Label.hpp>

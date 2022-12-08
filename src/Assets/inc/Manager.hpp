@@ -27,6 +27,10 @@
 #pragma once
 
 // Including dependencies
+#if WIN32 && BUILD_SHARED_LIBRARIES
+    #include <assets-export.hpp>
+#endif
+
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <Exceptions/ManagerException.hpp>

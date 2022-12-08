@@ -67,6 +67,7 @@ if(WIN32)
 
 	if(${BUILD_SHARED_LIBRARIES})
 		include(GenerateExportHeader)
+		add_compile_definitions(SHARED_LIBRARIES=1)
 	endif()
 endif()
 

@@ -27,6 +27,10 @@
 #pragma once
 
 // Including dependencies
+#if WIN32 && BUILD_SHARED_LIBRARIES
+    #include <exceptions-export.hpp>
+#endif
+
 #include <Exceptions/AssetException.hpp>
 
 namespace easyGUI
