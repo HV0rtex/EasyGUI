@@ -46,8 +46,8 @@ Image::Image(const Point& startLocation, const Point& endLocation, const ::std::
         _object.setTexture(*_image.get());
         _object.setPosition(startLocation.Xcoord, startLocation.Ycoord);
         
-        float factorX = (startLocation.Xcoord + _object.getTextureRect().width) / endLocation.Xcoord;
-        float factorY = (startLocation.Ycoord + _object.getTextureRect().height) / endLocation.Ycoord;
+        float factorX = _object.getTextureRect().width / (endLocation.Xcoord - startLocation.Xcoord);
+        float factorY = _object.getTextureRect().height / (endLocation.Ycoord - startLocation.Ycoord);
 
         _object.setScale(::sf::Vector2f(1 / factorX, 1 / factorY));
     }
