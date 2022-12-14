@@ -26,28 +26,28 @@ int main(int argc, char** argv)
     {
         std::string buffer;
 
-        std::cout << ".-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.";
-        std::cout << "|                                                                       |";
-        std::cout << "|                                                                       |";
-        std::cout << "|                                                                       |";
-        std::cout << "|                                                                       |";
-        std::cout << "|                                                                       |";
-        std::cout << "!                            E A S Y - G U I                            !";
-        std::cout << ":                          ===================                          :";
-        std::cout << ":                                                                       :";
-        std::cout << ".            This tool will help generate some of the project           .";
-        std::cout << ".                     files for a faster development                    .";
-        std::cout << ":                                                                       :";
-        std::cout << ":                                                                       :";
-        std::cout << "!                                                                       !";
-        std::cout << "|                                                                       |";
-        std::cout << "|                - Press any key to start a new project -               |";
-        std::cout << "|                                                                       |";
-        std::cout << "|                                                                       |";
-        std::cout << "|                                                                       |";
+        std::cout << ".-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.\n";
+        std::cout << "|                                                                       |\n";
+        std::cout << "|                                                                       |\n";
+        std::cout << "|                                                                       |\n";
+        std::cout << "|                                                                       |\n";
+        std::cout << "|                                                                       |\n";
+        std::cout << "!                            E A S Y - G U I                            !\n";
+        std::cout << ":                          ===================                          :\n";
+        std::cout << ":                                                                       :\n";
+        std::cout << ".            This tool will help generate some of the project           .\n";
+        std::cout << ".                     files for a faster development                    .\n";
+        std::cout << ":                                                                       :\n";
+        std::cout << ":                                                                       :\n";
+        std::cout << "!                                                                       !\n";
+        std::cout << "|                                                                       |\n";
+        std::cout << "|                - Press any key to start a new project -               |\n";
+        std::cout << "|                                                                       |\n";
+        std::cout << "|                                                                       |\n";
+        std::cout << "|                                                                       |\n";
         std::cout << "`-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-etf-'\n";
     
-        std::cin >> buffer;
+        std::cin.get();
         
         std::cout << "Type in the name of the project : ";
         std::cin >> projName;
@@ -57,11 +57,6 @@ int main(int argc, char** argv)
     }
 
     generateMain(projName, noMenus);
-    
-    for(unsigned i = 0; i < noMenus; i++)
-    {
-        generateMenu(i);
-    }
 
     return 0;
 }

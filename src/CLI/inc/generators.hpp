@@ -29,5 +29,12 @@
 // Including dependencies
 #include <string>
 
-void generateMain(const std::string& projName, const unsigned& noMenus);
-void generateMenu(const unsigned& id);
+void generateMain(const std::string& projName, const int& noMenus);
+
+void createDir(const std::string& path);
+
+void generateMainCpp(const std::string& projName, const int& noMenus);
+void generateRoutinesHpp(const std::string& projName);
+void generateWindowHandler(const std::string& projName);
+void generateMenusHpp(const std::string& projName, const int& noMenus);
+void generateMenus(const std::string& projName, const int& noMenus);

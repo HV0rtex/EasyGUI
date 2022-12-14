@@ -14,9 +14,9 @@
 
 
 /**
- * @file parser.cpp
+ * @file generators.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Implementation of the parser variable
+ * @brief Implementation of the generator functions
  * @version 0.1
  * @date 2022-12-12
  * 
@@ -24,53 +24,37 @@
  * 
  */
 
-#include <parser.hpp>
+#include <generators.hpp>
 
-std::string projName = "ERROR";
-int noMenus = 0;
+#if defined(WIN32)
+    #include <windows.h>
+#else
+    #include <sys/stat.h>
+    #include <sys/types.h>
+#endif
 
-void clearScreen()
+void createDir(const std::string& path)
 {
-    #if defined(_WIN32) || defined(WIN32) || defined(__WIN32__) || defined(__NT__)
-        if (system("cls")) {}
+    #if defined(WIN32)
+        CreateDirectory(projeName, NULL);
     #else
-        if (system("clear")) {}
+        mkdir(path.c_str(), 0777);
     #endif
 }
 
-void parseArguments(const int& argc, char** argv)
+void generateMain(const std::string& projName, const int& noMenus)
 {
-    if(argc == 1)
-    {
-        projName = "INIT";
-    }
-    else if(argc > 1)
-    {
-        if(strcmp(argv[1], "--project") == 0)
-        {
-            projName = std::string(argv[2]);
+    createDir(projName);
 
-            if(argc > 3 && strcmp(argv[3], "--menus") == 0)
-            {
-                noMenus = std::stoi(std::string(argv[4]));
-            }
-            else if(argc == 3 || (argc > 3 && strcmp(argv[3], "--menus") != 0))
-            {
-                projName = "ERROR";
-            }
-        }
-        else if(strcmp(argv[1], "--menus") == 0)
-        {
-            noMenus = std::stoi(argv[2]);
+    generateMainCpp(projName, noMenus);
+    generateRoutinesHpp(projName);
+    generateMenusHpp(projName, noMenus);
 
-            if(argc > 3 && strcmp(argv[3], "--project") == 0)
-            {
-                projName = argv[4];
-            }
-            else if(argc == 3 || (argc > 3 && strcmp(argv[3], "--project") != 0))
-            {
-                projName = "ERROR";
-            }
-        }
-    }
+    createDir(projName + "/menus");
+    createDir(projName + "/routines");
+
+    generateMenus(projName, noMenus);
+    generateWindowHandler(projName);
+
+    createDir(projName + "/menus/buttons");
 }
