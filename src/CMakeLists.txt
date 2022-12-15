@@ -23,3 +23,5 @@ add_subdirectory(Assets)
 add_subdirectory(Application)
 add_subdirectory(Logger)
 add_subdirectory(CLI)
+
+install( EXPORT EasyGUI FILE EasyGUI.cmake DESTINATION ${PROJECT_LIBRARY_DIR}/cmake/EasyGUI )

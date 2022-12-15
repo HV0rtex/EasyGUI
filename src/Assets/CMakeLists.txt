@@ -31,14 +31,14 @@ set(LIBRARY_SOURCES
 # ----- Defining library sets -----
 
 add_library(
-    easyGUI-assets-s STATIC
+    EasyGUI-assets-s STATIC
 
     ${LIBRARY_SOURCES}
 )
 
 if(NOT WIN32)
     add_library(
-        easyGUI-assets SHARED
+        EasyGUI-assets SHARED
 
         ${LIBRARY_SOURCES}
     )
@@ -47,26 +47,26 @@ endif()
 # ----- Defining includes -----
 
 target_include_directories(
-    easyGUI-assets-s PUBLIC
+    EasyGUI-assets-s PUBLIC
 
-    inc
-    ../Logger/inc
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
+    $<INSTALL_INTERFACE:lib/EasyGUI>    
 )
 
 if(NOT WIN32)
     target_include_directories(
-        easyGUI-assets PUBLIC
+        EasyGUI-assets PUBLIC
 
-        inc
-        ../Logger/inc
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
+        $<INSTALL_INTERFACE:lib/EasyGUI>
     )
 endif()
 
 # ----- Linking dependencies -----
 
 target_link_libraries(
-    easyGUI-assets-s
-    easyGUI-exceptions-s
+    EasyGUI-assets-s
+    EasyGUI-exceptions-s
     sfml-graphics
     sfml-window 
     sfml-system
@@ -74,8 +74,8 @@ target_link_libraries(
 
 if(NOT WIN32)
     target_link_libraries(
-        easyGUI-assets
-        easyGUI-exceptions
+        EasyGUI-assets
+        EasyGUI-exceptions
         sfml-graphics 
         sfml-window
         sfml-system
@@ -84,10 +84,10 @@ endif()
 
 # ----- Installing library -----
 
-install( TARGETS easyGUI-assets-s DESTINATION ${PROJECT_LIBRARY_DIR} )
+install( TARGETS EasyGUI-assets-s DESTINATION ${PROJECT_LIBRARY_DIR} EXPORT EasyGUI)
 
 if(NOT WIN32)
-    install( TARGETS easyGUI-assets DESTINATION ${PROJECT_RUNTIME_DIR} )
+    install( TARGETS EasyGUI-assets DESTINATION ${PROJECT_RUNTIME_DIR} EXPORT EasyGUI)
 endif()
 
 install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )
