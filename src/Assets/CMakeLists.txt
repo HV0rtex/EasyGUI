@@ -66,13 +66,6 @@ else()
 
         inc
     )
-else()
-    target_include_directories(
-        easyGUI-assets-s PUBLIC
-
-        inc
-        ../Logger/inc
-    )
 endif()
 
 # ----- Linking dependencies -----
@@ -91,22 +84,6 @@ else()
         easyGUI-exceptions-s
         sfml-graphics
         sfml-window
-        sfml-system
-    )
-
-    if(WIN32)
-        GENERATE_EXPORT_HEADER(
-            easyGUI-assets
-            EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/inc/assets-export.hpp
-            EXPORT_MACRO_NAME ASSETS_EXPORTS
-        )
-    endif()
-else()
-    target_link_libraries(
-        easyGUI-assets-s
-        easyGUI-exceptions-s
-        sfml-graphics
-        sfml-window 
         sfml-system
     )
 endif()
