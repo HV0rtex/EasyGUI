@@ -23,17 +23,6 @@ if(${BUILD_SHARED_LIBRARIES})
         ./src/Routine.cpp
         ./src/Menu.cpp
     )
-<<<<<<< HEAD
-=======
-
-    if(WIN32)
-        GENERATE_EXPORT_HEADER(
-            easyGUI-application
-            EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/inc/application-export.hpp
-            EXPORT_MACRO_NAME APPLICATION_EXPORTS
-        )
-    endif()
->>>>>>> b5482af6266d534ea6283bee77c602a1dba791bb
 else()
     add_library(
         easyGUI-application-s STATIC

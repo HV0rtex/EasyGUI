@@ -39,16 +39,9 @@ if(${BUILD_SHARED_LIBRARIES})
 
         inc
     )
-<<<<<<< HEAD
     if(WIN32)
         GENERATE_EXPORT_HEADER(
             easyGUI-exceptions
-=======
-
-    if(WIN32)
-        GENERATE_EXPORT_HEADER(
-            easyGUI-exceptions 
->>>>>>> b5482af6266d534ea6283bee77c602a1dba791bb
             EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/inc/exceptions-export.hpp
             EXPORT_MACRO_NAME EXCEPTIONS_EXPORTS
         )
