@@ -55,14 +55,6 @@ else()
 
         inc
     )
-else()
-    target_include_directories(
-        easyGUI-application-s PUBLIC
-
-        inc
-        ../Assets/inc
-        ../Logger/inc
-    )
 endif()
 
 # ----- Linking dependencies -----
