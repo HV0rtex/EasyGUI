@@ -40,7 +40,6 @@
 
 namespace easyGUI
 {
-
 /**
  * @brief Emulates a windowed application
  * 

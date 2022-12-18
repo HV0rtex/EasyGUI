@@ -41,7 +41,6 @@
 
 namespace easyGUI
 {
-
 /**
  * @brief Container of application components
  * 

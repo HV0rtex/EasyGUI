@@ -75,22 +75,25 @@ void Application::executeForAll(void (*action)(Component*))
 
 void Application::handleEvents(const ::sf::Event& event)
 {
+    bool& boxClicked = TextBox::getTextBoxClicked();
+    TextBox*& box = TextBox::getSelectedBox();
+
     if(event.type == ::sf::Event::MouseButtonPressed && event.mouseButton.button == ::sf::Mouse::Left)
     {
-        TextBox::textBoxClicked = false;
+        boxClicked = false;
 
         executeForAll([](Component* comp) {comp->onClick();});
     
-        if(TextBox::textBoxClicked == false)
-            TextBox::selectedBox = nullptr;
+        if(boxClicked == false)
+            box = nullptr;
     }
     else if(event.type == ::sf::Event::MouseMoved)
     {
         executeForAll([](Component* comp) {comp->onHover();});
     }
-    else if(event.type == ::sf::Event::TextEntered && TextBox::selectedBox != nullptr)
+    else if(event.type == ::sf::Event::TextEntered && box != nullptr)
     {
-        TextBox::selectedBox->updateText(event.text.unicode);
+        box->updateText(event.text.unicode);
     }
     else if(event.type == ::sf::Event::Resized)
     {
@@ -179,8 +182,10 @@ void Application::setActiveMenu(const ::std::string& id)
 {
     if(menus.find(id) != menus.end())
     {
+        TextBox* box = TextBox::getSelectedBox();
+
         _activeMenu = menus.at(id);
-        TextBox::selectedBox = nullptr;
+        box = nullptr;
 
         if(!_startMenuSet)
         {

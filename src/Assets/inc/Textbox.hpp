@@ -57,6 +57,9 @@ protected:
     ::sf::RectangleShape _shape;
     Label* _text;
 
+    static TextBox* selectedBox;
+    static bool textBoxClicked;
+
     unsigned desiredSize;
     
     virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
@@ -73,8 +76,8 @@ protected:
     unsigned getCharSizeCorrection(const unsigned&, const unsigned&) const;
 
 public:
-    static TextBox* selectedBox;
-    static bool textBoxClicked;
+    static TextBox*& getSelectedBox();
+    static bool& getTextBoxClicked();
 
     /**
      * @brief Destructor
