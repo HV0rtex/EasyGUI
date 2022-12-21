@@ -56,7 +56,7 @@ jobs:
       run: cd ${{github.workspace}}/build && cmake --install .
 
     - name: Configure CMake for STATIC libraries
-      run: cmake -B ${{github.workspace}}/build -DBUILD_SHARED_LIBRARIES=1 -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake
+      run: cmake -B ${{github.workspace}}/build -DBUILD_SHARED_LIBRARIES=0 -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake
 
     - name: Building STATIC libraries
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
