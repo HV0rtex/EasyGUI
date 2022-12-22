@@ -1,0 +1,147 @@
+// Copyright © 2022 David Bogdan
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files 
+// (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, 
+// publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do 
+// so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+// FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+/**
+ * @file Separator.hpp
+ * @author David Bogdan (david.bnicolae@gmail.com)
+ * @brief Definition of the Separator class
+ * @version 0.1
+ * @date 2022-09-01
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
+#pragma once
+
+// Including dependencies
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+    #include <assets-export.hpp>
+#endif
+
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <Exceptions/AssetException.hpp>
+#include <AlignmentTool.hpp>
+
+namespace easyGUI
+{
+
+/**
+ * @brief Implements a button component
+ * 
+ * @details Draws a button on a window. The class makes use of the
+ * Label class in order to draw and configure the button's text.
+ */
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+class ASSETS_EXPORTS Separator : public Component, public Anchor
+#else
+class Separator : public Component, public Anchor
+#endif
+{
+private:
+    ::sf::RectangleShape _shape;
+
+    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
+
+public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    ~Separator();
+
+    /**
+     * @brief Constructor
+     * 
+     * @param startLocation The location of the top-left corner 
+     * @param vertical Denotes the orientation of the separator
+     * 
+     * @param size The length of the separator
+     * @param thickness The thickness of the separator
+     * 
+     */
+    Separator(const Point&, const bool&, const float&, const unsigned&);
+
+    // Block other forms of construction
+
+    Separator() = delete;
+    Separator( const Separator& ) = delete;
+    Separator& operator= ( const Separator& ) = delete;
+
+    // ----- Auxiliaries -----
+
+    /**
+     * @brief Check if mouse is over the button
+     * 
+     * @return true Mouse is over the label
+     * @return false otherwise
+     */
+    bool isMouseHover() const override;
+
+    // ----- Getters -----
+
+    /**
+     * @brief Returns the SFML RectangleShape
+     * 
+     * @return ::sf::RectangleShape& 
+     */
+    ::sf::RectangleShape& getInternalSeparator();
+
+    /**
+     * @brief Updates a component's location
+     * 
+     * @param newLocation The new location of the component
+     */
+    void updateLocation(const Point&) override;
+
+    // ----- Inherited from Anchor -----
+
+    /**
+     * @brief Returns the point leftmost of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getLEFT() const override;
+
+    /**
+     * @brief Returns the point rightmost of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getRIGHT() const override;
+
+    /**
+     * @brief Returns the lowest point of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getBOTTOM() const override;
+
+    /**
+     * @brief Returns the highest point of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getTOP() const override;
+
+    /**
+     * @brief Returns the point at the center of the Anchor
+     * 
+     * @return Point& 
+     */
+    Point getCENTER() const override;
+};
+
+}
