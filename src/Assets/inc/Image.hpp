@@ -60,7 +60,7 @@ public:
      * @brief Destructor
      * 
      */
-    ~Image() = default;
+    virtual ~Image() = default;
 
     /**
      * @brief Constructor

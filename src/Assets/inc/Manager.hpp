@@ -67,7 +67,7 @@ public:
      * @brief Destructor
      * 
      */
-    ~Manager() = default;
+    virtual ~Manager() = default;
  
     /**
      * @brief Returns the manager instance

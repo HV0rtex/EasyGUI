@@ -83,7 +83,7 @@ public:
      * @brief Destructor
      * 
      */
-    ~TextBox();
+    virtual ~TextBox();
 
     /**
      * @brief Constructor
