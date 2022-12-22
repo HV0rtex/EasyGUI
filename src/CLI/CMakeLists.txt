@@ -13,19 +13,15 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-# ----- Configuring SFML -----
+add_executable(easyGUI-CLI
+    src/main.cpp
+    src/parser.cpp
+    src/generators.cpp
+    src/fileGenerators.cpp
+)
 
-find_package(SFML REQUIRED system window graphics network audio)
+target_include_directories(easyGUI-CLI
+    PUBLIC inc
+)
 
-# ----- Adding sources -----
-
-add_subdirectory(Assets)
-add_subdirectory(Application)
-add_subdirectory(Logger)
-add_subdirectory(CLI)
-
-if(${BUILD_SHARED_LIBRARIES})
-    install( EXPORT easyGUI FILE easyGUI.cmake DESTINATION ${PROJECT_LIBRARY_DIR}/cmake/easyGUI )
-else()
-    install( EXPORT easyGUI-static FILE easyGUI-static.cmake DESTINATION ${PROJECT_LIBRARY_DIR}/cmake/easyGUI )
-endif()
+install(TARGETS easyGUI-CLI DESTINATION ${PROJECT_RUNTIME_DIR})

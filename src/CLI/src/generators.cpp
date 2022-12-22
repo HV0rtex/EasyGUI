@@ -12,45 +12,49 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include <routines.hpp>
-#include <menus.hpp>
 
-using namespace easyGUI;
+/**
+ * @file generators.cpp
+ * @author David Bogdan (david.bnicolae@gmail.com)
+ * @brief Implementation of the generator functions
+ * @version 0.1
+ * @date 2022-12-12
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
-int main()
+#include <generators.hpp>
+
+#if defined(WIN32)
+    #include <windows.h>
+#else
+    #include <sys/stat.h>
+    #include <sys/types.h>
+#endif
+
+void createDir(const std::string& path)
 {
-    // Setting application parameters
-    unsigned appWidth = 800;
-    unsigned appHeight = 600;
-    std::string appTitle = "Demo app";
+    #if defined(WIN32)
+        CreateDirectory(path.c_str(), NULL);
+    #else
+        mkdir(path.c_str(), 0777);
+    #endif
+}
 
-    // Declaring application object
-    Application* app = nullptr;
+void generateMain(const std::string& projName, const int& noMenus)
+{
+    createDir(projName);
 
-    // Creating application
-    app = app->getInstance(appWidth, appHeight, appTitle.c_str());
+    generateMainCpp(projName, noMenus);
+    generateRoutinesHpp(projName);
+    generateMenusHpp(projName, noMenus);
 
-    // Creating routines
-    Routine windowHandler(windowHandler_trigger, windowHandler_action);
-    
-    // Adding routine to app
-    app->addRoutine(&windowHandler);
+    createDir(projName + "/menus");
+    createDir(projName + "/routines");
 
-    try
-    {
-        // Creating menus
-        createMainMenu(app);
-        createSecondMenu(app);
+    generateMenus(projName, noMenus);
+    generateWindowHandler(projName);
 
-        // Starting the application
-        app->start();
-    }
-    catch(const ApplicationException& err)
-    {
-        ERROR << err.what();
-
-        return 1;
-    }
-    
-    return 0;
+    createDir(projName + "/menus/buttons");
 }

@@ -51,7 +51,8 @@ if(${BUILD_SHARED_LIBRARIES})
     target_include_directories(
         easyGUI-assets PUBLIC
 
-        inc
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
+        $<INSTALL_INTERFACE:lib/easyGUI>
     )
 
     if(WIN32)
@@ -65,7 +66,8 @@ else()
     target_include_directories(
         easyGUI-assets-s PUBLIC
 
-        inc
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
+        $<INSTALL_INTERFACE:lib/easyGUI>
     )
 endif()
 
@@ -93,12 +95,16 @@ endif()
 
 if(${BUILD_SHARED_LIBRARIES})
     install( TARGETS easyGUI-assets 
+        EXPORT easyGUI
         RUNTIME DESTINATION ${PROJECT_RUNTIME_DIR} 
         LIBRARY DESTINATION ${PROJECT_RUNTIME_DIR} 
         ARCHIVE DESTINATION ${PROJECT_LIBRARY_DIR}
     )
 else()
-    install( TARGETS easyGUI-assets-s DESTINATION ${PROJECT_LIBRARY_DIR} )
+    install( TARGETS easyGUI-assets-s 
+        EXPORT easyGUI-static
+        DESTINATION ${PROJECT_LIBRARY_DIR}
+    )
 endif()
 
 install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )

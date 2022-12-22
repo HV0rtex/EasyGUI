@@ -12,45 +12,29 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include <routines.hpp>
-#include <menus.hpp>
 
-using namespace easyGUI;
+/**
+ * @file generators.hpp
+ * @author David Bogdan (david.bnicolae@gmail.com)
+ * @brief Definition of generator classes
+ * @version 0.1
+ * @date 2022-12-12
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
-int main()
-{
-    // Setting application parameters
-    unsigned appWidth = 800;
-    unsigned appHeight = 600;
-    std::string appTitle = "Demo app";
+#pragma once
 
-    // Declaring application object
-    Application* app = nullptr;
+// Including dependencies
+#include <string>
 
-    // Creating application
-    app = app->getInstance(appWidth, appHeight, appTitle.c_str());
+void generateMain(const std::string& projName, const int& noMenus);
 
-    // Creating routines
-    Routine windowHandler(windowHandler_trigger, windowHandler_action);
-    
-    // Adding routine to app
-    app->addRoutine(&windowHandler);
+void createDir(const std::string& path);
 
-    try
-    {
-        // Creating menus
-        createMainMenu(app);
-        createSecondMenu(app);
-
-        // Starting the application
-        app->start();
-    }
-    catch(const ApplicationException& err)
-    {
-        ERROR << err.what();
-
-        return 1;
-    }
-    
-    return 0;
-}
+void generateMainCpp(const std::string& projName, const int& noMenus);
+void generateRoutinesHpp(const std::string& projName);
+void generateWindowHandler(const std::string& projName);
+void generateMenusHpp(const std::string& projName, const int& noMenus);
+void generateMenus(const std::string& projName, const int& noMenus);

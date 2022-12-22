@@ -12,45 +12,32 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include <routines.hpp>
-#include <menus.hpp>
 
-using namespace easyGUI;
+/**
+ * @file parser.hpp
+ * @author David Bogdan (david.bnicolae@gmail.com)
+ * @brief Definition of parser function and config variables
+ * @version 0.1
+ * @date 2022-12-12
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
-int main()
-{
-    // Setting application parameters
-    unsigned appWidth = 800;
-    unsigned appHeight = 600;
-    std::string appTitle = "Demo app";
+#pragma once
 
-    // Declaring application object
-    Application* app = nullptr;
+// Including dependencies
+#include <cstring>
+#include <string>
 
-    // Creating application
-    app = app->getInstance(appWidth, appHeight, appTitle.c_str());
+/**
+ * @brief Sets the project name and the menus variables.
+ * 
+ */
+void parseArguments(const int&, char**, std::string&, int&);
 
-    // Creating routines
-    Routine windowHandler(windowHandler_trigger, windowHandler_action);
-    
-    // Adding routine to app
-    app->addRoutine(&windowHandler);
-
-    try
-    {
-        // Creating menus
-        createMainMenu(app);
-        createSecondMenu(app);
-
-        // Starting the application
-        app->start();
-    }
-    catch(const ApplicationException& err)
-    {
-        ERROR << err.what();
-
-        return 1;
-    }
-    
-    return 0;
-}
+/**
+ * @brief Clears the window screen
+ * 
+ */
+void clearScreen();
