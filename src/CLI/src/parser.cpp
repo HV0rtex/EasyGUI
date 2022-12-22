@@ -26,9 +26,6 @@
 
 #include <parser.hpp>
 
-std::string projName = "ERROR";
-int noMenus = 0;
-
 void clearScreen()
 {
     #if defined(_WIN32) || defined(WIN32) || defined(__WIN32__) || defined(__NT__)
@@ -38,7 +35,7 @@ void clearScreen()
     #endif
 }
 
-void parseArguments(const int& argc, char** argv)
+void parseArguments(const int& argc, char** argv, std::string& projName, int& noMenus)
 {
     if(argc == 1)
     {

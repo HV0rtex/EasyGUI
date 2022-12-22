@@ -30,15 +30,11 @@
 #include <cstring>
 #include <string>
 
-// Defining variables
-extern std::string projName;
-extern int noMenus;
-
 /**
  * @brief Sets the project name and the menus variables.
  * 
  */
-void parseArguments(const int&, char**);
+void parseArguments(const int&, char**, std::string&, int&);
 
 /**
  * @brief Clears the window screen

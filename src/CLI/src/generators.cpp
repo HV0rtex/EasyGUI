@@ -36,7 +36,7 @@
 void createDir(const std::string& path)
 {
     #if defined(WIN32)
-        CreateDirectory(projeName, NULL);
+        CreateDirectory(path, NULL);
     #else
         mkdir(path.c_str(), 0777);
     #endif
