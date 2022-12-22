@@ -16,7 +16,7 @@
 # ----- Defining library sets -----
 
 add_library(
-    EasyGUI-application-s STATIC
+    easyGUI-application-s STATIC
     ./src/Application.cpp
     ./src/Routine.cpp
     ./src/Menu.cpp
@@ -24,7 +24,7 @@ add_library(
 
 if(NOT WIN32)
     add_library(
-        EasyGUI-application SHARED
+        easyGUI-application SHARED
         ./src/Application.cpp
         ./src/Routine.cpp
         ./src/Menu.cpp
@@ -34,36 +34,36 @@ endif()
 # ----- Defining includes -----
 
 target_include_directories(
-    EasyGUI-application-s PUBLIC
+    easyGUI-application-s PUBLIC
 
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
-    $<INSTALL_INTERFACE:lib/EasyGUI>
+    $<INSTALL_INTERFACE:lib/easyGUI>
 )
 
 if(NOT WIN32)
     target_include_directories(
-        EasyGUI-application PUBLIC
+        easyGUI-application PUBLIC
 
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
-        $<INSTALL_INTERFACE:lib/EasyGUI>
+        $<INSTALL_INTERFACE:lib/easyGUI>
     )
 endif()
 
 # ----- Linking dependencies -----
 
 target_link_libraries(
-    EasyGUI-application-s
-    EasyGUI-assets-s
-    EasyGUI-exceptions-s
+    easyGUI-application-s
+    easyGUI-assets-s
+    easyGUI-exceptions-s
     sfml-graphics
     sfml-window
     sfml-system
 )
 if(NOT WIN32)
     target_link_libraries(
-        EasyGUI-application
-        EasyGUI-assets
-        EasyGUI-exceptions
+        easyGUI-application
+        easyGUI-assets
+        easyGUI-exceptions
         sfml-graphics
         sfml-window
         sfml-system
@@ -72,10 +72,10 @@ endif()
 
 # ----- Installing library -----
 
-install( TARGETS EasyGUI-application-s DESTINATION ${PROJECT_LIBRARY_DIR} EXPORT EasyGUI)
+install( TARGETS easyGUI-application-s DESTINATION ${PROJECT_LIBRARY_DIR} EXPORT easyGUI)
 
 if(NOT WIN32)
-    install( TARGETS EasyGUI-application DESTINATION ${PROJECT_RUNTIME_DIR} EXPORT EasyGUI)
+    install( TARGETS easyGUI-application DESTINATION ${PROJECT_RUNTIME_DIR} EXPORT easyGUI)
 endif()
 
 install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )

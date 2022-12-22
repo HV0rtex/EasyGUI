@@ -16,7 +16,7 @@
 # ----- Defining library sets -----
 
 add_library(
-    EasyGUI-exceptions-s STATIC
+    easyGUI-exceptions-s STATIC
 
     src/AssetException.cpp
     src/ApplicationException.cpp
@@ -24,7 +24,7 @@ add_library(
 
 if(NOT WIN32)
     add_library(
-        EasyGUI-exceptions SHARED
+        easyGUI-exceptions SHARED
 
         src/AssetException.cpp
         src/ApplicationException.cpp
@@ -34,27 +34,27 @@ endif()
 # ----- Defining includes -----
 
 target_include_directories(
-    EasyGUI-exceptions-s PUBLIC
+    easyGUI-exceptions-s PUBLIC
 
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
-    $<INSTALL_INTERFACE:lib/EasyGUI>
+    $<INSTALL_INTERFACE:lib/easyGUI>
 )
 
 if(NOT WIN32)
     target_include_directories(
-        EasyGUI-exceptions PUBLIC
+        easyGUI-exceptions PUBLIC
 
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
-        $<INSTALL_INTERFACE:lib/EasyGUI>
+        $<INSTALL_INTERFACE:lib/easyGUI>
     )
 endif()
 
 # ----- Installing library -----
 
-install( TARGETS EasyGUI-exceptions-s DESTINATION ${PROJECT_LIBRARY_DIR} EXPORT EasyGUI)
+install( TARGETS easyGUI-exceptions-s DESTINATION ${PROJECT_LIBRARY_DIR} EXPORT easyGUI)
 
 if(NOT WIN32)
-    install( TARGETS EasyGUI-exceptions DESTINATION ${PROJECT_RUNTIME_DIR} EXPORT EasyGUI)
+    install( TARGETS easyGUI-exceptions DESTINATION ${PROJECT_RUNTIME_DIR} EXPORT easyGUI)
 endif()
 
 install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )
