@@ -66,7 +66,7 @@ public:
      * @brief Destructor
      * 
      */
-    ~Component() = default;
+    virtual ~Component() = default;
 
     /**
      * @brief Set the Component's container

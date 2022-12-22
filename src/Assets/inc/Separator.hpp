@@ -60,7 +60,7 @@ public:
      * @brief Destructor
      * 
      */
-    ~Separator();
+    virtual ~Separator() = default;
 
     /**
      * @brief Constructor

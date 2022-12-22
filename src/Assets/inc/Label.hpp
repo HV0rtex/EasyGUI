@@ -77,7 +77,7 @@ public:
      * @brief Destructor
      * 
      */
-    ~Label() = default;
+    virtual ~Label() = default;
 
     /**
      * @brief Constructor

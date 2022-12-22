@@ -73,7 +73,7 @@ public:
      * @brief Destructor
      * 
      */
-    ~Button();
+    virtual ~Button();
 
     /**
      * @brief Constructor

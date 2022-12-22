@@ -54,6 +54,11 @@ private:
     ::std::string _passText;
 
 public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~PasswordBox() = default;
 
     /**
      * @brief Constructor
