@@ -18,7 +18,10 @@
 
 int main(int argc, char** argv)
 {
-    parseArguments(argc, argv);
+    std::string projName = "ERROR";
+    int noMenus = 0;
+
+    parseArguments(argc, argv, projName, noMenus);
 
     if(projName == "ERROR")
         return 1;
