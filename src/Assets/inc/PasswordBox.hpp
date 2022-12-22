@@ -27,7 +27,7 @@
 #pragma once
 
 // Including dependencies
-#if _WIN32 && BUILD_SHARED_LIBRARIES
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
     #include <assets-export.hpp>
 #endif
 
@@ -44,7 +44,7 @@ namespace easyGUI
  * into a password box via the Converter class.
  * 
  */
-#if _WIN32 && BUILD_SHARED_LIBRARIES
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
 class ASSETS_EXPORTS PasswordBox : public TextBox
 #else
 class PasswordBox : public TextBox

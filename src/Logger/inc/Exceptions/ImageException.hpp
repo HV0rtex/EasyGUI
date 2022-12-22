@@ -27,7 +27,7 @@
 #pragma once
 
 // Including dependencies
-#if _WIN32 && BUILD_SHARED_LIBRARIES
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
     #include <exceptions-export.hpp>
 #endif
 
@@ -40,7 +40,7 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside a Image.
  * 
  */
-#if _WIN32 && BUILD_SHARED_LIBRARIES
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
 class EXCEPTIONS_EXPORTS ImageException : public AssetException
 #else
 class ImageException : public AssetException

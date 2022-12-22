@@ -27,7 +27,7 @@
 #pragma once
 
 // Including dependencies
-#if _WIN32 && BUILD_SHARED_LIBRARIES
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
     #include <assets-export.hpp>
 #endif
 
@@ -43,7 +43,7 @@ namespace easyGUI
  * @brief Responsible for conversions between components
  * 
  */
-#if _WIN32 && BUILD_SHARED_LIBRARIES
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
 class ASSETS_EXPORTS Converter
 #else
 class Converter

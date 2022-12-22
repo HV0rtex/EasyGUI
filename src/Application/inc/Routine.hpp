@@ -27,7 +27,7 @@
 #pragma once
 
 // Including dependencies
-#if _WIN32 && BUILD_SHARED_LIBRARIES
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
     #include <application-export.hpp>
 #endif
 
@@ -48,7 +48,7 @@ namespace easyGUI
  * of the mouse position.
  * 
  */
-#if _WIN32 && BUILD_SHARED_LIBRARIES
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
 class APPLICATION_EXPORTS Routine
 #else
 class Routine

@@ -27,7 +27,7 @@
 #pragma once
 
 // Including dependencies
-#if _WIN32 && BUILD_SHARED_LIBRARIES
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
     #include <assets-export.hpp>
 #endif
 
@@ -45,7 +45,7 @@ namespace easyGUI
  * @details Draws a button on a window. The class makes use of the
  * Label class in order to draw and configure the button's text.
  */
-#if _WIN32 && BUILD_SHARED_LIBRARIES
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
 class ASSETS_EXPORTS Button : public Component, public Anchor
 #else
 class Button : public Component, public Anchor

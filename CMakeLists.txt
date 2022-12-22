@@ -60,10 +60,6 @@ if(UNIX)
 endif()
 
 if(WIN32)
-	add_compile_definitions(
-		_WIN32=1
-	)
-
 	add_compile_options(
 		-Oi
 	)
@@ -73,11 +69,7 @@ if(WIN32)
 		set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true) 
 		add_compile_definitions(SHARED_LIBRARIES=1)
 	endif()
-else()
-	add_compile_definitions(
-		_WIN32=0
-	)
-endif()
+sendif()
 
 # ----- Building sources -----
 

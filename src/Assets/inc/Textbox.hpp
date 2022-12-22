@@ -27,7 +27,7 @@
 #pragma once
 
 // Including dependencies
-#if _WIN32 && BUILD_SHARED_LIBRARIES
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
     #include <assets-export.hpp>
 #endif
 
@@ -47,7 +47,7 @@ namespace easyGUI
  * to access both the border and the text.
  * 
  */
-#if _WIN32 && BUILD_SHARED_LIBRARIES
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
 class ASSETS_EXPORTS TextBox : public Component, public Anchor
 #else
 class TextBox : public Component, public Anchor

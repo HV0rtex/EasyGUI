@@ -27,7 +27,7 @@
 #pragma once
 
 // Including dependencies
-#if _WIN32 && BUILD_SHARED_LIBRARIES
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
     #include <assets-export.hpp>
 #endif
 
@@ -50,7 +50,7 @@ class AlignmentTool;
  * to allign themselves in the window.
  * 
  */
-#if _WIN32 && BUILD_SHARED_LIBRARIES
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
 class ASSETS_EXPORTS Anchor
 #else
 class Anchor
@@ -149,7 +149,7 @@ typedef ::std::pair<Mode, Mode> Binding;
  * is by moving the anchor it is bound to.
  * 
  */
-#if _WIN32 && BUILD_SHARED_LIBRARIES
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
 class ASSETS_EXPORTS AlignmentTool
 #else
 class AlignmentTool
