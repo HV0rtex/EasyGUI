@@ -44,6 +44,9 @@ void createDir(const std::string& path)
 
 void generateMain(const std::string& projName, const int& noMenus)
 {
+    if(noMenus <= 0)
+        return;
+
     createDir(projName);
 
     generateMainCpp(projName, noMenus);
