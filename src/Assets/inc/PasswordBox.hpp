@@ -27,6 +27,10 @@
 #pragma once
 
 // Including dependencies
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+    #include <assets-export.hpp>
+#endif
+
 #include <Textbox.hpp>
 
 namespace easyGUI
@@ -40,7 +44,11 @@ namespace easyGUI
  * into a password box via the Converter class.
  * 
  */
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+class ASSETS_EXPORTS PasswordBox : public TextBox
+#else
 class PasswordBox : public TextBox
+#endif
 {
 private:
     ::std::string _passText;

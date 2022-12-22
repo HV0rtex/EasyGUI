@@ -27,6 +27,10 @@
 #pragma once
 
 // Including dependencies
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+    #include <assets-export.hpp>
+#endif
+
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <Exceptions/TextBoxException.hpp>
 #include <Label.hpp>
@@ -43,11 +47,18 @@ namespace easyGUI
  * to access both the border and the text.
  * 
  */
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+class ASSETS_EXPORTS TextBox : public Component, public Anchor
+#else
 class TextBox : public Component, public Anchor
+#endif
 {
 protected:
     ::sf::RectangleShape _shape;
     Label* _text;
+
+    static TextBox* selectedBox;
+    static bool textBoxClicked;
 
     unsigned desiredSize;
     
@@ -65,8 +76,8 @@ protected:
     unsigned getCharSizeCorrection(const unsigned&, const unsigned&) const;
 
 public:
-    static TextBox* selectedBox;
-    static bool textBoxClicked;
+    static TextBox*& getSelectedBox();
+    static bool& getTextBoxClicked();
 
     /**
      * @brief Destructor

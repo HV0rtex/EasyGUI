@@ -27,6 +27,10 @@
 #pragma once
 
 // Including dependencies
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+    #include <assets-export.hpp>
+#endif
+
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <Exceptions/CheckBoxException.hpp>
 #include <AlignmentTool.hpp>
@@ -37,7 +41,11 @@
 namespace easyGUI
 {
 
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+class ASSETS_EXPORTS CheckBox : public Component, public Anchor
+#else
 class CheckBox : public Component, public Anchor
+#endif
 {
 private:
     ::sf::RectangleShape _box, _filler;

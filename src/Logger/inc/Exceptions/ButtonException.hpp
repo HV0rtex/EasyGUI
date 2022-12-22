@@ -27,6 +27,10 @@
 #pragma once
 
 // Including dependencies
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+    #include <exceptions-export.hpp>
+#endif
+
 #include <Exceptions/AssetException.hpp>
 
 namespace easyGUI
@@ -36,7 +40,11 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside the Button.
  * 
  */
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+class EXCEPTIONS_EXPORTS ButtonException : public AssetException
+#else
 class ButtonException : public AssetException
+#endif
 {
 public:
     /**

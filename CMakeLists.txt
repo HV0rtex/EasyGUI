@@ -61,11 +61,13 @@ endif()
 
 if(WIN32)
 	add_compile_options(
-		-O2
 		-Oi
 	)
 
-	include(GenerateExportHeader)
+	if(${BUILD_SHARED_LIBRARIES})
+		include(GenerateExportHeader)
+		set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true) 
+	endif()
 endif()
 
 # ----- Building sources -----

@@ -27,6 +27,10 @@
 #pragma once
 
 // Including dependencies
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+    #include <assets-export.hpp>
+#endif
+
 #include <SFML/System/Vector2.hpp>
 #include <utility>
 
@@ -37,7 +41,11 @@ namespace easyGUI
  * @brief Stores the coordinates of a point.
  * 
  */
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+struct ASSETS_EXPORTS Point
+#else
 struct Point
+#endif
 {
     float Xcoord;
     float Ycoord;

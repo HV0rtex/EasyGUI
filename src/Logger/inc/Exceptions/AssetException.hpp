@@ -27,6 +27,10 @@
 #pragma once
 
 // Including dependencies
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+    #include <exceptions-export.hpp>
+#endif
+
 #include <exception>
 #include <string>
 
@@ -37,7 +41,11 @@ namespace easyGUI
  * @brief Exception thrown when something goes wrong at Asset level.
  * 
  */
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+class EXCEPTIONS_EXPORTS AssetException : public ::std::exception
+#else
 class AssetException : public ::std::exception
+#endif
 {
 private:
     ::std::string _msg;

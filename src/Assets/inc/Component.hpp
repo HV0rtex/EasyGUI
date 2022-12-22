@@ -27,6 +27,10 @@
 #pragma once
 
 // Including dependencies
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+    #include <assets-export.hpp>
+#endif
+
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Mouse.hpp>
@@ -45,7 +49,11 @@ namespace easyGUI
  * however this one is mandatory for all GUI elements.
  * 
  */
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+class ASSETS_EXPORTS Component : public ::sf::Drawable
+#else
 class Component : public ::sf::Drawable
+#endif
 {
 protected:
     ::sf::RenderWindow* _container;

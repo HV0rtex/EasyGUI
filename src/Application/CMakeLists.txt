@@ -15,16 +15,17 @@
 
 # ----- Defining library sets -----
 
-add_library(
-    easyGUI-application-s STATIC
-    ./src/Application.cpp
-    ./src/Routine.cpp
-    ./src/Menu.cpp
-)
 
-if(NOT WIN32)
+if(${BUILD_SHARED_LIBRARIES})
     add_library(
         easyGUI-application SHARED
+        ./src/Application.cpp
+        ./src/Routine.cpp
+        ./src/Menu.cpp
+    )
+else()
+    add_library(
+        easyGUI-application-s STATIC
         ./src/Application.cpp
         ./src/Routine.cpp
         ./src/Menu.cpp
@@ -33,33 +34,32 @@ endif()
 
 # ----- Defining includes -----
 
-target_include_directories(
-    easyGUI-application-s PUBLIC
 
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
-    $<INSTALL_INTERFACE:lib/easyGUI>
-)
-
-if(NOT WIN32)
+if(${BUILD_SHARED_LIBRARIES})
     target_include_directories(
         easyGUI-application PUBLIC
 
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
-        $<INSTALL_INTERFACE:lib/easyGUI>
+        inc
+    )
+
+    if(WIN32)
+        GENERATE_EXPORT_HEADER(
+            easyGUI-assets
+            EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/inc/assets-export.hpp
+            EXPORT_MACRO_NAME ASSETS_EXPORTS
+        )
+    endif()
+else()
+    target_include_directories(
+        easyGUI-application-s PUBLIC
+
+        inc
     )
 endif()
 
 # ----- Linking dependencies -----
 
-target_link_libraries(
-    easyGUI-application-s
-    easyGUI-assets-s
-    easyGUI-exceptions-s
-    sfml-graphics
-    sfml-window
-    sfml-system
-)
-if(NOT WIN32)
+if(${BUILD_SHARED_LIBRARIES})
     target_link_libraries(
         easyGUI-application
         easyGUI-assets
@@ -68,14 +68,27 @@ if(NOT WIN32)
         sfml-window
         sfml-system
     )
+else()
+    target_link_libraries(
+        easyGUI-application-s
+        easyGUI-assets-s
+        easyGUI-exceptions-s
+        sfml-graphics
+        sfml-window
+        sfml-system
+    )
 endif()
 
 # ----- Installing library -----
 
-install( TARGETS easyGUI-application-s DESTINATION ${PROJECT_LIBRARY_DIR} EXPORT easyGUI)
-
-if(NOT WIN32)
-    install( TARGETS easyGUI-application DESTINATION ${PROJECT_RUNTIME_DIR} EXPORT easyGUI)
+if(${BUILD_SHARED_LIBRARIES})
+    install( TARGETS easyGUI-application 
+        RUNTIME DESTINATION ${PROJECT_RUNTIME_DIR}
+        LIBRARY DESTINATION ${PROJECT_RUNTIME_DIR} 
+        ARCHIVE DESTINATION ${PROJECT_LIBRARY_DIR}
+    )
+else()
+    install( TARGETS easyGUI-application-s DESTINATION ${PROJECT_LIBRARY_DIR} )
 endif()
 
 install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )

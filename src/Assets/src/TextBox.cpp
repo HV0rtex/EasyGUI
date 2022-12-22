@@ -56,6 +56,16 @@ unsigned TextBox::getCharSizeCorrection(const unsigned& length, const unsigned& 
     return correction;
 }
 
+TextBox*& TextBox::getSelectedBox() 
+{
+    return selectedBox;
+}
+
+bool& TextBox::getTextBoxClicked()
+{
+    return textBoxClicked;
+}
+
 void TextBox::updateLocation(const Point& newLocation)
 {
     if(!isMovable())
