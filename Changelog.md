@@ -5,6 +5,48 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Version V2.1.0 - Performance update (Unreleased)
+
+This release introduces new UI Elements and brings some performance improvements across all operating systems.
+This version also introduces some new customization options for Labels and Images. Furthermore, with each release
+package comes an executable which can be used to setup projects faster by providing code generation methods.
+
+## Added
+
+Project management:
+- Added CLI for managing projects
+
+GUI Elements:
+- Line separator
+- Textarea
+- Dropdown
+- Slider
+
+Costumization options:
+- Images can now be framed.
+- Added text decoration options (bold, italic, underline)
+
+## Fixed
+
+Optimizations:
+- Windows builds are now WARN-free
+- Added compile-time optimizations for Windows, Linux and MacOS
+
+Documentation:
+- Updated installation guide
+- Updated usage guide
+- Updated README file
+
+## Version V2.0.2 - Windows support patch (Unreleased)
+
+This release reintroduces the support for **shared libraries** on Windows OS, bringing fixes to the linkage
+errors discovered in the last patch.
+
+## Added
+
+Library support:
+- Windows SHARED libraries
+
 ## Version V2.0.1 - Windows maintanance (7.12.2022)
 
 This release drops the support for **shared libraries** on Windows OS, due to linkage errors found in testing.
@@ -12,9 +54,13 @@ The support will be continued once the errors have been fixed in an upcomming ve
 static linkage on windows.
 
 ## Removed
+
+Library support:
 - Windows SHARED libraries
 
 ## Fixed
+
+Library support:
 - Windows STATIC libraries
 
 ## Version V2.0.0 - GUI Overhaul (5.12.2022)

@@ -27,6 +27,10 @@
 #pragma once
 
 // Including dependencies
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+    #include <exceptions-export.hpp>
+#endif
+
 #include <Exceptions/AssetException.hpp>
 
 namespace easyGUI
@@ -36,7 +40,11 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside the CheckBox.
  * 
  */
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+class EXCEPTIONS_EXPORTS CheckBoxException : public AssetException
+#else
 class CheckBoxException : public AssetException
+#endif
 {
 public:
     /**

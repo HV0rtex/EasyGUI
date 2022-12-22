@@ -27,6 +27,10 @@
 #pragma once
 
 // Including dependencies
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+    #include <application-export.hpp>
+#endif
+
 #include <Exceptions/AssetException.hpp>
 #include <Exceptions/MenuException.hpp>
 #include <Logger.hpp>
@@ -37,14 +41,17 @@
 
 namespace easyGUI
 {
-
 /**
  * @brief Container of application components
  * 
  * @details A menu groups different application components under the same container
  * and usually corresponds to a specific application screen.
  */
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+class APPLICATION_EXPORTS Menu : public ::sf::Drawable
+#else
 class Menu : public ::sf::Drawable
+#endif
 {
 private:
     ::sf::RenderWindow* _container;

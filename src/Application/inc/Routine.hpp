@@ -27,6 +27,10 @@
 #pragma once
 
 // Including dependencies
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+    #include <application-export.hpp>
+#endif
+
 #include <SFML/Window/Event.hpp>
 
 namespace easyGUI
@@ -44,7 +48,11 @@ namespace easyGUI
  * of the mouse position.
  * 
  */
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+class APPLICATION_EXPORTS Routine
+#else
 class Routine
+#endif
 {
 private:
     bool (*_trigger)(const ::sf::Event& action);

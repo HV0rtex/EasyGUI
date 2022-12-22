@@ -27,6 +27,10 @@
 #pragma once
 
 // Including dependencies
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+    #include <application-export.hpp>
+#endif
+
 #include <Routine.hpp>
 #include <Menu.hpp>
 #include <Converter.hpp>
@@ -36,7 +40,6 @@
 
 namespace easyGUI
 {
-
 /**
  * @brief Emulates a windowed application
  * 
@@ -44,7 +47,11 @@ namespace easyGUI
  * easier management of the events (such as onClick, onKeyPress, etc.) 
  * 
  */
-class Application : public Anchor
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+    class APPLICATION_EXPORTS Application : public Anchor
+#else
+    class Application : public Anchor
+#endif
 {
 private:
     static Application* instance;

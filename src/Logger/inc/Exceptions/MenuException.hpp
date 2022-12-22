@@ -27,6 +27,10 @@
 #pragma once
 
 // Including dependencies
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+    #include <exceptions-export.hpp>
+#endif
+
 #include <Exceptions/ApplicationException.hpp>
 
 namespace easyGUI
@@ -36,7 +40,11 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs with a Menu.
  * 
  */
+#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
+class EXCEPTIONS_EXPORTS MenuException : public ApplicationException
+#else
 class MenuException : public ApplicationException
+#endif
 {
 public:
     /**
