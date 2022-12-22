@@ -67,9 +67,8 @@ if(WIN32)
 	if(${BUILD_SHARED_LIBRARIES})
 		include(GenerateExportHeader)
 		set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true) 
-		add_compile_definitions(SHARED_LIBRARIES=1)
 	endif()
-sendif()
+endif()
 
 # ----- Building sources -----
 
