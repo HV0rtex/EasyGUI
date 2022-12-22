@@ -180,7 +180,7 @@ public:
      * @brief Destructor
      * 
      */
-    ~AlignmentTool() = default;
+    virtual ~AlignmentTool() = default;
 
     /**
      * @brief Returns an instance of the Alignment tool

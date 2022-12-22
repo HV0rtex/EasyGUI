@@ -26,6 +26,7 @@ set(LIBRARY_SOURCES
     src/Image.cpp
     src/CheckBox.cpp
     src/Converter.cpp
+    src/Separator.cpp
 )
 
 # ----- Defining library sets -----

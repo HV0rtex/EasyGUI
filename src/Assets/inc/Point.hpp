@@ -51,6 +51,12 @@ struct Point
     float Ycoord;
 
     /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~Point() = default;
+
+    /**
      * @brief Default constructor
      * 
      */

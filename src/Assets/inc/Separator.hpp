@@ -14,9 +14,9 @@
 
 
 /**
- * @file Button.hpp
+ * @file Separator.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the Button class
+ * @brief Definition of the Separator class
  * @version 0.1
  * @date 2022-09-01
  * 
@@ -32,9 +32,8 @@
 #endif
 
 #include <SFML/Graphics/RectangleShape.hpp>
-#include <Exceptions/ButtonException.hpp>
+#include <Exceptions/AssetException.hpp>
 #include <AlignmentTool.hpp>
-#include <Label.hpp>
 
 namespace easyGUI
 {
@@ -46,76 +45,40 @@ namespace easyGUI
  * Label class in order to draw and configure the button's text.
  */
 #if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-class ASSETS_EXPORTS Button : public Component, public Anchor
+class ASSETS_EXPORTS Separator : public Component, public Anchor
 #else
-class Button : public Component, public Anchor
+class Separator : public Component, public Anchor
 #endif
 {
 private:
     ::sf::RectangleShape _shape;
-    Label* _content;
 
     virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
-
-    // ----- Helper methods -----
-
-    /**
-     * @brief Computes the correction to be applied to the char size of the text
-     * 
-     * @param textLenght The length of the text
-     * @param desiredSize The desired char size
-     * @return unsigned
-     */
-    unsigned getCharSizeCorrection(const unsigned&, const unsigned&) const;
 
 public:
     /**
      * @brief Destructor
      * 
      */
-    virtual ~Button();
+    virtual ~Separator() = default;
 
     /**
      * @brief Constructor
      * 
      * @param startLocation The location of the top-left corner 
-     * @param endLocation The location of the bottom-right corner
-     *
-     * @param text The button's text
-     * @param fontPath The path to the font file
+     * @param vertical Denotes the orientation of the separator
      * 
-     * @param charSize The size of the characters
+     * @param size The length of the separator
+     * @param thickness The thickness of the separator
      * 
-     * @throw ButtonException
-     * 
-     * @note The font file format must be .ttf
-
      */
-    Button(const Point&, const Point&, const ::std::string&, const ::std::string&, const unsigned&);
-
-    /**
-     * @brief Constructor
-     * 
-     * @param startLocation The location of the top-left corner 
-     * @param width The width of the button
-     * @param height The height of the button
-     * 
-     * @param text The button's text
-     * @param fontPath The path to the font file
-     * 
-     * @param charSize The size of the characters
-     * 
-     * @throw ButtonException
-     * 
-     * @note The font file format must be .ttf
-     */
-    Button(const Point&, const float&, const float&, const ::std::string&, const ::std::string&, const unsigned&);
+    Separator(const Point&, const bool&, const float&, const unsigned&);
 
     // Block other forms of construction
 
-    Button() = delete;
-    Button( const Button& ) = delete;
-    Button& operator= ( const Button& ) = delete;
+    Separator() = delete;
+    Separator( const Separator& ) = delete;
+    Separator& operator= ( const Separator& ) = delete;
 
     // ----- Auxiliaries -----
 
@@ -134,14 +97,7 @@ public:
      * 
      * @return ::sf::RectangleShape& 
      */
-    ::sf::RectangleShape& getInternalButton();
-
-    /**
-     * @brief Returns the button's text
-     * 
-     * @return ::sf::Text*
-     */
-    ::sf::Text* getInternalText();
+    ::sf::RectangleShape& getInternalSeparator();
 
     /**
      * @brief Updates a component's location

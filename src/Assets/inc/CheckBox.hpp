@@ -60,7 +60,7 @@ public:
      * @brief Destructor
      * 
      */
-    ~CheckBox();
+    virtual ~CheckBox();
 
     /**
      * @brief Constructor
