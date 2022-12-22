@@ -1,0 +1,33 @@
+version: 1
+
+# Please visit https://docs.embold.io/v2-quick-start-guide/#default-configurations 
+#  to know more about configurations available
+
+sources:
+  #Files or Directories to be Excluded are mentioned in exclusions
+  exclusions:
+    - 'test'
+    - 'generated'
+    - 'mock'
+    - 'thirdparty'
+    - 'third-party'
+    - '3rd-party'
+    - '3rdparty'
+    - 'external'
+    - 'build'
+    - 'node_modules'
+    - 'CLI'
+    - 'gulp'
+    - 'grunt'
+    - 'library'
+    - '.git'
+    
+modules:
+  - name: klockwork
+    enabled: true
+  - name: gamma_generic
+    enabled: true
+  - name: embold_sec
+    enabled: true
+  - name: sonar
+    enabled: true
