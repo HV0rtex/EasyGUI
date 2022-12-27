@@ -27,34 +27,30 @@ This workflow is tedious and unnecessary. With EasyGUI all that workflow is redu
 easyGUI::Button myButton ( 
     easyGUI::Point(startX, startY),         // <-- Top-left corner
     easyGUI::Point(endX, endY),             // <-- Bottom-right corner
-    sf::Color(255,0,0),                     // <-- Border color
-    sf::Color(0,0,0),                       // <-- Fill color
-    sf::Color(255, 255, 255),               // <-- Text color
 
     "Demo button",                          // <-- Button text
     "/path/to/desired/font.ttf",            // <-- Desired font
     15,                                     // <-- Desired character size
-    5                                       // <-- Border thickness
 );
 
-myButton.addOnClickAction ( action );       // <-- action is a void function with no params
+myButton.setOnClickAction ( action );       // <-- action is a void function with no params
 ```
 
 This way, you don't need to worry wether the button text will fit. If the text fits inside the button borders, it will be automatically centered, otherwise the text / shape will be readjusted accordingly. For further information, please refer to our [User Manual](https://github.com/HV0rtex/EasyGUI/blob/main/docs/userManual.pdf).
 
 ## What is provided
 
-In every realease, you will have provided both static and dynamic libraries to suit your prefered way of linkage, the API headers as well as a demo project.
+In every realease, you will have provided both static and dynamic libraries to suit your prefered way of linkage, the API headers as well as a demo project. Furthermore, we also provide a pre-built CLI (Command Line Interface) to help you setup projects faster.
 
 ## Prerequisites
 
-Before attempting to use the extension you must make sure you have the following dependencies installed:
+If you build the extension by manually compiling the source code, make sure you have the following dependencies installed:
 
 - [SFML](https://www.sfml-dev.org/)
 
 ## Installation
 
-After downloading the realease package for your operating system (Note: For Windows you need to check the OS version: 32/64 bit and download the corresponding package), check out the [Installation Guide](https://github.com/HV0rtex/EasyGUI/blob/main/docs/installationGuide.pdf) in order to set everything up for your IDE.
+After downloading the realease package for your operating system, check out the [Installation Guide](https://github.com/HV0rtex/EasyGUI/blob/main/docs/installationGuide.pdf) in order to set everything up for your IDE.
 
 ## Support
 
