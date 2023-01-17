@@ -37,6 +37,8 @@
 #include <Point.hpp>
 #include <Logger.hpp>
 
+#include <memory>
+
 namespace easyGUI
 {
 
@@ -56,7 +58,7 @@ class Component : public ::sf::Drawable
 #endif
 {
 protected:
-    ::sf::RenderWindow* _container;
+    std::shared_ptr<::sf::RenderWindow> _container;
 
     void (*_onClick)() = nullptr;
     void (*_onHover)() = nullptr;
@@ -73,7 +75,7 @@ public:
      * 
      * @param container The window responsible of the component
      */
-    void setContainer( ::sf::RenderWindow*& );
+    void setContainer(const ::std::shared_ptr<::sf::RenderWindow>&);
 
     // ----- Interaction methods -----
 
@@ -90,14 +92,14 @@ public:
      * 
      * @param action Function to be called when component is clicked.
      */
-    void setOnClickAction( void (*)() );
+    void setOnClickAction(void (*)());
 
     /**
      * @brief Sets the behaviour when the mouse is moved
      * 
      * @param action The action to be executed.
      */
-    void setOnHoverAction( void (*)() );
+    void setOnHoverAction(void (*)());
 
     /**
      * @brief Executes the onClick action
@@ -116,7 +118,7 @@ public:
      * 
      * @param newLocation The new location of the component
      */
-    virtual void updateLocation( const Point& ) = 0;
+    virtual void updateLocation(const Point&) = 0;
 };
 
 }

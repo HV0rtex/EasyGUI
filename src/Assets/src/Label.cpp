@@ -38,7 +38,7 @@ void Label::constructText(const Point& position, const ::std::string& text, cons
 {
     _text.setPosition(position.Xcoord, position.Ycoord);
     _text.setFont(*_font.get());
-    _text.setFillColor(_textColor);
+    _text.setFillColor(::sf::Color::White);
     _text.setCharacterSize(charSize);
     _text.setString(text);
 }
@@ -59,12 +59,10 @@ bool Label::isMouseHover() const
 
 void Label::updateLocation(const Point& newLocation)
 {
-    if(!isMovable())
-    {
-        throw AssetException("Attempting to move an imovable object.");
-    }
-
     _text.setPosition(newLocation.Xcoord, newLocation.Ycoord);
+
+    AlignmentTool& tool = AlignmentTool::getInstance();
+    tool.triggerUpdate(this->getShared());
 }
 
 Label::Label(const Point& startLocation, const ::std::string& text, const ::std::shared_ptr<::sf::Font>& font, const unsigned& charSize)
@@ -75,8 +73,7 @@ Label::Label(const Point& startLocation, const ::std::string& text, const ::std:
     }
 
     _font = font;
-    _textColor = ::sf::Color::White;
-
+ 
     constructText(startLocation, text, charSize);
 }
 
@@ -87,8 +84,6 @@ Label::Label(const Point& startLocation, const ::std::string& text, const ::std:
         FontManager& manager = FontManager::getInstance();
 
         _font = manager.getAsset(fontPath);
-
-        _textColor = ::sf::Color::White;
 
         constructText(startLocation, text, charSize);
     }

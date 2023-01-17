@@ -54,14 +54,13 @@ namespace easyGUI
 #endif
 {
 private:
-    static Application* instance;
+    static ::std::shared_ptr<Application> _instance;
 
-    ::sf::RenderWindow* _window;
+    ::std::shared_ptr<::sf::RenderWindow> _window;
 
-    ::std::vector < Routine* > routines;
-    ::std::map <::std::string, Menu* > menus;
-
-    Menu* _activeMenu;
+    ::std::map<::std::string, ::std::shared_ptr<Menu>> _menus;
+    ::std::vector<Routine> _routines;
+    ::std::shared_ptr<Menu> _activeMenu;
 
     // ----- Control variables -----
 
@@ -78,7 +77,7 @@ private:
      * @param title The title of the application
      * 
      */
-    Application( const unsigned&, const unsigned&, const char* );
+    explicit Application(const unsigned&, const unsigned&, const char*);
 
     /**
      * @brief Event handler
@@ -88,21 +87,14 @@ private:
      * 
      * @param event The current window event
      */
-    void handleEvents( const ::sf::Event& );
-
-    /**
-     * @brief Executes a given action for all components of the active menu
-     * 
-     * @param action The action to be executed for the component
-     */
-    void executeForAll( void (*)(Component*) );
+    void handleEvents(const ::sf::Event&);
 
 public:
     /**
      * @brief Destructor
      * 
      */
-    ~Application();
+    virtual ~Application();
 
     /**
      * @brief Start the application
@@ -114,11 +106,11 @@ public:
      * @param height The height of the window
      * @param title The title of the application
      * 
-     * @return Application* 
+     * @return ::std::shared_ptr<Application>
      * 
      * @throws ApplicationInstance Failed to instantiate application.
      */
-    Application* getInstance( const unsigned& = 0, const unsigned& = 0, const char* = nullptr );
+    ::std::shared_ptr<Application> getInstance(const unsigned& = 0, const unsigned& = 0, const char* = nullptr);
 
     /**
      * @brief Appends a new menu to the application
@@ -130,48 +122,46 @@ public:
      * @param ID The ID of the menu
      * @param isStart Denotes if the menu is to be displayed first
      * 
-     * @returns Menu*
+     * @returns ::std::shared_ptr<Menu>
      * 
      * @throws MenuException More than one start menu declared.
      * @throws MenuException A menu with that ID already exists.
      */
-    Menu* addMenu( const ::std::string&, const bool& = false );
+    ::std::shared_ptr<Menu> addMenu(const ::std::string&, const bool& = false);
 
     /**
      * @brief Gets a menu by its index
      * 
      * @param ID The unique ID of the menu
      * 
-     * @return Menu*
-     * @retval NULL invalid menu index
-     * @retval Menu The menu linked to that index.
+     * @return ::std::shared_ptr<Menu>
      */
-    Menu* getMenu( const ::std::string& );
+    ::std::shared_ptr<Menu> getMenu(const ::std::string&);
 
     /**
      * @brief Retruns the active menu
      * 
-     * @return const Menu* 
+     * @return ::std::shared_ptr<Menu>
      */
-    Menu* getActiveMenu();
+    ::std::shared_ptr<Menu> getActiveMenu();
 
     /**
      * @brief Gets a routine by its index
      * 
      * @param index The index of the routine
      * 
-     * @return Routine*
-     * @retval NULL invalid index
-     * @retval Routine The routine linked to that index.
+     * @return Routine&
+     * 
+     * @throws ApplicationException Invalid index provided
      */
-    Routine* getRoutine( const unsigned& );
+    Routine& getRoutine(const unsigned&);
 
     /**
      * @brief Returns the SFML RenderWindow
      * 
-     * @return ::sf::RenderWindow* 
+     * @return ::std::shared_ptr<::sf::RenderWindow> 
      */
-    ::sf::RenderWindow* getWindow();
+    ::std::shared_ptr<::sf::RenderWindow> getWindow();
 
     /**
      * @brief Changes the active menu
@@ -180,14 +170,14 @@ public:
      * 
      * @throw MenuException Invalid index provided
      */
-    void setActiveMenu( const ::std::string& );
+    void setActiveMenu(const ::std::string&);
 
     /**
      * @brief Adds a new routine to the application
      * 
      * @param routine The routine to be added
      */
-    void addRoutine( Routine* );
+    void addRoutine(const Routine&);
 
     /**
      * @brief Starts the application

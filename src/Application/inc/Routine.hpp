@@ -32,6 +32,7 @@
 #endif
 
 #include <SFML/Window/Event.hpp>
+#include <Exceptions/ApplicationException.hpp>
 
 namespace easyGUI
 {
@@ -76,8 +77,6 @@ public:
      * and on trigger fires the response action.
      * 
      * @return int
-     * @retval 1 The routine fired
-     * @retval 0 The routine didn't fire
      */
     void operator() (const ::sf::Event& event) const;
 

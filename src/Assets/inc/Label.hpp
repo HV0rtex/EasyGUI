@@ -57,7 +57,6 @@ class Label : public Component, public Anchor
 private:
     ::std::shared_ptr<::sf::Font> _font;
     ::sf::Text _text;
-    ::sf::Color _textColor;
 
     virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 
@@ -140,39 +139,10 @@ public:
 
     // ----- Inherited from Anchor -----
 
-    /**
-     * @brief Returns the point leftmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getLEFT() const override;
-
-    /**
-     * @brief Returns the point rightmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getRIGHT() const override;
-
-    /**
-     * @brief Returns the lowest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getBOTTOM() const override;
-
-    /**
-     * @brief Returns the highest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getTOP() const override;
-
-    /**
-     * @brief Returns the point at the center of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getCENTER() const override;
 };
 

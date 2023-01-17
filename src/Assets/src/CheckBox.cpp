@@ -29,14 +29,6 @@
 namespace easyGUI
 {
 
-CheckBox::~CheckBox()
-{
-    if(_content != nullptr)
-    {
-        delete[] _content;
-    }
-}
-
 void CheckBox::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 {
     target.draw(_box, states);
@@ -46,14 +38,14 @@ void CheckBox::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
         target.draw(_filler, states);
 }
 
-CheckBox::CheckBox(const Point& startLocation, const Point& endLocation, Component*& content, const Binding& binding)
+CheckBox::CheckBox(const Point& startLocation, const Point& endLocation, const ::std::shared_ptr<Component>& content, const BindingPoint& binding)
 {
     if(content == nullptr)
     {
         _content = nullptr;
         this->~CheckBox();
 
-        throw CheckBoxException("Invalid content");
+        throw CheckBoxException("Invalid content: received NULL.");
     }
 
     _box.setPosition(startLocation.Xcoord, startLocation.Ycoord);
@@ -65,7 +57,9 @@ CheckBox::CheckBox(const Point& startLocation, const Point& endLocation, Compone
     _filler.setSize(::sf::Vector2f(endLocation.Xcoord - startLocation.Xcoord + 5, endLocation.Ycoord - startLocation.Ycoord + 5));
     _filler.setFillColor(::sf::Color::White);
 
-    if(dynamic_cast<Anchor*>(content) == nullptr)
+    ::std::shared_ptr<Anchor> cast = ::std::dynamic_pointer_cast<Anchor>(content);
+    
+    if(cast == nullptr)
     {
         _content = nullptr;
         this->~CheckBox();
@@ -75,11 +69,16 @@ CheckBox::CheckBox(const Point& startLocation, const Point& endLocation, Compone
 
     AlignmentTool& tool = AlignmentTool::getInstance();
 
-    tool.createBinding(*dynamic_cast<Anchor*>(content), *this, binding);
-    tool.triggerUpdate(*this);
+    tool.createBinding(cast, this->getShared(), binding, binding);
+    tool.triggerUpdate(this->getShared());
 }
 
-CheckBox::CheckBox(const Point& startLocation, const float& width, const float& height, Component*& content, const Binding& binding):
+CheckBox::CheckBox(
+    const Point& startLocation, 
+    const float& width, const float& height, 
+    const ::std::shared_ptr<Component>& content, 
+    const BindingPoint& binding):
+    
     CheckBox(startLocation, startLocation + Point(width, height), content, binding)
 {
 }
@@ -100,16 +99,11 @@ bool CheckBox::isMouseHover() const
 
 void CheckBox::updateLocation(const Point& newLocation)
 {
-    if(!isMovable())
-    {
-        throw AssetException("Attempting to move an imovable object.");
-    }
-
     _box.setPosition(newLocation.Xcoord, newLocation.Ycoord);
     _filler.setPosition(newLocation.Xcoord + 5, newLocation.Ycoord + 5);
 
     AlignmentTool& tool = AlignmentTool::getInstance();
-    tool.triggerUpdate(*this);
+    tool.triggerUpdate(this->getShared());
 }
 
 void CheckBox::onClick()
@@ -135,9 +129,9 @@ bool CheckBox::isChecked() const
     return _filler;
 }
 
-Component& CheckBox::getInternalComponent()
+::std::shared_ptr<Component> CheckBox::getInternalComponent()
 {
-    return *_content;
+    return _content;
 }
 
 Point CheckBox::getLEFT() const

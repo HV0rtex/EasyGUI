@@ -40,8 +40,18 @@
 namespace easyGUI
 {
 
-// Stub declaration
-class AlignmentTool;
+/**
+ * @brief Represents different parts by which
+ * an Anchor can be bound / bount to.
+ * 
+ */
+enum BindingPoint {
+    LEFT,
+    RIGHT,
+    BOTTOM,
+    TOP,
+    CENTER
+};
 
 /**
  * @brief Defines an anchor on the window
@@ -51,29 +61,12 @@ class AlignmentTool;
  * 
  */
 #if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-class ASSETS_EXPORTS Anchor
+class ASSETS_EXPORTS Anchor : public ::std::enable_shared_from_this<Anchor>
 #else
-class Anchor
+class Anchor : public ::std::enable_shared_from_this<Anchor>
 #endif
 {
-private:
-    char movable_;
-
-    /**
-     * @brief Makes anchor imovable
-     * 
-     */
-    void blockAnchor();
-
-    /**
-     * @brief Makes anchor imovable
-     * 
-     */
-    void freeAnchor();
-
 public:
-    friend class AlignmentTool;
-
     /**
      * @brief Destructor
      * 
@@ -84,7 +77,16 @@ public:
      * @brief Constructor
      * 
      */
-    Anchor() : movable_(1) {}
+    Anchor() = default;
+
+    /**
+     * @brief Returns a binding point of the anchor
+     * 
+     * @param point Which point to return
+     * 
+     * @return Point The binding point
+     */
+    Point getBindingPoint(const BindingPoint&) const;
 
     /**
      * @brief Returns the point leftmost of the Anchor
@@ -121,24 +123,17 @@ public:
      */
     virtual Point getCENTER() const = 0;
 
+    // ----- Enable shared_ptr -----
+
     /**
-     * @brief Checks if an anchor can be moved
+     * @brief Converts this to a shared pointer
      * 
-     * @return bool
+     * @return ::std::shared_ptr<Anchor> 
      */
-    bool isMovable() const;
+    ::std::shared_ptr<Anchor> getShared();
 };
 
-enum Mode {
-    LEFT,
-    RIGHT,
-    BOTTOM,
-    TOP,
-    CENTER
-};
-
-typedef ::std::pair<Mode, Mode> Binding;
-
+using AnchorPtr = ::std::shared_ptr<Anchor>;
 
 /**
  * @brief Class responsible with computing positions
@@ -156,19 +151,26 @@ class AlignmentTool
 #endif
 {
 private:
-    ::std::map<const Anchor*, ::std::vector<::std::pair<::std::pair<Anchor*, Binding>, const Point>>> _bindings;
+    struct Binding
+    {
+        AnchorPtr anchors[2];
+        BindingPoint points[2];
+
+        Point offset;
+
+        bool operator== (const Binding&) noexcept;
+    };
+
+    ::std::vector<Binding> _bindings;
 
     /**
      * @brief Computes the position of an element
      * 
-     * @param source The object to be alligned.
-     * @param anchor The anchor used for Alignment
-     * @param mode How to allign the element
-     * @param offest An offest to be applied between the component and the element
+     * @param binding The binding between the elements
      * 
      * @return Point
      */
-    Point getAlignment(const Anchor&, const Anchor&, const Binding&, const Point& = Point()) noexcept;
+    Point getAlignment(const Binding&) noexcept;
 
     /**
      * @brief Constructor
@@ -185,7 +187,7 @@ public:
     /**
      * @brief Returns an instance of the Alignment tool
      * 
-     * @return AlignmentTool* 
+     * @return AlignmentTool&
      */
     static AlignmentTool& getInstance();
 
@@ -193,18 +195,19 @@ public:
      * @brief Creates a binding between two elements
      * 
      * @param source The bound element
-     * @param anchor The "free" element
-     * @param binding The type of binding between elements
+     * @param anchor The anchor to which the source is bound=
+     * @param sourcePoint The point by which the source is bound
+     * @param anchorPoint The point by which the anchor is bound
      * @param offset The desired offset
      */
-    void createBinding(Anchor&, const Anchor&, const Binding&, const Point& = Point());
+    void createBinding(AnchorPtr&, const AnchorPtr&, const BindingPoint&, const BindingPoint&, const Point& = Point());
 
     /**
      * @brief Updates all the elements bound to an anchor
      * 
      * @param source The anchor that moved
      */
-    void triggerUpdate(const Anchor&);
+    void triggerUpdate(const AnchorPtr&);
 };
 
 }

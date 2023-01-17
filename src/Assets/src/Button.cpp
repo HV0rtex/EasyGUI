@@ -29,14 +29,6 @@
 namespace easyGUI
 {
 
-Button::~Button()
-{
-    if(_content != nullptr)
-    {
-        delete[] _content;
-    }
-}
-
 unsigned Button::getCharSizeCorrection(const unsigned& length, const unsigned& charSize) const
 {
     float lenghtInPix = length * charSize / 1.9;
@@ -86,21 +78,24 @@ Button::Button(
     try
     {
         AlignmentTool& tool = AlignmentTool::getInstance();
-        _content = new Label(Point(), text, fontPath, charSize - correction);
+        _content = ::std::make_shared<Label>(Point(), text, fontPath, charSize - correction);
     
-        tool.createBinding(*_content, *this, Binding(Mode::CENTER, Mode::CENTER), Point(-1, -7));
+        ::std::shared_ptr<Anchor> cast = ::std::static_pointer_cast<Anchor>(_content);
+
+        tool.createBinding(
+            cast, 
+            this->getShared(), 
+            BindingPoint::CENTER, 
+            BindingPoint::CENTER, 
+            Point(-1, -7)
+        );
     } 
     catch (const LabelException& err)
     {
         ERROR << err.what();
 
         ButtonException ex("Label text will not be visible.");
-        if(_content != nullptr)
-        {
-            delete[] _content;
-            _content = nullptr;
-        }
-
+        
         WARN << ex.what();
     }
 }
@@ -151,27 +146,20 @@ bool Button::isMouseHover() const
     return _shape;
 }
 
-::sf::Text* Button::getInternalText()
+::sf::Text& Button::getInternalText()
 {
-    if(_content == nullptr)
-    {
-        return nullptr;
-    }
+    if(!_content)
+        throw ButtonException("Could not retrieve text attribute of NULL object.");
 
-    return &_content->getInternalText();
+    return _content->getInternalText();
 }
 
 void Button::updateLocation(const Point& newLocation)
 {
-    if(!isMovable())
-    {
-        throw AssetException("Attempting to move an imovable object.");
-    }
-
     _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
 
     AlignmentTool& tool = AlignmentTool::getInstance();
-    tool.triggerUpdate(*this);
+    tool.triggerUpdate(this->getShared());
 }
 
 Point Button::getLEFT() const

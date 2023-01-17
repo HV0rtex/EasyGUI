@@ -78,15 +78,10 @@ bool Separator::isMouseHover() const
 
 void Separator::updateLocation(const Point& newLocation)
 {
-    if(!isMovable())
-    {
-        throw AssetException("Attempting to move an imovable object.");
-    }
-
     _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
 
     AlignmentTool& tool = AlignmentTool::getInstance();
-    tool.triggerUpdate(*this);
+    tool.triggerUpdate(this->getShared());
 }
 
 Point Separator::getLEFT() const

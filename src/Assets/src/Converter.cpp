@@ -29,46 +29,34 @@
 namespace easyGUI
 {
 
-Button* Converter::getButton(Component* asset)
+::std::shared_ptr<Button> Converter::getButton(::std::shared_ptr<Component>& asset)
 {
-    if(asset == nullptr)
-        return nullptr;
-
-    return dynamic_cast<Button*>(asset);
+    return ::std::dynamic_pointer_cast<Button>(asset);
 }
 
-Label* Converter::getLabel(Component* asset)
+::std::shared_ptr<Label> Converter::getLabel(::std::shared_ptr<Component>& asset)
 {
-    if(asset == nullptr)
-        return nullptr;
-
-    return dynamic_cast<Label*>(asset);
+    return ::std::dynamic_pointer_cast<Label>(asset);
 }
 
-TextBox* Converter::getTextbox(Component* asset)
+::std::shared_ptr<TextBox> Converter::getTextbox(::std::shared_ptr<Component>& asset)
 {
-    if(asset == nullptr)
-        return nullptr;
-
-    return dynamic_cast<TextBox*>(asset);
+    return ::std::dynamic_pointer_cast<TextBox>(asset);
 }
 
-Image* Converter::getImage(Component* asset)
+::std::shared_ptr<Image> Converter::getImage(::std::shared_ptr<Component>& asset)
 {
-    if(asset == nullptr)
-        return nullptr;
-
-    return dynamic_cast<Image*>(asset);
+    return ::std::dynamic_pointer_cast<Image>(asset);
 }
 
-CheckBox* Converter::getCheckBox(Component* asset)
+::std::shared_ptr<CheckBox> Converter::getCheckBox(::std::shared_ptr<Component>& asset)
 {
-    if(asset == nullptr)
-        return nullptr;
-
-    return dynamic_cast<CheckBox*>(asset);
+    return ::std::dynamic_pointer_cast<CheckBox>(asset);
 }
 
-
+::std::shared_ptr<Separator> Converter::getSeparator(::std::shared_ptr<Component>& asset)
+{
+    return ::std::dynamic_pointer_cast<Separator>(asset);
+}
 
 }

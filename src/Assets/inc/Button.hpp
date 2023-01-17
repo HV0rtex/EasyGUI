@@ -53,7 +53,7 @@ class Button : public Component, public Anchor
 {
 private:
     ::sf::RectangleShape _shape;
-    Label* _content;
+    ::std::shared_ptr<Label> _content;
 
     virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 
@@ -64,6 +64,7 @@ private:
      * 
      * @param textLenght The length of the text
      * @param desiredSize The desired char size
+     * 
      * @return unsigned
      */
     unsigned getCharSizeCorrection(const unsigned&, const unsigned&) const;
@@ -73,7 +74,7 @@ public:
      * @brief Destructor
      * 
      */
-    virtual ~Button();
+    virtual ~Button() = default;
 
     /**
      * @brief Constructor
@@ -139,9 +140,9 @@ public:
     /**
      * @brief Returns the button's text
      * 
-     * @return ::sf::Text*
+     * @return ::sf::Text&
      */
-    ::sf::Text* getInternalText();
+    ::sf::Text& getInternalText();
 
     /**
      * @brief Updates a component's location
@@ -152,39 +153,10 @@ public:
 
     // ----- Inherited from Anchor -----
 
-    /**
-     * @brief Returns the point leftmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getLEFT() const override;
-
-    /**
-     * @brief Returns the point rightmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getRIGHT() const override;
-
-    /**
-     * @brief Returns the lowest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getBOTTOM() const override;
-
-    /**
-     * @brief Returns the highest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getTOP() const override;
-
-    /**
-     * @brief Returns the point at the center of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getCENTER() const override;
 };
 

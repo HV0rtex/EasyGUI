@@ -71,7 +71,7 @@ public:
      * 
      * @throws ImageException could not load image
      */
-    Image(const Point&, const Point&, const ::std::string&);
+    explicit Image(const Point&, const Point&, const ::std::string&);
 
     /**
      * @brief Constructor
@@ -83,7 +83,7 @@ public:
      * 
      * @throws ImageException could not load image
      */
-    Image(const Point&, const float&, const float&, const std::string&);
+    explicit Image(const Point&, const float&, const float&, const std::string&);
 
     // Block other forms of construction
 
@@ -108,39 +108,10 @@ public:
 
     // ----- Inherited from Anchor -----
 
-    /**
-     * @brief Returns the point leftmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getLEFT() const override;
-
-    /**
-     * @brief Returns the point rightmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getRIGHT() const override;
-
-    /**
-     * @brief Returns the lowest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getBOTTOM() const override;
-
-    /**
-     * @brief Returns the highest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getTOP() const override;
-
-    /**
-     * @brief Returns the point at the center of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getCENTER() const override;
 };
 

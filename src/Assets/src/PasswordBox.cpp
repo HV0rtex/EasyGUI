@@ -45,7 +45,7 @@ PasswordBox::PasswordBox(
 TextBox(startLocation, width, height, fontPath, charSize) {}
 
 
-const ::std::string PasswordBox::getText() const
+::std::string PasswordBox::getText() const
 {
     return _passText;
 }
@@ -81,7 +81,7 @@ void PasswordBox::updateText(const ::sf::Uint32& text)
 
     _text->getInternalText().setString(newContent);
     _text->getInternalText().setCharacterSize(desiredSize - correction);
-    tool.triggerUpdate(*this);
+    tool.triggerUpdate(this->getShared());
 }
 
 }

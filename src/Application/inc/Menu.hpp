@@ -54,8 +54,8 @@ class Menu : public ::sf::Drawable
 #endif
 {
 private:
-    ::sf::RenderWindow* _container;
-    ::std::map <::std::string, Component* > _components;
+    ::std::map<::std::string, ::std::shared_ptr<Component>> _components;
+    ::std::shared_ptr<::sf::RenderWindow> _container;
 
     virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const;
 
@@ -64,13 +64,13 @@ public:
      * @brief Destructor
      * 
      */
-    ~Menu();
+    virtual ~Menu() = default;
 
     /**
      * @brief Constructor
      * 
      */
-    Menu();
+    Menu() = default;
 
     /**
      * @brief Adds a new component to the menu
@@ -80,29 +80,29 @@ public:
      * 
      * @throws MenuException A component with that ID already exists
      */
-    void addComponent(Component*, const ::std::string&);
+    void addComponent(const ::std::shared_ptr<Component>&, const ::std::string&);
 
     /**
      * @brief Set the Component's container
      * 
      * @param container The window responsible of the component
      */
-    void setContainer(::sf::RenderWindow*&);
+    void setContainer(const ::std::shared_ptr<::sf::RenderWindow>&);
     
     /**
      * @brief Retrieves a specific component
      * 
      * @param ID The ID of the component
-     * @return Component* 
+     * @return ::std::shared_ptr<Component>
      */
-    Component* getComponent(const ::std::string&);
+    ::std::shared_ptr<Component> getComponent(const ::std::string&);
 
     /**
      * @brief Returns a vector with all components
      * 
      * @return ::std::vector<Component*> 
      */
-    ::std::vector<Component*> getAllComponents();
+    ::std::vector<::std::shared_ptr<Component>> getAllComponents();
 };
 
 /**

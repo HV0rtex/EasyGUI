@@ -78,12 +78,10 @@ bool Image::isMouseHover() const
 
 void Image::updateLocation(const Point& newLocation)
 {
-    if(!isMovable())
-    {
-        throw AssetException("Attempting to move an imovable object.");
-    }
-
     _object.setPosition(newLocation.Xcoord, newLocation.Ycoord);
+
+    AlignmentTool& tool = AlignmentTool::getInstance();
+    tool.triggerUpdate(this->getShared());
 }
 
 Point Image::getLEFT() const

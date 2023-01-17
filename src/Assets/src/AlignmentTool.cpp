@@ -29,19 +29,23 @@
 namespace easyGUI
 {
 
-bool Anchor::isMovable() const
+Point Anchor::getBindingPoint(const BindingPoint& point) const
 {
-    return movable_ == 1;
-}
-
-void Anchor::blockAnchor()
-{
-    movable_ = 0;
-}
-
-void Anchor::freeAnchor()
-{
-    movable_ = 1;
+    switch(point)
+    {
+        case BindingPoint::LEFT:
+            return getLEFT();
+        case BindingPoint::RIGHT:
+            return getRIGHT();
+        case BindingPoint::CENTER:
+            return getCENTER();
+        case BindingPoint::BOTTOM:
+            return getBOTTOM();
+        case BindingPoint::TOP:
+            return getTOP();
+        default:
+            return Point();
+    }
 }
 
 AlignmentTool& AlignmentTool::getInstance()
@@ -51,92 +55,57 @@ AlignmentTool& AlignmentTool::getInstance()
     return _instance;
 }
 
-
-Point AlignmentTool::getAlignment(const Anchor& source, const Anchor& anchor, const Binding& mode, const Point& offset) noexcept
-{
-    Point desiredLocation;
-
-    switch (mode.second)
-    {
-    case Mode::LEFT:
-        desiredLocation = anchor.getLEFT() + offset;
-        break;
-    case Mode::RIGHT:
-        desiredLocation = anchor.getRIGHT() + offset;
-        break;
-    case Mode::TOP:
-        desiredLocation = anchor.getTOP() + offset;
-        break;
-    case Mode::BOTTOM:
-        desiredLocation = anchor.getBOTTOM() + offset;
-        break;
-    case Mode::CENTER:
-        desiredLocation = anchor.getCENTER() + offset;
-        break;
-    default:
-        break;
-    }
-
-    Point delta;
-
-    switch (mode.first)
-    {
-    case Mode::LEFT:
-        delta = desiredLocation + (source.getLEFT() * -1); 
-        break;
-    case Mode::RIGHT:
-        delta = desiredLocation + (source.getRIGHT() * -1); 
-        break;
-    case Mode::TOP:
-        delta = desiredLocation + (source.getTOP() * -1); 
-        break;
-    case Mode::BOTTOM:
-        delta = desiredLocation + (source.getBOTTOM() * -1); 
-        break;
-    case Mode::CENTER:
-        delta = desiredLocation + (source.getCENTER() * -1); 
-        break;
-    default:
-        break;
-    }
-
-    return Point(source.getLEFT().Xcoord + delta.Xcoord, source.getTOP().Ycoord + delta.Ycoord);
+::std::shared_ptr<Anchor> Anchor::getShared() {
+    return shared_from_this();
 }
 
-void AlignmentTool::createBinding(Anchor& source, const Anchor& anchor, const Binding& binding, const Point& offset)
+Point AlignmentTool::getAlignment(const Binding& binding) noexcept
 {
-    if(_bindings.find(&anchor) == _bindings.end())
-    {
-        _bindings.emplace(&anchor, ::std::vector<::std::pair<::std::pair<Anchor*, Binding>, const Point>>());
-    }
+    Point desiredLocation = binding.anchors[0]->getBindingPoint(binding.points[0]) + binding.offset; 
+    Point delta = desiredLocation - binding.anchors[1]->getBindingPoint(binding.points[1]);
 
-    _bindings[&anchor].push_back(
-        ::std::pair<::std::pair<Anchor*, Binding>, const Point>(
-            ::std::pair<Anchor*, Binding>(&source, binding), offset
-        ));
+    return Point(binding.anchors[0]->getLEFT().Xcoord + delta.Xcoord, binding.anchors[0]->getTOP().Ycoord + delta.Ycoord);
+}
 
-    source.blockAnchor();
+void AlignmentTool::createBinding(
+    AnchorPtr& source, const AnchorPtr& anchor, 
+    const BindingPoint& sourcePoint, const BindingPoint& anchorPoint, 
+    const Point& offset)
+{
+    Binding newBinding;
+
+    newBinding.anchors[0] = source;
+    newBinding.anchors[1] = anchor;
+    newBinding.points[0] = sourcePoint;
+    newBinding.points[1] = anchorPoint;
+    newBinding.offset = offset;
+
+    if(::std::find(_bindings.begin(), _bindings.end(), newBinding) != _bindings.end())
+        // The binding already exists
+        return;
+
+    _bindings.push_back(newBinding);
 
     // A newly created binding will trigger an update
     triggerUpdate(anchor);
 }
 
-void AlignmentTool::triggerUpdate(const Anchor& source)
+void AlignmentTool::triggerUpdate(const AnchorPtr& source)
 {
-    for(const ::std::pair<::std::pair<Anchor*, Binding>, const Point>& pair : _bindings[&source])
-    {
-        if(dynamic_cast<Component*>(pair.first.first) != nullptr)
-        {
-            // Temporarily frees anchor
-            pair.first.first->freeAnchor();
+    ::std::for_each(_bindings.begin(), _bindings.end(), 
+        [source, this](Binding& binding) {
+            ::std::shared_ptr<Component> cast = nullptr;
 
-            dynamic_cast<Component*>(pair.first.first)->updateLocation(
-                getAlignment(*pair.first.first, source, pair.first.second, pair.second)
-            );
+            if(binding.anchors[0] == source)
+                cast = ::std::dynamic_pointer_cast<Component>(binding.anchors[1]);
+            else if(binding.anchors[1] == source)
+                cast = ::std::dynamic_pointer_cast<Component>(binding.anchors[0]);
 
-            pair.first.first->blockAnchor();
-        }
-    }
+            if(!cast)
+                return;
+            
+            cast->updateLocation(this->getAlignment(binding));
+    });
 }
 
 }

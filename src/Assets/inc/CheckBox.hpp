@@ -38,6 +38,8 @@
 #include <Logger.hpp>
 #include <Point.hpp>
 
+#include <memory>
+
 namespace easyGUI
 {
 
@@ -49,7 +51,7 @@ class CheckBox : public Component, public Anchor
 {
 private:
     ::sf::RectangleShape _box, _filler;
-    Component* _content;
+    ::std::shared_ptr<Component> _content;
 
     char _isChecked;
 
@@ -60,7 +62,7 @@ public:
      * @brief Destructor
      * 
      */
-    virtual ~CheckBox();
+    virtual ~CheckBox() = default;
 
     /**
      * @brief Constructor
@@ -74,7 +76,7 @@ public:
      * @throw CheckBoxException
      *
      */
-    CheckBox(const Point&, const Point&, Component*&, const Binding&);
+    explicit CheckBox(const Point&, const Point&, const std::shared_ptr<Component>&, const BindingPoint&);
 
     /**
      * @brief Constructor
@@ -88,7 +90,7 @@ public:
      * 
      * @throw CheckBoxException
      */
-    CheckBox(const Point&, const float&, const float&, Component*&, const Binding&);
+    explicit CheckBox(const Point&, const float&, const float&, const std::shared_ptr<Component>&, const BindingPoint&);
 
     // Block other forms of construction
 
@@ -125,9 +127,9 @@ public:
     /**
      * @brief Returns the component bound to the checkbox
      * 
-     * @return Component&
+     * @return std::shared_ptr<Component>
      */
-    Component& getInternalComponent();
+    std::shared_ptr<Component> getInternalComponent();
 
     /**
      * @brief Checks if the box has been checked
@@ -153,39 +155,10 @@ public:
 
     // ----- Inherited from Anchor -----
 
-    /**
-     * @brief Returns the point leftmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getLEFT() const override;
-
-    /**
-     * @brief Returns the point rightmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getRIGHT() const override;
-
-    /**
-     * @brief Returns the lowest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getBOTTOM() const override;
-
-    /**
-     * @brief Returns the highest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getTOP() const override;
-
-    /**
-     * @brief Returns the point at the center of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getCENTER() const override;
 };
 

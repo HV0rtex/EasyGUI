@@ -73,9 +73,8 @@ public:
      * @throw TextBoxException
      * 
      * @note The font file format must be .ttf
-
      */
-    PasswordBox(const Point&, const Point&, const ::std::string&, const unsigned&);
+    explicit PasswordBox(const Point&, const Point&, const ::std::string&, const unsigned&);
 
     /**
      * @brief Constructor
@@ -92,7 +91,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    PasswordBox(const Point&, const float&, const float&, const ::std::string&, const unsigned&);
+    explicit PasswordBox(const Point&, const float&, const float&, const ::std::string&, const unsigned&);
 
     // Block other forms of construction
 
@@ -103,9 +102,9 @@ public:
     /**
      * @brief Returns a string containing the text in the box
      * 
-     * @return const ::std::string 
+     * @return ::std::string 
      */
-    const ::std::string getText() const override;
+    ::std::string getText() const override;
 
     /**
      * @brief Updates the text of the keyboard

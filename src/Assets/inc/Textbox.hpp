@@ -55,9 +55,9 @@ class TextBox : public Component, public Anchor
 {
 protected:
     ::sf::RectangleShape _shape;
-    Label* _text;
+    ::std::shared_ptr<Label> _text;
 
-    static TextBox* selectedBox;
+    static ::std::shared_ptr<TextBox> selectedBox;
     static bool textBoxClicked;
 
     unsigned desiredSize;
@@ -76,7 +76,7 @@ protected:
     unsigned getCharSizeCorrection(const unsigned&, const unsigned&) const;
 
 public:
-    static TextBox*& getSelectedBox();
+    static ::std::shared_ptr<TextBox> getSelectedBox();
     static bool& getTextBoxClicked();
 
     /**
@@ -100,7 +100,7 @@ public:
      * @note The font file format must be .ttf
 
      */
-    TextBox(const Point&, const Point&, const ::std::string&, const unsigned&);
+    explicit TextBox(const Point&, const Point&, const ::std::string&, const unsigned&);
 
     /**
      * @brief Constructor
@@ -117,7 +117,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    TextBox(const Point&, const float&, const float&, const ::std::string&, const unsigned&);
+    explicit TextBox(const Point&, const float&, const float&, const ::std::string&, const unsigned&);
 
     // Block other forms of construction
 
@@ -154,16 +154,16 @@ public:
     /**
      * @brief Returns the SFML Text
      * 
-     * @return ::sf::Text*
+     * @return ::sf::Text&
      */
     ::sf::Text& getInternalText();
 
     /**
      * @brief Returns a string containing the text in the box
      * 
-     * @return const ::std::string 
+     * @return ::std::string 
      */
-    virtual const ::std::string getText() const;
+    virtual ::std::string getText() const;
 
     /**
      * @brief Erases all text from a textbox
@@ -186,39 +186,10 @@ public:
 
     // ----- Inherited from Anchor -----
 
-    /**
-     * @brief Returns the point leftmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getLEFT() const override;
-
-    /**
-     * @brief Returns the point rightmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getRIGHT() const override;
-
-    /**
-     * @brief Returns the lowest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getBOTTOM() const override;
-
-    /**
-     * @brief Returns the highest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getTOP() const override;
-
-    /**
-     * @brief Returns the point at the center of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getCENTER() const override;
 };
 
