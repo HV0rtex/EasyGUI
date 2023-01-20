@@ -22,20 +22,23 @@ GUI Elements:
 - Dropdown
 - Slider
 
-Costumization options:
+Customization options:
 - Images can now be framed.
 - Added text decoration options (bold, italic, underline)
 
 ## Fixed
 
 Optimizations:
-- Windows builds are now WARN-free
-- Added compile-time optimizations for Windows, Linux and MacOS
+- Improved performance of Routine handling
+- Reduced memory consumption
+- Removed memory leaks
+- Removed Level 1 and 2 warnings on Windows
 
 Documentation:
 - Updated installation guide
 - Updated usage guide
 - Updated README file
+- Updated Code versioning
 
 ## Version V2.0.2 - Windows support patch (Unreleased)
 
