@@ -63,7 +63,7 @@ private:
      * 
      * @param thickness The thickness of the frame
      */
-    void constructFrame(const unsigned&);
+    void constructFrame(unsigned);
 public:
     /**
      * @brief Destructor
@@ -120,7 +120,7 @@ public:
      * 
      * @param thickness The thickness of the frame
      */
-    void toggleFrame(const unsigned& = 0);
+    void toggleFrame(unsigned = 0);
 
     // ----- Inherited from Anchor -----
 
