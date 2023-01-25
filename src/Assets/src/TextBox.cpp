@@ -207,7 +207,7 @@ void TextBox::onClick()
 
     if(_onClick != nullptr)
     {
-        _onClick();
+        _onClick->exec();
     }
 }
 

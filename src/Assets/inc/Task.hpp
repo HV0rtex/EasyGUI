@@ -14,60 +14,64 @@
 
 
 /**
- * @file Component.cpp
+ * @file Task.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Implementation of the Component class
+ * @brief Definition of the Task abstract class
  * @version 0.1
- * @date 2022-10-07
+ * @date 2023-01-20
  * 
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2023
  * 
  */
 
-#include <Component.hpp>
+#pragma once
+
+// Including dependencies
+#include <memory>
 
 namespace easyGUI
 {
 
-void Component::onClick()
+/**
+ * @brief Wrapper around an abstract callable.
+ * 
+ * @details This class serves to provide an interface for other
+ * classes which need to run any function with any parameters.
+ * This way, any derived class will be compatible with methods
+ * such as onClick() and onHover()
+ * 
+ * @warning This class cannot be used as a standalone.
+ */
+class Task : public ::std::enable_shared_from_this<Task>
 {
-    if(_onClick != nullptr && isMouseHover())
+public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~Task() = default;
+    
+    /**
+     * @brief Constructor
+     * 
+     */
+    Task() = default;
+
+    /**
+     * @brief Executes the task
+     * 
+     */
+    virtual void exec() {}
+
+    /**
+     * @brief Converts the pointer into a shared pointer
+     * 
+     * @return ::std::shared_ptr<Task> 
+     */
+    ::std::shared_ptr<Task> getShared()
     {
-        _onClick->exec();
+        return shared_from_this();
     }
-}
-
-void Component::onHover()
-{
-    if(_onHover != nullptr)
-    {
-        _onHover->exec();
-    }
-}
-
-void Component::setContainer(::sf::RenderWindow*& container)
-{
-    _container = container;
-}
-
-void Component::setOnClickAction(void (*action)())
-{
-    _onClick = ::std::make_shared<Component::DeprecatedTask>(action);
-}
-
-void Component::setOnClickAction(Task*& action)
-{
-    _onClick = action->getShared();
-}
-
-void Component::setOnHoverAction(Task*& action)
-{
-    _onClick = action->getShared();
-}
-
-void Component::setOnHoverAction(void (*action)())
-{
-    _onHover = ::std::make_shared<Component::DeprecatedTask>(action);
-}
+};
 
 }
