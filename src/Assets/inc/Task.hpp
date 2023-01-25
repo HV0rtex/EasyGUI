@@ -46,11 +46,28 @@ class Task : public ::std::enable_shared_from_this<Task>
 {
 public:
     /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~Task() = default;
+    
+    /**
+     * @brief Constructor
+     * 
+     */
+    Task() = default;
+
+    /**
      * @brief Executes the task
      * 
      */
     virtual void exec() {}
 
+    /**
+     * @brief Converts the pointer into a shared pointer
+     * 
+     * @return ::std::shared_ptr<Task> 
+     */
     ::std::shared_ptr<Task> getShared()
     {
         return shared_from_this();
