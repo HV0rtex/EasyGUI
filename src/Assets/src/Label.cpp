@@ -92,6 +92,8 @@ void Label::toggleDecoration(const TextDecoration& deco)
         case TextDecoration::UNDERLINED:
             _text.setStyle(::sf::Text::Underlined);
             break;
+        default:
+            break;
     }
 }
 
