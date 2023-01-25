@@ -42,6 +42,18 @@ namespace easyGUI
 {
 
 /**
+ * @brief Contains all supported text decorations.
+ * 
+ */
+enum TextDecoration
+{
+    BOLD,
+    ITALIC,
+    STRIKETHROUGH,
+    UNDERLINED
+};
+
+/**
  * @brief Implements a label component
  * 
  * @details This class is a wrapper around the sf::Text class, in order
@@ -55,6 +67,7 @@ class Label : public Component, public Anchor
 #endif
 {
 private:
+    ::std::vector<TextDecoration> _decorations;
     ::std::shared_ptr<::sf::Font> _font;
     ::sf::Text _text;
     ::sf::Color _textColor;
@@ -137,6 +150,13 @@ public:
      * @param newLocation The new location of the component
      */
     virtual void updateLocation(const Point&) override;
+
+    /**
+     * @brief Applies / removes a specific decoration
+     * 
+     * @param deco The decoration to be toggled
+     */
+    void toggleDecoration(const TextDecoration&);
 
     // ----- Inherited from Anchor -----
 
