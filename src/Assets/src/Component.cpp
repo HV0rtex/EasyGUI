@@ -33,7 +33,7 @@ void Component::onClick()
 {
     if(_onClick != nullptr && isMouseHover())
     {
-        _onClick();
+        _onClick->exec();
     }
 }
 
@@ -41,7 +41,7 @@ void Component::onHover()
 {
     if(_onHover != nullptr)
     {
-        _onHover();
+        _onHover->exec();
     }
 }
 
@@ -52,12 +52,22 @@ void Component::setContainer(::sf::RenderWindow*& container)
 
 void Component::setOnClickAction(void (*action)())
 {
-    _onClick = action;
+    _onClick = ::std::make_shared<Component::DeprecatedTask>(action);
+}
+
+void Component::setOnClickAction(Task*& action)
+{
+    _onClick = action->getShared();
+}
+
+void Component::setOnHoverAction(Task*& action)
+{
+    _onClick = action->getShared();
 }
 
 void Component::setOnHoverAction(void (*action)())
 {
-    _onHover = action;
+    _onHover = ::std::make_shared<Component::DeprecatedTask>(action);
 }
 
 }

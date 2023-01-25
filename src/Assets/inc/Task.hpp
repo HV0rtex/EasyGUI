@@ -26,6 +26,9 @@
 
 #pragma once
 
+// Including dependencies
+#include <memory>
+
 namespace easyGUI
 {
 
@@ -39,14 +42,19 @@ namespace easyGUI
  * 
  * @warning This class cannot be used as a standalone.
  */
-class Task
+class Task : public ::std::enable_shared_from_this<Task>
 {
 public:
     /**
      * @brief Executes the task
      * 
      */
-    virtual void exec();
+    virtual void exec() {}
+
+    ::std::shared_ptr<Task> getShared()
+    {
+        return shared_from_this();
+    }
 };
 
-};
+}
