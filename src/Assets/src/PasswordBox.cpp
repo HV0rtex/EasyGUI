@@ -33,7 +33,7 @@ PasswordBox::PasswordBox(
     const Point& startLocation,
     const Point& endLocation,
     const ::std::string& fontPath,
-    const unsigned& charSize) :
+    unsigned charSize) :
 TextBox(startLocation, endLocation, fontPath, charSize) {}
 
 PasswordBox::PasswordBox(
@@ -41,7 +41,7 @@ PasswordBox::PasswordBox(
     const float& width,
     const float& height,
     const ::std::string& fontPath,
-    const unsigned& charSize) :
+    unsigned charSize) :
 TextBox(startLocation, width, height, fontPath, charSize) {}
 
 

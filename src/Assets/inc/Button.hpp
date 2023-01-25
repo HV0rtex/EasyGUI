@@ -92,7 +92,7 @@ public:
      * @note The font file format must be .ttf
 
      */
-    Button(const Point&, const Point&, const ::std::string&, const ::std::string&, const unsigned&);
+    Button(const Point&, const Point&, const ::std::string&, const ::std::string&, unsigned);
 
     /**
      * @brief Constructor
@@ -110,7 +110,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    Button(const Point&, const float&, const float&, const ::std::string&, const ::std::string&, const unsigned&);
+    Button(const Point&, const float&, const float&, const ::std::string&, const ::std::string&, unsigned);
 
     // Block other forms of construction
 

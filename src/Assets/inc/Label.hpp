@@ -69,7 +69,7 @@ private:
      * @param text The text of the label
      * @param charSize The character size
      */
-    void constructText(const Point&, const ::std::string&, const unsigned&);
+    void constructText(const Point&, const ::std::string&, unsigned);
 
 public:
     /**
@@ -90,7 +90,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    Label(const Point&, const ::std::string&, const ::std::string&, const unsigned&);
+    Label(const Point&, const ::std::string&, const ::std::string&, unsigned);
 
     /**
      * @brief Constructor
@@ -103,7 +103,7 @@ public:
      * @throw LabelException Invalid font received
      * 
      */
-    Label(const Point&, const ::std::string&, const ::std::shared_ptr<::sf::Font>&, const unsigned&);
+    Label(const Point&, const ::std::string&, const ::std::shared_ptr<::sf::Font>&, unsigned);
 
     // Block other forms of construction
 

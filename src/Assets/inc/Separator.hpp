@@ -72,7 +72,7 @@ public:
      * @param thickness The thickness of the separator
      * 
      */
-    explicit Separator(const Point&, const bool&, const float&, const unsigned&);
+    explicit Separator(const Point&, const bool&, const float&, unsigned);
 
     // Block other forms of construction
 

@@ -34,7 +34,7 @@ void Label::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
     target.draw(_text, states);
 }
 
-void Label::constructText(const Point& position, const ::std::string& text, const unsigned& charSize)
+void Label::constructText(const Point& position, const ::std::string& text, unsigned charSize)
 {
     _text.setPosition(position.Xcoord, position.Ycoord);
     _text.setFont(*_font.get());
@@ -65,7 +65,7 @@ void Label::updateLocation(const Point& newLocation)
     tool.triggerUpdate(this->getShared());
 }
 
-Label::Label(const Point& startLocation, const ::std::string& text, const ::std::shared_ptr<::sf::Font>& font, const unsigned& charSize)
+Label::Label(const Point& startLocation, const ::std::string& text, const ::std::shared_ptr<::sf::Font>& font, unsigned charSize)
 {
     if(font == nullptr)
     {
@@ -77,7 +77,7 @@ Label::Label(const Point& startLocation, const ::std::string& text, const ::std:
     constructText(startLocation, text, charSize);
 }
 
-Label::Label(const Point& startLocation, const ::std::string& text, const ::std::string& fontPath, const unsigned& charSize)
+Label::Label(const Point& startLocation, const ::std::string& text, const ::std::string& fontPath, unsigned charSize)
 {
     try
     {

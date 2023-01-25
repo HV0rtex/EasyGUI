@@ -77,7 +77,7 @@ private:
      * @param title The title of the application
      * 
      */
-    explicit Application(const unsigned&, const unsigned&, const char*);
+    explicit Application(unsigned, unsigned, const char*);
 
     /**
      * @brief Event handler
@@ -110,7 +110,7 @@ public:
      * 
      * @throws ApplicationInstance Failed to instantiate application.
      */
-    ::std::shared_ptr<Application> getInstance(const unsigned& = 0, const unsigned& = 0, const char* = nullptr);
+    ::std::shared_ptr<Application> getInstance(unsigned = 0, unsigned = 0, const char* = nullptr);
 
     /**
      * @brief Appends a new menu to the application
@@ -154,7 +154,7 @@ public:
      * 
      * @throws ApplicationException Invalid index provided
      */
-    Routine& getRoutine(const unsigned&);
+    Routine& getRoutine(unsigned);
 
     /**
      * @brief Returns the SFML RenderWindow

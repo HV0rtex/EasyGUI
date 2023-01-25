@@ -73,7 +73,7 @@ protected:
      * @param desiredSize The desired char size
      * @return unsigned
      */
-    unsigned getCharSizeCorrection(const unsigned&, const unsigned&) const;
+    unsigned getCharSizeCorrection(unsigned, unsigned) const;
 
 public:
     static ::std::shared_ptr<TextBox> getSelectedBox();
@@ -100,7 +100,7 @@ public:
      * @note The font file format must be .ttf
 
      */
-    explicit TextBox(const Point&, const Point&, const ::std::string&, const unsigned&);
+    explicit TextBox(const Point&, const Point&, const ::std::string&, unsigned);
 
     /**
      * @brief Constructor
@@ -117,7 +117,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    explicit TextBox(const Point&, const float&, const float&, const ::std::string&, const unsigned&);
+    explicit TextBox(const Point&, const float&, const float&, const ::std::string&, unsigned);
 
     // Block other forms of construction
 

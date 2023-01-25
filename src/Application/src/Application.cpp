@@ -33,12 +33,12 @@ namespace easyGUI
 // Defining the application instance
 std::shared_ptr<Application> Application::_instance = 0;
 
-Application::Application(const unsigned& width, const unsigned& height, const char* title)
+Application::Application(unsigned width, unsigned height, const char* title)
 {
     _window = ::std::make_shared<::sf::RenderWindow>(::sf::VideoMode(width,height), title);
 }
 
-::std::shared_ptr<Application> Application::getInstance(const unsigned& width, const unsigned& height, const char* title)
+::std::shared_ptr<Application> Application::getInstance(unsigned width, unsigned height, const char* title)
 {
     if(title != nullptr && width > 0 && height > 0)
     {
@@ -117,7 +117,7 @@ void Application::handleEvents(const ::sf::Event& event)
     return _activeMenu;
 }
 
-Routine& Application::getRoutine(const unsigned& index)
+Routine& Application::getRoutine(unsigned index)
 {
     if(index < _routines.size())
     {

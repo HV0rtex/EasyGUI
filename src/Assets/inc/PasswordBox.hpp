@@ -74,7 +74,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    explicit PasswordBox(const Point&, const Point&, const ::std::string&, const unsigned&);
+    explicit PasswordBox(const Point&, const Point&, const ::std::string&, unsigned);
 
     /**
      * @brief Constructor
@@ -91,7 +91,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    explicit PasswordBox(const Point&, const float&, const float&, const ::std::string&, const unsigned&);
+    explicit PasswordBox(const Point&, const float&, const float&, const ::std::string&, unsigned);
 
     // Block other forms of construction
 

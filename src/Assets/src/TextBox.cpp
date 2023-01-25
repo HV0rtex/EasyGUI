@@ -32,7 +32,7 @@ namespace easyGUI
 ::std::shared_ptr<TextBox> TextBox::selectedBox = nullptr;
 bool TextBox::textBoxClicked = false;
 
-unsigned TextBox::getCharSizeCorrection(const unsigned& length, const unsigned& charSize) const
+unsigned TextBox::getCharSizeCorrection(unsigned length, unsigned charSize) const
 {
     float lenghtInPix = length * charSize / 1.9;
     float heightInPix = charSize * 1.55;
@@ -80,7 +80,7 @@ TextBox::TextBox(
 
     const ::std::string& fontPath,
 
-    const unsigned& charSize)
+    unsigned charSize)
 {
     _shape.setPosition(startLocation.Xcoord, startLocation.Ycoord);
     _shape.setFillColor(::sf::Color::Black);
@@ -119,7 +119,7 @@ TextBox::TextBox(
 
     const ::std::string& fontPath,
 
-    const unsigned& charSize) : 
+    unsigned charSize) : 
 TextBox(
     startLocation, 
     Point(startLocation.Xcoord + width, startLocation.Ycoord + height),
