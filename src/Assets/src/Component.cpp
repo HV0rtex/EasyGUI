@@ -60,4 +60,15 @@ void Component::setOnHoverAction(void (*action)())
     _onHover = action;
 }
 
+AssetException::AssetException(::std::string message) : ::std::exception()
+{
+    _msg = "[ Asset ]";
+    _msg += message;
+    _msg += "\n";
+}
+
+const char* AssetException::what() const noexcept {
+    return _msg.c_str();
+}
+
 }
