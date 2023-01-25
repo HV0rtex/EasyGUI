@@ -158,7 +158,7 @@ private:
 
         Point offset;
 
-        bool operator== (const Binding&) noexcept;
+        bool operator== (const Binding&) const noexcept;
     };
 
     ::std::vector<Binding> _bindings;

@@ -67,7 +67,7 @@ Point AlignmentTool::getAlignment(const Binding& binding) noexcept
     return Point(binding.anchors[0]->getLEFT().Xcoord + delta.Xcoord, binding.anchors[0]->getTOP().Ycoord + delta.Ycoord);
 }
 
-bool AlignmentTool::Binding::operator== (const Binding& other)
+bool AlignmentTool::Binding::operator== (const Binding& other) const noexcept
 {
     return (anchors[0] == other.anchors[0]) && (anchors[1] == other.anchors[1]);
 }
