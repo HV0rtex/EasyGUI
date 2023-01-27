@@ -57,12 +57,6 @@ class ASSETS_EXPORTS Component : public ::sf::Drawable
 class Component : public ::sf::Drawable
 #endif
 {
-protected:
-    std::shared_ptr<::sf::RenderWindow> _container;
-
-    void (*_onClick)() = nullptr;
-    void (*_onHover)() = nullptr;
-
 public:
     /**
      * @brief Destructor
@@ -119,6 +113,11 @@ public:
      * @param newLocation The new location of the component
      */
     virtual void updateLocation(const Point&) = 0;
+protected:
+    std::shared_ptr<::sf::RenderWindow> _container;
+
+    void (*_onClick)() = nullptr;
+    void (*_onHover)() = nullptr;
 };
 
 }

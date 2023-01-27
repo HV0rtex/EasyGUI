@@ -29,28 +29,24 @@
 namespace easyGUI
 {
 
-unsigned Button::getCharSizeCorrection(unsigned length, unsigned charSize) const
+void Button::applyCharSizeCorrection()
 {
-    float lenghtInPix = length * charSize / 1.9;
-    float heightInPix = charSize * 1.55;
+    float lenghtInPix = _content->getInternalText().getGlobalBounds().width;
+    float heightInPix = _content->getInternalText().getGlobalBounds().height;
 
-    float freeSpaceX = _shape.getSize().x - lenghtInPix;
-    float freeSpaceY = _shape.getSize().y - heightInPix;
+    float freeSpaceX = _shape.getGlobalBounds().width - lenghtInPix;
+    float freeSpaceY = _shape.getGlobalBounds().height - heightInPix;
 
-    unsigned correction = 0;
+    uint32_t size = _content->getInternalText().getCharacterSize();
 
     while(freeSpaceX <= 0 || freeSpaceY <= 0)
     {
-        correction++;
+        size--;
+        _content->getInternalText().setCharacterSize(size);
 
-        lenghtInPix = length * (charSize - correction) / 1.9;
-        heightInPix = (charSize - correction) * 1.5;
-
-        freeSpaceX = _shape.getSize().x - lenghtInPix;
-        freeSpaceY = _shape.getSize().y - heightInPix;
+        freeSpaceX = _shape.getGlobalBounds().width - lenghtInPix;
+        freeSpaceY = _shape.getGlobalBounds().height - heightInPix;
     }
-
-    return correction;
 }
 
 Button::Button(
@@ -60,7 +56,7 @@ Button::Button(
     const ::std::string& text,
     const ::std::string& fontPath,
 
-    unsigned charSize)
+    const uint32_t charSize)
 {
     _shape.setPosition(startLocation.Xcoord, startLocation.Ycoord);
     _shape.setFillColor(::sf::Color::Black);
@@ -68,20 +64,18 @@ Button::Button(
     _shape.setOutlineThickness(5);
     _shape.setSize(::sf::Vector2f(endLocation.Xcoord - startLocation.Xcoord, endLocation.Ycoord - startLocation.Ycoord));
     
-    unsigned correction = getCharSizeCorrection(text.size(), charSize);
-
-    if(correction != 0)
-    {
-        WARN << "Button text doesn't fit. Resizing text...\n";
-    }
-
     try
     {
         AlignmentTool& tool = AlignmentTool::getInstance();
-        _content = ::std::make_shared<Label>(Point(), text, fontPath, charSize - correction);
+        _content = ::std::make_shared<Label>(Point(), text, fontPath, charSize);
+        applyCharSizeCorrection();
     
-        ::std::shared_ptr<Anchor> cast = ::std::static_pointer_cast<Anchor>(_content);
+        if (_content->getInternalText().getCharacterSize() < charSize)
+        {
+            WARN << "[Button] Text has been resized in order to fit.";
+        }
 
+        ::std::shared_ptr<Anchor> cast = ::std::static_pointer_cast<Anchor>(_content);
         tool.createBinding(
             cast, 
             this->getShared(), 
@@ -108,7 +102,7 @@ Button::Button(
     const ::std::string& text,
     const ::std::string& fontPath,
 
-    unsigned charSize) : 
+    const uint32_t charSize) : 
 Button(
     startLocation, 
     Point(startLocation.Xcoord + width, startLocation.Ycoord + height),

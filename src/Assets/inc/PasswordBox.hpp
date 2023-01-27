@@ -50,9 +50,6 @@ class ASSETS_EXPORTS PasswordBox : public TextBox
 class PasswordBox : public TextBox
 #endif
 {
-private:
-    ::std::string _passText;
-
 public:
     /**
      * @brief Destructor
@@ -74,7 +71,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    explicit PasswordBox(const Point&, const Point&, const ::std::string&, unsigned);
+    explicit PasswordBox(const Point&, const Point&, const ::std::string&, const uint32_t);
 
     /**
      * @brief Constructor
@@ -91,7 +88,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    explicit PasswordBox(const Point&, const float&, const float&, const ::std::string&, unsigned);
+    explicit PasswordBox(const Point&, const float&, const float&, const ::std::string&, const uint32_t);
 
     // Block other forms of construction
 
@@ -112,6 +109,8 @@ public:
      * @param text The text that has been entered
      */
     virtual void updateText(const ::sf::Uint32&) override;
+private:
+    ::std::string _passText;
 };
 
 }

@@ -32,22 +32,13 @@ namespace easyGUI
 void CheckBox::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 {
     target.draw(_box, states);
-    target.draw(*_content, states);
 
     if(_isChecked)
         target.draw(_filler, states);
 }
 
-CheckBox::CheckBox(const Point& startLocation, const Point& endLocation, const ::std::shared_ptr<Component>& content, const BindingPoint& binding)
+CheckBox::CheckBox(const Point& startLocation, const Point& endLocation)
 {
-    if(content == nullptr)
-    {
-        _content = nullptr;
-        this->~CheckBox();
-
-        throw CheckBoxException("Invalid content: received NULL.");
-    }
-
     _box.setPosition(startLocation.Xcoord, startLocation.Ycoord);
     _box.setSize(::sf::Vector2f(endLocation.Xcoord - startLocation.Xcoord, endLocation.Ycoord - startLocation.Ycoord));
     _box.setOutlineColor(::sf::Color::White);
@@ -56,30 +47,13 @@ CheckBox::CheckBox(const Point& startLocation, const Point& endLocation, const :
     _filler.setPosition(startLocation.Xcoord + 5, startLocation.Ycoord + 5);
     _filler.setSize(::sf::Vector2f(endLocation.Xcoord - startLocation.Xcoord + 5, endLocation.Ycoord - startLocation.Ycoord + 5));
     _filler.setFillColor(::sf::Color::White);
-
-    ::std::shared_ptr<Anchor> cast = ::std::dynamic_pointer_cast<Anchor>(content);
-    
-    if(cast == nullptr)
-    {
-        _content = nullptr;
-        this->~CheckBox();
-
-        throw CheckBoxException("Checkbox content must be an anchor.");
-    }
-
-    AlignmentTool& tool = AlignmentTool::getInstance();
-
-    tool.createBinding(cast, this->getShared(), binding, binding);
-    tool.triggerUpdate(this->getShared());
 }
 
 CheckBox::CheckBox(
     const Point& startLocation, 
-    const float& width, const float& height, 
-    const ::std::shared_ptr<Component>& content, 
-    const BindingPoint& binding):
+    const float& width, const float& height):
     
-    CheckBox(startLocation, startLocation + Point(width, height), content, binding)
+    CheckBox(startLocation, startLocation + Point(width, height))
 {
 }
 
@@ -127,11 +101,6 @@ bool CheckBox::isChecked() const
 ::sf::RectangleShape& CheckBox::getFiller()
 {
     return _filler;
-}
-
-::std::shared_ptr<Component> CheckBox::getInternalComponent()
-{
-    return _content;
 }
 
 Point CheckBox::getLEFT() const

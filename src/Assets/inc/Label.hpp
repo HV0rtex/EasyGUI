@@ -54,23 +54,6 @@ class ASSETS_EXPORTS Label : public Component, public Anchor
 class Label : public Component, public Anchor
 #endif
 {
-private:
-    ::std::shared_ptr<::sf::Font> _font;
-    ::sf::Text _text;
-
-    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
-
-    // ----- Initializers -----
-
-    /**
-     * @brief Initializes the label's text
-     * 
-     * @param location The position of the text
-     * @param text The text of the label
-     * @param charSize The character size
-     */
-    void constructText(const Point&, const ::std::string&, unsigned);
-
 public:
     /**
      * @brief Destructor
@@ -90,7 +73,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    Label(const Point&, const ::std::string&, const ::std::string&, unsigned);
+    Label(const Point&, const ::std::string&, const ::std::string&, const uint32_t);
 
     /**
      * @brief Constructor
@@ -103,7 +86,7 @@ public:
      * @throw LabelException Invalid font received
      * 
      */
-    Label(const Point&, const ::std::string&, const ::std::shared_ptr<::sf::Font>&, unsigned);
+    Label(const Point&, const ::std::string&, const ::std::shared_ptr<::sf::Font>&, const uint32_t);
 
     // Block other forms of construction
 
@@ -144,6 +127,11 @@ public:
     Point getBOTTOM() const override;
     Point getTOP() const override;
     Point getCENTER() const override;
+private:
+    ::std::shared_ptr<::sf::Font> _font;
+    ::sf::Text _text;
+
+    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 };
 
 }

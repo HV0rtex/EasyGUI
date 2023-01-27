@@ -34,7 +34,7 @@ Separator::Separator(
     const bool& vertical,
     
     const float& size,
-    unsigned thickness)
+    const uint32_t thickness)
 {
     _shape.setPosition(startLocation.Xcoord, startLocation.Ycoord);
     _shape.setFillColor(::sf::Color::Black);

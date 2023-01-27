@@ -150,33 +150,6 @@ class ASSETS_EXPORTS AlignmentTool
 class AlignmentTool
 #endif
 {
-private:
-    struct Binding
-    {
-        AnchorPtr anchors[2];
-        BindingPoint points[2];
-
-        Point offset;
-
-        bool operator== (const Binding&) const noexcept;
-    };
-
-    ::std::vector<Binding> _bindings;
-
-    /**
-     * @brief Computes the position of an element
-     * 
-     * @param binding The binding between the elements
-     * 
-     * @return Point
-     */
-    Point getAlignment(const Binding&) noexcept;
-
-    /**
-     * @brief Constructor
-     * 
-     */
-    AlignmentTool() = default;
 public:
     /**
      * @brief Destructor
@@ -208,6 +181,33 @@ public:
      * @param source The anchor that moved
      */
     void triggerUpdate(const AnchorPtr&);
+private:
+    struct Binding
+    {
+        AnchorPtr anchors[2];
+        BindingPoint points[2];
+
+        Point offset;
+
+        bool operator== (const Binding&) const noexcept;
+    };
+
+    ::std::vector<Binding> _bindings;
+
+    /**
+     * @brief Computes the position of an element
+     * 
+     * @param binding The binding between the elements
+     * 
+     * @return Point
+     */
+    Point getAlignment(const Binding&) noexcept;
+
+    /**
+     * @brief Constructor
+     * 
+     */
+    AlignmentTool() = default;
 };
 
 }

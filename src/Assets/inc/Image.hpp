@@ -50,11 +50,6 @@ class ASSETS_EXPORTS Image : public Component, public Anchor
 class Image : public Component, public Anchor
 #endif
 {
-private:
-    ::std::shared_ptr<::sf::Texture> _image;
-    ::sf::Sprite _object;
-
-    void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 public:
     /**
      * @brief Destructor
@@ -113,6 +108,11 @@ public:
     Point getBOTTOM() const override;
     Point getTOP() const override;
     Point getCENTER() const override;
+private:
+    ::std::shared_ptr<::sf::Texture> _image;
+    ::sf::Sprite _object;
+
+    void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 };
 
 }

@@ -32,28 +32,24 @@ namespace easyGUI
 ::std::shared_ptr<TextBox> TextBox::selectedBox = nullptr;
 bool TextBox::textBoxClicked = false;
 
-unsigned TextBox::getCharSizeCorrection(unsigned length, unsigned charSize) const
+void TextBox::applyCharSizeCorrection()
 {
-    float lenghtInPix = length * charSize / 1.9;
-    float heightInPix = charSize * 1.55;
+    float lenghtInPix = _text->getInternalText().getGlobalBounds().width;
+    float heightInPix = _text->getInternalText().getGlobalBounds().height;
 
-    float freeSpaceX = _shape.getSize().x - lenghtInPix;
-    float freeSpaceY = _shape.getSize().y - heightInPix;
+    float freeSpaceX = _shape.getGlobalBounds().width - lenghtInPix;
+    float freeSpaceY = _shape.getGlobalBounds().height - heightInPix;
 
-    unsigned correction = 0;
+    uint32_t size = desiredSize;
 
     while(freeSpaceX <= 0 || freeSpaceY <= 0)
     {
-        correction++;
+        size--;
+        _text->getInternalText().setCharacterSize(size);
 
-        lenghtInPix = length * (charSize - correction) / 1.9;
-        heightInPix = (charSize - correction) * 1.5;
-
-        freeSpaceX = _shape.getSize().x - lenghtInPix;
-        freeSpaceY = _shape.getSize().y - heightInPix;
+        freeSpaceX = _shape.getGlobalBounds().width - lenghtInPix;
+        freeSpaceY = _shape.getGlobalBounds().height - heightInPix;
     }
-
-    return correction;
 }
 
 ::std::shared_ptr<TextBox> TextBox::getSelectedBox() 
@@ -80,7 +76,7 @@ TextBox::TextBox(
 
     const ::std::string& fontPath,
 
-    unsigned charSize)
+    const uint32_t charSize)
 {
     _shape.setPosition(startLocation.Xcoord, startLocation.Ycoord);
     _shape.setFillColor(::sf::Color::Black);
@@ -119,7 +115,7 @@ TextBox::TextBox(
 
     const ::std::string& fontPath,
 
-    unsigned charSize) : 
+    const uint32_t charSize) : 
 TextBox(
     startLocation, 
     Point(startLocation.Xcoord + width, startLocation.Ycoord + height),
@@ -170,7 +166,7 @@ TextBox::~TextBox()
     return _text->getInternalText();
 }
 
-void TextBox::updateText(const ::sf::Uint32& text)
+void TextBox::updateText(const uint32_t text)
 {
     ::sf::String newContent = _text->getInternalText().getString();
     AlignmentTool& tool = AlignmentTool::getInstance();
@@ -180,15 +176,13 @@ void TextBox::updateText(const ::sf::Uint32& text)
     else
         newContent.insert(newContent.getSize(), text);
 
-    unsigned correction = getCharSizeCorrection(newContent.getSize(), desiredSize);
-
-    if(correction != 0)
-    {
-        WARN << "TextBox text doesn't fit. Resizing text...\n";
-    }
-
     _text->getInternalText().setString(newContent);
-    _text->getInternalText().setCharacterSize(desiredSize - correction);
+    applyCharSizeCorrection();
+
+    if (_text->getInternalText().getCharacterSize() < desiredSize)
+    {
+        WARN << "[TextBox] Text has been resized in order to fit.";
+    }
 
     ::std::shared_ptr<Anchor> cast = ::std::static_pointer_cast<Anchor>(getShared());
     tool.triggerUpdate(cast);

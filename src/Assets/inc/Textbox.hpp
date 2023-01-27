@@ -60,20 +60,16 @@ protected:
     static ::std::shared_ptr<TextBox> selectedBox;
     static bool textBoxClicked;
 
-    unsigned desiredSize;
+    uint32_t desiredSize;
     
     virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 
     // ----- Helper methods -----
 
     /**
-     * @brief Computes the correction to be applied to the char size of the text
-     * 
-     * @param textLenght The length of the text
-     * @param desiredSize The desired char size
-     * @return unsigned
+     * @brief Reduces the size of the text to fit in the box.
      */
-    unsigned getCharSizeCorrection(unsigned, unsigned) const;
+    void applyCharSizeCorrection();
 
 public:
     static ::std::shared_ptr<TextBox> getSelectedBox();
@@ -100,7 +96,7 @@ public:
      * @note The font file format must be .ttf
 
      */
-    explicit TextBox(const Point&, const Point&, const ::std::string&, unsigned);
+    explicit TextBox(const Point&, const Point&, const ::std::string&, const uint32_t);
 
     /**
      * @brief Constructor
@@ -117,7 +113,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    explicit TextBox(const Point&, const float&, const float&, const ::std::string&, unsigned);
+    explicit TextBox(const Point&, const float&, const float&, const ::std::string&, const uint32_t);
 
     // Block other forms of construction
 
@@ -140,7 +136,7 @@ public:
      * 
      * @param text The text that has been entered
      */
-    virtual void updateText(const ::sf::Uint32&);
+    virtual void updateText(const uint32_t);
 
     // ----- Getters -----
 

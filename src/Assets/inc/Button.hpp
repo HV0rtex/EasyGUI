@@ -51,24 +51,6 @@ class ASSETS_EXPORTS Button : public Component, public Anchor
 class Button : public Component, public Anchor
 #endif
 {
-private:
-    ::sf::RectangleShape _shape;
-    ::std::shared_ptr<Label> _content;
-
-    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
-
-    // ----- Helper methods -----
-
-    /**
-     * @brief Computes the correction to be applied to the char size of the text
-     * 
-     * @param textLenght The length of the text
-     * @param desiredSize The desired char size
-     * 
-     * @return unsigned
-     */
-    unsigned getCharSizeCorrection(const unsigned&, const unsigned&) const;
-
 public:
     /**
      * @brief Destructor
@@ -92,7 +74,7 @@ public:
      * @note The font file format must be .ttf
 
      */
-    Button(const Point&, const Point&, const ::std::string&, const ::std::string&, unsigned);
+    Button(const Point&, const Point&, const ::std::string&, const ::std::string&, const uint32_t);
 
     /**
      * @brief Constructor
@@ -110,7 +92,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    Button(const Point&, const float&, const float&, const ::std::string&, const ::std::string&, unsigned);
+    Button(const Point&, const float&, const float&, const ::std::string&, const ::std::string&, const uint32_t);
 
     // Block other forms of construction
 
@@ -158,6 +140,18 @@ public:
     Point getBOTTOM() const override;
     Point getTOP() const override;
     Point getCENTER() const override;
+private:
+    ::sf::RectangleShape _shape;
+    ::std::shared_ptr<Label> _content;
+
+    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
+
+    // ----- Helper methods -----
+
+    /**
+     * @brief Reduces the size of the text to fit in the box.
+     */
+    void applyCharSizeCorrection();
 };
 
 }
