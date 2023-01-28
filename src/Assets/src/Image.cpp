@@ -33,6 +33,9 @@ void Image::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 {
     if(_object.getTexture() != nullptr)
         target.draw(_object, states);
+
+    if(_border)
+        target.draw(*_border, states);
 }
 
 Image::Image(const Point& startLocation, const Point& endLocation, const ::std::string& path)
@@ -74,6 +77,28 @@ bool Image::isMouseHover() const
     }
 
     return false;
+}
+
+void Image::constructFrame(unsigned thickness)
+{
+    _border = ::std::make_shared<::sf::RectangleShape>();
+    
+    _border->setPosition(_object.getPosition().x, _object.getPosition().y);
+    _border->setOutlineColor(::sf::Color::White);
+    _border->setOutlineThickness(thickness);
+
+    float width = _object.getTextureRect().width * _object.getScale().x;
+    float height = _object.getTextureRect().height * _object.getScale().y;
+
+    _border->setSize(::sf::Vector2f(width, height));
+}
+
+void Image::toggleFrame(unsigned thickness)
+{
+    if(_border)
+        _border.reset();
+    else
+        constructFrame(thickness);
 }
 
 void Image::updateLocation(const Point& newLocation)

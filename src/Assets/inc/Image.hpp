@@ -32,6 +32,7 @@
 #endif
 
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <Exceptions/ImageException.hpp>
 #include <AlignmentTool.hpp>
 #include <Component.hpp>
@@ -52,9 +53,17 @@ class Image : public Component, public Anchor
 {
 private:
     ::std::shared_ptr<::sf::Texture> _image;
+    ::std::shared_ptr<::sf::RectangleShape> _border;
     ::sf::Sprite _object;
 
     void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
+
+    /**
+     * @brief Builds the frame around the image
+     * 
+     * @param thickness The thickness of the frame
+     */
+    void constructFrame(unsigned);
 public:
     /**
      * @brief Destructor
@@ -105,6 +114,13 @@ public:
      * @param newLocation The new location of the component
      */
     void updateLocation(const Point&) override;
+
+    /**
+     * @brief Hides / Shows the image frame.
+     * 
+     * @param thickness The thickness of the frame
+     */
+    void toggleFrame(unsigned = 0);
 
     // ----- Inherited from Anchor -----
 

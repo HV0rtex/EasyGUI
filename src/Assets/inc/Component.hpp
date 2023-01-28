@@ -35,6 +35,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <Exceptions/AssetException.hpp>
+#include <Task.hpp>
 #include <Point.hpp>
 #include <Logger.hpp>
 
@@ -59,9 +60,23 @@ class Component : public ::sf::Drawable
 protected:
     ::sf::RenderWindow* _container;
 
-    void (*_onClick)() = nullptr;
-    void (*_onHover)() = nullptr;
+    ::std::shared_ptr<Task> _onClick;
+    ::std::shared_ptr<Task> _onHover;
 
+    class DeprecatedTask : public Task
+    {
+    private:
+        void (*_action)() = nullptr;
+
+    public:
+        DeprecatedTask(void (*action)()) : _action(action) {}
+
+        void exec() 
+        {
+            if (_action)
+                _action();
+        }
+    };
 public:
     /**
      * @brief Destructor
@@ -90,15 +105,31 @@ public:
      * @brief Makes the component interactable
      * 
      * @param action Function to be called when component is clicked.
+     * @deprecated
      */
-    void setOnClickAction( void (*)() );
+    virtual void setOnClickAction( void (*)() );
+
+    /**
+     * @brief Makes the component interactable
+     * 
+     * @param action The task to be executed when component is clicked.
+     */
+    void setOnClickAction( Task*& );
 
     /**
      * @brief Sets the behaviour when the mouse is moved
      * 
      * @param action The action to be executed.
+     * @deprecated
      */
-    void setOnHoverAction( void (*)() );
+    virtual void setOnHoverAction( void (*)() );
+
+    /**
+     * @brief Makes the component interactable
+     * 
+     * @param action The task to be executed when component is clicked.
+     */
+    void setOnHoverAction( Task*& );
 
     /**
      * @brief Executes the onClick action
