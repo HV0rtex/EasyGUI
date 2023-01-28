@@ -56,6 +56,37 @@ void Label::updateLocation(const Point& newLocation)
     tool.triggerUpdate(this->getShared());
 }
 
+void Label::toggleDecoration(const TextDecoration& deco)
+{
+    bool removed = false;
+    auto res = ::std::remove_if(_decorations.begin(), _decorations.end(), 
+        [&removed, &deco](const TextDecoration& elem) {
+            removed = (elem == deco);
+            return elem == deco;
+    });
+
+    if(removed)
+        return;
+
+    switch(deco)
+    {
+        case TextDecoration::BOLD:
+            _text.setStyle(::sf::Text::Bold);
+            break;
+        case TextDecoration::ITALIC:
+            _text.setStyle(::sf::Text::Italic);
+            break;
+        case TextDecoration::STRIKETHROUGH:
+            _text.setStyle(::sf::Text::StrikeThrough);
+            break;
+        case TextDecoration::UNDERLINED:
+            _text.setStyle(::sf::Text::Underlined);
+            break;
+        default:
+            break;
+    }
+}
+
 Label::Label(const Point& startLocation, const ::std::string& text, const ::std::shared_ptr<::sf::Font>& font, const uint32_t charSize)
 {
     if(font == nullptr)

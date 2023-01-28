@@ -34,6 +34,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Mouse.hpp>
+#include <Task.hpp>
 #include <Point.hpp>
 #include <Logger.hpp>
 
@@ -85,15 +86,31 @@ public:
      * @brief Makes the component interactable
      * 
      * @param action Function to be called when component is clicked.
+     * @deprecated
      */
-    void setOnClickAction(void (*)());
+    virtual void setOnClickAction( void (*)() );
+
+    /**
+     * @brief Makes the component interactable
+     * 
+     * @param action The task to be executed when component is clicked.
+     */
+    void setOnClickAction( Task*& );
 
     /**
      * @brief Sets the behaviour when the mouse is moved
      * 
      * @param action The action to be executed.
+     * @deprecated
      */
-    void setOnHoverAction(void (*)());
+    virtual void setOnHoverAction( void (*)() );
+
+    /**
+     * @brief Makes the component interactable
+     * 
+     * @param action The task to be executed when component is clicked.
+     */
+    void setOnHoverAction( Task*& );
 
     /**
      * @brief Executes the onClick action
@@ -114,10 +131,25 @@ public:
      */
     virtual void updateLocation(const Point&) = 0;
 protected:
-    std::shared_ptr<::sf::RenderWindow> _container;
+    ::std::shared_ptr<RenderWindow> _container;
 
-    void (*_onClick)() = nullptr;
-    void (*_onHover)() = nullptr;
+    ::std::shared_ptr<Task> _onClick;
+    ::std::shared_ptr<Task> _onHover;
+
+    class DeprecatedTask : public Task
+    {
+    private:
+        void (*_action)() = nullptr;
+
+    public:
+        DeprecatedTask(void (*action)()) : _action(action) {}
+
+        void exec() 
+        {
+            if (_action)
+                _action();
+        }
+    };
 };
 
 }

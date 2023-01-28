@@ -32,6 +32,7 @@
 #endif
 
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <Exceptions/ImageException.hpp>
 #include <AlignmentTool.hpp>
 #include <Component.hpp>
@@ -101,6 +102,13 @@ public:
      */
     void updateLocation(const Point&) override;
 
+    /**
+     * @brief Hides / Shows the image frame.
+     * 
+     * @param thickness The thickness of the frame
+     */
+    void toggleFrame(const uint32_t = 0);
+
     // ----- Inherited from Anchor -----
 
     Point getLEFT() const override;
@@ -110,9 +118,17 @@ public:
     Point getCENTER() const override;
 private:
     ::std::shared_ptr<::sf::Texture> _image;
+    ::std::shared_ptr<::sf::RectangleShape> _border;
     ::sf::Sprite _object;
 
     void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
+
+    /**
+     * @brief Builds the frame around the image
+     * 
+     * @param thickness The thickness of the frame
+     */
+    void constructFrame(const uint32_t);
 };
 
 }
