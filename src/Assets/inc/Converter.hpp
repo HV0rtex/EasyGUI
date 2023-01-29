@@ -58,7 +58,7 @@ public:
      * 
      * @return ::std::shared_ptr<Button>
      */
-    static ::std::shared_ptr<Button> getButton(::std::shared_ptr<Component>&);
+    static ::std::shared_ptr<Button> getButton(::std::shared_ptr<Component>);
 
     /**
      * @brief Converts a Component object into a label
@@ -67,7 +67,7 @@ public:
      * 
      * @return ::std::shared_ptr<Label> 
      */
-    static ::std::shared_ptr<Label> getLabel(::std::shared_ptr<Component>&);
+    static ::std::shared_ptr<Label> getLabel(::std::shared_ptr<Component>);
 
     /**
      * @brief Converts a component into a textbox
@@ -76,7 +76,7 @@ public:
      * 
      * @return ::std::shared_ptr<Textbox> 
      */
-    static ::std::shared_ptr<TextBox> getTextbox(::std::shared_ptr<Component>&);
+    static ::std::shared_ptr<TextBox> getTextbox(::std::shared_ptr<Component>);
 
     /**
      * @brief Converts a component into an image
@@ -85,7 +85,7 @@ public:
      *
      * @return ::std::shared_ptr<Image> 
      */
-    static ::std::shared_ptr<Image> getImage(::std::shared_ptr<Component>&);
+    static ::std::shared_ptr<Image> getImage(::std::shared_ptr<Component>);
 
     /**
      * @brief Converts a component into a check box
@@ -94,7 +94,7 @@ public:
      *
      * @return ::std::shared_ptr<CheckBox> 
      */
-    static ::std::shared_ptr<CheckBox> getCheckBox(::std::shared_ptr<Component>&);
+    static ::std::shared_ptr<CheckBox> getCheckBox(::std::shared_ptr<Component>);
 
     /**
      * @brief Converts a component into a separator
@@ -103,7 +103,7 @@ public:
      *
      * @return ::std::shared_ptr<Separator> 
      */
-    static ::std::shared_ptr<Separator> getSeparator(::std::shared_ptr<Component>&);
+    static ::std::shared_ptr<Separator> getSeparator(::std::shared_ptr<Component>);
 
 };
 

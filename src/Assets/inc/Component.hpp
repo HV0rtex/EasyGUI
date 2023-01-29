@@ -88,14 +88,14 @@ public:
      * @param action Function to be called when component is clicked.
      * @deprecated
      */
-    virtual void setOnClickAction( void (*)() );
+    virtual void setOnClickAction(void (*)());
 
     /**
      * @brief Makes the component interactable
      * 
      * @param action The task to be executed when component is clicked.
      */
-    void setOnClickAction( Task*& );
+    void setOnClickAction(Task*);
 
     /**
      * @brief Sets the behaviour when the mouse is moved
@@ -103,14 +103,14 @@ public:
      * @param action The action to be executed.
      * @deprecated
      */
-    virtual void setOnHoverAction( void (*)() );
+    virtual void setOnHoverAction(void (*)());
 
     /**
      * @brief Makes the component interactable
      * 
      * @param action The task to be executed when component is clicked.
      */
-    void setOnHoverAction( Task*& );
+    void setOnHoverAction(Task*);
 
     /**
      * @brief Executes the onClick action
@@ -131,10 +131,10 @@ public:
      */
     virtual void updateLocation(const Point&) = 0;
 protected:
-    ::std::shared_ptr<RenderWindow> _container;
+    ::std::shared_ptr<::sf::RenderWindow> _container;
 
-    ::std::shared_ptr<Task> _onClick;
-    ::std::shared_ptr<Task> _onHover;
+    ::std::shared_ptr<Task> _onClick = nullptr;
+    ::std::shared_ptr<Task> _onHover = nullptr;
 
     class DeprecatedTask : public Task
     {

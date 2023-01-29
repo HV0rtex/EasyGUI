@@ -29,7 +29,7 @@
 namespace easyGUI
 {
 
-::std::shared_ptr<TextBox> TextBox::selectedBox = nullptr;
+TextBox* TextBox::selectedBox = nullptr;
 bool TextBox::textBoxClicked = false;
 
 void TextBox::applyCharSizeCorrection()
@@ -42,17 +42,20 @@ void TextBox::applyCharSizeCorrection()
 
     uint32_t size = desiredSize;
 
-    while(freeSpaceX <= 0 || freeSpaceY <= 0)
+    while(freeSpaceX <= 20 || freeSpaceY <= 20)
     {
         size--;
         _text->getInternalText().setCharacterSize(size);
+
+        lenghtInPix = _text->getInternalText().getGlobalBounds().width;
+        heightInPix = _text->getInternalText().getGlobalBounds().height;
 
         freeSpaceX = _shape.getGlobalBounds().width - lenghtInPix;
         freeSpaceY = _shape.getGlobalBounds().height - heightInPix;
     }
 }
 
-::std::shared_ptr<TextBox> TextBox::getSelectedBox() 
+TextBox* TextBox::getSelectedBox() 
 {
     return selectedBox;
 }
@@ -67,7 +70,7 @@ void TextBox::updateLocation(const Point& newLocation)
     _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
     
     AlignmentTool& tool = AlignmentTool::getInstance();
-    tool.triggerUpdate(this->getShared());
+    tool.triggerUpdate(this);
 }
 
 TextBox::TextBox(
@@ -91,11 +94,11 @@ TextBox::TextBox(
         AlignmentTool& tool = AlignmentTool::getInstance();
 
         _text = ::std::make_shared<Label>(Point(), "", fontPath, charSize);
-        ::std::shared_ptr<Anchor> cast = ::std::static_pointer_cast<Anchor>(_text);
+        Anchor* cast = static_cast<Anchor*>(_text.get());
         
         tool.createBinding(
             cast, 
-            this->getShared(), 
+            this, 
             BindingPoint::LEFT, 
             BindingPoint::LEFT, Point(19, -7));
     } 
@@ -149,7 +152,7 @@ bool TextBox::isMouseHover() const
 
 TextBox::~TextBox()
 {
-    if(selectedBox == getShared())
+    if(selectedBox == this)
     {
         selectedBox = nullptr;
         textBoxClicked = false;
@@ -181,18 +184,17 @@ void TextBox::updateText(const uint32_t text)
 
     if (_text->getInternalText().getCharacterSize() < desiredSize)
     {
-        WARN << "[TextBox] Text has been resized in order to fit.";
+        WARN << "[TextBox] Text has been resized in order to fit.\n";
     }
 
-    ::std::shared_ptr<Anchor> cast = ::std::static_pointer_cast<Anchor>(getShared());
-    tool.triggerUpdate(cast);
+    tool.triggerUpdate(this);
 }
 
 void TextBox::onClick()
 {
     if(isMouseHover())
     {
-        selectedBox = ::std::static_pointer_cast<TextBox>(getShared());
+        selectedBox = this;
         textBoxClicked = true;
     }
 

@@ -53,48 +53,12 @@ namespace easyGUI
     class Application : public Anchor
 #endif
 {
-private:
-    static ::std::shared_ptr<Application> _instance;
-
-    ::std::shared_ptr<::sf::RenderWindow> _window;
-
-    ::std::map<::std::string, ::std::shared_ptr<Menu>> _menus;
-    ::std::vector<Routine> _routines;
-    ::std::shared_ptr<Menu> _activeMenu;
-
-    // ----- Control variables -----
-
-    bool _startMenuSet;
-
-    /**
-     * @brief Constructor
-     * 
-     * @details The constructor is made private in order to adhere to the Singleton
-     * design pattern.
-     * 
-     * @param width The width of the window
-     * @param height The height of the window
-     * @param title The title of the application
-     * 
-     */
-    explicit Application(const uint32_t, const uint32_t, const char*);
-
-    /**
-     * @brief Event handler
-     * 
-     * @details The function is fired whenever an event occurs at window level
-     * and loops through routines and fires all routines that match that event.
-     * 
-     * @param event The current window event
-     */
-    void handleEvents(const ::sf::Event&);
-
 public:
     /**
      * @brief Destructor
      * 
      */
-    virtual ~Application();
+    virtual ~Application() = default;
 
     /**
      * @brief Start the application
@@ -203,6 +167,43 @@ public:
     Point getBOTTOM() const override;
     Point getTOP() const override;
     Point getCENTER() const override;
+private:
+    static ::std::shared_ptr<Application> _instance;
+
+    ::std::shared_ptr<::sf::RenderWindow> _window;
+
+    ::std::map<::std::string, ::std::shared_ptr<Menu>> _menus;
+    ::std::vector<Routine> _routines;
+    ::std::shared_ptr<Menu> _activeMenu;
+
+    // ----- Control variables -----
+
+    bool _startMenuSet;
+
+    /**
+     * @brief Constructor
+     * 
+     * @details The constructor is made private in order to adhere to the Singleton
+     * design pattern.
+     * 
+     * @param width The width of the window
+     * @param height The height of the window
+     * @param title The title of the application
+     * 
+     */
+    explicit Application(const uint32_t, const uint32_t, const char*);
+
+    /**
+     * @brief Event handler
+     * 
+     * @details The function is fired whenever an event occurs at window level
+     * and loops through routines and fires all routines that match that event.
+     * 
+     * @param event The current window event
+     */
+    void handleEvents(const ::sf::Event&);
 };
+
+using ApplicationPtr = ::std::shared_ptr<Application>;
 
 }

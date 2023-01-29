@@ -28,27 +28,26 @@ Customization options:
 
 ## Fixed
 
+Bugs:
+- Bug where application crashes with multiple initial menu error
+- Bug where image wouldn't scale properly
+
+Libraries:
+- Windows SHARED libraries
+
 Optimizations:
 - Improved performance of Routine handling
 - Reduced memory consumption
 - Removed memory leaks
-- Removed Level 1 and 2 warnings on Windows
 
 Documentation:
 - Updated installation guide
 - Updated usage guide
 - Updated README file
-- Updated Code versioning
 
-## Version V2.0.2 - Windows support patch (Unreleased)
+## Removed
 
-This release reintroduces the support for **shared libraries** on Windows OS, bringing fixes to the linkage
-errors discovered in the last patch.
-
-## Added
-
-Library support:
-- Windows SHARED libraries
+Removed the exceptions library and integrated it into assets / application libraries respectively.
 
 ## Version V2.0.1 - Windows maintanance (7.12.2022)
 

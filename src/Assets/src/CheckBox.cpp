@@ -77,7 +77,7 @@ void CheckBox::updateLocation(const Point& newLocation)
     _filler.setPosition(newLocation.Xcoord + 5, newLocation.Ycoord + 5);
 
     AlignmentTool& tool = AlignmentTool::getInstance();
-    tool.triggerUpdate(this->getShared());
+    tool.triggerUpdate(this);
 }
 
 void CheckBox::onClick()

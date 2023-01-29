@@ -31,6 +31,7 @@
     #include <assets-export.hpp>
 #endif
 
+#include <Exceptions/AssetException.hpp>
 #include <Component.hpp>
 #include <Point.hpp>
 #include <utility>
@@ -123,14 +124,15 @@ public:
      */
     virtual Point getCENTER() const = 0;
 
-    // ----- Enable shared_ptr -----
-
     /**
-     * @brief Converts this to a shared pointer
+     * @brief Converts the current pointer to an anchor
      * 
      * @return ::std::shared_ptr<Anchor> 
      */
-    ::std::shared_ptr<Anchor> getShared();
+    ::std::shared_ptr<Anchor> getSelfAnchor()
+    {
+        return shared_from_this();
+    }
 };
 
 using AnchorPtr = ::std::shared_ptr<Anchor>;
@@ -173,18 +175,20 @@ public:
      * @param anchorPoint The point by which the anchor is bound
      * @param offset The desired offset
      */
-    void createBinding(AnchorPtr&, const AnchorPtr&, const BindingPoint&, const BindingPoint&, const Point& = Point());
+    void createBinding(Anchor*, Anchor*, const BindingPoint&, const BindingPoint&, const Point& = Point());
+    void createBinding(AnchorPtr&, AnchorPtr&, const BindingPoint&, const BindingPoint&, const Point& = Point());
 
     /**
      * @brief Updates all the elements bound to an anchor
      * 
      * @param source The anchor that moved
      */
+    void triggerUpdate(const Anchor*);
     void triggerUpdate(const AnchorPtr&);
 private:
     struct Binding
     {
-        AnchorPtr anchors[2];
+        Anchor* anchors[2];
         BindingPoint points[2];
 
         Point offset;

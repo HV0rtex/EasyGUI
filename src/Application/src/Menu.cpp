@@ -40,6 +40,7 @@ void Menu::addComponent(const std::shared_ptr<Component>& component, const ::std
     component->setContainer(_container);
 }
 
+
 void Menu::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 {
     for(const ::std::pair<const ::std::string, ::std::shared_ptr<Component>>& element : _components)

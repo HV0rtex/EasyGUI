@@ -108,7 +108,7 @@ public:
      * 
      * @param text The text that has been entered
      */
-    virtual void updateText(const ::sf::Uint32&) override;
+    virtual void updateText(const uint32_t) override;
 private:
     ::std::string _passText;
 };

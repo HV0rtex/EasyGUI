@@ -51,9 +51,6 @@ bool Label::isMouseHover() const
 void Label::updateLocation(const Point& newLocation)
 {
     _text.setPosition(newLocation.Xcoord, newLocation.Ycoord);
-
-    AlignmentTool& tool = AlignmentTool::getInstance();
-    tool.triggerUpdate(this->getShared());
 }
 
 void Label::toggleDecoration(const TextDecoration& deco)

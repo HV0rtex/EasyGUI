@@ -57,7 +57,7 @@ protected:
     ::sf::RectangleShape _shape;
     ::std::shared_ptr<Label> _text;
 
-    static ::std::shared_ptr<TextBox> selectedBox;
+    static TextBox* selectedBox;
     static bool textBoxClicked;
 
     uint32_t desiredSize;
@@ -72,7 +72,7 @@ protected:
     void applyCharSizeCorrection();
 
 public:
-    static ::std::shared_ptr<TextBox> getSelectedBox();
+    static TextBox* getSelectedBox();
     static bool& getTextBoxClicked();
 
     /**

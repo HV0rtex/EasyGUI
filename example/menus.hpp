@@ -25,5 +25,5 @@
 #include <Image.hpp>
 
 // Defining functions to create menus
-void createMainMenu(easyGUI::Application* appInstance);
-void createSecondMenu(easyGUI::Application* appInstance);
+void createMainMenu(easyGUI::ApplicationPtr& appInstance);
+void createSecondMenu(easyGUI::ApplicationPtr& appInstance);

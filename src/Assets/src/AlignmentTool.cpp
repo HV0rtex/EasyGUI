@@ -55,14 +55,10 @@ AlignmentTool& AlignmentTool::getInstance()
     return _instance;
 }
 
-::std::shared_ptr<Anchor> Anchor::getShared() {
-    return shared_from_this();
-}
-
 Point AlignmentTool::getAlignment(const Binding& binding) noexcept
 {
-    Point desiredLocation = binding.anchors[0]->getBindingPoint(binding.points[0]) + binding.offset; 
-    Point delta = desiredLocation - binding.anchors[1]->getBindingPoint(binding.points[1]);
+    Point desiredLocation = binding.anchors[1]->getBindingPoint(binding.points[1]) + binding.offset; 
+    Point delta = desiredLocation - binding.anchors[0]->getBindingPoint(binding.points[0]);
 
     return Point(binding.anchors[0]->getLEFT().Xcoord + delta.Xcoord, binding.anchors[0]->getTOP().Ycoord + delta.Ycoord);
 }
@@ -73,10 +69,15 @@ bool AlignmentTool::Binding::operator== (const Binding& other) const noexcept
 }
 
 void AlignmentTool::createBinding(
-    AnchorPtr& source, const AnchorPtr& anchor, 
-    const BindingPoint& sourcePoint, const BindingPoint& anchorPoint, 
+    Anchor* source,
+    Anchor* anchor, 
+    const BindingPoint& sourcePoint,
+    const BindingPoint& anchorPoint, 
     const Point& offset)
 {
+    if (!source || !anchor)
+        throw new AssetException("Invalid components to bind.");
+
     Binding newBinding;
 
     newBinding.anchors[0] = source;
@@ -95,22 +96,37 @@ void AlignmentTool::createBinding(
     triggerUpdate(anchor);
 }
 
-void AlignmentTool::triggerUpdate(const AnchorPtr& source)
+void AlignmentTool::triggerUpdate(const Anchor* source)
 {
     ::std::for_each(_bindings.begin(), _bindings.end(), 
         [source, this](Binding& binding) {
-            ::std::shared_ptr<Component> cast = nullptr;
+            Component* cast = nullptr;
 
             if(binding.anchors[0] == source)
-                cast = ::std::dynamic_pointer_cast<Component>(binding.anchors[1]);
+                cast = dynamic_cast<Component*>(binding.anchors[1]);
             else if(binding.anchors[1] == source)
-                cast = ::std::dynamic_pointer_cast<Component>(binding.anchors[0]);
+                cast = dynamic_cast<Component*>(binding.anchors[0]);
 
             if(!cast)
                 return;
             
             cast->updateLocation(this->getAlignment(binding));
     });
+}
+
+void AlignmentTool::triggerUpdate(const AnchorPtr& source)
+{
+    triggerUpdate(source.get());
+}
+
+void AlignmentTool::createBinding(
+    AnchorPtr& source,
+    AnchorPtr& anchor,
+    const BindingPoint& sourcePoint,
+    const BindingPoint& anchorPoint,
+    const Point& offset)
+{
+    createBinding(source.get(), anchor.get(), sourcePoint, anchorPoint, offset);
 }
 
 }

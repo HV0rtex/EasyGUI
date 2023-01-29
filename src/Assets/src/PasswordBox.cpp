@@ -50,11 +50,8 @@ TextBox(startLocation, width, height, fontPath, charSize) {}
     return _passText;
 }
 
-void PasswordBox::updateText(const ::sf::Uint32& text)
+void PasswordBox::updateText(const uint32_t text)
 {
-    if(_text == nullptr)
-        return;
-
     ::sf::String newContent = _text->getInternalText().getString();
 
     if(text == 8 && !newContent.isEmpty())
@@ -75,7 +72,7 @@ void PasswordBox::updateText(const ::sf::Uint32& text)
 
     _text->getInternalText().setString(newContent);
     applyCharSizeCorrection();
-    tool.triggerUpdate(this->getShared());
+    tool.triggerUpdate(this);
 
     if (_text->getInternalText().getCharacterSize() < desiredSize)
     {

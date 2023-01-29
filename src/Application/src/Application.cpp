@@ -36,6 +36,11 @@ std::shared_ptr<Application> Application::_instance = 0;
 Application::Application(const uint32_t width, const uint32_t height, const char* title)
 {
     _window = ::std::make_shared<::sf::RenderWindow>(::sf::VideoMode(width,height), title);
+
+    _startMenuSet = false;
+    _activeMenu = nullptr;
+    _menus = ::std::map<::std::string, MenuPtr>();
+    _routines = ::std::vector<Routine>();
 }
 
 ::std::shared_ptr<Application> Application::getInstance(const uint32_t width, const uint32_t height, const char* title)
@@ -66,12 +71,13 @@ Application::Application(const uint32_t width, const uint32_t height, const char
 void Application::handleEvents(const ::sf::Event& event)
 {
     bool& boxClicked = TextBox::getTextBoxClicked();
-    ::std::shared_ptr<TextBox> box = TextBox::getSelectedBox();
+    TextBox* box = TextBox::getSelectedBox();
+    ::std::vector<::std::shared_ptr<Component>> components = _activeMenu->getAllComponents();
 
     if(event.type == ::sf::Event::MouseButtonPressed && event.mouseButton.button == ::sf::Mouse::Left)
     {
         boxClicked = false;
-        ::std::for_each(_activeMenu->getAllComponents().begin(), _activeMenu->getAllComponents().end(),
+        ::std::for_each(components.begin(), components.end(),
             [](::std::shared_ptr<Component>& comp) {comp->onClick();}
         );
 
@@ -80,8 +86,10 @@ void Application::handleEvents(const ::sf::Event& event)
     }
     else if(event.type == ::sf::Event::MouseMoved)
     {
-        ::std::for_each(_activeMenu->getAllComponents().begin(), _activeMenu->getAllComponents().end(),
-            [](::std::shared_ptr<Component>& comp) {comp->onHover();}
+        ::std::for_each(components.begin(), components.end(),
+            [](::std::shared_ptr<Component>& comp) {
+                comp->onHover();
+            }
         );
     }
     else if(event.type == ::sf::Event::TextEntered && box)
@@ -162,7 +170,7 @@ void Application::setActiveMenu(const ::std::string& id)
 {
     if(_menus.find(id) != _menus.end())
     {
-        ::std::shared_ptr<TextBox> box = TextBox::getSelectedBox();
+        TextBox* box = TextBox::getSelectedBox();
 
         _activeMenu = _menus.at(id);
 
@@ -198,9 +206,7 @@ void Application::start()
         ::sf::Event event;
 
         while(_window->pollEvent(event))
-        {
             handleEvents(event);
-        }
 
         _window->clear();
         _window->draw(*_activeMenu);

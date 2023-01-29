@@ -29,32 +29,32 @@
 namespace easyGUI
 {
 
-::std::shared_ptr<Button> Converter::getButton(::std::shared_ptr<Component>& asset)
+::std::shared_ptr<Button> Converter::getButton(::std::shared_ptr<Component> asset)
 {
     return ::std::dynamic_pointer_cast<Button>(asset);
 }
 
-::std::shared_ptr<Label> Converter::getLabel(::std::shared_ptr<Component>& asset)
+::std::shared_ptr<Label> Converter::getLabel(::std::shared_ptr<Component> asset)
 {
     return ::std::dynamic_pointer_cast<Label>(asset);
 }
 
-::std::shared_ptr<TextBox> Converter::getTextbox(::std::shared_ptr<Component>& asset)
+::std::shared_ptr<TextBox> Converter::getTextbox(::std::shared_ptr<Component> asset)
 {
     return ::std::dynamic_pointer_cast<TextBox>(asset);
 }
 
-::std::shared_ptr<Image> Converter::getImage(::std::shared_ptr<Component>& asset)
+::std::shared_ptr<Image> Converter::getImage(::std::shared_ptr<Component> asset)
 {
     return ::std::dynamic_pointer_cast<Image>(asset);
 }
 
-::std::shared_ptr<CheckBox> Converter::getCheckBox(::std::shared_ptr<Component>& asset)
+::std::shared_ptr<CheckBox> Converter::getCheckBox(::std::shared_ptr<Component> asset)
 {
     return ::std::dynamic_pointer_cast<CheckBox>(asset);
 }
 
-::std::shared_ptr<Separator> Converter::getSeparator(::std::shared_ptr<Component>& asset)
+::std::shared_ptr<Separator> Converter::getSeparator(::std::shared_ptr<Component> asset)
 {
     return ::std::dynamic_pointer_cast<Separator>(asset);
 }

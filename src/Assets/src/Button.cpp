@@ -44,6 +44,9 @@ void Button::applyCharSizeCorrection()
         size--;
         _content->getInternalText().setCharacterSize(size);
 
+        lenghtInPix = _content->getInternalText().getGlobalBounds().width;
+        heightInPix = _content->getInternalText().getGlobalBounds().height;
+
         freeSpaceX = _shape.getGlobalBounds().width - lenghtInPix;
         freeSpaceY = _shape.getGlobalBounds().height - heightInPix;
     }
@@ -72,13 +75,13 @@ Button::Button(
     
         if (_content->getInternalText().getCharacterSize() < charSize)
         {
-            WARN << "[Button] Text has been resized in order to fit.";
+            WARN << "[Button] Text has been resized in order to fit.\n";
         }
 
-        ::std::shared_ptr<Anchor> cast = ::std::static_pointer_cast<Anchor>(_content);
+        Anchor* cast = static_cast<Anchor*>(_content.get());
         tool.createBinding(
             cast, 
-            this->getShared(), 
+            this, 
             BindingPoint::CENTER, 
             BindingPoint::CENTER, 
             Point(-1, -7)
@@ -153,7 +156,7 @@ void Button::updateLocation(const Point& newLocation)
     _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
 
     AlignmentTool& tool = AlignmentTool::getInstance();
-    tool.triggerUpdate(this->getShared());
+    tool.triggerUpdate(this);
 }
 
 Point Button::getLEFT() const

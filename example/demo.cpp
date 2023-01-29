@@ -25,7 +25,7 @@ int main()
     std::string appTitle = "Demo app";
 
     // Declaring application object
-    Application* app = nullptr;
+    ApplicationPtr app = nullptr;
 
     // Creating application
     app = app->getInstance(appWidth, appHeight, appTitle.c_str());
@@ -34,7 +34,7 @@ int main()
     Routine windowHandler(windowHandler_trigger, windowHandler_action);
     
     // Adding routine to app
-    app->addRoutine(&windowHandler);
+    app->addRoutine(windowHandler);
 
     try
     {

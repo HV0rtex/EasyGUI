@@ -106,7 +106,7 @@ void Image::updateLocation(const Point& newLocation)
     _object.setPosition(newLocation.Xcoord, newLocation.Ycoord);
 
     AlignmentTool& tool = AlignmentTool::getInstance();
-    tool.triggerUpdate(this->getShared());
+    tool.triggerUpdate(this);
 }
 
 Point Image::getLEFT() const

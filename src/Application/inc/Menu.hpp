@@ -53,12 +53,6 @@ class APPLICATION_EXPORTS Menu : public ::sf::Drawable
 class Menu : public ::sf::Drawable
 #endif
 {
-private:
-    ::std::map<::std::string, ::std::shared_ptr<Component>> _components;
-    ::std::shared_ptr<::sf::RenderWindow> _container;
-
-    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const;
-
 public:
     /**
      * @brief Destructor
@@ -103,7 +97,14 @@ public:
      * @return ::std::vector<Component*> 
      */
     ::std::vector<::std::shared_ptr<Component>> getAllComponents();
+private:
+    ::std::map<::std::string, ::std::shared_ptr<Component>> _components;
+    ::std::shared_ptr<::sf::RenderWindow> _container;
+
+    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const;
 };
+
+using MenuPtr = ::std::shared_ptr<Menu>;
 
 /**
  * @brief Safely appends a component to a menu.
@@ -116,16 +117,21 @@ public:
  * @param element The component to append
  * 
  */
-#define AddElement(targetMenu, element, id)                     \
-{                                                               \
-    try                                                         \
-    {                                                           \
-        (targetMenu)->addComponent((element), (id));            \
-    }                                                           \
-    catch(const AssetException& e)                              \
-    {                                                           \
-        ERROR << e.what();                                      \
-    }                                                           \
+template < class C, class... args> void AddElement(MenuPtr& targetMenu, const ::std::string& id, args... constructorArgs)
+{
+    try
+    {
+        ::std::shared_ptr<C> ptr = ::std::make_shared<C>(constructorArgs...);
+        targetMenu->addComponent(ptr, id);
+    }
+    catch(const AssetException& e)
+    {
+        ERROR << e.what();
+    }
+    catch(const MenuException& e)
+    {
+        ERROR << e.what();
+    }
 }
 
 }

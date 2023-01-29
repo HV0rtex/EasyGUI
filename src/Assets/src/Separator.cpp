@@ -81,7 +81,7 @@ void Separator::updateLocation(const Point& newLocation)
     _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
 
     AlignmentTool& tool = AlignmentTool::getInstance();
-    tool.triggerUpdate(this->getShared());
+    tool.triggerUpdate(this);
 }
 
 Point Separator::getLEFT() const
