@@ -34,15 +34,6 @@ void Label::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
     target.draw(_text, states);
 }
 
-void Label::constructText(const Point& position, const ::std::string& text, const unsigned& charSize)
-{
-    _text.setPosition(position.Xcoord, position.Ycoord);
-    _text.setFont(*_font.get());
-    _text.setFillColor(_textColor);
-    _text.setCharacterSize(charSize);
-    _text.setString(text);
-}
-
 bool Label::isMouseHover() const
 {
     if(_container != nullptr)
@@ -59,11 +50,6 @@ bool Label::isMouseHover() const
 
 void Label::updateLocation(const Point& newLocation)
 {
-    if(!isMovable())
-    {
-        throw AssetException("Attempting to move an imovable object.");
-    }
-
     _text.setPosition(newLocation.Xcoord, newLocation.Ycoord);
 }
 
@@ -98,7 +84,7 @@ void Label::toggleDecoration(const TextDecoration& deco)
     }
 }
 
-Label::Label(const Point& startLocation, const ::std::string& text, const ::std::shared_ptr<::sf::Font>& font, const unsigned& charSize)
+Label::Label(const Point& startLocation, const ::std::string& text, const ::std::shared_ptr<::sf::Font>& font, const uint32_t charSize)
 {
     if(font == nullptr)
     {
@@ -106,12 +92,15 @@ Label::Label(const Point& startLocation, const ::std::string& text, const ::std:
     }
 
     _font = font;
-    _textColor = ::sf::Color::White;
-
-    constructText(startLocation, text, charSize);
+ 
+    _text.setPosition(startLocation.Xcoord, startLocation.Ycoord);
+    _text.setFont(*_font.get());
+    _text.setFillColor(::sf::Color::White);
+    _text.setCharacterSize(charSize);
+    _text.setString(text);
 }
 
-Label::Label(const Point& startLocation, const ::std::string& text, const ::std::string& fontPath, const unsigned& charSize)
+Label::Label(const Point& startLocation, const ::std::string& text, const ::std::string& fontPath, const uint32_t charSize)
 {
     try
     {
@@ -119,9 +108,11 @@ Label::Label(const Point& startLocation, const ::std::string& text, const ::std:
 
         _font = manager.getAsset(fontPath);
 
-        _textColor = ::sf::Color::White;
-
-        constructText(startLocation, text, charSize);
+        _text.setPosition(startLocation.Xcoord, startLocation.Ycoord);
+        _text.setFont(*_font.get());
+        _text.setFillColor(::sf::Color::White);
+        _text.setCharacterSize(charSize);
+        _text.setString(text);
     }
     catch(const ManagerException& err)
     {

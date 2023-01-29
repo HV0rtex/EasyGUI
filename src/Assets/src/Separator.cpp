@@ -34,7 +34,7 @@ Separator::Separator(
     const bool& vertical,
     
     const float& size,
-    const unsigned& thickness)
+    const uint32_t thickness)
 {
     _shape.setPosition(startLocation.Xcoord, startLocation.Ycoord);
     _shape.setFillColor(::sf::Color::Black);
@@ -78,15 +78,10 @@ bool Separator::isMouseHover() const
 
 void Separator::updateLocation(const Point& newLocation)
 {
-    if(!isMovable())
-    {
-        throw AssetException("Attempting to move an imovable object.");
-    }
-
     _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
 
     AlignmentTool& tool = AlignmentTool::getInstance();
-    tool.triggerUpdate(*this);
+    tool.triggerUpdate(this);
 }
 
 Point Separator::getLEFT() const

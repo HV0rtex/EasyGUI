@@ -55,28 +55,24 @@ class TextBox : public Component, public Anchor
 {
 protected:
     ::sf::RectangleShape _shape;
-    Label* _text;
+    ::std::shared_ptr<Label> _text;
 
     static TextBox* selectedBox;
     static bool textBoxClicked;
 
-    unsigned desiredSize;
+    uint32_t desiredSize;
     
     virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 
     // ----- Helper methods -----
 
     /**
-     * @brief Computes the correction to be applied to the char size of the text
-     * 
-     * @param textLenght The length of the text
-     * @param desiredSize The desired char size
-     * @return unsigned
+     * @brief Reduces the size of the text to fit in the box.
      */
-    unsigned getCharSizeCorrection(const unsigned&, const unsigned&) const;
+    void applyCharSizeCorrection();
 
 public:
-    static TextBox*& getSelectedBox();
+    static TextBox* getSelectedBox();
     static bool& getTextBoxClicked();
 
     /**
@@ -100,7 +96,7 @@ public:
      * @note The font file format must be .ttf
 
      */
-    TextBox(const Point&, const Point&, const ::std::string&, const unsigned&);
+    explicit TextBox(const Point&, const Point&, const ::std::string&, const uint32_t);
 
     /**
      * @brief Constructor
@@ -117,7 +113,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    TextBox(const Point&, const float&, const float&, const ::std::string&, const unsigned&);
+    explicit TextBox(const Point&, const float&, const float&, const ::std::string&, const uint32_t);
 
     // Block other forms of construction
 
@@ -140,7 +136,7 @@ public:
      * 
      * @param text The text that has been entered
      */
-    virtual void updateText(const ::sf::Uint32&);
+    virtual void updateText(const uint32_t);
 
     // ----- Getters -----
 
@@ -154,16 +150,16 @@ public:
     /**
      * @brief Returns the SFML Text
      * 
-     * @return ::sf::Text*
+     * @return ::sf::Text&
      */
     ::sf::Text& getInternalText();
 
     /**
      * @brief Returns a string containing the text in the box
      * 
-     * @return const ::std::string 
+     * @return ::std::string 
      */
-    virtual const ::std::string getText() const;
+    virtual ::std::string getText() const;
 
     /**
      * @brief Erases all text from a textbox
@@ -186,39 +182,10 @@ public:
 
     // ----- Inherited from Anchor -----
 
-    /**
-     * @brief Returns the point leftmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getLEFT() const override;
-
-    /**
-     * @brief Returns the point rightmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getRIGHT() const override;
-
-    /**
-     * @brief Returns the lowest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getBOTTOM() const override;
-
-    /**
-     * @brief Returns the highest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getTOP() const override;
-
-    /**
-     * @brief Returns the point at the center of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getCENTER() const override;
 };
 

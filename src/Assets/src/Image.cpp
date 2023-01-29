@@ -79,7 +79,7 @@ bool Image::isMouseHover() const
     return false;
 }
 
-void Image::constructFrame(unsigned thickness)
+void Image::constructFrame(const uint32_t thickness)
 {
     _border = ::std::make_shared<::sf::RectangleShape>();
     
@@ -93,7 +93,7 @@ void Image::constructFrame(unsigned thickness)
     _border->setSize(::sf::Vector2f(width, height));
 }
 
-void Image::toggleFrame(unsigned thickness)
+void Image::toggleFrame(const uint32_t thickness)
 {
     if(_border)
         _border.reset();
@@ -103,12 +103,10 @@ void Image::toggleFrame(unsigned thickness)
 
 void Image::updateLocation(const Point& newLocation)
 {
-    if(!isMovable())
-    {
-        throw AssetException("Attempting to move an imovable object.");
-    }
-
     _object.setPosition(newLocation.Xcoord, newLocation.Ycoord);
+
+    AlignmentTool& tool = AlignmentTool::getInstance();
+    tool.triggerUpdate(this);
 }
 
 Point Image::getLEFT() const

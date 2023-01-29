@@ -83,6 +83,14 @@ Point Point::operator+ (const Point& other) const noexcept
     );
 }
 
+Point Point::operator- (const Point& other) const noexcept
+{
+    return Point(
+        Xcoord - other.Xcoord,
+        Ycoord - other.Ycoord
+    );
+}
+
 Point Point::operator* (const float& factor) const noexcept
 {
     return Point(

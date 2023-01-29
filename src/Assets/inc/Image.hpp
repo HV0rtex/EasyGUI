@@ -51,19 +51,6 @@ class ASSETS_EXPORTS Image : public Component, public Anchor
 class Image : public Component, public Anchor
 #endif
 {
-private:
-    ::std::shared_ptr<::sf::Texture> _image;
-    ::std::shared_ptr<::sf::RectangleShape> _border;
-    ::sf::Sprite _object;
-
-    void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
-
-    /**
-     * @brief Builds the frame around the image
-     * 
-     * @param thickness The thickness of the frame
-     */
-    void constructFrame(unsigned);
 public:
     /**
      * @brief Destructor
@@ -80,7 +67,7 @@ public:
      * 
      * @throws ImageException could not load image
      */
-    Image(const Point&, const Point&, const ::std::string&);
+    explicit Image(const Point&, const Point&, const ::std::string&);
 
     /**
      * @brief Constructor
@@ -92,7 +79,7 @@ public:
      * 
      * @throws ImageException could not load image
      */
-    Image(const Point&, const float&, const float&, const std::string&);
+    explicit Image(const Point&, const float&, const float&, const std::string&);
 
     // Block other forms of construction
 
@@ -120,44 +107,28 @@ public:
      * 
      * @param thickness The thickness of the frame
      */
-    void toggleFrame(unsigned = 0);
+    void toggleFrame(const uint32_t = 0);
 
     // ----- Inherited from Anchor -----
 
-    /**
-     * @brief Returns the point leftmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getLEFT() const override;
-
-    /**
-     * @brief Returns the point rightmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getRIGHT() const override;
-
-    /**
-     * @brief Returns the lowest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getBOTTOM() const override;
-
-    /**
-     * @brief Returns the highest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getTOP() const override;
+    Point getCENTER() const override;
+private:
+    ::std::shared_ptr<::sf::Texture> _image;
+    ::std::shared_ptr<::sf::RectangleShape> _border;
+    ::sf::Sprite _object;
+
+    void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 
     /**
-     * @brief Returns the point at the center of the Anchor
+     * @brief Builds the frame around the image
      * 
-     * @return Point& 
+     * @param thickness The thickness of the frame
      */
-    Point getCENTER() const override;
+    void constructFrame(const uint32_t);
 };
 
 }

@@ -27,17 +27,13 @@ This workflow is tedious and unnecessary. With EasyGUI all that workflow is redu
 easyGUI::Button myButton ( 
     easyGUI::Point(startX, startY),         // <-- Top-left corner
     easyGUI::Point(endX, endY),             // <-- Bottom-right corner
-    sf::Color(255,0,0),                     // <-- Border color
-    sf::Color(0,0,0),                       // <-- Fill color
-    sf::Color(255, 255, 255),               // <-- Text color
 
     "Demo button",                          // <-- Button text
     "/path/to/desired/font.ttf",            // <-- Desired font
     15,                                     // <-- Desired character size
-    5                                       // <-- Border thickness
 );
 
-myButton.addOnClickAction ( action );       // <-- action is a void function with no params
+myButton.addOnClickAction ( action );       // <-- Callable object
 ```
 
 This way, you don't need to worry wether the button text will fit. If the text fits inside the button borders, it will be automatically centered, otherwise the text / shape will be readjusted accordingly. For further information, please refer to our [User Manual](https://github.com/HV0rtex/EasyGUI/blob/main/docs/userManual.pdf).

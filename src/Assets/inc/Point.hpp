@@ -119,6 +119,15 @@ struct Point
     Point operator+ (const Point&) const noexcept;
 
     /**
+     * @brief Adds two points
+     * 
+     * @param other the point to be added
+     * 
+     * @return Point 
+     */
+    Point operator- (const Point&) const noexcept;
+
+    /**
      * @brief Divides both coordinates by a factor
      * 
      * @param factor The divisor

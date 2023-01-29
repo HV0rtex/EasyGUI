@@ -22,30 +22,32 @@ GUI Elements:
 - Dropdown
 - Slider
 
-Costumization options:
+Customization options:
 - Images can now be framed.
 - Added text decoration options (bold, italic, underline)
 
 ## Fixed
 
+Bugs:
+- Bug where application crashes with multiple initial menu error
+- Bug where image wouldn't scale properly
+
+Libraries:
+- Windows SHARED libraries
+
 Optimizations:
-- Windows builds are now WARN-free
-- Added compile-time optimizations for Windows, Linux and MacOS
+- Improved performance of Routine handling
+- Reduced memory consumption
+- Removed memory leaks
 
 Documentation:
 - Updated installation guide
 - Updated usage guide
 - Updated README file
 
-## Version V2.0.2 - Windows support patch (Unreleased)
+## Removed
 
-This release reintroduces the support for **shared libraries** on Windows OS, bringing fixes to the linkage
-errors discovered in the last patch.
-
-## Added
-
-Library support:
-- Windows SHARED libraries
+Removed the exceptions library and integrated it into assets / application libraries respectively.
 
 ## Version V2.0.1 - Windows maintanance (7.12.2022)
 

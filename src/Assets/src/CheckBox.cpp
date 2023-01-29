@@ -29,33 +29,16 @@
 namespace easyGUI
 {
 
-CheckBox::~CheckBox()
-{
-    if(_content != nullptr)
-    {
-        delete[] _content;
-    }
-}
-
 void CheckBox::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
 {
     target.draw(_box, states);
-    target.draw(*_content, states);
 
     if(_isChecked)
         target.draw(_filler, states);
 }
 
-CheckBox::CheckBox(const Point& startLocation, const Point& endLocation, Component*& content, const Binding& binding)
+CheckBox::CheckBox(const Point& startLocation, const Point& endLocation)
 {
-    if(content == nullptr)
-    {
-        _content = nullptr;
-        this->~CheckBox();
-
-        throw CheckBoxException("Invalid content");
-    }
-
     _box.setPosition(startLocation.Xcoord, startLocation.Ycoord);
     _box.setSize(::sf::Vector2f(endLocation.Xcoord - startLocation.Xcoord, endLocation.Ycoord - startLocation.Ycoord));
     _box.setOutlineColor(::sf::Color::White);
@@ -64,23 +47,13 @@ CheckBox::CheckBox(const Point& startLocation, const Point& endLocation, Compone
     _filler.setPosition(startLocation.Xcoord + 5, startLocation.Ycoord + 5);
     _filler.setSize(::sf::Vector2f(endLocation.Xcoord - startLocation.Xcoord + 5, endLocation.Ycoord - startLocation.Ycoord + 5));
     _filler.setFillColor(::sf::Color::White);
-
-    if(dynamic_cast<Anchor*>(content) == nullptr)
-    {
-        _content = nullptr;
-        this->~CheckBox();
-
-        throw CheckBoxException("Checkbox content must be an anchor.");
-    }
-
-    AlignmentTool& tool = AlignmentTool::getInstance();
-
-    tool.createBinding(*dynamic_cast<Anchor*>(content), *this, binding);
-    tool.triggerUpdate(*this);
 }
 
-CheckBox::CheckBox(const Point& startLocation, const float& width, const float& height, Component*& content, const Binding& binding):
-    CheckBox(startLocation, startLocation + Point(width, height), content, binding)
+CheckBox::CheckBox(
+    const Point& startLocation, 
+    const float& width, const float& height):
+    
+    CheckBox(startLocation, startLocation + Point(width, height))
 {
 }
 
@@ -100,16 +73,11 @@ bool CheckBox::isMouseHover() const
 
 void CheckBox::updateLocation(const Point& newLocation)
 {
-    if(!isMovable())
-    {
-        throw AssetException("Attempting to move an imovable object.");
-    }
-
     _box.setPosition(newLocation.Xcoord, newLocation.Ycoord);
     _filler.setPosition(newLocation.Xcoord + 5, newLocation.Ycoord + 5);
 
     AlignmentTool& tool = AlignmentTool::getInstance();
-    tool.triggerUpdate(*this);
+    tool.triggerUpdate(this);
 }
 
 void CheckBox::onClick()
@@ -133,11 +101,6 @@ bool CheckBox::isChecked() const
 ::sf::RectangleShape& CheckBox::getFiller()
 {
     return _filler;
-}
-
-Component& CheckBox::getInternalComponent()
-{
-    return *_content;
 }
 
 Point CheckBox::getLEFT() const

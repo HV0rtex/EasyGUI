@@ -51,29 +51,12 @@ class ASSETS_EXPORTS Button : public Component, public Anchor
 class Button : public Component, public Anchor
 #endif
 {
-private:
-    ::sf::RectangleShape _shape;
-    Label* _content;
-
-    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
-
-    // ----- Helper methods -----
-
-    /**
-     * @brief Computes the correction to be applied to the char size of the text
-     * 
-     * @param textLenght The length of the text
-     * @param desiredSize The desired char size
-     * @return unsigned
-     */
-    unsigned getCharSizeCorrection(const unsigned&, const unsigned&) const;
-
 public:
     /**
      * @brief Destructor
      * 
      */
-    virtual ~Button();
+    virtual ~Button() = default;
 
     /**
      * @brief Constructor
@@ -91,7 +74,7 @@ public:
      * @note The font file format must be .ttf
 
      */
-    Button(const Point&, const Point&, const ::std::string&, const ::std::string&, const unsigned&);
+    Button(const Point&, const Point&, const ::std::string&, const ::std::string&, const uint32_t);
 
     /**
      * @brief Constructor
@@ -109,7 +92,7 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    Button(const Point&, const float&, const float&, const ::std::string&, const ::std::string&, const unsigned&);
+    Button(const Point&, const float&, const float&, const ::std::string&, const ::std::string&, const uint32_t);
 
     // Block other forms of construction
 
@@ -139,9 +122,9 @@ public:
     /**
      * @brief Returns the button's text
      * 
-     * @return ::sf::Text*
+     * @return ::sf::Text&
      */
-    ::sf::Text* getInternalText();
+    ::sf::Text& getInternalText();
 
     /**
      * @brief Updates a component's location
@@ -152,40 +135,23 @@ public:
 
     // ----- Inherited from Anchor -----
 
-    /**
-     * @brief Returns the point leftmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getLEFT() const override;
-
-    /**
-     * @brief Returns the point rightmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getRIGHT() const override;
-
-    /**
-     * @brief Returns the lowest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getBOTTOM() const override;
-
-    /**
-     * @brief Returns the highest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getTOP() const override;
+    Point getCENTER() const override;
+private:
+    ::sf::RectangleShape _shape;
+    ::std::shared_ptr<Label> _content;
+
+    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
+
+    // ----- Helper methods -----
 
     /**
-     * @brief Returns the point at the center of the Anchor
-     * 
-     * @return Point& 
+     * @brief Reduces the size of the text to fit in the box.
      */
-    Point getCENTER() const override;
+    void applyCharSizeCorrection();
 };
 
 }

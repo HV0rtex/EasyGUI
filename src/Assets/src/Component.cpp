@@ -8,7 +8,7 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 // THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR __attribute__ ((__visibility__ ("default")))PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
@@ -45,7 +45,7 @@ void Component::onHover()
     }
 }
 
-void Component::setContainer(::sf::RenderWindow*& container)
+void Component::setContainer(const ::std::shared_ptr<::sf::RenderWindow>& container)
 {
     _container = container;
 }
@@ -55,12 +55,12 @@ void Component::setOnClickAction(void (*action)())
     _onClick = ::std::make_shared<Component::DeprecatedTask>(action);
 }
 
-void Component::setOnClickAction(Task*& action)
+void Component::setOnClickAction(Task* action)
 {
     _onClick = action->getShared();
 }
 
-void Component::setOnHoverAction(Task*& action)
+void Component::setOnHoverAction(Task* action)
 {
     _onClick = action->getShared();
 }

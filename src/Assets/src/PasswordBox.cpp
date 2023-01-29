@@ -33,7 +33,7 @@ PasswordBox::PasswordBox(
     const Point& startLocation,
     const Point& endLocation,
     const ::std::string& fontPath,
-    const unsigned& charSize) :
+    const uint32_t charSize) :
 TextBox(startLocation, endLocation, fontPath, charSize) {}
 
 PasswordBox::PasswordBox(
@@ -41,20 +41,17 @@ PasswordBox::PasswordBox(
     const float& width,
     const float& height,
     const ::std::string& fontPath,
-    const unsigned& charSize) :
+    const uint32_t charSize) :
 TextBox(startLocation, width, height, fontPath, charSize) {}
 
 
-const ::std::string PasswordBox::getText() const
+::std::string PasswordBox::getText() const
 {
     return _passText;
 }
 
-void PasswordBox::updateText(const ::sf::Uint32& text)
+void PasswordBox::updateText(const uint32_t text)
 {
-    if(_text == nullptr)
-        return;
-
     ::sf::String newContent = _text->getInternalText().getString();
 
     if(text == 8 && !newContent.isEmpty())
@@ -70,18 +67,17 @@ void PasswordBox::updateText(const ::sf::Uint32& text)
         _passText += ::sf::String(text).toAnsiString();
     }
 
-    unsigned correction = getCharSizeCorrection(newContent.getSize(), desiredSize);
-
-    if(correction != 0)
-    {
-        WARN << "TextBox text doesn't fit. Resizing text...\n";
-    }
 
     AlignmentTool& tool = AlignmentTool::getInstance();
 
     _text->getInternalText().setString(newContent);
-    _text->getInternalText().setCharacterSize(desiredSize - correction);
-    tool.triggerUpdate(*this);
+    applyCharSizeCorrection();
+    tool.triggerUpdate(this);
+
+    if (_text->getInternalText().getCharacterSize() < desiredSize)
+    {
+        WARN << "[PasswordBox] Text has been resized in order to fit.";
+    }
 }
 
 }

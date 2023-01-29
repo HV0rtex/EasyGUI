@@ -35,6 +35,7 @@
 #include <PasswordBox.hpp>
 #include <Image.hpp>
 #include <CheckBox.hpp>
+#include <Separator.hpp>
 
 namespace easyGUI
 {
@@ -55,50 +56,55 @@ public:
      * 
      * @param asset The component to be converted
      * 
-     * @return Button* 
-     * @retval nullptr Asset could not be converted
+     * @return ::std::shared_ptr<Button>
      */
-    static Button* getButton( Component* );
+    static ::std::shared_ptr<Button> getButton(::std::shared_ptr<Component>);
 
     /**
      * @brief Converts a Component object into a label
      * 
      * @param asset The component to be converted
      * 
-     * @return Label* 
-     * @retval nullptr Asset could not be converted
+     * @return ::std::shared_ptr<Label> 
      */
-    static Label* getLabel( Component* );
+    static ::std::shared_ptr<Label> getLabel(::std::shared_ptr<Component>);
 
     /**
      * @brief Converts a component into a textbox
      * 
      * @param asset The component to be converted
      * 
-     * @return Textbox* 
-     * @retval nullptr Asset could not be converted.
+     * @return ::std::shared_ptr<Textbox> 
      */
-    static TextBox* getTextbox( Component* );
+    static ::std::shared_ptr<TextBox> getTextbox(::std::shared_ptr<Component>);
 
     /**
      * @brief Converts a component into an image
      *
      * @param asset The component to be converted 
      *
-     * @return Image* 
-     * @retval nullptr Asset could not be converted
+     * @return ::std::shared_ptr<Image> 
      */
-    static Image* getImage( Component* );
+    static ::std::shared_ptr<Image> getImage(::std::shared_ptr<Component>);
 
     /**
      * @brief Converts a component into a check box
      *
      * @param asset The component to be converted 
      *
-     * @return CheckBox* 
-     * @retval nullptr Asset could not be converted
+     * @return ::std::shared_ptr<CheckBox> 
      */
-    static CheckBox* getCheckBox( Component* );
+    static ::std::shared_ptr<CheckBox> getCheckBox(::std::shared_ptr<Component>);
+
+    /**
+     * @brief Converts a component into a separator
+     *
+     * @param asset The component to be converted 
+     *
+     * @return ::std::shared_ptr<Separator> 
+     */
+    static ::std::shared_ptr<Separator> getSeparator(::std::shared_ptr<Component>);
+
 };
 
 }
