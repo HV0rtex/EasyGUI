@@ -258,4 +258,17 @@ Point Application::getCENTER() const
     return Point(_window->getDefaultView().getCenter());
 }
 
+ApplicationException::ApplicationException(::std::string message) : ::std::exception()
+{
+    _msg = "[ Application ] ";
+    _msg += message;
+    _msg += "\n";
+}
+
+const char* ApplicationException::what() const noexcept
+{
+    return _msg.c_str();
+}
+
+
 }

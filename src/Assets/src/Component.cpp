@@ -70,4 +70,15 @@ void Component::setOnHoverAction(void (*action)())
     _onHover = ::std::make_shared<Component::DeprecatedTask>(action);
 }
 
+AssetException::AssetException(::std::string message) : ::std::exception()
+{
+    _msg = "[ Asset ]";
+    _msg += message;
+    _msg += "\n";
+}
+
+const char* AssetException::what() const noexcept {
+    return _msg.c_str();
+}
+
 }

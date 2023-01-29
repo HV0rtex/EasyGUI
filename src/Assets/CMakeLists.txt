@@ -52,6 +52,7 @@ if(${BUILD_SHARED_LIBRARIES})
         easyGUI-assets PUBLIC
 
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../Logger/inc>
         $<INSTALL_INTERFACE:lib/easyGUI>
     )
 
@@ -67,6 +68,7 @@ else()
         easyGUI-assets-s PUBLIC
 
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../Logger/inc>
         $<INSTALL_INTERFACE:lib/easyGUI>
     )
 endif()
@@ -76,7 +78,6 @@ endif()
 if(${BUILD_SHARED_LIBRARIES})
     target_link_libraries(
         easyGUI-assets
-        easyGUI-exceptions
         sfml-graphics
         sfml-window
         sfml-system
@@ -84,7 +85,6 @@ if(${BUILD_SHARED_LIBRARIES})
 else()
     target_link_libraries(
         easyGUI-assets-s
-        easyGUI-exceptions-s
         sfml-graphics
         sfml-window
         sfml-system

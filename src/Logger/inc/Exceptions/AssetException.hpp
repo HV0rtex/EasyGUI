@@ -55,7 +55,7 @@ public:
      * @brief Destructor
      * 
      */
-    virtual ~AssetException();
+    virtual ~AssetException() = default;
 
     /**
      * @brief Constructor

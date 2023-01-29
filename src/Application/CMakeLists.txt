@@ -65,7 +65,6 @@ if(${BUILD_SHARED_LIBRARIES})
     target_link_libraries(
         easyGUI-application
         easyGUI-assets
-        easyGUI-exceptions
         sfml-graphics
         sfml-window
         sfml-system
@@ -74,7 +73,6 @@ else()
     target_link_libraries(
         easyGUI-application-s
         easyGUI-assets-s
-        easyGUI-exceptions-s
         sfml-graphics
         sfml-window
         sfml-system
