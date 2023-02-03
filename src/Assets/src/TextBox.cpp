@@ -32,31 +32,30 @@ namespace easyGUI
 TextBox* TextBox::selectedBox = nullptr;
 bool TextBox::textBoxClicked = false;
 
-unsigned TextBox::getCharSizeCorrection(const unsigned& length, const unsigned& charSize) const
+void TextBox::applyCharSizeCorrection()
 {
-    float lenghtInPix = length * charSize / 1.9;
-    float heightInPix = charSize * 1.55;
+    float lenghtInPix = _text->getInternalText().getGlobalBounds().width;
+    float heightInPix = _text->getInternalText().getGlobalBounds().height;
 
-    float freeSpaceX = _shape.getSize().x - lenghtInPix;
-    float freeSpaceY = _shape.getSize().y - heightInPix;
+    float freeSpaceX = _shape.getGlobalBounds().width - lenghtInPix;
+    float freeSpaceY = _shape.getGlobalBounds().height - heightInPix;
 
-    unsigned correction = 0;
+    uint32_t size = desiredSize;
 
-    while(freeSpaceX <= 0 || freeSpaceY <= 0)
+    while(freeSpaceX <= 20 || freeSpaceY <= 20)
     {
-        correction++;
+        size--;
+        _text->getInternalText().setCharacterSize(size);
 
-        lenghtInPix = length * (charSize - correction) / 1.9;
-        heightInPix = (charSize - correction) * 1.5;
+        lenghtInPix = _text->getInternalText().getGlobalBounds().width;
+        heightInPix = _text->getInternalText().getGlobalBounds().height;
 
-        freeSpaceX = _shape.getSize().x - lenghtInPix;
-        freeSpaceY = _shape.getSize().y - heightInPix;
+        freeSpaceX = _shape.getGlobalBounds().width - lenghtInPix;
+        freeSpaceY = _shape.getGlobalBounds().height - heightInPix;
     }
-
-    return correction;
 }
 
-TextBox*& TextBox::getSelectedBox() 
+TextBox* TextBox::getSelectedBox() 
 {
     return selectedBox;
 }
@@ -68,15 +67,10 @@ bool& TextBox::getTextBoxClicked()
 
 void TextBox::updateLocation(const Point& newLocation)
 {
-    if(!isMovable())
-    {
-        throw AssetException("Attempting to move an imovable object.");
-    }
-
     _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
     
     AlignmentTool& tool = AlignmentTool::getInstance();
-    tool.triggerUpdate(*this);
+    tool.triggerUpdate(this);
 }
 
 TextBox::TextBox(
@@ -85,7 +79,7 @@ TextBox::TextBox(
 
     const ::std::string& fontPath,
 
-    const unsigned& charSize)
+    const uint32_t charSize)
 {
     _shape.setPosition(startLocation.Xcoord, startLocation.Ycoord);
     _shape.setFillColor(::sf::Color::Black);
@@ -99,8 +93,14 @@ TextBox::TextBox(
     {
         AlignmentTool& tool = AlignmentTool::getInstance();
 
-        _text = new Label(Point(), "", fontPath, charSize);
-        tool.createBinding(*_text, *this, Binding(Mode::LEFT, Mode::LEFT), Point(19, -7));
+        _text = ::std::make_shared<Label>(Point(), "", fontPath, charSize);
+        Anchor* cast = static_cast<Anchor*>(_text.get());
+        
+        tool.createBinding(
+            cast, 
+            this, 
+            BindingPoint::LEFT, 
+            BindingPoint::LEFT, Point(19, -7));
     } 
     catch (const LabelException& err)
     {
@@ -118,7 +118,7 @@ TextBox::TextBox(
 
     const ::std::string& fontPath,
 
-    const unsigned& charSize) : 
+    const uint32_t charSize) : 
 TextBox(
     startLocation, 
     Point(startLocation.Xcoord + width, startLocation.Ycoord + height),
@@ -157,11 +157,6 @@ TextBox::~TextBox()
         selectedBox = nullptr;
         textBoxClicked = false;
     }
-    
-    if(_text != nullptr)
-    {
-        delete[] _text;
-    }
 }
 
 ::sf::RectangleShape& TextBox::getInternalBox()
@@ -174,7 +169,7 @@ TextBox::~TextBox()
     return _text->getInternalText();
 }
 
-void TextBox::updateText(const ::sf::Uint32& text)
+void TextBox::updateText(const uint32_t text)
 {
     ::sf::String newContent = _text->getInternalText().getString();
     AlignmentTool& tool = AlignmentTool::getInstance();
@@ -184,17 +179,15 @@ void TextBox::updateText(const ::sf::Uint32& text)
     else
         newContent.insert(newContent.getSize(), text);
 
-    unsigned correction = getCharSizeCorrection(newContent.getSize(), desiredSize);
+    _text->getInternalText().setString(newContent);
+    applyCharSizeCorrection();
 
-    if(correction != 0)
+    if (_text->getInternalText().getCharacterSize() < desiredSize)
     {
-        WARN << "TextBox text doesn't fit. Resizing text...\n";
+        WARN << "[TextBox] Text has been resized in order to fit.\n";
     }
 
-    _text->getInternalText().setString(newContent);
-    _text->getInternalText().setCharacterSize(desiredSize - correction);
-
-    tool.triggerUpdate(*this);
+    tool.triggerUpdate(this);
 }
 
 void TextBox::onClick()
@@ -207,11 +200,11 @@ void TextBox::onClick()
 
     if(_onClick != nullptr)
     {
-        _onClick();
+        _onClick->exec();
     }
 }
 
-const ::std::string TextBox::getText() const
+::std::string TextBox::getText() const
 {
     return _text->getInternalText().getString().toAnsiString();
 }

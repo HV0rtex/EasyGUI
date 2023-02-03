@@ -2,7 +2,7 @@
 
 void backButton_action ()
 {
-    easyGUI::Application* app = nullptr;
+    easyGUI::ApplicationPtr app = nullptr;
     
     app = app->getInstance();
 

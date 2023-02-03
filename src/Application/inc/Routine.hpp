@@ -32,6 +32,9 @@
 #endif
 
 #include <SFML/Window/Event.hpp>
+#include <Exceptions/ApplicationException.hpp>
+#include <Task.hpp>
+#include <memory>
 
 namespace easyGUI
 {
@@ -54,21 +57,31 @@ class APPLICATION_EXPORTS Routine
 class Routine
 #endif
 {
-private:
-    bool (*_trigger)(const ::sf::Event& action);
-    void (*_response)();
-
-    bool _isActive;
-
 public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~Routine() = default;
+
     /**
      * @brief Constructor
      * 
      * @param trigger Function that determines whether the routine is triggered
-     * @param _response The response that is to be triggered by the routine
+     * @param response The response that is to be triggered by the routine
+     * 
+     * @deprecated
      */
-    explicit Routine(bool (*trigger)(const ::sf::Event& action), void(*_response)());
+    Routine(bool (*)(const ::sf::Event&), void(*)());
 
+    /**
+     * @brief Constructor
+     * 
+     * @param trigger The trigger of the routine
+     * @param response The response of the routine
+     */
+    Routine(bool (*)(const ::sf::Event&), const ::std::shared_ptr<Task>&);
+    
     /**
      * @brief Call operator
      * 
@@ -76,8 +89,6 @@ public:
      * and on trigger fires the response action.
      * 
      * @return int
-     * @retval 1 The routine fired
-     * @retval 0 The routine didn't fire
      */
     void operator() (const ::sf::Event& event) const;
 
@@ -87,6 +98,26 @@ public:
      * @param active Denotes whether the routine should be active
      */
     void setActive(const bool& active);
+private:
+    bool (*_trigger)(const ::sf::Event& action);
+    ::std::shared_ptr<Task> _action;
+
+    bool _isActive;
+    
+    class DeprecatedTask : public Task
+    {
+    private:
+        void (*_action)() = nullptr;
+
+    public:
+        DeprecatedTask(void (*action)()) : _action(action) {}
+
+        void exec() 
+        {
+            if (_action)
+                _action();
+        }
+    };
 };
 
 }

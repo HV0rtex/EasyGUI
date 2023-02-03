@@ -53,56 +53,12 @@ namespace easyGUI
     class Application : public Anchor
 #endif
 {
-private:
-    static Application* instance;
-
-    ::sf::RenderWindow* _window;
-
-    ::std::vector < Routine* > routines;
-    ::std::map <::std::string, Menu* > menus;
-
-    Menu* _activeMenu;
-
-    // ----- Control variables -----
-
-    bool _startMenuSet;
-
-    /**
-     * @brief Constructor
-     * 
-     * @details The constructor is made private in order to adhere to the Singleton
-     * design pattern.
-     * 
-     * @param width The width of the window
-     * @param height The height of the window
-     * @param title The title of the application
-     * 
-     */
-    Application( const unsigned&, const unsigned&, const char* );
-
-    /**
-     * @brief Event handler
-     * 
-     * @details The function is fired whenever an event occurs at window level
-     * and loops through routines and fires all routines that match that event.
-     * 
-     * @param event The current window event
-     */
-    void handleEvents( const ::sf::Event& );
-
-    /**
-     * @brief Executes a given action for all components of the active menu
-     * 
-     * @param action The action to be executed for the component
-     */
-    void executeForAll( void (*)(Component*) );
-
 public:
     /**
      * @brief Destructor
      * 
      */
-    ~Application();
+    virtual ~Application() = default;
 
     /**
      * @brief Start the application
@@ -114,11 +70,11 @@ public:
      * @param height The height of the window
      * @param title The title of the application
      * 
-     * @return Application* 
+     * @return ::std::shared_ptr<Application>
      * 
      * @throws ApplicationInstance Failed to instantiate application.
      */
-    Application* getInstance( const unsigned& = 0, const unsigned& = 0, const char* = nullptr );
+    ::std::shared_ptr<Application> getInstance(const uint32_t = 0, const uint32_t = 0, const char* = nullptr);
 
     /**
      * @brief Appends a new menu to the application
@@ -130,48 +86,46 @@ public:
      * @param ID The ID of the menu
      * @param isStart Denotes if the menu is to be displayed first
      * 
-     * @returns Menu*
+     * @returns ::std::shared_ptr<Menu>
      * 
      * @throws MenuException More than one start menu declared.
      * @throws MenuException A menu with that ID already exists.
      */
-    Menu* addMenu( const ::std::string&, const bool& = false );
+    ::std::shared_ptr<Menu> addMenu(const ::std::string&, const bool& = false);
 
     /**
      * @brief Gets a menu by its index
      * 
      * @param ID The unique ID of the menu
      * 
-     * @return Menu*
-     * @retval NULL invalid menu index
-     * @retval Menu The menu linked to that index.
+     * @return ::std::shared_ptr<Menu>
      */
-    Menu* getMenu( const ::std::string& );
+    ::std::shared_ptr<Menu> getMenu(const ::std::string&);
 
     /**
      * @brief Retruns the active menu
      * 
-     * @return const Menu* 
+     * @return ::std::shared_ptr<Menu>
      */
-    Menu* getActiveMenu();
+    ::std::shared_ptr<Menu> getActiveMenu();
 
     /**
      * @brief Gets a routine by its index
      * 
      * @param index The index of the routine
      * 
-     * @return Routine*
-     * @retval NULL invalid index
-     * @retval Routine The routine linked to that index.
+     * @return Routine&
+     * 
+     * @throws ApplicationException Invalid index provided
      */
-    Routine* getRoutine( const unsigned& );
+    Routine& getRoutine(const uint32_t);
 
     /**
      * @brief Returns the SFML RenderWindow
      * 
-     * @return ::sf::RenderWindow* 
+     * @return ::std::shared_ptr<::sf::RenderWindow> 
      */
-    ::sf::RenderWindow* getWindow();
+    ::std::shared_ptr<::sf::RenderWindow> getWindow();
 
     /**
      * @brief Changes the active menu
@@ -180,14 +134,14 @@ public:
      * 
      * @throw MenuException Invalid index provided
      */
-    void setActiveMenu( const ::std::string& );
+    void setActiveMenu(const ::std::string&);
 
     /**
      * @brief Adds a new routine to the application
      * 
      * @param routine The routine to be added
      */
-    void addRoutine( Routine* );
+    void addRoutine(const Routine&);
 
     /**
      * @brief Starts the application
@@ -213,6 +167,43 @@ public:
     Point getBOTTOM() const override;
     Point getTOP() const override;
     Point getCENTER() const override;
+private:
+    static ::std::shared_ptr<Application> _instance;
+
+    ::std::shared_ptr<::sf::RenderWindow> _window;
+
+    ::std::map<::std::string, ::std::shared_ptr<Menu>> _menus;
+    ::std::vector<Routine> _routines;
+    ::std::shared_ptr<Menu> _activeMenu;
+
+    // ----- Control variables -----
+
+    bool _startMenuSet;
+
+    /**
+     * @brief Constructor
+     * 
+     * @details The constructor is made private in order to adhere to the Singleton
+     * design pattern.
+     * 
+     * @param width The width of the window
+     * @param height The height of the window
+     * @param title The title of the application
+     * 
+     */
+    explicit Application(const uint32_t, const uint32_t, const char*);
+
+    /**
+     * @brief Event handler
+     * 
+     * @details The function is fired whenever an event occurs at window level
+     * and loops through routines and fires all routines that match that event.
+     * 
+     * @param event The current window event
+     */
+    void handleEvents(const ::sf::Event&);
 };
+
+using ApplicationPtr = ::std::shared_ptr<Application>;
 
 }

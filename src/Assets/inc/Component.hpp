@@ -34,8 +34,12 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Mouse.hpp>
+#include <Exceptions/AssetException.hpp>
+#include <Task.hpp>
 #include <Point.hpp>
 #include <Logger.hpp>
+
+#include <memory>
 
 namespace easyGUI
 {
@@ -55,12 +59,6 @@ class ASSETS_EXPORTS Component : public ::sf::Drawable
 class Component : public ::sf::Drawable
 #endif
 {
-protected:
-    ::sf::RenderWindow* _container;
-
-    void (*_onClick)() = nullptr;
-    void (*_onHover)() = nullptr;
-
 public:
     /**
      * @brief Destructor
@@ -73,7 +71,7 @@ public:
      * 
      * @param container The window responsible of the component
      */
-    void setContainer( ::sf::RenderWindow*& );
+    void setContainer(const ::std::shared_ptr<::sf::RenderWindow>&);
 
     // ----- Interaction methods -----
 
@@ -89,15 +87,31 @@ public:
      * @brief Makes the component interactable
      * 
      * @param action Function to be called when component is clicked.
+     * @deprecated
      */
-    void setOnClickAction( void (*)() );
+    virtual void setOnClickAction(void (*)());
+
+    /**
+     * @brief Makes the component interactable
+     * 
+     * @param action The task to be executed when component is clicked.
+     */
+    void setOnClickAction(Task*);
 
     /**
      * @brief Sets the behaviour when the mouse is moved
      * 
      * @param action The action to be executed.
+     * @deprecated
      */
-    void setOnHoverAction( void (*)() );
+    virtual void setOnHoverAction(void (*)());
+
+    /**
+     * @brief Makes the component interactable
+     * 
+     * @param action The task to be executed when component is clicked.
+     */
+    void setOnHoverAction(Task*);
 
     /**
      * @brief Executes the onClick action
@@ -116,7 +130,27 @@ public:
      * 
      * @param newLocation The new location of the component
      */
-    virtual void updateLocation( const Point& ) = 0;
+    virtual void updateLocation(const Point&) = 0;
+protected:
+    ::std::shared_ptr<::sf::RenderWindow> _container;
+
+    ::std::shared_ptr<Task> _onClick = nullptr;
+    ::std::shared_ptr<Task> _onHover = nullptr;
+
+    class DeprecatedTask : public Task
+    {
+    private:
+        void (*_action)() = nullptr;
+
+    public:
+        DeprecatedTask(void (*action)()) : _action(action) {}
+
+        void exec() 
+        {
+            if (_action)
+                _action();
+        }
+    };
 };
 
 }

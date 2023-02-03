@@ -14,31 +14,64 @@
 
 
 /**
- * @file AssetException.cpp
+ * @file Task.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Implementation of the AssetException class
+ * @brief Definition of the Task abstract class
  * @version 0.1
- * @date 2022-10-05
+ * @date 2023-01-20
  * 
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2023
  * 
  */
 
-#include <Exceptions/AssetException.hpp>
+#pragma once
+
+// Including dependencies
+#include <memory>
 
 namespace easyGUI
 {
 
-AssetException::~AssetException() {}
-AssetException::AssetException(::std::string message) : ::std::exception()
+/**
+ * @brief Wrapper around an abstract callable.
+ * 
+ * @details This class serves to provide an interface for other
+ * classes which need to run any function with any parameters.
+ * This way, any derived class will be compatible with methods
+ * such as onClick() and onHover()
+ * 
+ * @warning This class cannot be used as a standalone.
+ */
+class Task : public ::std::enable_shared_from_this<Task>
 {
-    _msg = "[ Asset ]";
-    _msg += message;
-    _msg += "\n";
-}
+public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~Task() = default;
+    
+    /**
+     * @brief Constructor
+     * 
+     */
+    Task() = default;
 
-const char* AssetException::what() const noexcept {
-    return _msg.c_str();
-}
+    /**
+     * @brief Executes the task
+     * 
+     */
+    virtual void exec() {}
+
+    /**
+     * @brief Converts the pointer into a shared pointer
+     * 
+     * @return ::std::shared_ptr<Task> 
+     */
+    ::std::shared_ptr<Task> getShared()
+    {
+        return shared_from_this();
+    }
+};
 
 }

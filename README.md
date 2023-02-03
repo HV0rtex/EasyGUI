@@ -33,7 +33,7 @@ easyGUI::Button myButton (
     15,                                     // <-- Desired character size
 );
 
-myButton.setOnClickAction ( action );       // <-- action is a void function with no params
+myButton.addOnClickAction ( action );       // <-- Callable object
 ```
 
 This way, you don't need to worry wether the button text will fit. If the text fits inside the button borders, it will be automatically centered, otherwise the text / shape will be readjusted accordingly. For further information, please refer to our [User Manual](https://github.com/HV0rtex/EasyGUI/blob/main/docs/userManual.pdf).

@@ -51,11 +51,6 @@ class ASSETS_EXPORTS Separator : public Component, public Anchor
 class Separator : public Component, public Anchor
 #endif
 {
-private:
-    ::sf::RectangleShape _shape;
-
-    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
-
 public:
     /**
      * @brief Destructor
@@ -73,7 +68,7 @@ public:
      * @param thickness The thickness of the separator
      * 
      */
-    Separator(const Point&, const bool&, const float&, const unsigned&);
+    explicit Separator(const Point&, const bool&, const float&, const uint32_t);
 
     // Block other forms of construction
 
@@ -109,40 +104,15 @@ public:
 
     // ----- Inherited from Anchor -----
 
-    /**
-     * @brief Returns the point leftmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getLEFT() const override;
-
-    /**
-     * @brief Returns the point rightmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getRIGHT() const override;
-
-    /**
-     * @brief Returns the lowest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getBOTTOM() const override;
-
-    /**
-     * @brief Returns the highest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getTOP() const override;
-
-    /**
-     * @brief Returns the point at the center of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getCENTER() const override;
+private:
+    ::sf::RectangleShape _shape;
+
+    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 };
 
 }

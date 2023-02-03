@@ -22,7 +22,7 @@ GUI Elements:
 - Dropdown
 - Slider
 
-Costumization options:
+Customization options:
 - Images can now be framed.
 - Added text decoration options (bold, italic, underline)
 
@@ -31,13 +31,26 @@ Library support:
 
 ## Fixed
 
-GUI Elements:
-- Fixed a bug with Image scaling
+Bugs:
+- Bug where application crashes with multiple initial menu error
+- Bug where image wouldn't scale properly
+
+Libraries:
+- Windows SHARED libraries
+
+Optimizations:
+- Improved performance of Routine handling
+- Reduced memory consumption
+- Removed memory leaks
 
 Documentation:
 - Updated installation guide
 - Updated usage guide
 - Updated README file
+
+## Removed
+
+Removed the exceptions library and integrated it into assets / application libraries respectively.
 
 ## Version V2.0.1 - Windows maintanance (7.12.2022)
 

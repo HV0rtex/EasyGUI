@@ -21,7 +21,7 @@ bool windowHandler_trigger (const ::sf::Event& event)
 
 void windowHandler_action ()
 {
-    easyGUI::Application* app = nullptr;
+    easyGUI::ApplicationPtr app = nullptr;
     
     app = app->getInstance();
 

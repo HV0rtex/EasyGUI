@@ -38,6 +38,8 @@
 #include <Logger.hpp>
 #include <Point.hpp>
 
+#include <memory>
+
 namespace easyGUI
 {
 
@@ -47,20 +49,12 @@ class ASSETS_EXPORTS CheckBox : public Component, public Anchor
 class CheckBox : public Component, public Anchor
 #endif
 {
-private:
-    ::sf::RectangleShape _box, _filler;
-    Component* _content;
-
-    char _isChecked;
-
-    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
-
 public:
     /**
      * @brief Destructor
      * 
      */
-    virtual ~CheckBox();
+    virtual ~CheckBox() = default;
 
     /**
      * @brief Constructor
@@ -68,13 +62,9 @@ public:
      * @param startLocation The location of the top-left corner 
      * @param endLocation The location of the bottom-right corner
      * 
-     * @param content A component to be bound to the checkbox
-     * @param binding How to aling the components
-     * 
      * @throw CheckBoxException
-     *
      */
-    CheckBox(const Point&, const Point&, Component*&, const Binding&);
+    explicit CheckBox(const Point&, const Point&);
 
     /**
      * @brief Constructor
@@ -83,12 +73,9 @@ public:
      * @param width The width of the button
      * @param height The height of the button
      * 
-     * @param content A component to be bound to the checkbox
-     * @param binding How to align the components
-     * 
      * @throw CheckBoxException
      */
-    CheckBox(const Point&, const float&, const float&, Component*&, const Binding&);
+    explicit CheckBox(const Point&, const float&, const float&);
 
     // Block other forms of construction
 
@@ -123,13 +110,6 @@ public:
     ::sf::RectangleShape& getFiller();
 
     /**
-     * @brief Returns the component bound to the checkbox
-     * 
-     * @return Component&
-     */
-    Component& getInternalComponent();
-
-    /**
      * @brief Checks if the box has been checked
      * 
      * @return bool
@@ -153,40 +133,17 @@ public:
 
     // ----- Inherited from Anchor -----
 
-    /**
-     * @brief Returns the point leftmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getLEFT() const override;
-
-    /**
-     * @brief Returns the point rightmost of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getRIGHT() const override;
-
-    /**
-     * @brief Returns the lowest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getBOTTOM() const override;
-
-    /**
-     * @brief Returns the highest point of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getTOP() const override;
-
-    /**
-     * @brief Returns the point at the center of the Anchor
-     * 
-     * @return Point& 
-     */
     Point getCENTER() const override;
+private:
+    ::sf::RectangleShape _box, _filler;
+
+    uint8_t _isChecked;
+
+    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
 };
 
 

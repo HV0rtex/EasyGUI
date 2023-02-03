@@ -72,7 +72,7 @@ public:
     /**
      * @brief Returns the manager instance
      * 
-     * @return ::std::shared_ptr<Manager<T>>
+     * @return Manager&
      */
     static Manager& getInstance()
     {
@@ -99,7 +99,7 @@ public:
 
         ::std::shared_ptr<T> res = ::std::make_shared<T>();
 
-        if(!res.get()->loadFromFile(path))
+        if(!res->loadFromFile(path))
         {
             throw ManagerException("Could not get resource from path");
         }

@@ -31,67 +31,68 @@ namespace easyGUI
 {
 
 // Defining the application instance
-Application* Application::instance = 0;
+std::shared_ptr<Application> Application::_instance = 0;
 
-Application::Application(const unsigned& width, const unsigned& height, const char* title)
+Application::Application(const uint32_t width, const uint32_t height, const char* title)
 {
-    _window = new ::sf::RenderWindow(::sf::VideoMode(width,height), title);
+    _window = ::std::make_shared<::sf::RenderWindow>(::sf::VideoMode(width,height), title);
+
+    _startMenuSet = false;
+    _activeMenu = nullptr;
+    _menus = ::std::map<::std::string, MenuPtr>();
+    _routines = ::std::vector<Routine>();
 }
 
-Application* Application::getInstance(const unsigned& width, const unsigned& height, const char* title)
+::std::shared_ptr<Application> Application::getInstance(const uint32_t width, const uint32_t height, const char* title)
 {
     if(title != nullptr && width > 0 && height > 0)
     {
-        if(instance == nullptr)
+        if(_instance == nullptr)
         {
-            instance = new Application(width, height, title);
+            _instance = ::std::make_shared<Application>(Application(width, height, title));
         }
         else
         {
             // Adjust the window to the new configuration
-            instance->_window->setSize(::sf::Vector2u(width, height));
-            instance->_window->setTitle(title);
+            _instance->_window->setSize(::sf::Vector2u(width, height));
+            _instance->_window->setTitle(title);
         }
     }
 
-    if(instance == nullptr)
+    if(_instance == nullptr)
     {
-        ERROR << "Invalid parameters provided. Application instance not created.";
+        ERROR << "Invalid parameters provided. Application _instance not created.";
         abort();
     }
 
-    return instance;
-}
-
-void Application::executeForAll(void (*action)(Component*))
-{
-    unsigned index = 0;
-    
-    for(Component*& currentComponent : _activeMenu->getAllComponents())
-    {
-        action(currentComponent);
-    }
+    return _instance;
 }
 
 void Application::handleEvents(const ::sf::Event& event)
 {
     bool& boxClicked = TextBox::getTextBoxClicked();
-    TextBox*& box = TextBox::getSelectedBox();
+    TextBox* box = TextBox::getSelectedBox();
+    ::std::vector<::std::shared_ptr<Component>> components = _activeMenu->getAllComponents();
 
     if(event.type == ::sf::Event::MouseButtonPressed && event.mouseButton.button == ::sf::Mouse::Left)
     {
         boxClicked = false;
+        ::std::for_each(components.begin(), components.end(),
+            [](::std::shared_ptr<Component>& comp) {comp->onClick();}
+        );
 
-        executeForAll([](Component* comp) {comp->onClick();});
-    
         if(boxClicked == false)
             box = nullptr;
     }
     else if(event.type == ::sf::Event::MouseMoved)
     {
-        executeForAll([](Component* comp) {comp->onHover();});
+        ::std::for_each(components.begin(), components.end(),
+            [](::std::shared_ptr<Component>& comp) {
+                comp->onHover();
+            }
+        );
     }
-    else if(event.type == ::sf::Event::TextEntered && box != nullptr)
+    else if(event.type == ::sf::Event::TextEntered && box)
     {
         box->updateText(event.text.unicode);
     }
@@ -103,35 +104,35 @@ void Application::handleEvents(const ::sf::Event& event)
         _window->setView(newView);
     }
 
-    for(Routine*& routine : routines)
+    for(const Routine& routine : _routines)
     {
-        routine->operator()(event);
+        routine.operator()(event);
     }
 }
 
-Menu* Application::getMenu(const ::std::string& id)
+::std::shared_ptr<Menu> Application::getMenu(const ::std::string& id)
 {
-    if(menus.find(id) != menus.end())
+    if(_menus.find(id) != _menus.end())
     {
-        return menus.at(id);
+        return _menus.at(id);
     }
 
     return nullptr;
 }
 
-Menu* Application::getActiveMenu()
+::std::shared_ptr<Menu> Application::getActiveMenu()
 {
     return _activeMenu;
 }
 
-Routine* Application::getRoutine(const unsigned& index)
+Routine& Application::getRoutine(const uint32_t index)
 {
-    if(index < routines.size())
+    if(index < _routines.size())
     {
-        return routines.at(index);
+        return _routines.at(index);
     }
 
-    return nullptr;
+    throw ApplicationException("Attempting to get routine with invalid index: " + ::std::to_string(index));
 }
 
 void Application::stop()
@@ -139,22 +140,13 @@ void Application::stop()
     _window->close();
 }
 
-Application::~Application()
+::std::shared_ptr<Menu> Application::addMenu(const ::std::string& id, const bool& isStart)
 {
-    for(auto menu : menus)
-    {
-        delete menu.second;
-    }
-}
+    if(_menus.find(id) != _menus.end())
+        throw MenuException("A menu with this ID exists already: " + id);
 
-Menu* Application::addMenu(const ::std::string& id, const bool& isStart)
-{
-    if(menus.find(id) != menus.end())
-    {
-        throw MenuException("A menu with this ID exists already");
-    }
-
-    Menu* newMenu = new Menu();
+    ::std::shared_ptr<Menu> newMenu = ::std::make_shared<Menu>();
+    newMenu->setContainer(_window);
 
     if(isStart)
     {
@@ -165,26 +157,22 @@ Menu* Application::addMenu(const ::std::string& id, const bool& isStart)
         }
         else
         {
-            delete newMenu;
-
-            throw MenuException("Could not create initial menu because another initial menu was already created.");
+            throw MenuException("Could not create initial menu because another initial menu has already been created.");
         }
     }
 
-    newMenu->setContainer(_window);
-
-    menus.insert(::std::make_pair(id, newMenu));
+    _menus.emplace(id, newMenu);
 
     return newMenu;
 }
 
 void Application::setActiveMenu(const ::std::string& id)
 {
-    if(menus.find(id) != menus.end())
+    if(_menus.find(id) != _menus.end())
     {
         TextBox* box = TextBox::getSelectedBox();
 
-        _activeMenu = menus.at(id);
+        _activeMenu = _menus.at(id);
 
         if(!_startMenuSet)
         {
@@ -201,9 +189,9 @@ void Application::setActiveMenu(const ::std::string& id)
     }
 }
 
-void Application::addRoutine(Routine* routine)
+void Application::addRoutine(const Routine& routine)
 {
-    routines.push_back(routine);
+    _routines.push_back(routine);
 }
 
 void Application::start()
@@ -218,9 +206,7 @@ void Application::start()
         ::sf::Event event;
 
         while(_window->pollEvent(event))
-        {
             handleEvents(event);
-        }
 
         _window->clear();
         _window->draw(*_activeMenu);
@@ -228,7 +214,7 @@ void Application::start()
     }
 }
 
-::sf::RenderWindow* Application::getWindow()
+::std::shared_ptr<::sf::RenderWindow> Application::getWindow()
 {
     return _window;
 }
@@ -257,5 +243,18 @@ Point Application::getCENTER() const
 {
     return Point(_window->getDefaultView().getCenter());
 }
+
+ApplicationException::ApplicationException(::std::string message) : ::std::exception()
+{
+    _msg = "[ Application ] ";
+    _msg += message;
+    _msg += "\n";
+}
+
+const char* ApplicationException::what() const noexcept
+{
+    return _msg.c_str();
+}
+
 
 }

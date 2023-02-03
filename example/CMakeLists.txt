@@ -44,9 +44,9 @@ target_include_directories(
 
 target_link_libraries(
     demo
-    easyGUI-application
-    easyGUI-assets
-    easyGUI-exceptions
+    easyGUI-application-s
+    easyGUI-assets-s
+    easyGUI-exceptions-s
 )
 
 # ----- Installing project -----

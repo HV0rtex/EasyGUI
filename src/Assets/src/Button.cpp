@@ -29,36 +29,27 @@
 namespace easyGUI
 {
 
-Button::~Button()
+void Button::applyCharSizeCorrection()
 {
-    if(_content != nullptr)
-    {
-        delete[] _content;
-    }
-}
+    float lenghtInPix = _content->getInternalText().getGlobalBounds().width;
+    float heightInPix = _content->getInternalText().getGlobalBounds().height;
 
-unsigned Button::getCharSizeCorrection(const unsigned& length, const unsigned& charSize) const
-{
-    float lenghtInPix = length * charSize / 1.9;
-    float heightInPix = charSize * 1.55;
+    float freeSpaceX = _shape.getGlobalBounds().width - lenghtInPix;
+    float freeSpaceY = _shape.getGlobalBounds().height - heightInPix;
 
-    float freeSpaceX = _shape.getSize().x - lenghtInPix;
-    float freeSpaceY = _shape.getSize().y - heightInPix;
-
-    unsigned correction = 0;
+    uint32_t size = _content->getInternalText().getCharacterSize();
 
     while(freeSpaceX <= 0 || freeSpaceY <= 0)
     {
-        correction++;
+        size--;
+        _content->getInternalText().setCharacterSize(size);
 
-        lenghtInPix = length * (charSize - correction) / 1.9;
-        heightInPix = (charSize - correction) * 1.5;
+        lenghtInPix = _content->getInternalText().getGlobalBounds().width;
+        heightInPix = _content->getInternalText().getGlobalBounds().height;
 
-        freeSpaceX = _shape.getSize().x - lenghtInPix;
-        freeSpaceY = _shape.getSize().y - heightInPix;
+        freeSpaceX = _shape.getGlobalBounds().width - lenghtInPix;
+        freeSpaceY = _shape.getGlobalBounds().height - heightInPix;
     }
-
-    return correction;
 }
 
 Button::Button(
@@ -68,7 +59,7 @@ Button::Button(
     const ::std::string& text,
     const ::std::string& fontPath,
 
-    const unsigned& charSize)
+    const uint32_t charSize)
 {
     _shape.setPosition(startLocation.Xcoord, startLocation.Ycoord);
     _shape.setFillColor(::sf::Color::Black);
@@ -76,31 +67,32 @@ Button::Button(
     _shape.setOutlineThickness(5);
     _shape.setSize(::sf::Vector2f(endLocation.Xcoord - startLocation.Xcoord, endLocation.Ycoord - startLocation.Ycoord));
     
-    unsigned correction = getCharSizeCorrection(text.size(), charSize);
-
-    if(correction != 0)
-    {
-        WARN << "Button text doesn't fit. Resizing text...\n";
-    }
-
     try
     {
         AlignmentTool& tool = AlignmentTool::getInstance();
-        _content = new Label(Point(), text, fontPath, charSize - correction);
+        _content = ::std::make_shared<Label>(Point(), text, fontPath, charSize);
+        applyCharSizeCorrection();
     
-        tool.createBinding(*_content, *this, Binding(Mode::CENTER, Mode::CENTER), Point(-1, -7));
+        if (_content->getInternalText().getCharacterSize() < charSize)
+        {
+            WARN << "[Button] Text has been resized in order to fit.\n";
+        }
+
+        Anchor* cast = static_cast<Anchor*>(_content.get());
+        tool.createBinding(
+            cast, 
+            this, 
+            BindingPoint::CENTER, 
+            BindingPoint::CENTER, 
+            Point(-1, -7)
+        );
     } 
     catch (const LabelException& err)
     {
         ERROR << err.what();
 
         ButtonException ex("Label text will not be visible.");
-        if(_content != nullptr)
-        {
-            delete[] _content;
-            _content = nullptr;
-        }
-
+        
         WARN << ex.what();
     }
 }
@@ -113,7 +105,7 @@ Button::Button(
     const ::std::string& text,
     const ::std::string& fontPath,
 
-    const unsigned& charSize) : 
+    const uint32_t charSize) : 
 Button(
     startLocation, 
     Point(startLocation.Xcoord + width, startLocation.Ycoord + height),
@@ -151,27 +143,20 @@ bool Button::isMouseHover() const
     return _shape;
 }
 
-::sf::Text* Button::getInternalText()
+::sf::Text& Button::getInternalText()
 {
-    if(_content == nullptr)
-    {
-        return nullptr;
-    }
+    if(!_content)
+        throw ButtonException("Could not retrieve text attribute of NULL object.");
 
-    return &_content->getInternalText();
+    return _content->getInternalText();
 }
 
 void Button::updateLocation(const Point& newLocation)
 {
-    if(!isMovable())
-    {
-        throw AssetException("Attempting to move an imovable object.");
-    }
-
     _shape.setPosition(newLocation.Xcoord, newLocation.Ycoord);
 
     AlignmentTool& tool = AlignmentTool::getInstance();
-    tool.triggerUpdate(*this);
+    tool.triggerUpdate(this);
 }
 
 Point Button::getLEFT() const
