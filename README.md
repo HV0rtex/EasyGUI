@@ -56,6 +56,5 @@ After downloading the realease package for your operating system, check out the 
 
 The project is licensed under the **MIT License** and can be used free of charge. However if you would like to support the development of this extension, follow one of these links depending on your preffered support method:
 
-- [Buy me a coffee](buymeacoffee.com/hvrtx)
 - [Report a bug](https://github.com/HV0rtex/EasyGUI/issues/new?assignees=HV0rtex&labels=bug&template=bug_report.md&title=)
 - [Submit a suggestion](https://github.com/HV0rtex/EasyGUI/issues/new?assignees=HV0rtex&labels=enhancement&template=feature_request.md&title=)
