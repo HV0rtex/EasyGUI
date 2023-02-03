@@ -14,51 +14,40 @@
 
 
 /**
- * @file ImageException.hpp
+ * @file CheckBoxException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the ImageException class
- * @version 0.1
- * @date 2022-10-05
+ * @brief Definition of the CheckBoxException class
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #pragma once
 
 // Including dependencies
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-    #include <exceptions-export.hpp>
-#endif
-
 #include <Exceptions/AssetException.hpp>
 
 namespace easyGUI
 {
 
 /**
- * @brief Exception thrown when an error occurs inside a Image.
+ * @brief Exception thrown when an error occurs inside the CheckBox.
  * 
  */
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-class EXCEPTIONS_EXPORTS ImageException : public AssetException
-#else
-class ImageException : public AssetException
-#endif 
+class CheckBoxException : public AssetException
 {
 public:
     /**
      * @brief Destructor
      * 
      */
-    virtual ~ImageException() = default;
+    virtual ~CheckBoxException() = default;
 
     /**
      * @brief Constructor
      * 
      * @param message The message to be displayed
      */
-    explicit ImageException(::std::string message) : AssetException( "[ Image ] " + message ) {}
+    explicit CheckBoxException(::std::string message) : AssetException( "[ CheckBox ] " + message ) {}
 };
 
 }

@@ -17,11 +17,8 @@
  * @file Label.hpp
  * @author David Bogdan
  * @brief Definition of the Label class
- * @version 0.1
- * @date 2022-08-15
  * 
- * @copyright Copyright (c) 2022
- * 
+ * @copyright Copyright (c) 2022 
  */
 
 #pragma once

@@ -17,11 +17,8 @@
  * @file Routine.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Implementation of the routine class
- * @version 0.1
- * @date 2022-08-26
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #include <Routine.hpp>

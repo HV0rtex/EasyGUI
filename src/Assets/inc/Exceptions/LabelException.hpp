@@ -17,20 +17,13 @@
  * @file LabelException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Definition of the LabelException class
- * @version 0.1
- * @date 2022-10-05
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #pragma once
 
 // Including dependencies
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-    #include <exceptions-export.hpp>
-#endif
-
 #include <Exceptions/AssetException.hpp>
 
 namespace easyGUI
@@ -40,11 +33,7 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside a Label.
  * 
  */
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-class EXCEPTIONS_EXPORTS LabelException : public AssetException
-#else
 class LabelException : public AssetException
-#endif
 {
 public:
     /**

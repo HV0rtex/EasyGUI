@@ -17,11 +17,8 @@
  * @file Image.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Definition of the Image class
- * @version 0.1
- * @date 2022-10-20
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #pragma once

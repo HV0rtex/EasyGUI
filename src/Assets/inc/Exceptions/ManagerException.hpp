@@ -13,63 +13,41 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-/**
- * @file ApplicationException.hpp
+/** 
+ * @file ManagerException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the ApplicationException base class
- * @version 0.1
- * @date 2022-10-05
+ * @brief Definition of the ManagerException class
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #pragma once
 
 // Including dependencies
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-    #include <exceptions-export.hpp>
-#endif
-
-#include <exception>
-#include <string>
+#include <Exceptions/AssetException.hpp>
 
 namespace easyGUI
 {
 
 /**
- * @brief Exception thrown when something goes wrong at Application level.
+ * @brief Exception thrown when an error occurs inside the  Manager.
  * 
  */
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-class EXCEPTIONS_EXPORTS ApplicationException : public ::std::exception
-#else
-class ApplicationException : public ::std::exception
-#endif
+class ManagerException : public AssetException
 {
-private:
-    ::std::string _msg;
-
 public:
     /**
      * @brief Destructor
      * 
      */
-    virtual ~ApplicationException() = default;
+    virtual ~ManagerException() = default;
 
     /**
      * @brief Constructor
      * 
      * @param message The message to be displayed
      */
-    explicit ApplicationException(::std::string);
-
-    /**
-     * @brief Returns the exception message
-     * 
-     * @return const char* 
-     */
-    const char* what() const noexcept;     
+    explicit ManagerException(::std::string message) : AssetException( "[ Manager ] " + message ) {}
 };
 
 }

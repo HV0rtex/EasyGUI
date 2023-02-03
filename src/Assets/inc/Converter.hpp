@@ -17,11 +17,8 @@
  * @file Converter.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Definition of the converter class
- * @version 0.1
- * @date 2022-10-07
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #pragma once

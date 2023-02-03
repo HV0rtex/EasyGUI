@@ -14,51 +14,40 @@
 
 
 /**
- * @file CheckBoxException.hpp
+ * @file TextBoxException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the CheckBoxException class
- * @version 0.1
- * @date 2022-10-05
+ * @brief Definition of the TextBoxException class
  * 
- * @copyright Copyright (c) 2022
- * 
+ * @copyright Copyright (c) 2022 
  */
 
 #pragma once
 
 // Including dependencies
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-    #include <exceptions-export.hpp>
-#endif
-
 #include <Exceptions/AssetException.hpp>
 
 namespace easyGUI
 {
 
 /**
- * @brief Exception thrown when an error occurs inside the CheckBox.
+ * @brief Exception thrown when an error occurs inside the TextBox.
  * 
  */
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-class EXCEPTIONS_EXPORTS CheckBoxException : public AssetException
-#else
-class CheckBoxException : public AssetException
-#endif
+class TextBoxException : public AssetException
 {
 public:
     /**
      * @brief Destructor
      * 
      */
-    virtual ~CheckBoxException() = default;
+    virtual ~TextBoxException() = default;
 
     /**
      * @brief Constructor
      * 
      * @param message The message to be displayed
      */
-    explicit CheckBoxException(::std::string message) : AssetException( "[ CheckBox ] " + message ) {}
+    explicit TextBoxException(::std::string message) : AssetException( "[ TextBox ] " + message ) {}
 };
 
 }

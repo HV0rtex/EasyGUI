@@ -14,23 +14,68 @@
 
 
 /**
- * @file Logger.hpp
- * @author David Bogdan (david.bnicoale@gmail.com)
- * @brief Definition of the logging macros
- * @version 0.1
- * @date 2022-09-27
+ * @file ApplicationException.hpp
+ * @author David Bogdan (david.bnicolae@gmail.com)
+ * @brief Definition of the ApplicationException base class
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #pragma once
 
 // Including dependencies
 #include <iostream>
+#include <exception>
+#include <string>
 
-using std::cout;
+#ifndef ERROR
+#define ERROR std::cout << "[ERROR] ";
+#endif
 
-#define INFO cout << "[ INFO ] "
-#define WARN cout << "[ WARN ] "
-#define ERROR cout << "[ ERROR ] "
+#ifndef WARN
+#define WARN std::cout << "[WARNING] ";
+#endif
+
+#ifndef INFO
+#define INFO std::cout << "[INFO] ";
+#endif
+
+namespace easyGUI
+{
+
+/**
+ * @brief Exception thrown when something goes wrong at Application level.
+ * 
+ */
+class ApplicationException : public ::std::exception
+{
+private:
+    ::std::string _msg;
+
+public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~ApplicationException() = default;
+
+    /**
+     * @brief Constructor
+     * 
+     * @param message The message to be displayed
+     */
+    explicit ApplicationException(::std::string message) :
+        _msg("[APPLICATION] " + message + "\n");
+
+    /**
+     * @brief Returns the exception message
+     * 
+     * @return const char* 
+     */
+    const char* what() const noexcept
+    {
+        return _msg.c_str();
+    }   
+};
+
+}

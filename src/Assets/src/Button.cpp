@@ -17,11 +17,8 @@
  * @file Button.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Implementation of the button class
- * @version 0.1
- * @date 2022-09-11
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #include <Button.hpp>

@@ -17,11 +17,8 @@
  * @file Menu.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Definition of the Menu class
- * @version 0.1
- * @date 2022-08-28
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #pragma once
@@ -33,7 +30,6 @@
 
 #include <Exceptions/AssetException.hpp>
 #include <Exceptions/MenuException.hpp>
-#include <Logger.hpp>
 #include <Component.hpp>
 #include <string>
 #include <vector>
@@ -97,6 +93,12 @@ public:
      * @return ::std::vector<Component*> 
      */
     ::std::vector<::std::shared_ptr<Component>> getAllComponents();
+
+    /**
+     * @brief Clears the menu of all content.
+     * 
+     */
+    void clear();
 private:
     ::std::map<::std::string, ::std::shared_ptr<Component>> _components;
     ::std::shared_ptr<::sf::RenderWindow> _container;
@@ -117,11 +119,11 @@ using MenuPtr = ::std::shared_ptr<Menu>;
  * @param element The component to append
  * 
  */
-template < class C, class... args> void AddElement(MenuPtr& targetMenu, const ::std::string& id, args... constructorArgs)
+template < class Class, class... Args> void AddElement(MenuPtr& targetMenu, const ::std::string& id, Args... constructorArgs)
 {
     try
     {
-        ::std::shared_ptr<C> ptr = ::std::make_shared<C>(constructorArgs...);
+        ::std::shared_ptr<Class> ptr = ::std::make_shared<Class>(constructorArgs...);
         targetMenu->addComponent(ptr, id);
     }
     catch(const AssetException& e)

@@ -17,11 +17,8 @@
  * @file Component.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Definition of the Component class
- * @version 0.1
- * @date 2022-08-23
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #pragma once
@@ -37,7 +34,6 @@
 #include <Exceptions/AssetException.hpp>
 #include <Task.hpp>
 #include <Point.hpp>
-#include <Logger.hpp>
 
 #include <memory>
 
@@ -96,7 +92,7 @@ public:
      * 
      * @param action The task to be executed when component is clicked.
      */
-    void setOnClickAction(Task*);
+    void setOnClickAction(const std::shared_ptr<Task>&);
 
     /**
      * @brief Sets the behaviour when the mouse is moved
@@ -111,7 +107,7 @@ public:
      * 
      * @param action The task to be executed when component is clicked.
      */
-    void setOnHoverAction(Task*);
+    void setOnHoverAction(const std::shared_ptr<Task>&);
 
     /**
      * @brief Executes the onClick action

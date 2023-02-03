@@ -17,11 +17,8 @@
  * @file Separator.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Implementation of the Separator class
- * @version 0.1
- * @date 2022-09-11
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
  */
 
 #include <Separator.hpp>

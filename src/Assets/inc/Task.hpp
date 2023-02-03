@@ -17,11 +17,8 @@
  * @file Task.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Definition of the Task abstract class
- * @version 0.1
- * @date 2023-01-20
  * 
- * @copyright Copyright (c) 2023
- * 
+ * @copyright Copyright (c) 2022
  */
 
 #pragma once
@@ -42,7 +39,7 @@ namespace easyGUI
  * 
  * @warning This class cannot be used as a standalone.
  */
-class Task : public ::std::enable_shared_from_this<Task>
+class Task
 {
 public:
     /**
@@ -62,16 +59,19 @@ public:
      * 
      */
     virtual void exec() {}
-
-    /**
-     * @brief Converts the pointer into a shared pointer
-     * 
-     * @return ::std::shared_ptr<Task> 
-     */
-    ::std::shared_ptr<Task> getShared()
-    {
-        return shared_from_this();
-    }
 };
+
+/**
+ * @brief Safely appends a component to a menu.
+ * 
+ * @details Attempts to append a component to a menu. The macro
+ * handles any possible error thrown by the component, so that it will
+ * not affect the rest of the application.
+ */
+template < class Class, class... Args> std::shared_ptr<Task> CreateNewTask(Args... constructorArgs)
+{
+    ::std::shared_ptr<Class> ptr = ::std::make_shared<Class>(constructorArgs...);
+    return ::std::dynamic_pointer_cast<Task>(ptr);
+}
 
 }

@@ -17,11 +17,8 @@
  * @file Application.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Implementation of the Application class
- * @version 0.1
- * @date 2022-08-25
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #include <Application.hpp>
@@ -143,7 +140,7 @@ void Application::stop()
 ::std::shared_ptr<Menu> Application::addMenu(const ::std::string& id, const bool& isStart)
 {
     if(_menus.find(id) != _menus.end())
-        throw MenuException("A menu with this ID exists already: " + id);
+        throw ApplicationException("A menu with this ID exists already: " + id);
 
     ::std::shared_ptr<Menu> newMenu = ::std::make_shared<Menu>();
     newMenu->setContainer(_window);
@@ -157,7 +154,7 @@ void Application::stop()
         }
         else
         {
-            throw MenuException("Could not create initial menu because another initial menu has already been created.");
+            throw ApplicationException("Could not create initial menu because another initial menu has already been created.");
         }
     }
 
@@ -218,43 +215,5 @@ void Application::start()
 {
     return _window;
 }
-
-Point Application::getLEFT() const
-{
-    return Point(0, _window->getDefaultView().getSize().y / 2);
-}
-
-Point Application::getRIGHT() const
-{
-    return Point(_window->getDefaultView().getSize().x, _window->getDefaultView().getSize().y / 2);
-}
-
-Point Application::getTOP() const
-{
-    return Point(_window->getDefaultView().getSize().x / 2, 0);
-}
-
-Point Application::getBOTTOM() const
-{
-    return Point(_window->getDefaultView().getSize().x / 2, _window->getDefaultView().getSize().y);
-}
-
-Point Application::getCENTER() const
-{
-    return Point(_window->getDefaultView().getCenter());
-}
-
-ApplicationException::ApplicationException(::std::string message) : ::std::exception()
-{
-    _msg = "[ Application ] ";
-    _msg += message;
-    _msg += "\n";
-}
-
-const char* ApplicationException::what() const noexcept
-{
-    return _msg.c_str();
-}
-
 
 }

@@ -17,20 +17,13 @@
  * @file ButtonException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Definition of the ButtonException class
- * @version 0.1
- * @date 2022-10-05
  * 
- * @copyright Copyright (c) 2022
- * 
+ * @copyright Copyright (c) 2022 
  */
 
 #pragma once
 
 // Including dependencies
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-    #include <exceptions-export.hpp>
-#endif
-
 #include <Exceptions/AssetException.hpp>
 
 namespace easyGUI
@@ -40,11 +33,7 @@ namespace easyGUI
  * @brief Exception thrown when an error occurs inside the Button.
  * 
  */
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-class EXCEPTIONS_EXPORTS ButtonException : public AssetException
-#else
 class ButtonException : public AssetException
-#endif
 {
 public:
     /**

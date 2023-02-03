@@ -17,11 +17,8 @@
  * @file Application.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Definition of the application class
- * @version 0.1
- * @date 2022-08-19
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #pragma once
@@ -31,12 +28,10 @@
     #include <application-export.hpp>
 #endif
 
+#include <Exceptions/ApplicationException.hpp>
 #include <Routine.hpp>
 #include <Menu.hpp>
-#include <Converter.hpp>
-#include <Logger.hpp>
-#include <Exceptions/MenuException.hpp>
-#include <AlignmentTool.hpp>
+#include <Textbox.hpp>
 
 namespace easyGUI
 {
@@ -48,9 +43,9 @@ namespace easyGUI
  * 
  */
 #if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-    class APPLICATION_EXPORTS Application : public Anchor
+    class APPLICATION_EXPORTS Application
 #else
-    class Application : public Anchor
+    class Application
 #endif
 {
 public:

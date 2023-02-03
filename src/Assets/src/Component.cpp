@@ -17,11 +17,8 @@
  * @file Component.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Implementation of the Component class
- * @version 0.1
- * @date 2022-10-07
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #include <Component.hpp>
@@ -55,30 +52,19 @@ void Component::setOnClickAction(void (*action)())
     _onClick = ::std::make_shared<Component::DeprecatedTask>(action);
 }
 
-void Component::setOnClickAction(Task* action)
+void Component::setOnClickAction(const std::shared_ptr<Task>& action)
 {
-    _onClick = action->getShared();
+    _onClick = action;
 }
 
-void Component::setOnHoverAction(Task* action)
+void Component::setOnHoverAction(const std::shared_ptr<Task>& action)
 {
-    _onClick = action->getShared();
+    _onClick = action;
 }
 
 void Component::setOnHoverAction(void (*action)())
 {
     _onHover = ::std::make_shared<Component::DeprecatedTask>(action);
-}
-
-AssetException::AssetException(::std::string message) : ::std::exception()
-{
-    _msg = "[ Asset ]";
-    _msg += message;
-    _msg += "\n";
-}
-
-const char* AssetException::what() const noexcept {
-    return _msg.c_str();
 }
 
 }

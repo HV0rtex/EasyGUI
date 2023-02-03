@@ -17,11 +17,8 @@
  * @file Point.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Implementation of the point struct
- * @version 0.1
- * @date 2022-11-04
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #include <Point.hpp>
