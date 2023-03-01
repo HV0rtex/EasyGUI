@@ -29,15 +29,15 @@
 #include <string>
 
 #ifndef ERROR
-#define ERROR std::cout << "[ERROR] ";
+#define ERROR std::cout << "[ERROR] "
 #endif
 
 #ifndef WARN
-#define WARN std::cout << "[WARNING] ";
+#define WARN std::cout << "[WARNING] "
 #endif
 
 #ifndef INFO
-#define INFO std::cout << "[INFO] ";
+#define INFO std::cout << "[INFO] "
 #endif
 
 namespace easyGUI
@@ -64,7 +64,7 @@ public:
      * 
      * @param message The message to be displayed
      */
-    explicit AssetException(::std::string) :
+    explicit AssetException(const ::std::string& message) :
         _msg("[ASSET] " + message + "\n") {}
 
     /**

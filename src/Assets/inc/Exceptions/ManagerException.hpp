@@ -47,7 +47,8 @@ public:
      * 
      * @param message The message to be displayed
      */
-    explicit ManagerException(::std::string message) : AssetException( "[ Manager ] " + message ) {}
+    explicit ManagerException(const ::std::string& message) :
+        AssetException( "[ Manager ] " + message ) {}
 };
 
 }

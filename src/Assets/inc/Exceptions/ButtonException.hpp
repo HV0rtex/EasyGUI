@@ -47,7 +47,8 @@ public:
      * 
      * @param message The message to be displayed
      */
-    explicit ButtonException(::std::string message) : AssetException( "[ Button ] " + message ) {}
+    explicit ButtonException(const ::std::string& message) :
+        AssetException( "[ Button ] " + message ) {}
 };
 
 }

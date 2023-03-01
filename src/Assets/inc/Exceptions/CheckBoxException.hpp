@@ -47,7 +47,8 @@ public:
      * 
      * @param message The message to be displayed
      */
-    explicit CheckBoxException(::std::string message) : AssetException( "[ CheckBox ] " + message ) {}
+    explicit CheckBoxException(const ::std::string& message) :
+        AssetException( "[ CheckBox ] " + message ) {}
 };
 
 }

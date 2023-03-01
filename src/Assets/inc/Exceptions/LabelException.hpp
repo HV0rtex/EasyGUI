@@ -47,7 +47,8 @@ public:
      * 
      * @param message The message to be displayed
      */
-    explicit LabelException(::std::string message) : AssetException( "[ Label ] " + message ) {}
+    explicit LabelException(const ::std::string& message) :
+        AssetException( "[ Label ] " + message ) {}
 };
 
 }

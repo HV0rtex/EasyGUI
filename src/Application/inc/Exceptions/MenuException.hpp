@@ -47,7 +47,8 @@ public:
      * 
      * @param message The message to be displayed
      */
-    explicit MenuException(::std::string message) : ApplicationException( "[ Menu ] " + message ) {}
+    explicit MenuException(const ::std::string& message) :
+        ApplicationException( "[ Menu ] " + message ) {}
 };
 
 }

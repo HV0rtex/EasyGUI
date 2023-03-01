@@ -52,7 +52,8 @@ Documentation:
 
 ## Removed
 
-Removed the exceptions library and integrated it into the other libraries.
+Libraries:
+- Exceptions library
 
 ## Version V2.0.1 - Windows maintanance (7.12.2022)
 

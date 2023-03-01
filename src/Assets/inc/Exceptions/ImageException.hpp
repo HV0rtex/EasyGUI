@@ -47,7 +47,8 @@ public:
      * 
      * @param message The message to be displayed
      */
-    explicit ImageException(::std::string message) : AssetException( "[ Image ] " + message ) {}
+    explicit ImageException(const ::std::string& message) :
+        AssetException( "[ Image ] " + message ) {}
 };
 
 }

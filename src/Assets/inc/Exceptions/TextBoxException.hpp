@@ -47,7 +47,8 @@ public:
      * 
      * @param message The message to be displayed
      */
-    explicit TextBoxException(::std::string message) : AssetException( "[ TextBox ] " + message ) {}
+    explicit TextBoxException(const ::std::string& message) :
+        AssetException( "[ TextBox ] " + message ) {}
 };
 
 }
