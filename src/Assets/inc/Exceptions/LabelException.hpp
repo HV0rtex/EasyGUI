@@ -14,51 +14,41 @@
 
 
 /**
- * @file ButtonException.hpp
+ * @file LabelException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the ButtonException class
- * @version 0.1
- * @date 2022-10-05
+ * @brief Definition of the LabelException class
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #pragma once
 
 // Including dependencies
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-    #include <exceptions-export.hpp>
-#endif
-
 #include <Exceptions/AssetException.hpp>
 
 namespace easyGUI
 {
 
 /**
- * @brief Exception thrown when an error occurs inside the Button.
+ * @brief Exception thrown when an error occurs inside a Label.
  * 
  */
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-class EXCEPTIONS_EXPORTS ButtonException : public AssetException
-#else
-class ButtonException : public AssetException
-#endif
+class LabelException : public AssetException
 {
 public:
     /**
      * @brief Destructor
      * 
      */
-    virtual ~ButtonException() = default;
+    virtual ~LabelException() = default;
 
     /**
      * @brief Constructor
      * 
      * @param message The message to be displayed
      */
-    explicit ButtonException(::std::string message) : AssetException( "[ Button ] " + message ) {}
+    explicit LabelException(const ::std::string& message) :
+        AssetException( "[ Label ] " + message ) {}
 };
 
 }

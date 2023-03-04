@@ -17,11 +17,8 @@
  * @file Separator.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Definition of the Separator class
- * @version 0.1
- * @date 2022-09-01
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #pragma once
@@ -39,10 +36,11 @@ namespace easyGUI
 {
 
 /**
- * @brief Implements a button component
+ * @brief Implements a line separator
  * 
- * @details Draws a button on a window. The class makes use of the
- * Label class in order to draw and configure the button's text.
+ * @details Draws a line on the window. The component can act as
+ * an Anchor so that you may align other components in respect to the Separator.
+ * You can also set whether the line is vertical or horizontal.
  */
 #if defined(_WIN32) && BUILD_SHARED_LIBRARIES
 class ASSETS_EXPORTS Separator : public Component, public Anchor

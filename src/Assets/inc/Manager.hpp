@@ -17,11 +17,8 @@
  * @file Manager.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Definition of the Manager class
- * @version 0.1
- * @date 2022-08-19
  * 
- * @copyright Copyright (c) 2022
- * 
+ * @copyright Copyright (c) 2022 
  */
 
 #pragma once
@@ -34,7 +31,7 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <Exceptions/ManagerException.hpp>
-#include <Logger.hpp>
+
 #include <map>
 #include <string>
 #include <memory>

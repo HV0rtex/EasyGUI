@@ -17,11 +17,8 @@
  * @file Menu.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Implementation of the Menu class
- * @version 0.1
- * @date 2022-08-28
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #include <Menu.hpp>
@@ -68,6 +65,11 @@ void Menu::draw(::sf::RenderTarget& target, ::sf::RenderStates states) const
     });
 
     return temp;
+}
+
+void Menu::clear()
+{
+    _components.clear();
 }
 
 void Menu::setContainer(const ::std::shared_ptr<::sf::RenderWindow>& container)

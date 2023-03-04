@@ -17,11 +17,8 @@
  * @file Application.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Definition of the application class
- * @version 0.1
- * @date 2022-08-19
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #pragma once
@@ -31,12 +28,10 @@
     #include <application-export.hpp>
 #endif
 
+#include <Exceptions/ApplicationException.hpp>
 #include <Routine.hpp>
 #include <Menu.hpp>
-#include <Converter.hpp>
-#include <Logger.hpp>
-#include <Exceptions/MenuException.hpp>
-#include <AlignmentTool.hpp>
+#include <Textbox.hpp>
 
 namespace easyGUI
 {
@@ -44,13 +39,15 @@ namespace easyGUI
  * @brief Emulates a windowed application
  * 
  * @details The class acts as a wrapper around the ::sf::RenderWindow, and provides
- * easier management of the events (such as onClick, onKeyPress, etc.) 
+ * easier management of the events (such as onClick, onKeyPress, etc.). Furthermore,
+ * the window works with entire Menus of components, so that UI creation is faster
+ * and easier. 
  * 
  */
 #if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-    class APPLICATION_EXPORTS Application : public Anchor
+    class APPLICATION_EXPORTS Application
 #else
-    class Application : public Anchor
+    class Application
 #endif
 {
 public:
@@ -159,14 +156,6 @@ public:
      * @details Closes the application window.
      */
     void stop();
-
-    // ----- Inherited from anchor -----
-
-    Point getLEFT() const override;
-    Point getRIGHT() const override;
-    Point getBOTTOM() const override;
-    Point getTOP() const override;
-    Point getCENTER() const override;
 private:
     static ::std::shared_ptr<Application> _instance;
 

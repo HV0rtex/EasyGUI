@@ -52,7 +52,6 @@ if(${BUILD_SHARED_LIBRARIES})
         easyGUI-assets PUBLIC
 
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../Logger/inc>
         $<INSTALL_INTERFACE:lib/easyGUI>
     )
 
@@ -68,7 +67,6 @@ else()
         easyGUI-assets-s PUBLIC
 
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../Logger/inc>
         $<INSTALL_INTERFACE:lib/easyGUI>
     )
 endif()

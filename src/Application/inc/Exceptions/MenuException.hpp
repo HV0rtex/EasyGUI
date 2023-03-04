@@ -13,52 +13,42 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-/** 
- * @file ManagerException.hpp
+/**
+ * @file MenuException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the ManagerException class
- * @version 0.1
- * @date 2022-10-05
+ * @brief Definition of the MenuException class
  * 
- * @copyright Copyright (c) 2022
- * 
+ * @copyright Copyright (c) 2022 
  */
 
 #pragma once
 
 // Including dependencies
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-    #include <exceptions-export.hpp>
-#endif
-
-#include <Exceptions/AssetException.hpp>
+#include <Exceptions/ApplicationException.hpp>
 
 namespace easyGUI
 {
 
 /**
- * @brief Exception thrown when an error occurs inside the  Manager.
+ * @brief Exception thrown when an error occurs with a Menu.
  * 
  */
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-class EXCEPTIONS_EXPORTS ManagerException : public AssetException
-#else
-class ManagerException : public AssetException
-#endif
+class MenuException : public ApplicationException
 {
 public:
     /**
      * @brief Destructor
      * 
      */
-    virtual ~ManagerException() = default;
+    virtual ~MenuException() = default;
 
     /**
      * @brief Constructor
      * 
      * @param message The message to be displayed
      */
-    explicit ManagerException(::std::string message) : AssetException( "[ Manager ] " + message ) {}
+    explicit MenuException(const ::std::string& message) :
+        ApplicationException( "[ Menu ] " + message ) {}
 };
 
 }

@@ -40,22 +40,21 @@ This way, you don't need to worry wether the button text will fit. If the text f
 
 ## What is provided
 
-In every realease, you will have provided both static and dynamic libraries to suit your prefered way of linkage, the API headers as well as a demo project.
+In every realease, you will have provided both static and dynamic libraries to suit your prefered way of linkage, the API headers as well as a demo project. Furthermore, we also provide a pre-built CLI (Command Line Interface) to help you setup projects faster.
 
 ## Prerequisites
 
-Before attempting to use the extension you must make sure you have the following dependencies installed:
+If you build the extension by manually compiling the source code, make sure you have the following dependencies installed:
 
 - [SFML](https://www.sfml-dev.org/)
 
 ## Installation
 
-After downloading the realease package for your operating system (Note: For Windows you need to check the OS version: 32/64 bit and download the corresponding package), check out the [Installation Guide](https://github.com/HV0rtex/EasyGUI/blob/main/docs/installationGuide.pdf) in order to set everything up for your IDE.
+After downloading the realease package for your operating system, check out the [Installation Guide](https://github.com/HV0rtex/EasyGUI/blob/main/docs/installationGuide.pdf) in order to set everything up for your IDE.
 
 ## Support
 
 The project is licensed under the **MIT License** and can be used free of charge. However if you would like to support the development of this extension, follow one of these links depending on your preffered support method:
 
-- [Buy me a coffee](buymeacoffee.com/hvrtx)
 - [Report a bug](https://github.com/HV0rtex/EasyGUI/issues/new?assignees=HV0rtex&labels=bug&template=bug_report.md&title=)
 - [Submit a suggestion](https://github.com/HV0rtex/EasyGUI/issues/new?assignees=HV0rtex&labels=enhancement&template=feature_request.md&title=)

@@ -18,19 +18,23 @@ Project management:
 
 GUI Elements:
 - Line separator
-- Textarea
-- Dropdown
-- Slider
+
+Application control:
+- Added support for custom functions (with any arguments / return type)
 
 Customization options:
 - Images can now be framed.
 - Added text decoration options (bold, italic, underline)
+
+Library support:
+- Windows SHARED libraries
 
 ## Fixed
 
 Bugs:
 - Bug where application crashes with multiple initial menu error
 - Bug where image wouldn't scale properly
+- Bug where button text would exceed bounds
 
 Libraries:
 - Windows SHARED libraries
@@ -44,10 +48,12 @@ Documentation:
 - Updated installation guide
 - Updated usage guide
 - Updated README file
+- Updated code documentation
 
 ## Removed
 
-Removed the exceptions library and integrated it into assets / application libraries respectively.
+Libraries:
+- Exceptions library
 
 ## Version V2.0.1 - Windows maintanance (7.12.2022)
 

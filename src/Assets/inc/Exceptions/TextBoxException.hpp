@@ -14,62 +14,41 @@
 
 
 /**
- * @file AssetException.hpp
+ * @file TextBoxException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the base exception class
- * @version 0.1
- * @date 2022-10-05
+ * @brief Definition of the TextBoxException class
  * 
- * @copyright Copyright (c) 2022
- * 
+ * @copyright Copyright (c) 2022 
  */
 
 #pragma once
 
 // Including dependencies
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-    #include <exceptions-export.hpp>
-#endif
-
-#include <exception>
-#include <string>
+#include <Exceptions/AssetException.hpp>
 
 namespace easyGUI
 {
 
 /**
- * @brief Exception thrown when something goes wrong at Asset level.
+ * @brief Exception thrown when an error occurs inside the TextBox.
  * 
  */
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-class EXCEPTIONS_EXPORTS AssetException : public ::std::exception
-#else
-class AssetException : public ::std::exception
-#endif
+class TextBoxException : public AssetException
 {
-private:
-    ::std::string _msg;
-
 public:
     /**
      * @brief Destructor
      * 
      */
-    virtual ~AssetException() = default;
+    virtual ~TextBoxException() = default;
 
     /**
      * @brief Constructor
      * 
      * @param message The message to be displayed
      */
-    explicit AssetException(::std::string);
-
-    /**
-     * @brief Returns the exception message
-     * 
-     * @return const char* 
-     */
-    const char* what() const noexcept;
+    explicit TextBoxException(const ::std::string& message) :
+        AssetException( "[ TextBox ] " + message ) {}
 };
 
 }

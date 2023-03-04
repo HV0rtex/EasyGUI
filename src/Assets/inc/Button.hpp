@@ -17,11 +17,8 @@
  * @file Button.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Definition of the Button class
- * @version 0.1
- * @date 2022-09-01
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #pragma once

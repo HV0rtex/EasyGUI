@@ -15,13 +15,12 @@
 
 # ----- Configuring SFML -----
 
-find_package(SFML REQUIRED system window graphics network audio)
+find_package(SFML REQUIRED system window graphics)
 
 # ----- Adding sources -----
 
 add_subdirectory(Assets)
 add_subdirectory(Application)
-add_subdirectory(Logger)
 add_subdirectory(CLI)
 
 if(${BUILD_SHARED_LIBRARIES})

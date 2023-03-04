@@ -17,11 +17,8 @@
  * @file TextBox.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Implementation of the TextBox class
- * @version 0.1
- * @date 2022-10-10
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #include <Textbox.hpp>

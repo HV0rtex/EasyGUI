@@ -14,51 +14,68 @@
 
 
 /**
- * @file LabelException.hpp
+ * @file AssetException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Definition of the LabelException class
- * @version 0.1
- * @date 2022-10-05
+ * @brief Definition of the base exception class
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #pragma once
 
 // Including dependencies
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-    #include <exceptions-export.hpp>
+#include <iostream>
+#include <exception>
+#include <string>
+
+#ifndef ERROR
+#define ERROR std::cout << "[ERROR] "
 #endif
 
-#include <Exceptions/AssetException.hpp>
+#ifndef WARN
+#define WARN std::cout << "[WARNING] "
+#endif
+
+#ifndef INFO
+#define INFO std::cout << "[INFO] "
+#endif
 
 namespace easyGUI
 {
 
 /**
- * @brief Exception thrown when an error occurs inside a Label.
+ * @brief Exception thrown when something goes wrong at Asset level.
  * 
  */
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-class EXCEPTIONS_EXPORTS LabelException : public AssetException
-#else
-class LabelException : public AssetException
-#endif
+class AssetException : public ::std::exception
 {
+private:
+    ::std::string _msg;
+
 public:
     /**
      * @brief Destructor
      * 
      */
-    virtual ~LabelException() = default;
+    virtual ~AssetException() = default;
 
     /**
      * @brief Constructor
      * 
      * @param message The message to be displayed
      */
-    explicit LabelException(::std::string message) : AssetException( "[ Label ] " + message ) {}
+    explicit AssetException(const ::std::string& message) :
+        _msg("[ASSET] " + message + "\n") {}
+
+    /**
+     * @brief Returns the exception message
+     * 
+     * @return const char* 
+     */
+    const char* what() const noexcept
+    {
+        return _msg.c_str();
+    }
 };
 
 }

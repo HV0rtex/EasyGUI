@@ -17,11 +17,8 @@
  * @file CheckBox.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Definition of the CheckBox class
- * @version 0.1
- * @date 2022-11-18
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #pragma once
@@ -35,7 +32,7 @@
 #include <Exceptions/CheckBoxException.hpp>
 #include <AlignmentTool.hpp>
 #include <Component.hpp>
-#include <Logger.hpp>
+
 #include <Point.hpp>
 
 #include <memory>

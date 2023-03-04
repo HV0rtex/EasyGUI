@@ -14,23 +14,41 @@
 
 
 /**
- * @file Logger.hpp
- * @author David Bogdan (david.bnicoale@gmail.com)
- * @brief Definition of the logging macros
- * @version 0.1
- * @date 2022-09-27
+ * @file ImageException.hpp
+ * @author David Bogdan (david.bnicolae@gmail.com)
+ * @brief Definition of the ImageException class
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #pragma once
 
 // Including dependencies
-#include <iostream>
+#include <Exceptions/AssetException.hpp>
 
-using std::cout;
+namespace easyGUI
+{
 
-#define INFO cout << "[ INFO ] "
-#define WARN cout << "[ WARN ] "
-#define ERROR cout << "[ ERROR ] "
+/**
+ * @brief Exception thrown when an error occurs inside a Image.
+ * 
+ */
+class ImageException : public AssetException
+{
+public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~ImageException() = default;
+
+    /**
+     * @brief Constructor
+     * 
+     * @param message The message to be displayed
+     */
+    explicit ImageException(const ::std::string& message) :
+        AssetException( "[ Image ] " + message ) {}
+};
+
+}

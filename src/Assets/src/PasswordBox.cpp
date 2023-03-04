@@ -17,11 +17,8 @@
  * @file PasswordBox.cpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Implementation of the PasswordBox class
- * @version 0.1
- * @date 2022-10-14
  * 
  * @copyright Copyright (c) 2022
- * 
  */
 
 #include <PasswordBox.hpp>
