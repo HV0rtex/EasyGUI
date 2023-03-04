@@ -19,7 +19,8 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-        - { name: Windows,  os: windows-latest }
+        - { name: VS 2022,  os: windows-latest }
+        - { name: VS 2019,  os: windows-2019   }
         - { name: Linux,    os: ubuntu-latest  }
         - { name: MacOS,    os: macos-latest   }
         
