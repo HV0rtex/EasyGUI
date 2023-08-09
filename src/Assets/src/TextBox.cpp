@@ -21,7 +21,7 @@
  * @copyright Copyright (c) 2022
  */
 
-#include <Textbox.hpp>
+#include <TextBox.hpp>
 
 namespace easyGUI
 {

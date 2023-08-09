@@ -13,15 +13,20 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-add_executable(easyGUI-CLI
+cmake_minimum_required(VERSION 3.10...3.22)
+
+# ----- Configuring CLI -----
+
+add_executable(
+    easyGUI-CLI
     src/main.cpp
     src/parser.cpp
     src/generators.cpp
     src/fileGenerators.cpp
 )
 
-target_include_directories(easyGUI-CLI
-    PUBLIC inc
+target_include_directories(
+    easyGUI-CLI
+PRIVATE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
 )
-
-install(TARGETS easyGUI-CLI DESTINATION ${PROJECT_RUNTIME_DIR})

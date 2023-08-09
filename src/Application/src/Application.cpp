@@ -167,8 +167,6 @@ void Application::setActiveMenu(const ::std::string& id)
 {
     if(_menus.find(id) != _menus.end())
     {
-        TextBox* box = TextBox::getSelectedBox();
-
         _activeMenu = _menus.at(id);
 
         if(!_startMenuSet)

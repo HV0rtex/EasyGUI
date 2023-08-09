@@ -13,9 +13,11 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
+cmake_minimum_required(VERSION 3.10...3.22)
+
 # ----- Defining library sets -----
 
-set(LIBRARY_SOURCES
+set(ASSETS_SOURCES
     src/Point.cpp
     src/AlignmentTool.cpp
     src/Label.cpp
@@ -29,80 +31,34 @@ set(LIBRARY_SOURCES
     src/Separator.cpp
 )
 
-# ----- Defining library sets -----
+set(ASSETS_HEADERS
+    inc/AlignmentTool.hpp
+    inc/Button.hpp
+    inc/CheckBox.hpp
+    inc/Component.hpp
+    inc/Converter.hpp
+    inc/Image.hpp
+    inc/Label.hpp
+    inc/Manager.hpp
+    inc/PasswordBox.hpp
+    inc/TextBox.hpp
+    inc/Point.hpp
+    inc/Separator.hpp
+    inc/Task.hpp
+    inc/Exceptions/AssetException.hpp
+    inc/Exceptions/LabelException.hpp
+    inc/Exceptions/ButtonException.hpp
+    inc/Exceptions/CheckBoxException.hpp
+    inc/Exceptions/ImageException.hpp
+    inc/Exceptions/ManagerException.hpp
+    inc/Exceptions/TextBoxException.hpp
+)
 
-if(${BUILD_SHARED_LIBRARIES})
-    add_library(
-        easyGUI-assets SHARED
-
-        ${LIBRARY_SOURCES}
-    )
-else()
-    add_library(
-        easyGUI-assets-s STATIC
-
-        ${LIBRARY_SOURCES}
-    )
-endif()
-
-# ----- Defining includes -----
-
-if(${BUILD_SHARED_LIBRARIES})
-    target_include_directories(
-        easyGUI-assets PUBLIC
-
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
-        $<INSTALL_INTERFACE:lib/easyGUI>
-    )
-
-    if(WIN32)
-        GENERATE_EXPORT_HEADER(
-            easyGUI-assets
-            EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/inc/assets-export.hpp
-            EXPORT_MACRO_NAME ASSETS_EXPORTS
-        )
-    endif()
-else()
-    target_include_directories(
-        easyGUI-assets-s PUBLIC
-
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
-        $<INSTALL_INTERFACE:lib/easyGUI>
-    )
-endif()
-
-# ----- Linking dependencies -----
-
-if(${BUILD_SHARED_LIBRARIES})
-    target_link_libraries(
-        easyGUI-assets
-        sfml-graphics
-        sfml-window
-        sfml-system
-    )
-else()
-    target_link_libraries(
-        easyGUI-assets-s
-        sfml-graphics
-        sfml-window
-        sfml-system
-    )
-endif()
-
-# ----- Installing library -----
-
-if(${BUILD_SHARED_LIBRARIES})
-    install( TARGETS easyGUI-assets 
-        EXPORT easyGUI
-        RUNTIME DESTINATION ${PROJECT_RUNTIME_DIR} 
-        LIBRARY DESTINATION ${PROJECT_RUNTIME_DIR} 
-        ARCHIVE DESTINATION ${PROJECT_LIBRARY_DIR}
-    )
-else()
-    install( TARGETS easyGUI-assets-s 
-        EXPORT easyGUI-static
-        DESTINATION ${PROJECT_LIBRARY_DIR}
-    )
-endif()
-
-install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )
+build_library(
+    TARGET "easyGUI-assets"
+    VERSION "3.0.0"
+    MACRO_NAME "EASYGUI_EXPORTS"
+    SOURCES "${ASSETS_SOURCES}"
+    HEADERS "${ASSETS_HEADERS}"
+    DEPENDENCIES "sfml-graphics;sfml-window;sfml-system"
+)

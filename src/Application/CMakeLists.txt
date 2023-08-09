@@ -13,86 +13,29 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
+cmake_minimum_required(VERSION 3.10...3.22)
+
 # ----- Defining library sets -----
 
+set(APPLICATION_SOURCES
+    src/Application.cpp
+    src/Routine.cpp
+    src/Menu.cpp
+)
 
-if(${BUILD_SHARED_LIBRARIES})
-    add_library(
-        easyGUI-application SHARED
-        ./src/Application.cpp
-        ./src/Routine.cpp
-        ./src/Menu.cpp
-    )
-else()
-    add_library(
-        easyGUI-application-s STATIC
-        ./src/Application.cpp
-        ./src/Routine.cpp
-        ./src/Menu.cpp
-    )
-endif()
+set(APPLICATION_HEADERS
+    inc/Application.hpp
+    inc/Menu.hpp
+    inc/Routine.hpp
+    inc/Exceptions/ApplicationException.hpp
+    inc/Exceptions/MenuException.hpp
+)
 
-# ----- Defining includes -----
-
-
-if(${BUILD_SHARED_LIBRARIES})
-    target_include_directories(
-        easyGUI-application PUBLIC
-
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
-        $<INSTALL_INTERFACE:lib/easyGUI>
-    )
-
-    if(WIN32)
-        GENERATE_EXPORT_HEADER(
-            easyGUI-application
-            EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/inc/application-export.hpp
-            EXPORT_MACRO_NAME APPLICATION_EXPORTS
-        )
-    endif()
-else()
-    target_include_directories(
-        easyGUI-application-s PUBLIC
-
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
-        $<INSTALL_INTERFACE:lib/easyGUI>
-    )
-endif()
-
-# ----- Linking dependencies -----
-
-if(${BUILD_SHARED_LIBRARIES})
-    target_link_libraries(
-        easyGUI-application
-        easyGUI-assets
-        sfml-graphics
-        sfml-window
-        sfml-system
-    )
-else()
-    target_link_libraries(
-        easyGUI-application-s
-        easyGUI-assets-s
-        sfml-graphics
-        sfml-window
-        sfml-system
-    )
-endif()
-
-# ----- Installing library -----
-
-if(${BUILD_SHARED_LIBRARIES})
-    install( TARGETS easyGUI-application 
-        EXPORT easyGUI
-        RUNTIME DESTINATION ${PROJECT_RUNTIME_DIR}
-        LIBRARY DESTINATION ${PROJECT_RUNTIME_DIR} 
-        ARCHIVE DESTINATION ${PROJECT_LIBRARY_DIR}
-    )
-else()
-    install( TARGETS easyGUI-application-s 
-        EXPORT easyGUI-static
-        DESTINATION ${PROJECT_LIBRARY_DIR}
-    )
-endif()
-
-install( DIRECTORY inc/ DESTINATION ${PROJECT_INCLUDE_DIR}/ )
+build_library(
+    TARGET "easyGUI-application"
+    VERSION "3.0.0"
+    MACRO_NAME "EASYGUI_APPLICATION"
+    SOURCES "${APPLICATION_SOURCES}"
+    HEADERS "${APPLICATION_HEADERS}"
+    DEPENDENCIES "easyGUI-assets-s;sfml-graphics;sfml-window;sfml-system"
+)
