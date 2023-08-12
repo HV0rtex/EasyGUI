@@ -5,7 +5,57 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Version V2.1.0 - Performance update (Unreleased)
+## Version V3.0.0 - Packaging Overhaul
+
+This release adds support for CMake and CPack pacakges, many OS optimizations and a lot more
+features to the Assets and Application libraries. This is also the first release which has been
+thoroughly tested for both performance and functionality.
+
+## Added
+
+Project management:
+- Added GUI to CLI and you can now created interfaces using the CLI.
+- Added UI customization file from where you can easily customize the entire application
+
+GUI elements:
+- Added Slider
+- Added Radiobox
+- Reworked buttons and other old elements
+- Added preloaded font
+
+Application control:
+- Tweaked callback support
+- Added support for multi-windowed applications
+- Added different moments where routines can be executed
+- Added non-event-based routines
+
+Customization options:
+- Added a configuration file where default customizations are provided
+- Added ability to change all elements via customization file
+
+Library support:
+- The library can now be included in CMake projects via find_package
+- The library can now be downloaded from APT (on linux) and WINGET (on Windows)
+
+Testing:
+- Added unit tests for several components
+- Added quality tests which measure CPU / GPU and memory usage
+
+Optimizations:
+- Tweaked easyGUI::Point functions
+- Reduced memory usage by adding a component manager
+
+## Fixed
+
+Optimizations:
+- Fixed Windows compilation warnings
+
+## Removed
+
+GUI Elements:
+- Button (can now be replaced with a framed Label)
+
+## Version V2.1.0 - Performance update (04.03.2023)
 
 This release introduces new UI Elements and brings some performance improvements across all operating systems.
 This version also introduces some new customization options for Labels and Images. Furthermore, with each release
