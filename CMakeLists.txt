@@ -63,12 +63,21 @@ write_basic_package_version_file(
 	COMPATIBILITY SameMajorVersion
 )
 
-install(
-	EXPORT EasyGUITargets
-	FILE EasyGUITargets.cmake
-	NAMESPACE easyGUI::
-	DESTINATION ${PROJECT_SOURCE_DIR}/lib/cmake/EasyGUI
-)
+if (${BUILD_SHARED_LIBRARIES})
+	install(
+		EXPORT EasyGUISharedLibraries
+		FILE EasyGUISharedLibraries.cmake
+		NAMESPACE EasyGUI::
+		DESTINATION ${PROJECT_SOURCE_DIR}/lib/cmake/EasyGUI
+	)
+else()
+	install(
+		EXPORT EasyGUIStaticLibraries
+		FILE EasyGUIStaticLibraries.cmake
+		NAMESPACE EasyGUI::
+		DESTINATION ${PROJECT_SOURCE_DIR}/lib/cmake/EasyGUI
+	)
+endif()
 
 install(
 	FILES "${PROJECT_SOURCE_DIR}/cmake/EasyGUIConfig.cmake"
