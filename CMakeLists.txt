@@ -22,6 +22,7 @@ endif()
 # ----- Options -----
 
 option(BUILD_SHARED_LIBRARIES "Dentoes if to build SHARED or STATIC libraries" OFF)
+option(BUILD_TESTS "Denotes if to build the tests" OFF)
 
 # ----- Project config -----
 
@@ -41,8 +42,19 @@ if(WIN32 AND ${BUILD_SHARED_LIBRARIES})
 	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE) 
 endif()
 
+
 include(BuildLibrary)
 include(CMakePackageConfigHelpers)
+
+if(${BUILD_TESTS} AND ${PROJECT_NAME} STREQUAL ${CMAKE_PROJECT_NAME})
+	enable_testing()
+
+	include(CTest)
+	include(BuildTest)
+	include(GoogleTest)
+
+	add_subdirectory(test)
+endif()
 
 # ----- Building sources -----
 
