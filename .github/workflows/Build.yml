@@ -2,9 +2,9 @@ name: Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "Version_3.0.0" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "Version_3.0.0" ]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-        - { name: VS 2022,  os: windows-latest }
+        - { name: VS 2022,  os: windows-2022 }
         - { name: VS 2019,  os: windows-2019   }
         - { name: Linux,    os: ubuntu-latest  }
         - { name: MacOS,    os: macos-latest   }
@@ -27,10 +27,6 @@ jobs:
     steps:
     - uses: actions/checkout@master
     
-    - name: Install Linux Dependencies
-      if: runner.os == 'Linux'
-      run: sudo apt-get update && sudo apt-get install libxrandr-dev libxcursor-dev libudev-dev libopenal-dev libflac-dev libvorbis-dev libgl1-mesa-dev libegl1-mesa-dev
-
     - name: Checkout SFML
       uses: actions/checkout@master
       with:
