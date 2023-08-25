@@ -30,8 +30,8 @@
 
 #include <SFML/Window/Event.hpp>
 #include <Exceptions/ApplicationException.hpp>
-#include <Task.hpp>
 #include <memory>
+#include <functional>
 
 namespace easyGUI
 {
@@ -64,28 +64,18 @@ public:
     /**
      * @brief Constructor
      * 
-     * @param trigger Function that determines whether the routine is triggered
-     * @param response The response that is to be triggered by the routine
-     * 
-     * @deprecated
-     */
-    Routine(bool (*)(const ::sf::Event&), void(*)());
-
-    /**
-     * @brief Constructor
-     * 
      * @param trigger The trigger of the routine
      * @param response The response of the routine
      */
-    Routine(bool (*)(const ::sf::Event&), const ::std::shared_ptr<Task>&);
+    Routine(
+        const std::function<bool(const ::sf::Event&)>& trigger,
+        const std::function<void()>& response);
     
     /**
      * @brief Call operator
      * 
      * @details The operator checks if the current event triggers the routine,
      * and on trigger fires the response action.
-     * 
-     * @return int
      */
     void operator() (const ::sf::Event& event) const;
 
@@ -96,25 +86,10 @@ public:
      */
     void setActive(const bool& active);
 private:
-    bool (*_trigger)(const ::sf::Event& action);
-    ::std::shared_ptr<Task> _action;
+    std::function<void()> action_;
+    std::function<bool(const ::sf::Event&)> trigger_;
 
-    bool _isActive;
-    
-    class DeprecatedTask : public Task
-    {
-    private:
-        void (*_action)() = nullptr;
-
-    public:
-        DeprecatedTask(void (*action)()) : _action(action) {}
-
-        void exec() 
-        {
-            if (_action)
-                _action();
-        }
-    };
+    bool isActive_;
 };
 
 }

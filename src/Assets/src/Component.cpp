@@ -29,17 +29,13 @@ namespace easyGUI
 void Component::onClick()
 {
     if(_onClick != nullptr && isMouseHover())
-    {
-        _onClick->exec();
-    }
+        _onClick();
 }
 
 void Component::onHover()
 {
     if(_onHover != nullptr)
-    {
-        _onHover->exec();
-    }
+        _onHover();
 }
 
 void Component::setContainer(const ::std::shared_ptr<::sf::RenderWindow>& container)
@@ -47,24 +43,14 @@ void Component::setContainer(const ::std::shared_ptr<::sf::RenderWindow>& contai
     _container = container;
 }
 
-void Component::setOnClickAction(void (*action)())
-{
-    _onClick = ::std::make_shared<Component::DeprecatedTask>(action);
-}
-
-void Component::setOnClickAction(const std::shared_ptr<Task>& action)
+void Component::setOnClickAction(const std::function<void()>& action)
 {
     _onClick = action;
 }
 
-void Component::setOnHoverAction(const std::shared_ptr<Task>& action)
+void Component::setOnHoverAction(const std::function<void()>& action)
 {
     _onClick = action;
-}
-
-void Component::setOnHoverAction(void (*action)())
-{
-    _onHover = ::std::make_shared<Component::DeprecatedTask>(action);
 }
 
 }

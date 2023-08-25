@@ -26,37 +26,27 @@
 namespace easyGUI
 {
 
-Routine::Routine(bool (*trigger)(const ::sf::Event&), void(*response)())
+Routine::Routine(
+    const std::function<bool(const ::sf::Event&)>& trigger,
+    const std::function<void()>& response)
 {
     if(!trigger || !response)
         throw ApplicationException("Invalid initialization of routine.");
 
-    _trigger = trigger;
-    _action = ::std::make_shared<Routine::DeprecatedTask>(response);
-    _isActive = true;
-}
-
-Routine::Routine(bool (*trigger)(const ::sf::Event&), const ::std::shared_ptr<Task>& action)
-{
-    if(!trigger || !action)
-        throw ApplicationException("Invalid initialization of routine.");
-
-    _trigger = trigger;
-    _action = action;
-    _isActive = true;
+    trigger_ = trigger;
+    action_ = response;
+    isActive_ = true;
 }
 
 void Routine::setActive(const bool& active)
 {
-    _isActive = active;
+    isActive_ = active;
 }
 
 void Routine::operator()(const ::sf::Event &event) const
 {
-    if(_isActive && _trigger(event))
-    {
-        _action->exec();
-    }
+    if(isActive_ && trigger_(event))
+        action_();
 }
 
 }
