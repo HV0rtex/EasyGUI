@@ -1,7 +1,8 @@
 # TO DO
 
 Library support:
-- [ ] Test CMakePackage
+- [X] Add support for CMake package
+- [ ] Test CMake package
 
 GUI Elements:
 - [ ] Add slider
