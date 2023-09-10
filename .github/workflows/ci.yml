@@ -28,7 +28,7 @@ jobs:
         fi                                                                  \
   
     - name: Run cpplint
-      run: pip install cpplint && cpplint --recursive .
+      run: pip install cpplint && cpplint --recursive --quiet .
 
   Build:
     needs: Precheck
@@ -56,7 +56,7 @@ jobs:
       with:
         fetch-depth: 0
         repository: SFML/SFML
-        ref: 2.6.x
+        ref: 2.5.1
         path: SFML
 
     - name: Build SFML
@@ -71,14 +71,14 @@ jobs:
     - name: Build shared libraries
       run: |
         cmake -B ${{github.workspace}}/build                                          \
-              -DBUILD_SHARED_LIBRARIES=1                                              \
+              -DBUILD_SHARED_LIBRARIES=ON                                             \
               -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake &&     \
         cmake ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}                \
 
     - name: Build static libraries
       run: |
         cmake -B ${{github.workspace}}/build                                          \
-              -DBUILD_SHARED_LIBRARIES=0                                              \
+              -DBUILD_SHARED_LIBRARIES=OFF                                            \
               -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake &&     \
         cmake ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}                \
 
@@ -90,7 +90,6 @@ jobs:
           ${{github.workspace}}/bin
           ${{github.workspace}}/lib
           ${{github.workspace}}/include
-          ${{github.workspace}}/example
           ${{github.workspace}}/SFML/install
 
   Test:

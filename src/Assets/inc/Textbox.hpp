@@ -1,20 +1,23 @@
 // Copyright © 2022 David Bogdan
 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software
-// and associated documentation files (the “Software”), to deal in the Software without restriction,
-// including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
-// and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do
-// so, subject to the following conditions:
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files
+// (the “Software”), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the following
+// conditions:
 
-// The above copyright notice and this permission notice shall be included in all copies or substantial
-// portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 
-// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
-// LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-// IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-// SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
+// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 /**
  * @file Textbox.hpp
@@ -31,13 +34,17 @@
     #include <assets-export.hpp>
 #endif
 
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <Exceptions/TextBoxException.hpp>
-#include <Label.hpp>
-#include <AlignmentTool.hpp>
+#include <memory>
+#include <string>
 
-namespace easyGUI
-{
+#include <SFML/Graphics/RectangleShape.hpp>
+
+#include <Exceptions/TextBoxException.hpp>
+#include <AlignmentTool.hpp>
+#include <Label.hpp>
+
+
+namespace easyGUI {
 
 /**
  * @brief Models a text box
@@ -53,25 +60,7 @@ class ASSETS_EXPORTS TextBox : public Component, public Anchor
 class TextBox : public Component, public Anchor
 #endif
 {
-protected:
-    ::sf::RectangleShape _shape;
-    ::std::shared_ptr<Label> _text;
-
-    static TextBox* selectedBox;
-    static bool textBoxClicked;
-
-    uint32_t desiredSize;
-    
-    virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
-
-    // ----- Helper methods -----
-
-    /**
-     * @brief Reduces the size of the text to fit in the box.
-     */
-    void applyCharSizeCorrection();
-
-public:
+ public:
     static TextBox* getSelectedBox();
     static bool& getTextBoxClicked();
 
@@ -96,7 +85,10 @@ public:
      * @note The font file format must be .ttf
 
      */
-    explicit TextBox(const Point&, const Point&, const ::std::string&, const uint32_t);
+    explicit TextBox(const Point&,
+                     const Point&,
+                     const ::std::string&,
+                     const uint32_t);
 
     /**
      * @brief Constructor
@@ -113,7 +105,11 @@ public:
      * 
      * @note The font file format must be .ttf
      */
-    explicit TextBox(const Point&, const float&, const float&, const ::std::string&, const uint32_t);
+    explicit TextBox(const Point&,
+                     const float&,
+                     const float&,
+                     const ::std::string&,
+                     const uint32_t);
 
     // Block other forms of construction
 
@@ -178,7 +174,7 @@ public:
      * 
      * @param newLocation The new location of the component
      */
-    virtual void updateLocation(const Point&) override;
+    void updateLocation(const Point&) override;
 
     // ----- Inherited from Anchor -----
 
@@ -187,6 +183,23 @@ public:
     Point getBOTTOM() const override;
     Point getTOP() const override;
     Point getCENTER() const override;
+ protected:
+    ::sf::RectangleShape _shape;
+    ::std::shared_ptr<Label> _text;
+
+    static TextBox* selectedBox;
+    static bool textBoxClicked;
+
+    uint32_t desiredSize;
+
+    void draw(::sf::RenderTarget&, ::sf::RenderStates) const override;
+
+    // ----- Helper methods -----
+
+    /**
+     * @brief Reduces the size of the text to fit in the box.
+     */
+    void applyCharSizeCorrection();
 };
 
-}
+}  // namespace easyGUI

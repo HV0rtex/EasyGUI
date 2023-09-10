@@ -1,20 +1,23 @@
 // Copyright © 2022 David Bogdan
 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software
-// and associated documentation files (the “Software”), to deal in the Software without restriction,
-// including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
-// and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do
-// so, subject to the following conditions:
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files
+// (the “Software”), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the following
+// conditions:
 
-// The above copyright notice and this permission notice shall be included in all copies or substantial
-// portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 
-// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
-// LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-// IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-// SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
+// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 /**
  * @file Converter.hpp
@@ -31,14 +34,16 @@
     #include <assets-export.hpp>
 #endif
 
-#include <Button.hpp>
-#include <PasswordBox.hpp>
-#include <Image.hpp>
-#include <CheckBox.hpp>
-#include <Separator.hpp>
+#include <memory>
 
-namespace easyGUI
-{
+#include <PasswordBox.hpp>
+#include <Separator.hpp>
+#include <CheckBox.hpp>
+#include <Button.hpp>
+#include <Image.hpp>
+
+
+namespace easyGUI {
 
 /**
  * @brief Responsible for conversions between components
@@ -50,7 +55,7 @@ class ASSETS_EXPORTS Converter
 class Converter
 #endif
 {
-public:
+ public:
     /**
      * @brief Converts a Component object into a button
      * 
@@ -94,7 +99,7 @@ public:
      *
      * @return ::std::shared_ptr<CheckBox> 
      */
-    static ::std::shared_ptr<CheckBox> getCheckBox(::std::shared_ptr<Component>);
+    static ::std::shared_ptr<CheckBox> getCheckBox(::std::shared_ptr<Component>);   // NOLINT
 
     /**
      * @brief Converts a component into a separator
@@ -103,8 +108,7 @@ public:
      *
      * @return ::std::shared_ptr<Separator> 
      */
-    static ::std::shared_ptr<Separator> getSeparator(::std::shared_ptr<Component>);
-
+    static ::std::shared_ptr<Separator> getSeparator(::std::shared_ptr<Component>); // NOLINT
 };
 
-}
+}  // namespace easyGUI

@@ -1,17 +1,23 @@
 // Copyright © 2022 David Bogdan
 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files 
-// (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, 
-// publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do 
-// so, subject to the following conditions:
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files
+// (the “Software”), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the following
+// conditions:
 
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 
-// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR __attribute__ ((__visibility__ ("default")))PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
-// FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
+// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 /**
  * @file Component.cpp
@@ -23,48 +29,37 @@
 
 #include <Component.hpp>
 
-namespace easyGUI
-{
+namespace easyGUI {
 
-void Component::onClick()
-{
-    if(_onClick != nullptr && isMouseHover())
-    {
+void Component::onClick() {
+    if (_onClick != nullptr && isMouseHover())
         _onClick->exec();
-    }
 }
 
-void Component::onHover()
-{
-    if(_onHover != nullptr)
-    {
+void Component::onHover() {
+    if (_onHover != nullptr)
         _onHover->exec();
-    }
 }
 
-void Component::setContainer(const ::std::shared_ptr<::sf::RenderWindow>& container)
-{
+void Component::setContainer(
+    const ::std::shared_ptr<::sf::RenderWindow>& container) {
     _container = container;
 }
 
-void Component::setOnClickAction(void (*action)())
-{
+void Component::setOnClickAction(void (*action)()) {
     _onClick = ::std::make_shared<Component::DeprecatedTask>(action);
 }
 
-void Component::setOnClickAction(const std::shared_ptr<Task>& action)
-{
+void Component::setOnClickAction(const std::shared_ptr<Task>& action) {
     _onClick = action;
 }
 
-void Component::setOnHoverAction(const std::shared_ptr<Task>& action)
-{
+void Component::setOnHoverAction(const std::shared_ptr<Task>& action) {
     _onClick = action;
 }
 
-void Component::setOnHoverAction(void (*action)())
-{
+void Component::setOnHoverAction(void (*action)()) {
     _onHover = ::std::make_shared<Component::DeprecatedTask>(action);
 }
 
-}
+}  // namespace easyGUI

@@ -1,20 +1,23 @@
 // Copyright © 2022 David Bogdan
 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software
-// and associated documentation files (the “Software”), to deal in the Software without restriction,
-// including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
-// and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do
-// so, subject to the following conditions:
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files
+// (the “Software”), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the following
+// conditions:
 
-// The above copyright notice and this permission notice shall be included in all copies or substantial
-// portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 
-// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
-// LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-// IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-// SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
+// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 /**
  * @file Image.hpp
@@ -31,15 +34,18 @@
     #include <assets-export.hpp>
 #endif
 
+#include <string>
+#include <memory>
+
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+
 #include <Exceptions/ImageException.hpp>
 #include <AlignmentTool.hpp>
 #include <Component.hpp>
 #include <Manager.hpp>
 
-namespace easyGUI
-{
+namespace easyGUI {
 
 /**
  * @brief Draws an image to the screen
@@ -51,7 +57,7 @@ class ASSETS_EXPORTS Image : public Component, public Anchor
 class Image : public Component, public Anchor
 #endif
 {
-public:
+ public:
     /**
      * @brief Destructor
      * 
@@ -67,7 +73,9 @@ public:
      * 
      * @throws ImageException could not load image
      */
-    explicit Image(const Point&, const Point&, const ::std::string&);
+    explicit Image(const Point&,
+                   const Point&,
+                   const ::std::string&);
 
     /**
      * @brief Constructor
@@ -79,7 +87,10 @@ public:
      * 
      * @throws ImageException could not load image
      */
-    explicit Image(const Point&, const float&, const float&, const std::string&);
+    explicit Image(const Point&,
+                   const float&,
+                   const float&,
+                   const std::string&);
 
     // Block other forms of construction
 
@@ -116,7 +127,7 @@ public:
     Point getBOTTOM() const override;
     Point getTOP() const override;
     Point getCENTER() const override;
-private:
+ private:
     ::std::shared_ptr<::sf::Texture> _image;
     ::std::shared_ptr<::sf::RectangleShape> _border;
     ::sf::Sprite _object;
@@ -131,4 +142,4 @@ private:
     void constructFrame(const uint32_t);
 };
 
-}
+}  // namespace easyGUI

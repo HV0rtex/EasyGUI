@@ -21,7 +21,6 @@ find_package(SFML REQUIRED system window graphics)
 
 add_subdirectory(Assets)
 add_subdirectory(Application)
-add_subdirectory(CLI)
 
 if(${BUILD_SHARED_LIBRARIES})
     install( EXPORT easyGUI FILE easyGUI.cmake DESTINATION ${PROJECT_LIBRARY_DIR}/cmake/easyGUI )
