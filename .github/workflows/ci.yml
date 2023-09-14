@@ -25,7 +25,7 @@ jobs:
           exit 0                                                            \
         else                                                                \
           exit 1                                                            \ 
-        fi                                                                  \
+        fi                                                                  
   
     - name: Run cpplint
       run: pip install cpplint && cpplint --recursive --quiet .
@@ -64,23 +64,23 @@ jobs:
       run: |
         cmake -S $GITHUB_WORKSPACE/SFML                                               \ 
               -B $GITHUB_WORKSPACE/SFML/build                                         \
-              -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install &&                \
-        cmake --build $GITHUB_WORKSPACE/SFML/build                                    \
+              -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install                   \
+        && cmake --build $GITHUB_WORKSPACE/SFML/build                                 \
               --config ${{env.BUILD_TYPE}} --target install                           
 
     - name: Build shared libraries
       run: |
         cmake -B ${{github.workspace}}/build                                          \
               -DBUILD_SHARED_LIBRARIES=ON                                             \
-              -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake &&     \
-        cmake ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}                
+              -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake        \
+        && cmake ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}                
 
     - name: Build static libraries
       run: |
         cmake -B ${{github.workspace}}/build                                          \
               -DBUILD_SHARED_LIBRARIES=OFF                                            \
-              -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake &&     \
-        cmake ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}                
+              -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake        \
+        && cmake ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}                
 
     - name: Publishing package
       uses: actions/upload-artifact@master
