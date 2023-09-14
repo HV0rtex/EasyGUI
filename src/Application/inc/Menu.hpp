@@ -34,15 +34,18 @@
     #include <application-export.hpp>
 #endif
 
+#include <string>
+#include <vector>
+#include <memory>
+#include <map>
+
 #include <Exceptions/AssetException.hpp>
 #include <Exceptions/MenuException.hpp>
 #include <Component.hpp>
-#include <string>
-#include <vector>
-#include <map>
 
-namespace easyGUI
-{
+
+namespace easyGUI {
+
 /**
  * @brief Container of application components
  * 
@@ -56,7 +59,7 @@ class APPLICATION_EXPORTS Menu : public ::sf::Drawable
 class Menu : public ::sf::Drawable
 #endif
 {
-public:
+ public:
     /**
      * @brief Destructor
      * 
@@ -77,15 +80,16 @@ public:
      * 
      * @throws MenuException A component with that ID already exists
      */
-    void addComponent(const ::std::shared_ptr<Component>&, const ::std::string&);
+    void addComponent(const ::std::shared_ptr<Component>&,
+                      const ::std::string&);
 
     /**
      * @brief Set the Component's container
      * 
      * @param container The window responsible of the component
      */
-    void setContainer(const ::std::shared_ptr<::sf::RenderWindow>&);
-    
+    void setContainer(const WindowPtr&);
+
     /**
      * @brief Retrieves a specific component
      * 
@@ -106,7 +110,7 @@ public:
      * 
      */
     void clear();
-private:
+ private:
     ::std::map<::std::string, ::std::shared_ptr<Component>> _components;
     ::std::shared_ptr<::sf::RenderWindow> _container;
 
@@ -114,6 +118,7 @@ private:
 };
 
 using MenuPtr = ::std::shared_ptr<Menu>;
+using WindowPtr = ::std::shared_ptr<::sf::RenderWindow>;
 
 /**
  * @brief Safely appends a component to a menu.
@@ -126,21 +131,21 @@ using MenuPtr = ::std::shared_ptr<Menu>;
  * @param element The component to append
  * 
  */
-template < class Class, class... Args> void AddElement(MenuPtr& targetMenu, const ::std::string& id, Args... constructorArgs)
-{
-    try
-    {
-        ::std::shared_ptr<Class> ptr = ::std::make_shared<Class>(constructorArgs...);
+template < class Class, class... Args>
+void AddElement(const MenuPtr& targetMenu,
+                const ::std::string& id,
+                Args... constructorArgs) {
+    try {
+        ::std::shared_ptr<Class> ptr =
+            ::std::make_shared<Class>(constructorArgs...);
         targetMenu->addComponent(ptr, id);
     }
-    catch(const AssetException& e)
-    {
+    catch(const AssetException& e) {
         ERROR << e.what();
     }
-    catch(const MenuException& e)
-    {
+    catch(const MenuException& e) {
         ERROR << e.what();
     }
 }
 
-}
+}  // namespace easyGUI

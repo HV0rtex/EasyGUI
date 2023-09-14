@@ -46,6 +46,7 @@
 #define INFO std::cout << "[INFO] "
 #endif
 
+
 namespace easyGUI {
 
 /**

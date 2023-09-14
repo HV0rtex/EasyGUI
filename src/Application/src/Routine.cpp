@@ -29,12 +29,12 @@
 
 #include <Routine.hpp>
 
-namespace easyGUI
-{
 
-Routine::Routine(bool (*trigger)(const ::sf::Event&), void(*response)())
-{
-    if(!trigger || !response)
+namespace easyGUI {
+
+Routine::Routine(bool (*trigger)(const ::sf::Event&),
+                 void(*response)()) {
+    if (!trigger || !response)
         throw ApplicationException("Invalid initialization of routine.");
 
     _trigger = trigger;
@@ -42,9 +42,9 @@ Routine::Routine(bool (*trigger)(const ::sf::Event&), void(*response)())
     _isActive = true;
 }
 
-Routine::Routine(bool (*trigger)(const ::sf::Event&), const ::std::shared_ptr<Task>& action)
-{
-    if(!trigger || !action)
+Routine::Routine(bool (*trigger)(const ::sf::Event&),
+                 const ::std::shared_ptr<Task>& action) {
+    if (!trigger || !action)
         throw ApplicationException("Invalid initialization of routine.");
 
     _trigger = trigger;
@@ -52,17 +52,13 @@ Routine::Routine(bool (*trigger)(const ::sf::Event&), const ::std::shared_ptr<Ta
     _isActive = true;
 }
 
-void Routine::setActive(const bool& active)
-{
+void Routine::setActive(const bool& active) {
     _isActive = active;
 }
 
-void Routine::operator()(const ::sf::Event &event) const
-{
-    if(_isActive && _trigger(event))
-    {
+void Routine::operator()(const ::sf::Event &event) const {
+    if (_isActive && _trigger(event))
         _action->exec();
-    }
 }
 
-}
+}  // namespace easyGUI

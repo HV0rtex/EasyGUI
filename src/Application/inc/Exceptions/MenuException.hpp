@@ -29,19 +29,18 @@
 
 #pragma once
 
-// Including dependencies
+#include <string>
+
 #include <Exceptions/ApplicationException.hpp>
 
-namespace easyGUI
-{
+namespace easyGUI {
 
 /**
  * @brief Exception thrown when an error occurs with a Menu.
  * 
  */
-class MenuException : public ApplicationException
-{
-public:
+class MenuException : public ApplicationException {
+ public:
     /**
      * @brief Destructor
      * 
@@ -53,8 +52,8 @@ public:
      * 
      * @param message The message to be displayed
      */
-    explicit MenuException(const ::std::string& message) :
-        ApplicationException( "[ Menu ] " + message ) {}
+    explicit MenuException(const ::std::string& message):
+        ApplicationException("[ Menu ] " + message) {}
 };
 
-}
+}  // namespace easyGUI
