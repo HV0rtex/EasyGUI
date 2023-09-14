@@ -61,7 +61,7 @@ jobs:
 
     - name: Build SFML
       shell: bash
-      run: |
+      run: >-
         cmake -S $GITHUB_WORKSPACE/SFML                                               \ 
               -B $GITHUB_WORKSPACE/SFML/build                                         \
               -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install                   \
@@ -69,14 +69,14 @@ jobs:
               --config ${{env.BUILD_TYPE}} --target install                           
 
     - name: Build shared libraries
-      run: |
+      run: >-
         cmake -B ${{github.workspace}}/build                                          \
               -DBUILD_SHARED_LIBRARIES=ON                                             \
               -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake        \
         && cmake ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}                
 
     - name: Build static libraries
-      run: |
+      run: >-
         cmake -B ${{github.workspace}}/build                                          \
               -DBUILD_SHARED_LIBRARIES=OFF                                            \
               -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake        \
