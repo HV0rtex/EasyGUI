@@ -25,7 +25,7 @@ jobs:
           exit 0                                                              \
         else                                                                  \
           exit 1                                                              \
-        fi                                                                  
+        fi                                                                    \
   
     - name: Run cpplint
       run: pip install cpplint && cpplint --recursive --quiet .
