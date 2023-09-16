@@ -17,4 +17,3 @@ cmake_minimum_required(VERSION 3.11...3.22)
 
 add_subdirectory(Assets)
 add_subdirectory(Application)
-add_subdirectory(CLI)
