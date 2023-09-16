@@ -1,17 +1,23 @@
 // Copyright © 2022 David Bogdan
 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files 
-// (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, 
-// publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do 
-// so, subject to the following conditions:
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files
+// (the “Software”), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the following
+// conditions:
 
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 
-// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
-// FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
+// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 /**
  * @file Application.hpp
@@ -28,13 +34,19 @@
     #include <application-export.hpp>
 #endif
 
+#include <string>
+#include <memory>
+#include <vector>
+#include <map>
+
 #include <Exceptions/ApplicationException.hpp>
+#include <Textbox.hpp>
 #include <Routine.hpp>
 #include <Menu.hpp>
-#include <Textbox.hpp>
 
-namespace easyGUI
-{
+
+namespace easyGUI {
+
 /**
  * @brief Emulates a windowed application
  * 
@@ -45,12 +57,12 @@ namespace easyGUI
  * 
  */
 #if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-    class APPLICATION_EXPORTS Application
+class APPLICATION_EXPORTS Application
 #else
-    class Application
+class Application
 #endif
 {
-public:
+ public:
     /**
      * @brief Destructor
      * 
@@ -71,7 +83,9 @@ public:
      * 
      * @throws ApplicationInstance Failed to instantiate application.
      */
-    ::std::shared_ptr<Application> getInstance(const uint32_t = 0, const uint32_t = 0, const char* = nullptr);
+    ::std::shared_ptr<Application> getInstance(const uint32_t = 0,
+                                               const uint32_t = 0,
+                                               const char* = nullptr);
 
     /**
      * @brief Appends a new menu to the application
@@ -88,7 +102,8 @@ public:
      * @throws MenuException More than one start menu declared.
      * @throws MenuException A menu with that ID already exists.
      */
-    ::std::shared_ptr<Menu> addMenu(const ::std::string&, const bool& = false);
+    ::std::shared_ptr<Menu> addMenu(const ::std::string&,
+                                    const bool& = false);
 
     /**
      * @brief Gets a menu by its index
@@ -156,7 +171,7 @@ public:
      * @details Closes the application window.
      */
     void stop();
-private:
+ private:
     static ::std::shared_ptr<Application> _instance;
 
     ::std::shared_ptr<::sf::RenderWindow> _window;
@@ -195,4 +210,4 @@ private:
 
 using ApplicationPtr = ::std::shared_ptr<Application>;
 
-}
+}  // namespace easyGUI
