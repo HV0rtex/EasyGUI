@@ -47,18 +47,15 @@ jobs:
     steps:
     - uses: actions/checkout@master    
 
-    - name: Install SFML (Linux / macOS)
-      run: |
-        if [ "$RUNNER_OS" == "Linux" ];                   \
-        then                                              \
-          sudo apt-get update                             \
-          sudo apt-get install libsfml-dev                \
-        elif [ "$RUNNER_OS" == "macOS" ];                 \
-        then                                              \
-          brew install sfml                               \
-        fi
+    - name: Install SFML [ Linux ]
+      if: runner.os == 'Linux'
+      run: sudo apt-get update && sudo apt-get install libsfml-dev
 
-    - name: Checkout SFML
+    - name: Install SFML [ macOS ]
+      if: runner.os == 'macOS'
+      run: brew install sfml
+
+    - name: Checkout SFML [ Windows ]
       if: runner.os == 'Windows'
       uses: actions/checkout@master
       with:
@@ -67,11 +64,11 @@ jobs:
         ref: 2.6.0
         path: SFML
 
-    - name: Configure SFML
+    - name: Configure SFML [ Windows ]
       if: runner.os == 'Windows'
       run:  cmake -S $GITHUB_WORKSPACE/SFML -B $GITHUB_WORKSPACE/SFML/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install 
       
-    - name: Build SFML
+    - name: Build SFML [ Windows ]
       if: runner.os == 'Windows'
       run: cmake --build $GITHUB_WORKSPACE/SFML/build --config Release --target install                           
 
