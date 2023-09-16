@@ -61,26 +61,19 @@ jobs:
 
     - name: Build SFML
       shell: bash
-      run: >-
-        cmake -S $GITHUB_WORKSPACE/SFML 
-              -B $GITHUB_WORKSPACE/SFML/build
-              -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install
-        && cmake --build $GITHUB_WORKSPACE/SFML/build
-              --config ${{env.BUILD_TYPE}} --target install                           
+      run:  cmake -S $GITHUB_WORKSPACE/SFML -B $GITHUB_WORKSPACE/SFML/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install && cmake --build $GITHUB_WORKSPACE/SFML/build --config ${{env.BUILD_TYPE}} --target install                           
 
     - name: Build shared libraries
-      run: >-
-        cmake -B ${{github.workspace}}/build
-              -DBUILD_SHARED_LIBRARIES=ON
-              -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake
-        && cmake ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}                
+      if: runner.os == 'Windows'
+      run: build.bat SHARED
+      else:
+      run: build.sh SHARED
 
     - name: Build static libraries
-      run: >-
-        cmake -B ${{github.workspace}}/build
-              -DBUILD_SHARED_LIBRARIES=OFF
-              -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake
-        && cmake ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}                
+      if: runner.os == 'Windows'
+      run: build.bat SHARED
+      else:
+      run: build.sh SHARED
 
     - name: Publishing package
       uses: actions/upload-artifact@master
