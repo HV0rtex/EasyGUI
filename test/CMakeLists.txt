@@ -13,7 +13,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-cmake_minimum_required(VERSION 3.10...3.22)
+cmake_minimum_required(VERSION 3.11...3.22)
 
 mark_as_advanced(
     BUILD_GMOCK BUILD_GTEST BUILD_SHARED_LIBS

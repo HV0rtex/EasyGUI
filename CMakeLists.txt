@@ -13,7 +13,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-cmake_minimum_required(VERSION 3.10...3.22)
+cmake_minimum_required(VERSION 3.11...3.22)
 
 if(${CMAKE_VERSION} VERSION_LESS 3.12)
 	cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
@@ -42,9 +42,22 @@ if(WIN32 AND ${BUILD_SHARED_LIBRARIES})
 	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE) 
 endif()
 
-
+include(FetchContent)
 include(BuildLibrary)
 include(CMakePackageConfigHelpers)
+
+if(${CMAKE_VERSION} VERSION_LESS 3.14)
+	macro(FetchContent_MakeAvailable NAME)
+		FetchContent_GetProperties(${NAME})
+		
+		if(NOT ${NAME}_POPULATED)
+			FetchContent_Populate(${NAME})
+			add_subdirectory(${${NAME}_SOURCE_DIR} ${${NAME}_BINARY_DIR})
+		endif()
+	endmacro()
+endif()
+
+include(FindSFML)
 
 if(${BUILD_TESTS} AND ${PROJECT_NAME} STREQUAL ${CMAKE_PROJECT_NAME})
 	enable_testing()

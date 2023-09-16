@@ -13,13 +13,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-cmake_minimum_required(VERSION 3.10...3.22)
-
-# ----- Configuring SFML -----
-
-find_package(SFML REQUIRED system window graphics)
-
-# ----- Adding sources -----
+cmake_minimum_required(VERSION 3.11...3.22)
 
 add_subdirectory(Assets)
 add_subdirectory(Application)
