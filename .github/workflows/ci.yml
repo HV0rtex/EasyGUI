@@ -59,18 +59,31 @@ jobs:
         ref: 2.5.1
         path: SFML
 
+    - name: Configure SFML
+      shell: bash
+      run:  cmake -S $GITHUB_WORKSPACE/SFML -B $GITHUB_WORKSPACE/SFML/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install 
+      
     - name: Build SFML
       shell: bash
-      run:  cmake -S $GITHUB_WORKSPACE/SFML -B $GITHUB_WORKSPACE/SFML/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install && cmake --build $GITHUB_WORKSPACE/SFML/build --target install                           
+      run: cmake --build $GITHUB_WORKSPACE/SFML/build --config Release --target install                           
 
-    - name: Build shared libraries
-      shell: bash
-      run: cd ${{github.workspace}} && ./scripts/build.sh SHARED
+    - name: Configure CMake for SHARED libraries
+      run: cmake -B ${{github.workspace}}/build -DBUILD_SHARED_LIBRARIES=1 -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake
 
-    - name: Build static libraries
-      shell: bash
-      run: cd ${{github.workspace}} && ./scripts/build.sh STATIC
+    - name: Building SHARED libraries
+      run: cmake --build ${{github.workspace}}/build --config Release
 
+    - name: Installing SHARED libraries
+      run: cd ${{github.workspace}}/build && cmake --install .
+
+    - name: Configure CMake for STATIC libraries
+      run: cmake -B ${{github.workspace}}/build -DBUILD_SHARED_LIBRARIES=0 -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake
+
+    - name: Building STATIC libraries
+      run: cmake --build ${{github.workspace}}/build --config Release
+
+    - name: Installing STATIC libraries
+      run: cd ${{github.workspace}}/build && cmake --install .
     - name: Publishing package
       uses: actions/upload-artifact@master
       with:
