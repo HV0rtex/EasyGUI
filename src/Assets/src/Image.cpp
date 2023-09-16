@@ -51,7 +51,7 @@ Image::Image(const Point& startLocation,
         _object.setTexture(*_image.get());
         _object.setPosition(startLocation.Xcoord, startLocation.Ycoord);
 
-        const float factorX = object.getTextureRect().width /
+        const float factorX = _object.getTextureRect().width /
             (endLocation.Xcoord - startLocation.Xcoord);
         const float factorY = _object.getTextureRect().height /
             (endLocation.Ycoord - startLocation.Ycoord);
