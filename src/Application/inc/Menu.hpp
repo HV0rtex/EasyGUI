@@ -46,6 +46,8 @@
 
 namespace easyGUI {
 
+using WindowPtr = ::std::shared_ptr<::sf::RenderWindow>;
+
 /**
  * @brief Container of application components
  * 
@@ -118,7 +120,6 @@ class Menu : public ::sf::Drawable
 };
 
 using MenuPtr = ::std::shared_ptr<Menu>;
-using WindowPtr = ::std::shared_ptr<::sf::RenderWindow>;
 
 /**
  * @brief Safely appends a component to a menu.
