@@ -64,16 +64,12 @@ jobs:
       run:  cmake -S $GITHUB_WORKSPACE/SFML -B $GITHUB_WORKSPACE/SFML/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install && cmake --build $GITHUB_WORKSPACE/SFML/build --config ${{env.BUILD_TYPE}} --target install                           
 
     - name: Build shared libraries
-      if: runner.os == 'Windows'
-      run: build.bat SHARED
-      else:
+      shell: bash
       run: build.sh SHARED
 
     - name: Build static libraries
-      if: runner.os == 'Windows'
-      run: build.bat SHARED
-      else:
-      run: build.sh SHARED
+      shell: bash
+      run: build.sh STATIC
 
     - name: Publishing package
       uses: actions/upload-artifact@master
