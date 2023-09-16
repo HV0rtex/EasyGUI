@@ -47,23 +47,34 @@ jobs:
     steps:
     - uses: actions/checkout@master    
 
-    - name: Install Linux dependencies
-      if: runner.os == 'Linux'
-      run: sudo apt-get update && sudo apt-get install libxrandr-dev libxcursor-dev libudev-dev libopenal-dev libflac-dev libvorbis-dev libgl1-mesa-dev libegl1-mesa-dev
+    - name: Install SFML (Linux / macOS)
+      shell: bash
+      run: |
+        if [ "$RUNNER_OS" == "Linux" ];                   \
+        then                                              \
+          sudo apt-get update                             \
+          sudo apt-get install libsfml-dev                \
+        elif [ "$RUNNER_OS" == "macOS" ];                 \
+        then                                              \
+          brew install sfml                               \
+        fi
 
     - name: Checkout SFML
+      if: runner.os == "Windows"
       uses: actions/checkout@master
       with:
         fetch-depth: 0
         repository: SFML/SFML
-        ref: 2.5.1
+        ref: 2.6.0
         path: SFML
 
     - name: Configure SFML
+      if: runner.os == "Windows"
       shell: bash
       run:  cmake -S $GITHUB_WORKSPACE/SFML -B $GITHUB_WORKSPACE/SFML/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install 
       
     - name: Build SFML
+      if: runner.os == "Windows"
       shell: bash
       run: cmake --build $GITHUB_WORKSPACE/SFML/build --config Release --target install                           
 
