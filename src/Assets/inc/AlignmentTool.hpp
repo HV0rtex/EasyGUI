@@ -1,17 +1,23 @@
 // Copyright © 2022 David Bogdan
 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files 
-// (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, 
-// publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do 
-// so, subject to the following conditions:
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files
+// (the “Software”), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the following
+// conditions:
 
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 
-// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
-// FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
+// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 /**
  * @file AlignmentTool.hpp
@@ -28,15 +34,17 @@
     #include <assets-export.hpp>
 #endif
 
+#include <utility>
+#include <vector>
+#include <memory>
+#include <map>
+
 #include <Exceptions/AssetException.hpp>
 #include <Component.hpp>
 #include <Point.hpp>
-#include <utility>
-#include <vector>
-#include <map>
 
-namespace easyGUI
-{
+
+namespace easyGUI {
 
 /**
  * @brief Represents different parts by which
@@ -64,7 +72,7 @@ class ASSETS_EXPORTS Anchor : public ::std::enable_shared_from_this<Anchor>
 class Anchor : public ::std::enable_shared_from_this<Anchor>
 #endif
 {
-public:
+ public:
     /**
      * @brief Destructor
      * 
@@ -126,8 +134,7 @@ public:
      * 
      * @return ::std::shared_ptr<Anchor> 
      */
-    ::std::shared_ptr<Anchor> getSelfAnchor()
-    {
+    ::std::shared_ptr<Anchor> getSelfAnchor() {
         return shared_from_this();
     }
 };
@@ -149,7 +156,7 @@ class ASSETS_EXPORTS AlignmentTool
 class AlignmentTool
 #endif
 {
-public:
+ public:
     /**
      * @brief Destructor
      * 
@@ -172,8 +179,17 @@ public:
      * @param anchorPoint The point by which the anchor is bound
      * @param offset The desired offset
      */
-    void createBinding(Anchor*, Anchor*, const BindingPoint&, const BindingPoint&, const Point& = Point());
-    void createBinding(AnchorPtr&, AnchorPtr&, const BindingPoint&, const BindingPoint&, const Point& = Point());
+    void createBinding(Anchor*,
+                       Anchor*,
+                       const BindingPoint&,
+                       const BindingPoint&,
+                       const Point& = Point());
+
+    void createBinding(AnchorPtr&,
+                       AnchorPtr&,
+                       const BindingPoint&,
+                       const BindingPoint&,
+                       const Point& = Point());
 
     /**
      * @brief Updates all the elements bound to an anchor
@@ -181,10 +197,10 @@ public:
      * @param source The anchor that moved
      */
     void triggerUpdate(const Anchor*);
+
     void triggerUpdate(const AnchorPtr&);
-private:
-    struct Binding
-    {
+ private:
+    struct Binding {
         Anchor* anchors[2];
         BindingPoint points[2];
 
@@ -211,4 +227,4 @@ private:
     AlignmentTool() = default;
 };
 
-}
+}  // namespace easyGUI
