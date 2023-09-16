@@ -61,7 +61,7 @@ jobs:
 
     - name: Build SFML
       shell: bash
-      run:  cmake -S $GITHUB_WORKSPACE/SFML -B $GITHUB_WORKSPACE/SFML/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install && cmake --build $GITHUB_WORKSPACE/SFML/build --config ${{env.BUILD_TYPE}} --target install                           
+      run:  cmake -S $GITHUB_WORKSPACE/SFML -B $GITHUB_WORKSPACE/SFML/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install && cmake --build $GITHUB_WORKSPACE/SFML/build --target install                           
 
     - name: Build shared libraries
       shell: bash

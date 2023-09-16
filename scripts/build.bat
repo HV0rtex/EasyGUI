@@ -10,5 +10,4 @@ IF "%1" == "SHARED" (
           -DCMAKE_PREFIX_PATH="${{github.workspace}}/SFML/install/lib/cmake"
 )
 
-cmake ${{github.workspace}}/build                                               ^
-      --config ${{env.BUILD_TYPE}}                
+cmake ${{github.workspace}}/build         
