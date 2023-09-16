@@ -48,7 +48,6 @@ jobs:
     - uses: actions/checkout@master    
 
     - name: Install SFML (Linux / macOS)
-      shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ];                   \
         then                                              \
@@ -60,6 +59,7 @@ jobs:
         fi
 
     - name: Checkout SFML
+      if: runner.os == 'Windows'
       uses: actions/checkout@master
       with:
         fetch-depth: 0
@@ -68,11 +68,11 @@ jobs:
         path: SFML
 
     - name: Configure SFML
-      if: runner.os == "Windows"
+      if: runner.os == 'Windows'
       run:  cmake -S $GITHUB_WORKSPACE/SFML -B $GITHUB_WORKSPACE/SFML/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install 
       
     - name: Build SFML
-      if: runner.os == "Windows"
+      if: runner.os == 'Windows'
       run: cmake --build $GITHUB_WORKSPACE/SFML/build --config Release --target install                           
 
     - name: Configure CMake for SHARED libraries
