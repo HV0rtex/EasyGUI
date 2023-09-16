@@ -65,11 +65,11 @@ jobs:
 
     - name: Build shared libraries
       shell: bash
-      run: build.sh SHARED
+      run: cd ${{github.workspace}} && ./scripts/build.sh SHARED
 
     - name: Build static libraries
       shell: bash
-      run: build.sh STATIC
+      run: cd ${{github.workspace}} && ./scripts/build.sh STATIC
 
     - name: Publishing package
       uses: actions/upload-artifact@master
