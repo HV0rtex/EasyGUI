@@ -57,8 +57,6 @@ if(${CMAKE_VERSION} VERSION_LESS 3.14)
 	endmacro()
 endif()
 
-include(FindSFML)
-
 if(${BUILD_TESTS} AND ${PROJECT_NAME} STREQUAL ${CMAKE_PROJECT_NAME})
 	enable_testing()
 
