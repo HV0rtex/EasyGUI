@@ -66,10 +66,12 @@ jobs:
 
     - name: Configure SFML [ Windows ]
       if: runner.os == 'Windows'
-      run:  cmake -S $GITHUB_WORKSPACE/SFML -B $GITHUB_WORKSPACE/SFML/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install 
+      shell: bash
+      run: cmake -S $GITHUB_WORKSPACE/SFML -B $GITHUB_WORKSPACE/SFML/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/SFML/install 
       
     - name: Build SFML [ Windows ]
       if: runner.os == 'Windows'
+      shell: bash
       run: cmake --build $GITHUB_WORKSPACE/SFML/build --config Release --target install                           
 
     - name: Configure CMake for SHARED libraries
