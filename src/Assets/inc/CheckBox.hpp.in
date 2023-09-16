@@ -44,8 +44,7 @@
 
 namespace easyGUI {
 
-class @EXPORT_MACRO@CheckBox : public Component, public Anchor
-{
+class @EXPORT_MACRO@CheckBox : public Component, public Anchor {
  public:
     /**
      * @brief Destructor

@@ -65,8 +65,7 @@ enum BindingPoint {
  * to allign themselves in the window.
  * 
  */
-class @EXPORT_MACRO@Anchor : public ::std::enable_shared_from_this<Anchor>
-{
+class @EXPORT_MACRO@Anchor : public ::std::enable_shared_from_this<Anchor> {
  public:
     /**
      * @brief Destructor
@@ -145,12 +144,7 @@ using AnchorPtr = ::std::shared_ptr<Anchor>;
  * is by moving the anchor it is bound to.
  * 
  */
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-class ASSETS_EXPORTS AlignmentTool
-#else
-class AlignmentTool
-#endif
-{
+class @EXPORT_MACRO@AlignmentTool {
  public:
     /**
      * @brief Destructor

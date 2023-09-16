@@ -53,8 +53,7 @@ namespace easyGUI {
  * to access both the border and the text.
  * 
  */
-class @EXPORT_MACRO@TextBox : public Component, public Anchor
-{
+class @EXPORT_MACRO@TextBox : public Component, public Anchor {
  public:
     static TextBox* getSelectedBox();
     static bool& getTextBoxClicked();

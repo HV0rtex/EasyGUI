@@ -66,8 +66,7 @@ enum TextDecoration {
  * to make the implementation of Labels easier for the end-user. For custom 
  * labels, you can inherit this class.
  */
-class @EXPORT_MACRO@Label : public Component, public Anchor
-{
+class @EXPORT_MACRO@Label : public Component, public Anchor {
  public:
     /**
      * @brief Destructor

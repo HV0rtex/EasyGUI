@@ -48,8 +48,7 @@ namespace easyGUI {
  * @brief Responsible for conversions between components
  * 
  */
-class @EXPORT_MACRO@Converter
-{
+class @EXPORT_MACRO@Converter {
  public:
     /**
      * @brief Converts a Component object into a button

@@ -55,8 +55,7 @@ namespace easyGUI {
  * of the mouse position.
  * 
  */
-class @EXPORT_MACRO@Routine
-{
+class @EXPORT_MACRO@Routine {
  public:
     /**
      * @brief Destructor

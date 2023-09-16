@@ -54,8 +54,7 @@ using WindowPtr = ::std::shared_ptr<::sf::RenderWindow>;
  * and usually corresponds to a specific application screen. The menu also provides
  * a method for the components to react to events.
  */
-class @EXPORT_MACRO@Menu : public ::sf::Drawable
-{
+class @EXPORT_MACRO@Menu : public ::sf::Drawable {
  public:
     /**
      * @brief Destructor

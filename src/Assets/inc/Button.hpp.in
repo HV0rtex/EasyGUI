@@ -51,8 +51,7 @@ namespace easyGUI {
  * @details Draws a button on a window. The class makes use of the
  * Label class in order to draw and configure the button's text.
  */
-class @EXPORT_MACRO@Button : public Component, public Anchor
-{
+class @EXPORT_MACRO@Button : public Component, public Anchor {
  public:
     /**
      * @brief Destructor

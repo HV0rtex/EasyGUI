@@ -55,8 +55,7 @@ namespace easyGUI {
  * however this one is mandatory for all GUI elements.
  * 
  */
-class @EXPORT_MACRO@Component : public ::sf::Drawable
-{
+class @EXPORT_MACRO@Component : public ::sf::Drawable {
  public:
     /**
      * @brief Destructor

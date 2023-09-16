@@ -51,8 +51,7 @@ namespace easyGUI {
  * @brief Draws an image to the screen
  * 
  */
-class @EXPORT_MACRO@Image : public Component, public Anchor
-{
+class @EXPORT_MACRO@Image : public Component, public Anchor {
  public:
     /**
      * @brief Destructor

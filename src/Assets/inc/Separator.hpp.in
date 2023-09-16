@@ -48,8 +48,7 @@ namespace easyGUI {
  * an Anchor so that you may align other components in respect to the Separator.
  * You can also set whether the line is vertical or horizontal.
  */
-class @EXPORT_MACRO@Separator : public Component, public Anchor
-{
+class @EXPORT_MACRO@Separator : public Component, public Anchor {
  public:
     /**
      * @brief Destructor
