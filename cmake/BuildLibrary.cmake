@@ -42,7 +42,7 @@ function(BUILD_LIBRARY)
 			)
 
 			set(EXPORT_MACRO "${LIBRARY_OPTIONS_MACRO_NAME} ")
-			set(EXPORT_FILE "#include <${CMAKE_CURRENT_SOURCE_DIR}/inc/${LIBRARY_OPTIONS_TARGET}-export.hpp>")
+			set(EXPORT_FILE "#include <${LIBRARY_OPTIONS_TARGET}-export.hpp>")
     	endif()
 	else()
 		set(LIBRARY_OPTIONS_TARGET "${LIBRARY_OPTIONS_TARGET}-s")

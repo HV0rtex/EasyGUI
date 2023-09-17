@@ -1,37 +1,12 @@
-name: CI/CD
+name: Deployment
 
 on:
-  push:
-    branches:
-    - Version_3.0.0
-
-  pull_request:
+  merge:
     branches:
     - main
-    - Version_3.0.0
 
 jobs:
-  Precheck:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-python@master
-
-    - name: Check commit message
-      run: |
-        if [[ "${{ github.event.head_commit.message }}" =~ ^F[0-9]{4}-* ]]; \
-        then                                                                \
-          exit 0                                                            \
-        else                                                                \
-          exit 1                                                            \ 
-        fi                                                                  
-  
-    - name: Run cpplint
-      run: pip install cpplint && cpplint --extensions=in,cpp --recursive --quiet .
-
   Build:
-    needs: Precheck
     name: ${{ matrix.platform.name }}
     runs-on: ${{ matrix.platform.os }}
 
@@ -80,27 +55,31 @@ jobs:
     - name: Building SHARED libraries
       run: cmake --build ${{github.workspace}}/build --config Release
 
+    - name: Publishing STATIC package
+      uses: actions/upload-artifact@master
+      with:
+        name: ${{matrix.platform.name}} SHARED
+        path: |
+          ${{github.workspace}}/bin
+          ${{github.workspace}}/lib
+          ${{github.workspace}}/include
+
     - name: Configure CMake for STATIC libraries
       run: cmake -B ${{github.workspace}}/build -DBUILD_SHARED_LIBRARIES=OFF -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake
 
     - name: Building STATIC libraries
       run: cmake --build ${{github.workspace}}/build --config Release
 
-  Test:
-    needs: Build
-    runs-on: ubuntu-latest
+    - name: Publishing STATIC package
+      uses: actions/upload-artifact@master
+      with:
+        name: ${{matrix.platform.name}} STATIC
+        path: |
+          ${{github.workspace}}/bin
+          ${{github.workspace}}/lib
+          ${{github.workspace}}/include
 
-    steps:
-    - name: Installing dependencies
-      run: sudo apt-get update && sudo apt-get install libsfml-dev libgtest-dev
-
-    - name: Configuring for SHARED libraries
-      run: cmake -B ${{github.workspace}}/build -DBUILD_SHARED_LIBRARIES=ON -DBUILD_TESTS=ON
-
-    - name: Building SHARED libraries and tests
-      run: cmake --build ${{github.workspace}}/build --config Debug
-
-  Cleanup:
+  Documentation:
     needs: Test
     runs-on: ubuntu-latest
 
@@ -111,3 +90,9 @@ jobs:
       run: |
         sudo apt-get install doxygen &&                                              \
         cd ${{github.workspace}} && doxygen docs/doxyfile.txt                        
+
+    - name: Publishing package
+      uses: actions/upload-artifact@master
+      with:
+        name: Documentation
+        path: ${{github.workspace}}/docs/html
