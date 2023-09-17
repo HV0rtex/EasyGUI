@@ -37,5 +37,19 @@ build_library(
     MACRO_NAME "EASYGUI_APPLICATION"
     SOURCES "${APPLICATION_SOURCES}"
     HEADERS "${APPLICATION_HEADERS}"
-    DEPENDENCIES "easyGUI-assets-s;sfml-graphics;sfml-window;sfml-system"
+    DEPENDENCIES "sfml-graphics;sfml-window;sfml-system"
 )
+
+if(${BUILD_SHARED_LIBRARIES})
+    target_link_libraries(
+        easyGUI-application
+    PRIVATE
+        easyGUI-assets
+    )
+else()
+    target_link_libraries(
+        easyGUI-application-s
+    PRIVATE
+        easyGUI-assets-s
+    )
+endif()
