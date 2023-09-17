@@ -75,13 +75,13 @@ jobs:
       run: cmake --build $GITHUB_WORKSPACE/SFML/build --config Release --target install                           
 
     - name: Configure CMake for SHARED libraries
-      run: cmake -B ${{github.workspace}}/build -DBUILD_SHARED_LIBRARIES=1 -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake
+      run: cmake -B ${{github.workspace}}/build -DBUILD_SHARED_LIBRARIES=ON -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake
 
     - name: Building SHARED libraries
       run: cmake --build ${{github.workspace}}/build --config Release
 
     - name: Configure CMake for STATIC libraries
-      run: cmake -B ${{github.workspace}}/build -DBUILD_SHARED_LIBRARIES=0 -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake
+      run: cmake -B ${{github.workspace}}/build -DBUILD_SHARED_LIBRARIES=OFF -DCMAKE_PREFIX_PATH=${{github.workspace}}/SFML/install/lib/cmake
 
     - name: Building STATIC libraries
       run: cmake --build ${{github.workspace}}/build --config Release

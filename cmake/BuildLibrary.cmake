@@ -30,6 +30,8 @@ function(BUILD_LIBRARY)
 	set(EXPORT_TARGET "EasyGUIStaticLibraries")
 
 	if(${BUILD_SHARED_LIBRARIES})
+		set(EXPORT_TARGET "EasyGUISharedLibraries")
+
 		add_library(${LIBRARY_OPTIONS_TARGET} SHARED ${LIBRARY_OPTIONS_SOURCES} ${LIBRARY_OPTIONS_HEADERS})
 
 		if(WIN32)
@@ -41,7 +43,6 @@ function(BUILD_LIBRARY)
 
 			set(EXPORT_MACRO "${LIBRARY_OPTIONS_MACRO_NAME} ")
 			set(EXPORT_FILE "#include <${CMAKE_CURRENT_SOURCE_DIR}/inc/${LIBRARY_OPTIONS_TARGET}-export.hpp>")
-			set(EXPORT_TARGET "EasyGUISharedLibraries")
     	endif()
 	else()
 		set(LIBRARY_OPTIONS_TARGET "${LIBRARY_OPTIONS_TARGET}-s")
@@ -92,7 +93,6 @@ function(BUILD_LIBRARY)
 			-Oi
 			-GA
 			-O2
-			-RTCsu
 			-sdl
 			-W4
 			-Wall
