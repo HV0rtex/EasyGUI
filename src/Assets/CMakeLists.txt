@@ -44,7 +44,6 @@ set(ASSETS_HEADERS
     inc/TextBox.hpp
     inc/Point.hpp
     inc/Separator.hpp
-    inc/Task.hpp
     inc/Exceptions/AssetException.hpp
     inc/Exceptions/LabelException.hpp
     inc/Exceptions/ButtonException.hpp
