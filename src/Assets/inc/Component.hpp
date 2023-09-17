@@ -89,24 +89,16 @@ class Component : public ::sf::Drawable
     /**
      * @brief Makes the component interactable
      * 
-     * @param action Function to be called when component is clicked.
-     * @deprecated
+     * @param action The task to be executed when component is clicked.
      */
-    virtual void setOnClickAction(void (*)());
+    virtual void setOnClickAction(const std::function<void()>&);
 
     /**
      * @brief Makes the component interactable
      * 
      * @param action The task to be executed when component is clicked.
      */
-    void setOnClickAction(const std::function<void()>&);
-
-    /**
-     * @brief Makes the component interactable
-     * 
-     * @param action The task to be executed when component is clicked.
-     */
-    void setOnHoverAction(const std::function<void()>&);
+    virtual void setOnHoverAction(const std::function<void()>&);
 
     /**
      * @brief Executes the onClick action

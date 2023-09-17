@@ -41,8 +41,8 @@ Point::Point(const Point& other) noexcept {
 }
 
 Point::Point(Point&& other) noexcept {
-    Xcoord = ::std::exchange(other.Xcoord, 0);
-    Ycoord = ::std::exchange(other.Ycoord, 0);
+    Xcoord = ::std::exchange(other.Xcoord, 0.0f);
+    Ycoord = ::std::exchange(other.Ycoord, 0.0f);
 }
 
 const Point& Point::operator=(const Point& other) noexcept {
@@ -60,8 +60,8 @@ Point::Point(const ::sf::Vector2f& vector):
 
 const Point& Point::operator=(Point&& other) noexcept {
     if (&other != this) {
-        Xcoord = ::std::exchange(other.Xcoord, 0);
-        Ycoord = ::std::exchange(other.Ycoord, 0);
+        Xcoord = ::std::exchange(other.Xcoord, 0.0f);
+        Ycoord = ::std::exchange(other.Ycoord, 0.0f);
     }
 
     return *this;
