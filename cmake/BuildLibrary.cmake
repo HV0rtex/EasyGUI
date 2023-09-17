@@ -100,6 +100,8 @@ function(BUILD_LIBRARY)
 		)
 	endif()
 
+	message(STATUS "EXPORT TARGET: ${EXPORT_TARGET}")
+
 	install(
 		TARGETS ${LIBRARY_OPTIONS_TARGET}
 
