@@ -96,7 +96,7 @@ function(BUILD_LIBRARY)
 			-sdl
 			-W4
 			-Wall
-			-We
+			-WX
 		)
 	endif()
 

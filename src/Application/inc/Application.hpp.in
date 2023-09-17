@@ -31,16 +31,17 @@
 
 #pragma once
 
+@EXPORT_FILE@
+
 #include <string>
 #include <memory>
 #include <vector>
 #include <map>
 
 #include <Exceptions/ApplicationException.hpp>
-#include <Textbox.hpp>
+#include <TextBox.hpp>
 #include <Routine.hpp>
 #include <Menu.hpp>
-@EXPORT_FILE@
 
 
 namespace easyGUI {
