@@ -34,12 +34,12 @@
     #include <application-export.hpp>
 #endif
 
+#include <functional>
 #include <memory>
 
 #include <SFML/Window/Event.hpp>
 
 #include <Exceptions/ApplicationException.hpp>
-#include <Task.hpp>
 
 
 namespace easyGUI {
@@ -77,15 +77,8 @@ class Routine
      * 
      * @deprecated
      */
-    Routine(bool (*)(const ::sf::Event&), void(*)());
-
-    /**
-     * @brief Constructor
-     * 
-     * @param trigger The trigger of the routine
-     * @param response The response of the routine
-     */
-    Routine(bool (*)(const ::sf::Event&), const ::std::shared_ptr<Task>&);
+    Routine(const std::function<bool(const sf::Event&)>&,
+            const std::function<void()>&);
 
     /**
      * @brief Call operator
@@ -104,23 +97,10 @@ class Routine
      */
     void setActive(const bool& active);
  private:
-    bool (*_trigger)(const ::sf::Event& action);
-    ::std::shared_ptr<Task> _action;
+    std::function<bool(const sf::Event&)> _trigger = nullptr;
+    std::function<void()> _action = nullptr;
 
     bool _isActive;
-
-    class DeprecatedTask : public Task {
-     private:
-        void (*_action)() = nullptr;
-
-     public:
-        explicit DeprecatedTask(void (*action)()) : _action(action) {}
-
-        void exec() {
-            if (_action)
-                _action();
-        }
-    };
 };
 
 }  // namespace easyGUI

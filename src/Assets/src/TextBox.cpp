@@ -176,8 +176,8 @@ void TextBox::onClick() {
         textBoxClicked = true;
     }
 
-    if (_onClick != nullptr) {
-        _onClick->exec();
+    if (_onClick) {
+        _onClick();
     }
 }
 

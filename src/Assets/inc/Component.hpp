@@ -35,6 +35,7 @@
 #endif
 
 #include <memory>
+#include <functional>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Drawable.hpp>
@@ -42,7 +43,6 @@
 
 #include <Exceptions/AssetException.hpp>
 #include <Point.hpp>
-#include <Task.hpp>
 
 
 namespace easyGUI {
@@ -89,32 +89,16 @@ class Component : public ::sf::Drawable
     /**
      * @brief Makes the component interactable
      * 
-     * @param action Function to be called when component is clicked.
-     * @deprecated
+     * @param action The task to be executed when component is clicked.
      */
-    virtual void setOnClickAction(void (*)());
+    virtual void setOnClickAction(const std::function<void()>&);
 
     /**
      * @brief Makes the component interactable
      * 
      * @param action The task to be executed when component is clicked.
      */
-    void setOnClickAction(const std::shared_ptr<Task>&);
-
-    /**
-     * @brief Sets the behaviour when the mouse is moved
-     * 
-     * @param action The action to be executed.
-     * @deprecated
-     */
-    virtual void setOnHoverAction(void (*)());
-
-    /**
-     * @brief Makes the component interactable
-     * 
-     * @param action The task to be executed when component is clicked.
-     */
-    void setOnHoverAction(const std::shared_ptr<Task>&);
+    virtual void setOnHoverAction(const std::function<void()>&);
 
     /**
      * @brief Executes the onClick action
@@ -137,21 +121,8 @@ class Component : public ::sf::Drawable
  protected:
     ::std::shared_ptr<::sf::RenderWindow> _container;
 
-    ::std::shared_ptr<Task> _onClick = nullptr;
-    ::std::shared_ptr<Task> _onHover = nullptr;
-
-    class DeprecatedTask : public Task {
-     private:
-        void (*_action)() = nullptr;
-
-     public:
-        explicit DeprecatedTask(void (*action)()) : _action(action) {}
-
-        void exec() {
-            if (_action)
-                _action();
-        }
-    };
+    ::std::function<void()> _onClick = nullptr;
+    ::std::function<void()> _onHover = nullptr;
 };
 
 }  // namespace easyGUI
