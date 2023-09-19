@@ -73,28 +73,30 @@ Application::Application(const uint32_t width,
 }
 
 void Application::handleEvents(const ::sf::Event& event) {
-    bool& boxClicked = TextBox::getTextBoxClicked();
-    TextBox* box = TextBox::getSelectedBox();
     ::std::vector<::std::shared_ptr<Component>> components =
         _activeMenu->getAllComponents();
 
     if (event.type == ::sf::Event::MouseButtonPressed &&
         event.mouseButton.button == ::sf::Mouse::Left) {
-        boxClicked = false;
-        ::std::for_each(components.begin(), components.end(),
-            [](::std::shared_ptr<Component>& comp) {
-                comp->onClick();
-        });
+        _selectedBox = nullptr;
 
-        if (boxClicked == false)
-            box = nullptr;
+        ::std::for_each(components.begin(), components.end(),
+            [this](::std::shared_ptr<Component>& comp) {
+                comp->onClick();
+
+                if (!_selectedBox && comp->isMouseHover()) {
+                    ::std::shared_ptr<TextBox> cast =
+                        ::std::dynamic_pointer_cast<TextBox>(comp);
+                    _selectedBox = cast;
+                }
+        });
     } else if (event.type == ::sf::Event::MouseMoved) {
         ::std::for_each(components.begin(), components.end(),
             [](::std::shared_ptr<Component>& comp) {
                 comp->onHover();
         });
-    } else if (event.type == ::sf::Event::TextEntered && box) {
-        box->updateText(event.text.unicode);
+    } else if (event.type == ::sf::Event::TextEntered && _selectedBox) {
+        _selectedBox->updateText(event.text.unicode);
     } else if (event.type == ::sf::Event::Resized) {
         ::sf::View newView = _window->getDefaultView();
         newView.setSize(static_cast<float>(event.size.width),
