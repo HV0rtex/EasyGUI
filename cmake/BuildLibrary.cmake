@@ -93,7 +93,7 @@ function(BUILD_LIBRARY)
 				-Werror
 				-Wconversion
 				-Wcast-align
-				-Wunnused
+				-Wunused
 				-Wshadow
 				-Wold-style-cast
 				-Wpointer-arith
