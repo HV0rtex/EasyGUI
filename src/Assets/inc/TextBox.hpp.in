@@ -155,12 +155,6 @@ class @EXPORT_MACRO@TextBox : public Component, public Anchor {
     void clear();
 
     /**
-     * @brief Updates the selected text box
-     * 
-     */
-    void onClick() override;
-
-    /**
      * @brief Updates a component's location
      * 
      * @param newLocation The new location of the component
