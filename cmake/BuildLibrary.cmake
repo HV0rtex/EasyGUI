@@ -98,7 +98,6 @@ function(BUILD_LIBRARY)
 				-Wold-style-cast
 				-Wpointer-arith
 				-Wcast-qual
-				-Wmissing-prototypes
 				-Wno-missing-braces
 			)
 		else()
