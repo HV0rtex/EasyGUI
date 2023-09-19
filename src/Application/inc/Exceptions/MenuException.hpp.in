@@ -20,38 +20,42 @@
 // SOFTWARE.
 
 /**
- * @file Component.cpp
+ * @file MenuException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Implementation of the Component class
+ * @brief Definition of the MenuException class
  * 
- * @copyright Copyright (c) 2022
+ * @version @FILE_VERSION@
+ * 
+ * @copyright Copyright (c) 2022 
  */
 
-#include <Component.hpp>
+#pragma once
+
+#include <string>
+
+#include <Exceptions/ApplicationException.hpp>
 
 namespace easyGUI {
 
-void Component::onClick() {
-    if (_onClick && isMouseHover())
-        _onClick();
-}
+/**
+ * @brief Exception thrown when an error occurs with a Menu.
+ * 
+ */
+class MenuException : public ApplicationException {
+ public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~MenuException() = default;
 
-void Component::onHover() {
-    if (_onHover)
-        _onHover();
-}
-
-void Component::setContainer(
-    const ::std::shared_ptr<::sf::RenderWindow>& container) {
-    _container = container;
-}
-
-void Component::setOnClickAction(const std::function<void()>& action) {
-    _onClick = action;
-}
-
-void Component::setOnHoverAction(const std::function<void()>& action) {
-    _onHover = action;
-}
+    /**
+     * @brief Constructor
+     * 
+     * @param message The message to be displayed
+     */
+    explicit MenuException(const ::std::string& message):
+        ApplicationException("[ Menu ] " + message) {}
+};
 
 }  // namespace easyGUI

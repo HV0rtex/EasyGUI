@@ -15,19 +15,42 @@
 
 cmake_minimum_required(VERSION 3.11...3.22)
 
-# --- Getting SFML
-find_package(SFML REQUIRED graphics window system)
-
-if(NOT ${SFML_FOUND})
-    FetchContent_Declare(
-        SFML
-        GIT_REPOSITORY https://github.com/SFML/SFML.git
-        GIT_TAG 2.6.0
+function(add_test)
+    cmake_parse_arguments(
+        TEST_OPTIONS
+        ""
+        "TARGET"
+        "SOURCES;HEADERS;DEPENDENCIES"
+        ${ARGN}
     )
 
-    FetchContent_MakeAvailable(SFML)
-endif()
-# ---
+    add_executable(${TEST_OPTIONS_TARGET} ${TEST_OPTIONS_SOURCES} ${TEST_OPTIONS_HEADERS})
 
-add_subdirectory(Assets)
-add_subdirectory(Application)
+	foreach(DEPENDENCY ${TEST_OPTIONS_DEPENDENCIES})
+		target_link_libraries(
+			${TEST_OPTIONS_TARGET}
+        PRIVATE
+			${DEPENDENCY}
+		)
+	endforeach()
+
+    target_link_libraries(
+        ${TEST_OPTIONS_TARGET}
+    PRIVATE
+        gmock
+        gtest
+        gtest-main
+    )
+
+    gtest_discover_tests(
+        ${TEST_OPTIONS_TARGET}
+        WORKING_DIRECTORY   ${PROJECT_DIR}
+        PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_DIR}"
+    )
+
+    set_target_properties(
+        ${TEST_OPTIONS_TARGET}
+    PROPERTIES
+        FOLDER test
+    )
+endfunction()

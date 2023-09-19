@@ -20,19 +20,18 @@
 // SOFTWARE.
 
 /**
- * @file Textbox.hpp
+ * @file TextBox.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
  * @brief Definition of the textbox class
+ * 
+ * @version @FILE_VERSION@
  * 
  * @copyright Copyright (c) 2022
  */
 
 #pragma once
 
-// Including dependencies
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-    #include <assets-export.hpp>
-#endif
+@EXPORT_FILE@
 
 #include <memory>
 #include <string>
@@ -54,18 +53,16 @@ namespace easyGUI {
  * to access both the border and the text.
  * 
  */
-#if defined(_WIN32) && BUILD_SHARED_LIBRARIES
-class ASSETS_EXPORTS TextBox : public Component, public Anchor
-#else
-class TextBox : public Component, public Anchor
-#endif
-{
+class @EXPORT_MACRO@TextBox : public Component, public Anchor {
  public:
+    static TextBox* getSelectedBox();
+    static bool& getTextBoxClicked();
+
     /**
      * @brief Destructor
      * 
      */
-    virtual ~TextBox() = default;
+    virtual ~TextBox();
 
     /**
      * @brief Constructor
@@ -183,6 +180,9 @@ class TextBox : public Component, public Anchor
  protected:
     ::sf::RectangleShape _shape;
     ::std::shared_ptr<Label> _text;
+
+    static TextBox* selectedBox;
+    static bool textBoxClicked;
 
     uint32_t desiredSize;
 

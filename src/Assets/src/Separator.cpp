@@ -35,7 +35,7 @@ namespace easyGUI {
 Separator::Separator(const Point& startLocation,
                      const bool& vertical,
                      const float& size,
-                     const uint32_t thickness) {
+                     const float& thickness) {
     _shape.setPosition(startLocation.Xcoord, startLocation.Ycoord);
     _shape.setFillColor(::sf::Color::Black);
     _shape.setOutlineColor(::sf::Color::White);

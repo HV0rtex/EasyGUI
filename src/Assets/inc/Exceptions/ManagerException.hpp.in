@@ -19,39 +19,44 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-/**
- * @file Component.cpp
+/** 
+ * @file ManagerException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Implementation of the Component class
+ * @brief Definition of the ManagerException class
+ * 
+ * @version @FILE_VERSION@
  * 
  * @copyright Copyright (c) 2022
  */
 
-#include <Component.hpp>
+#pragma once
+
+#include <string>
+
+#include <Exceptions/AssetException.hpp>
+
 
 namespace easyGUI {
 
-void Component::onClick() {
-    if (_onClick && isMouseHover())
-        _onClick();
-}
+/**
+ * @brief Exception thrown when an error occurs inside the  Manager.
+ * 
+ */
+class ManagerException : public AssetException {
+ public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~ManagerException() = default;
 
-void Component::onHover() {
-    if (_onHover)
-        _onHover();
-}
-
-void Component::setContainer(
-    const ::std::shared_ptr<::sf::RenderWindow>& container) {
-    _container = container;
-}
-
-void Component::setOnClickAction(const std::function<void()>& action) {
-    _onClick = action;
-}
-
-void Component::setOnHoverAction(const std::function<void()>& action) {
-    _onHover = action;
-}
+    /**
+     * @brief Constructor
+     * 
+     * @param message The message to be displayed
+     */
+    explicit ManagerException(const ::std::string& message):
+        AssetException("[ Manager ] " + message) {}
+};
 
 }  // namespace easyGUI
