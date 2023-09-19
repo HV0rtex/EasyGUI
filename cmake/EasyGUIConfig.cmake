@@ -15,19 +15,9 @@
 
 cmake_minimum_required(VERSION 3.11...3.22)
 
-# --- Getting SFML
-find_package(SFML REQUIRED graphics window system)
-
-if(NOT ${SFML_FOUND})
-    FetchContent_Declare(
-        SFML
-        GIT_REPOSITORY https://github.com/SFML/SFML.git
-        GIT_TAG 2.6.0
-    )
-
-    FetchContent_MakeAvailable(SFML)
+if(${CMAKE_VERSION} VERSION_LESS 3.12)
+	cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
 endif()
-# ---
 
-add_subdirectory(Assets)
-add_subdirectory(Application)
+include("${CMAKE_CURRENT_LIST_DIR}/EasyGUISharedLibraries.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/EasyGUIStaticLibraries.cmake")

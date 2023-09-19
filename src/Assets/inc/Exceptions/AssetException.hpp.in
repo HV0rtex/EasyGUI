@@ -20,38 +20,67 @@
 // SOFTWARE.
 
 /**
- * @file Component.cpp
+ * @file AssetException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Implementation of the Component class
+ * @brief Definition of the base exception class
+ * 
+ * @version @FILE_VERSION@
  * 
  * @copyright Copyright (c) 2022
  */
 
-#include <Component.hpp>
+#pragma once
+
+#include <iostream>
+#include <exception>
+#include <string>
+
+#ifndef ERROR
+#define ERROR std::cout << "[ERROR] "
+#endif
+
+#ifndef WARN
+#define WARN std::cout << "[WARNING] "
+#endif
+
+#ifndef INFO
+#define INFO std::cout << "[INFO] "
+#endif
+
 
 namespace easyGUI {
 
-void Component::onClick() {
-    if (_onClick && isMouseHover())
-        _onClick();
-}
+/**
+ * @brief Exception thrown when something goes wrong at Asset level.
+ * 
+ */
+class AssetException : public ::std::exception {
+ public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~AssetException() = default;
 
-void Component::onHover() {
-    if (_onHover)
-        _onHover();
-}
+    /**
+     * @brief Constructor
+     * 
+     * @param message The message to be displayed
+     */
+    explicit AssetException(const ::std::string& message):
+        _msg("[ASSET] " + message + "\n") {}
 
-void Component::setContainer(
-    const ::std::shared_ptr<::sf::RenderWindow>& container) {
-    _container = container;
-}
+    /**
+     * @brief Returns the exception message
+     * 
+     * @return const char* 
+     */
+    const char* what() const noexcept {
+        return _msg.c_str();
+    }
 
-void Component::setOnClickAction(const std::function<void()>& action) {
-    _onClick = action;
-}
-
-void Component::setOnHoverAction(const std::function<void()>& action) {
-    _onHover = action;
-}
+ private:
+    ::std::string _msg;
+};
 
 }  // namespace easyGUI

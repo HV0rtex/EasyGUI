@@ -13,63 +13,98 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.11...3.22)
+
+if(${CMAKE_VERSION} VERSION_LESS 3.12)
+	cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
+endif()
+
+# ----- Options -----
+
+option(BUILD_SHARED_LIBRARIES "Dentoes if to build SHARED or STATIC libraries" OFF)
+option(BUILD_TESTS "Denotes if to build the tests" OFF)
+option(BUILD_RELEASE "Denotes the compiler behaviour" OFF)
 
 # ----- Project config -----
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
 project(
     EasyGUI
-    VERSION 0.0.0.1
+    VERSION 3.0.0
     DESCRIPTION "An extension for the SFML library that deals with GUI creation."
+	LANGUAGES CXX
 )
 
-set(PROJECT_RUNTIME_DIR ${PROJECT_SOURCE_DIR}/bin)
-set(PROJECT_LIBRARY_DIR ${PROJECT_SOURCE_DIR}/lib)
-set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
-
-# ----- Build config -----
-
-if(UNIX)
-	add_compile_options(
-		-pedantic
-		-O3
-		-Wall
-		-Wextra
-		-Wcast-align
-		-Wcast-qual
-		-Wdisabled-optimization
-		-Wformat=2
-		-Winit-self
-		-Wmissing-declarations
-		-Wmissing-include-dirs
-		-Wold-style-cast
-		-Woverloaded-virtual
-		-Wredundant-decls
-		-Wshadow
-		-Wsign-conversion
-		-Wsign-promo
-		-Wstrict-overflow=5
-		-Wswitch-default
-		-Wundef
-		-Werror
-		-Wno-unused
-	)
+if(WIN32 AND ${BUILD_SHARED_LIBRARIES})
+	include(GenerateExportHeader)
+	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE) 
 endif()
 
-if(WIN32)
-	add_compile_options(
-		-Oi
-	)
+include(FetchContent)
+include(BuildLibrary)
+include(CMakePackageConfigHelpers)
 
-	if(${BUILD_SHARED_LIBRARIES})
-		include(GenerateExportHeader)
-		set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true) 
-	endif()
+if(${CMAKE_VERSION} VERSION_LESS 3.14)
+	macro(FetchContent_MakeAvailable NAME)
+		FetchContent_GetProperties(${NAME})
+		
+		if(NOT ${NAME}_POPULATED)
+			FetchContent_Populate(${NAME})
+			add_subdirectory(${${NAME}_SOURCE_DIR} ${${NAME}_BINARY_DIR})
+		endif()
+	endmacro()
+endif()
+
+if(${BUILD_TESTS} AND ${PROJECT_NAME} STREQUAL ${CMAKE_PROJECT_NAME})
+	enable_testing()
+
+	include(CTest)
+	include(BuildTest)
+	include(GoogleTest)
+
+	add_subdirectory(test)
 endif()
 
 # ----- Building sources -----
 
 add_subdirectory(src)
+
+# ----- Out-of-Source build enforcement -----
+
+file(TO_CMAKE_PATH "${PROJECT_BINARY_DIR}/CMakeLists.txt" LOC_PATH)
+if(EXISTS ${LOC_PATH})
+	message(FATAL_ERROR "You cannot build in a source directory. Please make a build directory and try building from there.")
+endif()
+
+# ----- Exporting -----
+
+write_basic_package_version_file(
+	EasyGUIConfigVersion.cmake
+	VERSION 3.0.0
+	COMPATIBILITY SameMajorVersion
+)
+
+if (${BUILD_SHARED_LIBRARIES})
+	install(
+		EXPORT EasyGUISharedLibraries
+		FILE EasyGUISharedLibraries.cmake
+		NAMESPACE EasyGUI::
+		DESTINATION ${PROJECT_SOURCE_DIR}/lib/cmake/EasyGUI
+	)
+else()
+	install(
+		EXPORT EasyGUIStaticLibraries
+		FILE EasyGUIStaticLibraries.cmake
+		NAMESPACE EasyGUI::
+		DESTINATION ${PROJECT_SOURCE_DIR}/lib/cmake/EasyGUI
+	)
+endif()
+
+install(
+	FILES "${PROJECT_SOURCE_DIR}/cmake/EasyGUIConfig.cmake"
+		  "${PROJECT_BINARY_DIR}/EasyGUIConfigVersion.cmake"
+	DESTINATION ${PROJECT_SOURCE_DIR}/lib/cmake/EasyGUI
+)

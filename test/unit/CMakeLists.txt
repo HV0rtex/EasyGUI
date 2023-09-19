@@ -14,20 +14,3 @@
 
 
 cmake_minimum_required(VERSION 3.11...3.22)
-
-# --- Getting SFML
-find_package(SFML REQUIRED graphics window system)
-
-if(NOT ${SFML_FOUND})
-    FetchContent_Declare(
-        SFML
-        GIT_REPOSITORY https://github.com/SFML/SFML.git
-        GIT_TAG 2.6.0
-    )
-
-    FetchContent_MakeAvailable(SFML)
-endif()
-# ---
-
-add_subdirectory(Assets)
-add_subdirectory(Application)

@@ -97,7 +97,8 @@ void Application::handleEvents(const ::sf::Event& event) {
         box->updateText(event.text.unicode);
     } else if (event.type == ::sf::Event::Resized) {
         ::sf::View newView = _window->getDefaultView();
-        newView.setSize(event.size.width, event.size.height);
+        newView.setSize(static_cast<float>(event.size.width),
+                        static_cast<float>(event.size.height));
 
         _window->setView(newView);
     }
@@ -152,8 +153,6 @@ void Application::stop() {
 
 void Application::setActiveMenu(const ::std::string& id) {
     if (_menus.find(id) != _menus.end()) {
-        TextBox* box = TextBox::getSelectedBox();
-
         _activeMenu = _menus.at(id);
 
         if (!_startMenuSet) {

@@ -20,38 +20,43 @@
 // SOFTWARE.
 
 /**
- * @file Component.cpp
+ * @file TextBoxException.hpp
  * @author David Bogdan (david.bnicolae@gmail.com)
- * @brief Implementation of the Component class
+ * @brief Definition of the TextBoxException class
  * 
- * @copyright Copyright (c) 2022
+ * @version @FILE_VERSION@
+ * 
+ * @copyright Copyright (c) 2022 
  */
 
-#include <Component.hpp>
+#pragma once
+
+#include <string>
+
+#include <Exceptions/AssetException.hpp>
+
 
 namespace easyGUI {
 
-void Component::onClick() {
-    if (_onClick && isMouseHover())
-        _onClick();
-}
+/**
+ * @brief Exception thrown when an error occurs inside the TextBox.
+ * 
+ */
+class TextBoxException : public AssetException {
+ public:
+    /**
+     * @brief Destructor
+     * 
+     */
+    virtual ~TextBoxException() = default;
 
-void Component::onHover() {
-    if (_onHover)
-        _onHover();
-}
-
-void Component::setContainer(
-    const ::std::shared_ptr<::sf::RenderWindow>& container) {
-    _container = container;
-}
-
-void Component::setOnClickAction(const std::function<void()>& action) {
-    _onClick = action;
-}
-
-void Component::setOnHoverAction(const std::function<void()>& action) {
-    _onHover = action;
-}
+    /**
+     * @brief Constructor
+     * 
+     * @param message The message to be displayed
+     */
+    explicit TextBoxException(const ::std::string& message):
+        AssetException("[ TextBox ] " + message) {}
+};
 
 }  // namespace easyGUI
