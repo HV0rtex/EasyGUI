@@ -51,9 +51,12 @@ Image::Image(const Point& startLocation,
         _object.setTexture(*_image.get());
         _object.setPosition(startLocation.Xcoord, startLocation.Ycoord);
 
-        const float factorX = _object.getTextureRect().width /
+        const float factorX =
+            static_cast<float>(_object.getTextureRect().width) /
             (endLocation.Xcoord - startLocation.Xcoord);
-        const float factorY = _object.getTextureRect().height /
+
+        const float factorY =
+            static_cast<float>(_object.getTextureRect().height) /
             (endLocation.Ycoord - startLocation.Ycoord);
 
         _object.setScale(::sf::Vector2f(1 / factorX, 1 / factorY));
@@ -92,10 +95,10 @@ void Image::constructFrame(const float& thickness) {
     _border->setOutlineColor(::sf::Color::White);
     _border->setOutlineThickness(thickness);
 
-    const float width =
-        _object.getTextureRect().width * _object.getScale().x;
-    const float height =
-        _object.getTextureRect().height * _object.getScale().y;
+    const float width = static_cast<float>
+        (_object.getTextureRect().width) * _object.getScale().x;
+    const float height = static_cast<float>
+        (_object.getTextureRect().height) * _object.getScale().y;
 
     _border->setSize(::sf::Vector2f(width, height));
 }
