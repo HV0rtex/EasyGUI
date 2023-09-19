@@ -81,7 +81,7 @@ void Application::handleEvents(const ::sf::Event& event) {
         _selectedBox = nullptr;
 
         ::std::for_each(components.begin(), components.end(),
-            [](::std::shared_ptr<Component>& comp) {
+            [this](::std::shared_ptr<Component>& comp) {
                 comp->onClick();
 
                 if (!_selectedBox && comp->isMouseHover()) {
