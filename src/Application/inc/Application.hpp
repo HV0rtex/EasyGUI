@@ -175,6 +175,7 @@ class Application
     static ::std::shared_ptr<Application> _instance;
 
     ::std::shared_ptr<::sf::RenderWindow> _window;
+    ::std::shared_ptr<TextBox> _selectedBox;
 
     ::std::map<::std::string, ::std::shared_ptr<Menu>> _menus;
     ::std::vector<Routine> _routines;

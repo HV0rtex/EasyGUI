@@ -32,9 +32,6 @@
 
 namespace easyGUI {
 
-TextBox* TextBox::selectedBox = nullptr;
-bool TextBox::textBoxClicked = false;
-
 void TextBox::applyCharSizeCorrection() {
     float lenghtInPix = _text->getInternalText().getGlobalBounds().width;
     float heightInPix = _text->getInternalText().getGlobalBounds().height;
@@ -54,14 +51,6 @@ void TextBox::applyCharSizeCorrection() {
         freeSpaceX = _shape.getGlobalBounds().width - lenghtInPix;
         freeSpaceY = _shape.getGlobalBounds().height - heightInPix;
     }
-}
-
-TextBox* TextBox::getSelectedBox() {
-    return selectedBox;
-}
-
-bool& TextBox::getTextBoxClicked() {
-    return textBoxClicked;
 }
 
 void TextBox::updateLocation(const Point& newLocation) {
@@ -137,13 +126,6 @@ bool TextBox::isMouseHover() const {
     return false;
 }
 
-TextBox::~TextBox() {
-    if (selectedBox == this) {
-        selectedBox = nullptr;
-        textBoxClicked = false;
-    }
-}
-
 ::sf::RectangleShape& TextBox::getInternalBox() {
     return _shape;
 }
@@ -168,17 +150,6 @@ void TextBox::updateText(const uint32_t text) {
         WARN << "[TextBox] Text has been resized in order to fit.\n";
 
     tool.triggerUpdate(this);
-}
-
-void TextBox::onClick() {
-    if (isMouseHover()) {
-        selectedBox = this;
-        textBoxClicked = true;
-    }
-
-    if (_onClick) {
-        _onClick();
-    }
 }
 
 ::std::string TextBox::getText() const {

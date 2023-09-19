@@ -61,14 +61,11 @@ class TextBox : public Component, public Anchor
 #endif
 {
  public:
-    static TextBox* getSelectedBox();
-    static bool& getTextBoxClicked();
-
     /**
      * @brief Destructor
      * 
      */
-    virtual ~TextBox();
+    virtual ~TextBox() = default;
 
     /**
      * @brief Constructor
@@ -186,9 +183,6 @@ class TextBox : public Component, public Anchor
  protected:
     ::sf::RectangleShape _shape;
     ::std::shared_ptr<Label> _text;
-
-    static TextBox* selectedBox;
-    static bool textBoxClicked;
 
     uint32_t desiredSize;
 
