@@ -91,14 +91,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@master
+
     - name: Installing dependencies
       run: sudo apt-get update && sudo apt-get install libsfml-dev libgtest-dev
 
     - name: Configuring for SHARED libraries
-      run: cmake -B ${{github.workspace}}/build -DBUILD_SHARED_LIBRARIES=ON -DBUILD_TESTS=ON
+      run: cmake -B ${{github.workspace}}/build -DBUILD_SHARED_LIBRARIES=ON -DBUILD_TESTS=ON -DBUILD_RELEASE=ON
 
     - name: Building SHARED libraries and tests
-      run: cmake --build ${{github.workspace}}/build --config Debug
+      run: cmake --build ${{github.workspace}}/build
 
   Cleanup:
     needs: Test
