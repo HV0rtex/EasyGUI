@@ -54,11 +54,13 @@ void Label::updateLocation(const Point& newLocation) {
 
 void Label::toggleDecoration(const TextDecoration& deco) {
     bool removed = false;
-    ::std::remove_if(_decorations.begin(), _decorations.end(),
+    auto iter =::std::remove_if(_decorations.begin(), _decorations.end(),
         [&removed, &deco](const TextDecoration& elem) {
             removed = (elem == deco);
             return elem == deco;
     });
+
+    _decorations.erase(iter, _decorations.end());
 
     if (removed)
         return;

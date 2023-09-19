@@ -113,7 +113,7 @@ class @EXPORT_MACRO@Image : public Component, public Anchor {
      * 
      * @param thickness The thickness of the frame
      */
-    void toggleFrame(const uint32_t = 0);
+    void toggleFrame(const float& = 0.0f);
 
     // ----- Inherited from Anchor -----
 
@@ -134,7 +134,7 @@ class @EXPORT_MACRO@Image : public Component, public Anchor {
      * 
      * @param thickness The thickness of the frame
      */
-    void constructFrame(const uint32_t);
+    void constructFrame(const float&);
 };
 
 }  // namespace easyGUI

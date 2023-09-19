@@ -38,11 +38,16 @@ function(BUILD_LIBRARY)
 			generate_export_header(
 				${LIBRARY_OPTIONS_TARGET}
 				EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/inc/${LIBRARY_OPTIONS_TARGET}-export.hpp
-				EXPORT_MACRO_NAME ${BUILD_LIBRARY_MACRO_NAME}
+				EXPORT_MACRO_NAME ${LIBRARY_OPTIONS_MACRO_NAME}
 			)
 
 			set(EXPORT_MACRO "${LIBRARY_OPTIONS_MACRO_NAME} ")
 			set(EXPORT_FILE "#include <${LIBRARY_OPTIONS_TARGET}-export.hpp>")
+
+			install(
+				FILES ${CMAKE_CURRENT_SOURCE_DIR}/inc/${LIBRARY_OPTIONS_TARGET}-export.hpp
+				DESTINATION ${PROJECT_SOURCE_DIR}/include
+			)
     	endif()
 	else()
 		set(LIBRARY_OPTIONS_TARGET "${LIBRARY_OPTIONS_TARGET}-s")
@@ -77,27 +82,69 @@ function(BUILD_LIBRARY)
 	endforeach()
 
 	if(UNIX)
-		target_compile_options(
-			${LIBRARY_OPTIONS_TARGET}
-		PRIVATE
-			-Wpedantic
-			-Wall
-			-Wextra
-			-Werror
-			-Ofast
-		)
+		if(NOT ${BUILD_RELEASE})
+			target_compile_options(
+				${LIBRARY_OPTIONS_TARGET}
+			PRIVATE
+				-Wpedantic
+				-O0
+				-Wall
+				-Wextra
+				-Werror
+				-Wconversion
+				-Wcast-align
+				-Wunnused
+				-Wshadow
+				-Wold-style-cast
+				-Wpointer-arith
+				-Wcast-qual
+				-Wmissing-prototypes
+				-Wno-missing-braces
+			)
+		else()
+			target_compile_options(
+				${LIBRARY_OPTIONS_TARGET}
+			PRIVATE
+				-Ofast
+				-funroll-loops
+			)
+		endif()
 	else()
-		target_compile_options(
-			${LIBRARY_OPTIONS_TARGET}
-		PRIVATE
-			-Oi
-			-GA
-			-O2
-			-sdl
-			-W4
-			-Wall
-			-WX
-		)
+		if(NOT ${BUILD_RELEASE})
+			target_compile_options(
+				${LIBRARY_OPTIONS_TARGET}
+			PRIVATE
+				-analyze
+				-fastfail
+				-fp:except
+				-sdl
+				-W4
+				-WX
+				-Zc:enumTypes
+				-Zc:externC
+				-Zc:forScope
+				-permissive
+				-Zc:inline
+				-Zc:noexceptTypes
+				-Zc:templateScope
+				-Zc:ternary
+				-Zc:threadSafeInit
+				-Zc:throwingNew
+			)
+		else()
+			target_compile_options(
+				${LIBRARY_OPTIONS_TARGET}
+			PRIVATE
+				-Oi
+				-O2
+				-GA
+				-GL
+				-Gw
+				-Qfast_transcendentals
+				-sdl
+			)
+		endif()
+
 	endif()
 
 	install(

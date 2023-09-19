@@ -66,7 +66,7 @@ class @EXPORT_MACRO@Separator : public Component, public Anchor {
      * @param thickness The thickness of the separator
      * 
      */
-    explicit Separator(const Point&, const bool&, const float&, const uint32_t);
+    explicit Separator(const Point&, const bool&, const float&, const float&);
 
     // Block other forms of construction
 

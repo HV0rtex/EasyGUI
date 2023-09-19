@@ -85,7 +85,7 @@ bool Image::isMouseHover() const {
     return false;
 }
 
-void Image::constructFrame(const uint32_t thickness) {
+void Image::constructFrame(const float& thickness) {
     _border = ::std::make_shared<::sf::RectangleShape>();
 
     _border->setPosition(_object.getPosition().x, _object.getPosition().y);
@@ -100,7 +100,7 @@ void Image::constructFrame(const uint32_t thickness) {
     _border->setSize(::sf::Vector2f(width, height));
 }
 
-void Image::toggleFrame(const uint32_t thickness) {
+void Image::toggleFrame(const float& thickness) {
     if (_border)
         _border.reset();
     else

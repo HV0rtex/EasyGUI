@@ -23,6 +23,7 @@ endif()
 
 option(BUILD_SHARED_LIBRARIES "Dentoes if to build SHARED or STATIC libraries" OFF)
 option(BUILD_TESTS "Denotes if to build the tests" OFF)
+option(BUILD_RELEASE "Denotes the compiler behaviour" OFF)
 
 # ----- Project config -----
 
