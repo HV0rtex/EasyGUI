@@ -97,7 +97,8 @@ void Application::handleEvents(const ::sf::Event& event) {
         box->updateText(event.text.unicode);
     } else if (event.type == ::sf::Event::Resized) {
         ::sf::View newView = _window->getDefaultView();
-        newView.setSize((float)event.size.width, (float)event.size.height);
+        newView.setSize(static_cast<float>(event.size.width),
+                        static_cast<float>(event.size.height));
 
         _window->setView(newView);
     }
