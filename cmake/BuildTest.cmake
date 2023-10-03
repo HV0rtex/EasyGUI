@@ -15,11 +15,11 @@
 
 cmake_minimum_required(VERSION 3.11...3.22)
 
-function(add_test)
+function(build_test)
     cmake_parse_arguments(
         TEST_OPTIONS
         ""
-        "TARGET"
+        "TARGET;INCLUDES"
         "SOURCES;HEADERS;DEPENDENCIES"
         ${ARGN}
     )
@@ -37,20 +37,22 @@ function(add_test)
     target_link_libraries(
         ${TEST_OPTIONS_TARGET}
     PRIVATE
+        gtest_main
         gmock
         gtest
-        gtest-main
     )
 
-    gtest_discover_tests(
-        ${TEST_OPTIONS_TARGET}
-        WORKING_DIRECTORY   ${PROJECT_DIR}
-        PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_DIR}"
-    )
+    gtest_discover_tests(${TEST_OPTIONS_TARGET})
 
     set_target_properties(
         ${TEST_OPTIONS_TARGET}
     PROPERTIES
         FOLDER test
+    )
+
+    target_include_directories(
+        ${TEST_OPTIONS_TARGET}
+    PRIVATE
+        $<BUILD_INTERFACE:${TEST_OPTIONS_INCLUDES}>
     )
 endfunction()

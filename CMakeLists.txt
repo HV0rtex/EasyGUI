@@ -59,18 +59,20 @@ if(${CMAKE_VERSION} VERSION_LESS 3.14)
 endif()
 
 if(${BUILD_TESTS} AND ${PROJECT_NAME} STREQUAL ${CMAKE_PROJECT_NAME})
-	enable_testing()
-
-	include(CTest)
 	include(BuildTest)
 	include(GoogleTest)
-
-	add_subdirectory(test)
 endif()
 
 # ----- Building sources -----
 
 add_subdirectory(src)
+
+if(${BUILD_TESTS} AND ${PROJECT_NAME} STREQUAL ${CMAKE_PROJECT_NAME})	
+	enable_testing()
+
+	add_subdirectory(test)
+endif()
+
 
 # ----- Out-of-Source build enforcement -----
 

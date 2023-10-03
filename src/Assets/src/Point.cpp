@@ -94,4 +94,8 @@ Point Point::operator/ (const float& factor) const noexcept {
         Ycoord / factor);
 }
 
+bool Point::operator== (const Point& other) const noexcept {
+    return (XCoord == other.XCoord) && (YCoord == other.YCoord);
+}
+
 }  // namespace easyGUI

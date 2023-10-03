@@ -14,3 +14,14 @@
 
 
 cmake_minimum_required(VERSION 3.11...3.22)
+
+set(TEST_SOURCES
+    LabelTest.cpp
+    AlignmentToolTest.cpp)
+
+build_test(
+    TARGET "AssetsTests"
+    SOURCES "${TEST_SOURCES}"
+    DEPENDENCIES "easyGUI-assets;sfml-graphics;sfml-window;sfml-system"
+    INCLUDES "${PROJECT_SOURCE_DIR}/include/inc"
+)

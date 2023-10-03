@@ -142,6 +142,15 @@ struct @EXPORT_MACRO@Point {
      * @return Point 
      */
     Point operator* (const float&) const noexcept;
+
+    /**
+     * @brief Compares two points
+     * 
+     * @param other The other point to compare.
+     * 
+     * @return bool 
+     */
+    bool operator== (const Point&) const noexcept;
 };
 
 }  // namespace easyGUI
