@@ -2,12 +2,14 @@
 
 Library support:
 - [X] Add support for CMake package
+- [ ] Add support for APT package
+- [ ] Add support for BREW package
 - [ ] Test CMake package
 
 GUI Elements:
 - [ ] Add slider
 - [ ] Add radio box
-- [ ] Remove Task class
+- [X] Remove Task class
 - [ ] Replace button with framed Label
 - [ ] Add component manager
 - [ ] Add preloaded font
@@ -23,8 +25,8 @@ Testing:
 
 Application control:
 - [ ] Add support for multi-windowed applications
-- [ ] Add support for non-event based routines
-- [ ] Add multiple running moments for routines
+- [X] Add support for non-event based routines
+- [X] Add multiple running moments for routines
 
 Project management:
 - [ ] Create UI-creation application from CLI.

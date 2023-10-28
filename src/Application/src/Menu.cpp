@@ -34,22 +34,22 @@ namespace easyGUI {
 
 void Menu::addComponent(const std::shared_ptr<Component>& component,
                         const ::std::string& ID) {
-    if (_components.find(ID) != _components.end())
+    if (components_.find(ID) != components_.end())
         throw MenuException("A component with that ID already exists: " + ID);
 
-    _components.emplace(ID, component);
-    component->setContainer(_container);
+    components_.emplace(ID, component);
+    component->setContainer(container_);
 }
 
 void Menu::draw(::sf::RenderTarget& target,
                 ::sf::RenderStates states) const {
-    for (const auto& element : _components)
+    for (const auto& element : components_)
         target.draw(*element.second, states);
 }
 
 ::std::shared_ptr<Component> Menu::getComponent(const ::std::string& ID) {
-    if (_components.find(ID) != _components.end())
-        return _components.at(ID);
+    if (components_.find(ID) != components_.end())
+        return components_.at(ID);
 
     return nullptr;
 }
@@ -57,8 +57,8 @@ void Menu::draw(::sf::RenderTarget& target,
 ::std::vector<::std::shared_ptr<Component>> Menu::getAllComponents() {
     ::std::vector<::std::shared_ptr<Component>> temp;
     ::std::transform(
-        _components.begin(),
-        _components.end(),
+        components_.begin(),
+        components_.end(),
         ::std::back_inserter(temp),
         [](const ::std::pair<::std::string, ::std::shared_ptr<Component>>& el) {
             return el.second;
@@ -68,11 +68,11 @@ void Menu::draw(::sf::RenderTarget& target,
 }
 
 void Menu::clear() {
-    _components.clear();
+    components_.clear();
 }
 
 void Menu::setContainer(const WindowPtr& container) {
-    _container = container;
+    container_ = container;
 }
 
 }  // namespace easyGUI

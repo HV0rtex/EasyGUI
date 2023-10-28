@@ -76,15 +76,15 @@ class @EXPORT_MACRO@Menu : public ::sf::Drawable {
      * 
      * @throws MenuException A component with that ID already exists
      */
-    void addComponent(const ::std::shared_ptr<Component>&,
-                      const ::std::string&);
+    void addComponent(const ::std::shared_ptr<Component>& component,
+                      const ::std::string& id);
 
     /**
      * @brief Set the Component's container
      * 
      * @param container The window responsible of the component
      */
-    void setContainer(const WindowPtr&);
+    void setContainer(const WindowPtr& container);
 
     /**
      * @brief Retrieves a specific component
@@ -92,7 +92,7 @@ class @EXPORT_MACRO@Menu : public ::sf::Drawable {
      * @param ID The ID of the component
      * @return ::std::shared_ptr<Component>
      */
-    ::std::shared_ptr<Component> getComponent(const ::std::string&);
+    ::std::shared_ptr<Component> getComponent(const ::std::string& id);
 
     /**
      * @brief Returns a vector with all components
@@ -107,8 +107,8 @@ class @EXPORT_MACRO@Menu : public ::sf::Drawable {
      */
     void clear();
  private:
-    ::std::map<::std::string, ::std::shared_ptr<Component>> _components;
-    ::std::shared_ptr<::sf::RenderWindow> _container;
+    ::std::map<::std::string, ::std::shared_ptr<Component>> component_;
+    ::std::shared_ptr<::sf::RenderWindow> container_;
 
     virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const;
 };

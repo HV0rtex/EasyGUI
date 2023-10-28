@@ -77,9 +77,9 @@ class @EXPORT_MACRO@Application {
      * 
      * @throws ApplicationInstance Failed to instantiate application.
      */
-    ::std::shared_ptr<Application> getInstance(const uint32_t = 0,
-                                               const uint32_t = 0,
-                                               const char* = nullptr);
+    ::std::shared_ptr<Application> getInstance(const uint32_t width = 0,
+                                               const uint32_t height = 0,
+                                               const char* title = nullptr);
 
     /**
      * @brief Appends a new menu to the application
@@ -88,7 +88,7 @@ class @EXPORT_MACRO@Application {
      * this function, then the first call to Application#setActiveMenu will
      * initialize that menu as being the MAIN menu.
      * 
-     * @param ID The ID of the menu
+     * @param id The ID of the menu
      * @param isStart Denotes if the menu is to be displayed first
      * 
      * @returns ::std::shared_ptr<Menu>
@@ -96,17 +96,17 @@ class @EXPORT_MACRO@Application {
      * @throws MenuException More than one start menu declared.
      * @throws MenuException A menu with that ID already exists.
      */
-    ::std::shared_ptr<Menu> addMenu(const ::std::string&,
-                                    const bool& = false);
+    ::std::shared_ptr<Menu> addMenu(const ::std::string& id,
+                                    const bool& isStart = false);
 
     /**
      * @brief Gets a menu by its index
      * 
-     * @param ID The unique ID of the menu
+     * @param id The unique ID of the menu
      * 
      * @return ::std::shared_ptr<Menu>
      */
-    ::std::shared_ptr<Menu> getMenu(const ::std::string&);
+    ::std::shared_ptr<Menu> getMenu(const ::std::string& id);
 
     /**
      * @brief Retruns the active menu
@@ -118,13 +118,15 @@ class @EXPORT_MACRO@Application {
     /**
      * @brief Gets a routine by its index
      * 
+     * @param moment The moment when the routine is executed
      * @param index The index of the routine
      * 
      * @return Routine&
      * 
      * @throws ApplicationException Invalid index provided
      */
-    Routine& getRoutine(const uint32_t);
+    Routine& getRoutine(const ExecutionMoment& moment,
+                        const uint32_t index);
 
     /**
      * @brief Returns the SFML RenderWindow
@@ -140,14 +142,18 @@ class @EXPORT_MACRO@Application {
      * 
      * @throw MenuException Invalid index provided
      */
-    void setActiveMenu(const ::std::string&);
+    void setActiveMenu(const ::std::string& id);
 
     /**
      * @brief Adds a new routine to the application
      * 
+     * @param moment The moment when the routine is executed
      * @param routine The routine to be added
+     * 
+     * @note For routines outside the EVENT moment, the
+     * trigger will receive an empty event.
      */
-    void addRoutine(const Routine&);
+    void addRoutine(const ExecutionMoment& moment, const Routine& routine);
 
     /**
      * @brief Starts the application
@@ -166,18 +172,18 @@ class @EXPORT_MACRO@Application {
      */
     void stop();
  private:
-    static ::std::shared_ptr<Application> _instance;
+    static ::std::shared_ptr<Application> instance_;
 
-    ::std::shared_ptr<::sf::RenderWindow> _window;
-    ::std::shared_ptr<TextBox> _selectedBox;
+    ::std::shared_ptr<::sf::RenderWindow> window_;
+    ::std::shared_ptr<TextBox> selectedBox_;
 
-    ::std::map<::std::string, ::std::shared_ptr<Menu>> _menus;
-    ::std::vector<Routine> _routines;
-    ::std::shared_ptr<Menu> _activeMenu;
+    ::std::map<::std::string, ::std::shared_ptr<Menu>> menus_;
+    ::std::map<ExecutionMoment, ::std::vector<Routine>> routines_;
+    ::std::shared_ptr<Menu> activeMenu_;
 
     // ----- Control variables -----
 
-    bool _startMenuSet;
+    bool startMenuSet_;
 
     /**
      * @brief Constructor
@@ -190,7 +196,7 @@ class @EXPORT_MACRO@Application {
      * @param title The title of the application
      * 
      */
-    explicit Application(const uint32_t, const uint32_t, const char*);
+    explicit Application(const uint32_t width, const uint32_t height, const char* title);
 
     /**
      * @brief Event handler
@@ -200,7 +206,7 @@ class @EXPORT_MACRO@Application {
      * 
      * @param event The current window event
      */
-    void handleEvents(const ::sf::Event&);
+    void handleEvents(const ::sf::Event& event);
 };
 
 using ApplicationPtr = ::std::shared_ptr<Application>;

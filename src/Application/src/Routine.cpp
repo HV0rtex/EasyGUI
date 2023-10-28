@@ -37,18 +37,18 @@ Routine::Routine(const std::function<bool(const sf::Event&)>& trigger,
     if (!trigger || !response)
         throw ApplicationException("Invalid initialization of routine.");
 
-    _trigger = trigger;
-    _action = response;
-    _isActive = true;
+    trigger_ = trigger;
+    action_ = response;
+    isActive_ = true;
 }
 
-void Routine::setActive(const bool& active) {
-    _isActive = active;
+void Routine::toggle() {
+    isActive_ = !isActive_;
 }
 
 void Routine::operator()(const ::sf::Event &event) const {
-    if (_isActive && _trigger(event))
-        _action();
+    if (isActive_ && trigger_(event))
+        action_();
 }
 
 }  // namespace easyGUI

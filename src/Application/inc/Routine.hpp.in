@@ -44,6 +44,26 @@
 namespace easyGUI {
 
 /**
+ * @brief Denotes when routines can be executed 
+ *
+ * @details The moments are defined in chronological order, as follows:
+ *    - STARTUP is right before entering the main loop
+ *    - PRE_EVENT is inside the main loop before processing events
+ *    - EVENT is when events are handled
+ *    - PRE_DRAW is after the events are handled, but before the menu is drawn
+ *    - POST_DRAW is after the components have been drawn on screen
+ *    - CLEANUP is after the main window has been closed but before memory is realeased.
+ */
+enum ExecutionMoment {
+   STARTUP,
+   PRE_EVENT,
+   EVENT,
+   PRE_DRAW,
+   POST_DRAW,
+   CLEANUP
+};
+
+/**
  * @brief Defines a way to control the application flow
  * 
  * @details A routine denotes a procedure which is called if and only if specific
@@ -67,12 +87,11 @@ class @EXPORT_MACRO@Routine {
      * @brief Constructor
      * 
      * @param trigger Function that determines whether the routine is triggered
-     * @param response The response that is to be triggered by the routine
+     * @param action The action that is to be triggered by the routine
      * 
-     * @deprecated
      */
-    Routine(const std::function<bool(const sf::Event&)>&,
-            const std::function<void()>&);
+    Routine(const std::function<bool(const ::sf::Event&)>& trigger,
+            const std::function<void()>& action);
 
     /**
      * @brief Call operator
@@ -86,15 +105,13 @@ class @EXPORT_MACRO@Routine {
 
     /**
      * @brief Enables / Disables the routine
-     * 
-     * @param active Denotes whether the routine should be active
      */
-    void setActive(const bool& active);
+    void toggle();
  private:
-    std::function<bool(const sf::Event&)> _trigger = nullptr;
-    std::function<void()> _action = nullptr;
+    std::function<bool(const ::sf::Event&)> trigger_ = nullptr;
+    std::function<void()> action_ = nullptr;
 
-    bool _isActive;
+    bool isActive_;
 };
 
 }  // namespace easyGUI
