@@ -176,7 +176,8 @@ void Application::setActiveMenu(const ::std::string& id) {
     }
 }
 
-void Application::addRoutine(const ExecutionMoment& moment, const Routine& routine) {
+void Application::addRoutine(const ExecutionMoment& moment,
+                             const Routine& routine) {
     routines_[moment].push_back(routine);
 }
 
@@ -184,27 +185,31 @@ void Application::start() {
     if (activeMenu_ == nullptr)
         throw ApplicationException("Attempting start with no initial menu.");
 
-    for (const Routine& routine: routines_.at(ExecutionMoment::STARTUP))
+    for (const Routine& routine: routines_.at(ExecutionMoment::STARTUP)) {
         routine.operator()(::sf::Event());
+    }
 
     while (window_->isOpen()) {
         ::sf::Event event;
 
-        for (const Routine& routine: routines_.at(ExecutionMoment::PRE_EVENT))
+        for (const Routine& routine: routines_.at(ExecutionMoment::PRE_EVENT)) {
             routine.operator()(::sf::Event());
+        }
 
         while (window_->pollEvent(event))
             handleEvents(event);
 
-        for (const Routine& routine: routines_.at(ExecutionMoment::PRE_DRAW))
+        for (const Routine& routine: routines_.at(ExecutionMoment::PRE_DRAW)) {
             routine.operator()(::sf::Event());
+        }
 
         window_->clear();
         window_->draw(*activeMenu_);
         window_->display();
 
-        for (const Routine& routine: routines_.at(ExecutionMoment::POST_DRAW))
+        for (const Routine& routine: routines_.at(ExecutionMoment::POST_DRAW)) {
             routine.operator()(::sf::Event());
+        }
     }
 
     for (const Routine& routine: routines_.at(ExecutionMoment::CLEANUP))
