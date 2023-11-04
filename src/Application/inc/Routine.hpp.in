@@ -55,12 +55,12 @@ namespace easyGUI {
  *    - CLEANUP is after the main window has been closed but before memory is realeased.
  */
 enum ExecutionMoment {
-   STARTUP,
-   PRE_EVENT,
-   EVENT,
-   PRE_DRAW,
-   POST_DRAW,
-   CLEANUP
+  STARTUP,
+  PRE_EVENT,
+  EVENT,
+  PRE_DRAW,
+  POST_DRAW,
+  CLEANUP
 };
 
 /**

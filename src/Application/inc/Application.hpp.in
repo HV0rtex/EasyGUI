@@ -196,7 +196,9 @@ class @EXPORT_MACRO@Application {
      * @param title The title of the application
      * 
      */
-    explicit Application(const uint32_t width, const uint32_t height, const char* title);
+    explicit Application(const uint32_t width,
+                         const uint32_t height,
+                         const char* title);
 
     /**
      * @brief Event handler
