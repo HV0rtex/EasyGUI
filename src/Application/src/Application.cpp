@@ -48,12 +48,12 @@ Application::Application(const uint32_t width,
     menus_ = ::std::map<::std::string, MenuPtr>();
     routines_ = ::std::map<ExecutionMoment, ::std::vector<Routine>>();
 
-    routines.emplace(ExecutionMoment::STARTUP, ::std::vector<Routine>());
-    routines.emplace(ExecutionMoment::PRE_EVENT, ::std::vector<Routine>());
-    routines.emplace(ExecutionMoment::EVENT, ::std::vector<Routine>());
-    routines.emplace(ExecutionMoment::PRE_DRAW, ::std::vector<Routine>());
-    routines.emplace(ExecutionMoment::POST_DRAW, ::std::vector<Routine>());
-    routines.emplace(ExecutionMoment::CLEANUP, ::std::vector<Routine>());
+    routines_.emplace(ExecutionMoment::STARTUP, ::std::vector<Routine>());
+    routines_.emplace(ExecutionMoment::PRE_EVENT, ::std::vector<Routine>());
+    routines_.emplace(ExecutionMoment::EVENT, ::std::vector<Routine>());
+    routines_.emplace(ExecutionMoment::PRE_DRAW, ::std::vector<Routine>());
+    routines_.emplace(ExecutionMoment::POST_DRAW, ::std::vector<Routine>());
+    routines_.emplace(ExecutionMoment::CLEANUP, ::std::vector<Routine>());
 }
 
 ::std::shared_ptr<Application> Application::getInstance(
@@ -85,16 +85,16 @@ void Application::handleEvents(const ::sf::Event& event) {
 
     if (event.type == ::sf::Event::MouseButtonPressed &&
         event.mouseButton.button == ::sf::Mouse::Left) {
-        _selectedBox = nullptr;
+        selectedBox_ = nullptr;
 
         ::std::for_each(components.begin(), components.end(),
             [this](::std::shared_ptr<Component>& comp) {
                 comp->onClick();
 
-                if (!_selectedBox && comp->isMouseHover()) {
+                if (!selectedBox_ && comp->isMouseHover()) {
                     ::std::shared_ptr<TextBox> cast =
                         ::std::dynamic_pointer_cast<TextBox>(comp);
-                    _selectedBox = cast;
+                    selectedBox_ = cast;
                 }
         });
     } else if (event.type == ::sf::Event::MouseMoved) {
@@ -102,8 +102,8 @@ void Application::handleEvents(const ::sf::Event& event) {
             [](::std::shared_ptr<Component>& comp) {
                 comp->onHover();
         });
-    } else if (event.type == ::sf::Event::TextEntered && _selectedBox) {
-        _selectedBox->updateText(event.text.unicode);
+    } else if (event.type == ::sf::Event::TextEntered && selectedBox_) {
+        selectedBox_->updateText(event.text.unicode);
     } else if (event.type == ::sf::Event::Resized) {
         ::sf::View newView = window_->getDefaultView();
         newView.setSize(static_cast<float>(event.size.width),
@@ -130,7 +130,7 @@ void Application::handleEvents(const ::sf::Event& event) {
 Routine& Application::getRoutine(const ExecutionMoment& moment,
                                  const uint32_t index) {
     if (index < routines_.at(moment).size())
-        return routines_.at(index);
+        return routines_.at(moment).at(index);
 
     throw ApplicationException("Attempting to get routine with invalid index: " + ::std::to_string(index)); // NOLINT
 }
