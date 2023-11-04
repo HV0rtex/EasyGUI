@@ -107,7 +107,7 @@ class @EXPORT_MACRO@Menu : public ::sf::Drawable {
      */
     void clear();
  private:
-    ::std::map<::std::string, ::std::shared_ptr<Component>> component_;
+    ::std::map<::std::string, ::std::shared_ptr<Component>> components_;
     ::std::shared_ptr<::sf::RenderWindow> container_;
 
     virtual void draw(::sf::RenderTarget&, ::sf::RenderStates) const;
